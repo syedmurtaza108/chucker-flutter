@@ -1,0 +1,119 @@
+import 'dart:async';
+
+import 'package:chucker_flutter/chucker_flutter.dart';
+import 'package:chucker_flutter/src/extensions.dart';
+import 'package:chucker_flutter/src/models/chucker_state.dart';
+import 'package:chucker_flutter/src/models/request_basics.dart';
+import 'package:chucker_flutter/src/navigator_observer/navigator_observer.dart';
+import 'package:chucker_flutter/src/view/chucker_page.dart';
+import 'package:chucker_flutter/src/view/widgets/notification.dart'
+    as notification;
+import 'package:flutter/material.dart';
+
+///[ChuckerUiHelper] handles the UI part of `chucker_flutter`
+///
+///You must initialize [ChuckerObserver.navigatorObserver] in the `MaterialApp`
+/// of your application as it is required to show notification and the screens
+///of `chucker_flutter`
+class ChuckerUiHelper {
+  static OverlayEntry? _overlayEntry;
+
+  ///[showNotification] shows the rest api [method] (GET, POST, PUT, etc),
+  ///[statusCode] (200, 400, etc) response status and [path]
+  static void showNotification({
+    required String method,
+    required int statusCode,
+    required String path,
+  }) {
+    final overlay = ChuckerObserver.navigatorObserver.navigator!.overlay;
+    _overlayEntry = _createOverlayEntry(method, statusCode, path);
+    overlay?.insert(_overlayEntry!);
+  }
+
+  static OverlayEntry _createOverlayEntry(
+    String method,
+    int statusCode,
+    String path,
+  ) {
+    return OverlayEntry(
+      builder: (context) {
+        if (_isPositionGiven) {
+          return Positioned(
+            top: ChuckerUiOptions.positionTop,
+            child: notification.Notification(
+              statusCode: statusCode,
+              method: method,
+              path: path,
+              removeNotification: _removeNotification,
+            ),
+          );
+        }
+        return Align(
+          alignment: ChuckerUiOptions.notificationAlignment,
+          child: notification.Notification(
+            statusCode: statusCode,
+            method: method,
+            path: path,
+            removeNotification: _removeNotification,
+          ),
+        );
+      },
+    );
+  }
+
+  static void _removeNotification() {
+    if (_overlayEntry != null) {
+      _overlayEntry!.remove();
+    }
+  }
+
+  static bool get _isPositionGiven =>
+      ChuckerUiOptions.positionBottom.isNotZero &&
+      ChuckerUiOptions.positionTop.isNotZero &&
+      ChuckerUiOptions.positionRight.isNotZero &&
+      ChuckerUiOptions.positionLeft.isNotZero;
+
+  ///[showChuckerScreen] shows the screen containing detail information of
+  ///api request
+  static void showChuckerScreen({
+    required final String baseUrl,
+    required final int connectionTimeout,
+    required final String requestPath,
+    required final String body,
+    required final String? contentType,
+    required final Map<String, dynamic> headers,
+    required final int sendTimeout,
+    required final String responseType,
+    required final int receiveTimeout,
+    required final Map<String, dynamic> queryParameters,
+    required final String method,
+  }) {
+    showModalBottomSheet(
+      context: ChuckerObserver.navigatorObserver.navigator!.context,
+      builder: (_) => ChuckerPage(
+        chuckerState: ChuckerState(
+          requestBasics: RequestBasics(
+            baseUrl: baseUrl,
+            requestPath: requestPath,
+            method: method,
+            headers: headers,
+            body: body,
+            contentType: contentType,
+            queryParameters: queryParameters,
+            connectionTimeout: connectionTimeout,
+            receiveTimeout: receiveTimeout,
+            sendTimeout: sendTimeout,
+            responseType: responseType,
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+///[ChuckerObserver] is the helper class of [ChuckerNavigatorObserver]
+class ChuckerObserver {
+  ///[navigatorObserver] observes the navigation of your app. It must be
+  ///referenced in flutter
+  static final navigatorObserver = ChuckerNavigatorObserver();
+}

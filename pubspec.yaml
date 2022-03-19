@@ -1,0 +1,24 @@
+name: chucker_flutter
+description: A Very Good Project created by Very Good CLI.
+version: 1.0.0+1
+publish_to: none
+
+environment:
+  sdk: ">=2.16.0 <3.0.0"
+
+dependencies:
+  dio: ^4.0.4
+  flutter:
+    sdk: flutter
+  flutter_bloc: ^8.0.1
+  json_annotation: ^4.4.0
+  shared_preferences: ^2.0.13
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  very_good_analysis: ^2.4.0
+
+flutter:
+  assets:
+    - assets/flutter_chucker_icon.png
