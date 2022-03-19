@@ -31,6 +31,7 @@ class ChuckerDioInterceptor extends Interceptor {
 
   @override
   Future<void> onError(DioError err, ErrorInterceptorHandler handler) async {
+    _saveError(err);
     ChuckerUiHelper.showNotification(
       method: err.requestOptions.method,
       statusCode: err.response?.statusCode ?? -1,
@@ -56,6 +57,31 @@ class ChuckerDioInterceptor extends Interceptor {
         requestSize: 2,
         requestTime: _requestTime,
         response: response.data.toString(),
+        responseSize: 2,
+        responseTime: DateTime.now(),
+        responseType: response.requestOptions.responseType.name,
+        sendTimeout: response.requestOptions.sendTimeout,
+      ),
+    );
+  }
+
+  void _saveError(DioError response) {
+    SharedPreferencesManager.getInstance().addApiResponse(
+      ApiResponse(
+        body: response.error.toString(),
+        path: response.requestOptions.path,
+        baseUrl: response.requestOptions.baseUrl,
+        method: response.requestOptions.method,
+        statusCode: response.response?.statusCode ?? -1,
+        connectionTimeout: response.requestOptions.connectTimeout,
+        contentType: response.requestOptions.contentType,
+        headers: response.requestOptions.headers.toString(),
+        queryParameters: response.requestOptions.queryParameters.toString(),
+        receiveTimeout: response.requestOptions.receiveTimeout,
+        request: response.requestOptions.data.toString(),
+        requestSize: 2,
+        requestTime: _requestTime,
+        response: response.error.toString(),
         responseSize: 2,
         responseTime: DateTime.now(),
         responseType: response.requestOptions.responseType.name,

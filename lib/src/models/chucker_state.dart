@@ -1,5 +1,4 @@
 import 'package:chucker_flutter/src/models/api_response.dart';
-import 'package:chucker_flutter/src/view/tabs/success_apis_listing.dart';
 
 ///Basic state of Chucker Screen
 class BasicState {}
@@ -11,6 +10,7 @@ class LoadingState extends BasicState {}
 class SuccessState extends BasicState {
   ///Success state of Chucker Screen
   SuccessState({required this.apis});
-  ///List of [ApiResponse] to be shown in [SuccessApisListingTabView]
+
+  ///List of [ApiResponse] to be shown in `ApisListingTabView`
   final List<ApiResponse> apis;
 }

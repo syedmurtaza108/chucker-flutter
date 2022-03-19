@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:chucker_flutter/chucker_flutter.dart';
 import 'package:chucker_flutter/src/models/api_response.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -16,14 +17,13 @@ class SharedPreferencesManager {
   }
 
   static const String _kApiResponses = 'api_responses';
-  static const int _kApisThreshold = 100;
 
   ///[addApiResponse] sets an API response to local disk
   Future<void> addApiResponse(ApiResponse apiResponse) async {
     final newResponses = List<ApiResponse>.empty(growable: true);
     final previousResponses = await getAllApiResponses();
 
-    if (previousResponses.length == _kApisThreshold) {
+    if (previousResponses.length == ChuckerOptions.apiThresholds) {
       previousResponses.removeAt(0);
     }
 

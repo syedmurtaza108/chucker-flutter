@@ -35,7 +35,7 @@ class ChuckerUiHelper {
       builder: (context) {
         if (_isPositionGiven) {
           return Positioned(
-            top: ChuckerUiOptions.positionTop,
+            top: ChuckerOptions.positionTop,
             child: notification.Notification(
               statusCode: statusCode,
               method: method,
@@ -45,7 +45,7 @@ class ChuckerUiHelper {
           );
         }
         return Align(
-          alignment: ChuckerUiOptions.notificationAlignment,
+          alignment: ChuckerOptions.notificationAlignment,
           child: notification.Notification(
             statusCode: statusCode,
             method: method,
@@ -64,10 +64,10 @@ class ChuckerUiHelper {
   }
 
   static bool get _isPositionGiven =>
-      ChuckerUiOptions.positionBottom.isNotZero &&
-      ChuckerUiOptions.positionTop.isNotZero &&
-      ChuckerUiOptions.positionRight.isNotZero &&
-      ChuckerUiOptions.positionLeft.isNotZero;
+      ChuckerOptions.positionBottom.isNotZero &&
+      ChuckerOptions.positionTop.isNotZero &&
+      ChuckerOptions.positionRight.isNotZero &&
+      ChuckerOptions.positionLeft.isNotZero;
 
   ///[showChuckerScreen] shows the screen containing the list of recored
   ///api requests

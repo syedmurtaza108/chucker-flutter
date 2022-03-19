@@ -1,8 +1,10 @@
+import 'package:chucker_flutter/src/view/chucker_page.dart';
+import 'package:chucker_flutter/src/view/helper/method_enums.dart';
 import 'package:flutter/material.dart';
 
-///[ChuckerUiOptions] gives the options to change user experience of
+///[ChuckerOptions] gives the options to change user experience of
 ///`chucker_flutter` notification and screens
-class ChuckerUiOptions{
+class ChuckerOptions {
   ///[duration] is the amount of time of making notification visible on screen.
   static Duration duration = const Duration(seconds: 2);
 
@@ -23,4 +25,16 @@ class ChuckerUiOptions{
   /// must be 0.
   /// ***default value is Alignment.bottomCenter***
   static AlignmentGeometry notificationAlignment = Alignment.bottomCenter;
+
+  ///[apiThresholds] is the total number of api requests that would be saved
+  ///on user's device. Default value is `100`
+  ///
+  ///***Be aware of setting it. Large number of api requests may consume huge
+  ///amount of memory on user's device.***
+  static int apiThresholds = 100;
+
+  ///[httpMethod] default http method filter in apis listing screen 
+  ///[ChuckerPage]. Its default value is [HttpMethod.none] which means that 
+  ///no filter is applied.
+  static HttpMethod httpMethod = HttpMethod.none;
 }

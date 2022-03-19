@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:chucker_flutter/chucker_flutter.dart';
+import 'package:chucker_flutter/src/extensions.dart';
 import 'package:chucker_flutter/src/view/helper/chucker_ui_helper.dart';
 import 'package:chucker_flutter/src/view/helper/colors.dart';
 import 'package:flutter/material.dart';
@@ -35,7 +36,7 @@ class Notification extends StatefulWidget {
 class _NotificationState extends State<Notification>
     with SingleTickerProviderStateMixin {
   late final AnimationController _controller = AnimationController(
-    duration: ChuckerUiOptions.duration,
+    duration: ChuckerOptions.duration,
     vsync: this,
   )..forward();
 
@@ -49,7 +50,7 @@ class _NotificationState extends State<Notification>
   @override
   void initState() {
     Future.delayed(
-      Duration(seconds: ChuckerUiOptions.duration.inSeconds - 1),
+      Duration(seconds: ChuckerOptions.duration.inSeconds - 1),
       _controller.reverse,
     );
 
@@ -85,7 +86,7 @@ class _NotificationState extends State<Notification>
             child: Container(
               padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
-                color: _renderBackColor(),
+                color: statusCodeBackColor(widget.statusCode),
                 borderRadius: BorderRadius.circular(10),
                 border: Border.all(),
               ),
@@ -97,8 +98,7 @@ class _NotificationState extends State<Notification>
                     label: Text(
                       '${widget.method.toUpperCase()}: ${widget.statusCode}',
                       textAlign: TextAlign.center,
-                      style: const TextStyle(
-                        fontSize: 14,
+                      style: context.theme.textTheme.bodyText1!.copyWith(
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -129,17 +129,6 @@ class _NotificationState extends State<Notification>
         ),
       ),
     );
-  }
-
-  Color _renderBackColor() {
-    if (widget.statusCode > 199 && widget.statusCode < 300) {
-      return Colors.green;
-    } else if (widget.statusCode > 399 && widget.statusCode < 500) {
-      return Colors.red;
-    } else if (widget.statusCode > 499 && widget.statusCode < 600) {
-      return Colors.purple;
-    }
-    return Colors.orange;
   }
 
   @override
