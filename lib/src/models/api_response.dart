@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:json_annotation/json_annotation.dart';
 
 ///[ApiResponse] is the model to save and retrieve from shared preferences
@@ -8,7 +6,8 @@ class ApiResponse {
   ///[ApiResponse] is the model to save and retrieve from shared preferences
   ApiResponse({
     required this.body,
-    required this.url,
+    required this.baseUrl,
+    required this.path,
     required this.method,
     required this.statusCode,
     required this.connectionTimeout,
@@ -29,7 +28,7 @@ class ApiResponse {
   ///Convert json to [ApiResponse]
   factory ApiResponse.fromJson(Map<String, dynamic> json) => ApiResponse(
         body: json['body'] as String,
-        url: json['url'] as String,
+        baseUrl: json['baseUrl'] as String,
         method: json['method'] as String,
         statusCode: json['statusCode'] as int,
         connectionTimeout: json['connectionTimeout'] as int,
@@ -45,6 +44,7 @@ class ApiResponse {
         responseTime: DateTime.parse(json['responseTime'] as String),
         responseType: json['responseType'] as String,
         sendTimeout: json['sendTimeout'] as int,
+        path: json['path'] as String,
       );
 
   ///requestTime
@@ -54,7 +54,10 @@ class ApiResponse {
   final DateTime responseTime;
 
   ///url
-  final String url;
+  final String baseUrl;
+
+  ///url
+  final String path;
 
   ///method
   final String method;
@@ -117,12 +120,8 @@ class ApiResponse {
       'responseType': responseType,
       'sendTimeout': sendTimeout,
       'statusCode': statusCode,
-      'url': url,
+      'baseUrl': baseUrl,
+      'path': path,
     };
-  }
-
-  @override
-  String toString() {
-    return '$method:$url   $statusCode';
   }
 }

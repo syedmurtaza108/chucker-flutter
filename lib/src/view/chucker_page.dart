@@ -1,16 +1,13 @@
-import 'package:chucker_flutter/src/models/chucker_state.dart';
+import 'package:chucker_flutter/src/view/tabs/success_apis_listing.dart';
 import 'package:chucker_flutter/src/view/tabs/summary_tab_view.dart';
 import 'package:flutter/material.dart';
 
+///The main screen of `chucker_flutter`
 class ChuckerPage extends StatelessWidget {
-  const ChuckerPage({
-    required this.chuckerState,
-    Key? key,
-  }) : super(key: key);
+  ///The main screen of `chucker_flutter`
+  const ChuckerPage({Key? key}) : super(key: key);
 
-  final ChuckerState chuckerState;
-
-  static const _tabsHeadings = ['Summary', 'Request', 'Response'];
+  static const _tabsHeadings = ['Success Requests', 'Request', 'Response'];
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +17,7 @@ class ChuckerPage extends StatelessWidget {
         appBar: TabBar(tabs: _tabsHeadings.map((e) => Tab(text: e)).toList()),
         body: const TabBarView(
           children: [
-            SummaryTabView(),
+            SuccessApisListingTabView(),
             SummaryTabView(),
             SummaryTabView(),
           ],

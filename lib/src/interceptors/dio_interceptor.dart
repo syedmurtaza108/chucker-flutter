@@ -3,14 +3,15 @@ import 'package:chucker_flutter/src/shared_preferences_manager.dart';
 import 'package:chucker_flutter/src/view/helper/chucker_ui_helper.dart';
 import 'package:dio/dio.dart';
 
+///[ChuckerDioInterceptor] adds support for `chucker_flutter` in [Dio] library.
 class ChuckerDioInterceptor extends Interceptor {
-  late final DateTime requestTime;
+  late final DateTime _requestTime;
   @override
   Future<void> onRequest(
     RequestOptions options,
     RequestInterceptorHandler handler,
   ) async {
-    requestTime = DateTime.now();
+    _requestTime = DateTime.now();
     handler.next(options);
   }
 
@@ -42,7 +43,8 @@ class ChuckerDioInterceptor extends Interceptor {
     SharedPreferencesManager.getInstance().addApiResponse(
       ApiResponse(
         body: response.data.toString(),
-        url: response.requestOptions.path,
+        path: response.requestOptions.path,
+        baseUrl: response.requestOptions.baseUrl,
         method: response.requestOptions.method,
         statusCode: response.statusCode ?? -1,
         connectionTimeout: response.requestOptions.connectTimeout,
@@ -52,7 +54,7 @@ class ChuckerDioInterceptor extends Interceptor {
         receiveTimeout: response.requestOptions.receiveTimeout,
         request: response.requestOptions.data.toString(),
         requestSize: 2,
-        requestTime: requestTime,
+        requestTime: _requestTime,
         response: response.data.toString(),
         responseSize: 2,
         responseTime: DateTime.now(),

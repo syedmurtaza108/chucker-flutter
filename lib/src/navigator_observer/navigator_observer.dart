@@ -1,16 +1,18 @@
+import 'package:chucker_flutter/src/navigator_observer/navigator_observer_helper.dart';
 import 'package:flutter/material.dart';
 
-import 'navigator_observer_helper.dart';
-
+///[ChuckerNavigatorObserver] helps observing route
 class ChuckerNavigatorObserver extends NavigatorObserver {
   static final List<NavigatorObserverHelper> _callBacks = [];
 
-  static bool debugInitialization = false;
-
+  ///[register] registers a [NavigatorObserverHelper] to
+  ///[ChuckerNavigatorObserver]
   static void register(NavigatorObserverHelper navigatorObserverHelper) {
     _callBacks.add(navigatorObserverHelper);
   }
 
+  ///[unregister] removes a [NavigatorObserverHelper] from
+  ///[ChuckerNavigatorObserver]
   static void unregister(NavigatorObserverHelper navigatorObserverHelper) {
     _callBacks.remove(navigatorObserverHelper);
   }

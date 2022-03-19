@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:chucker_flutter/chucker_flutter.dart';
+import 'package:chucker_flutter/src/view/helper/chucker_ui_helper.dart';
 import 'package:chucker_flutter/src/view/helper/colors.dart';
 import 'package:flutter/material.dart';
 
@@ -115,11 +116,11 @@ class _NotificationState extends State<Notification>
                   ),
                   const SizedBox(width: 16),
                   ElevatedButton(
-                    onPressed: () {},
-                    child: const Text('Show Details'),
+                    onPressed: ChuckerUiHelper.showChuckerScreen,
                     style: ElevatedButton.styleFrom(
                       primary: primaryColor,
                     ),
+                    child: const Text('Show Details'),
                   )
                 ],
               ),

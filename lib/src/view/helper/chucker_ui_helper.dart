@@ -1,14 +1,10 @@
-import 'dart:async';
-
 import 'package:chucker_flutter/chucker_flutter.dart';
 import 'package:chucker_flutter/src/extensions.dart';
-import 'package:chucker_flutter/src/models/chucker_state.dart';
-import 'package:chucker_flutter/src/models/request_basics.dart';
 import 'package:chucker_flutter/src/navigator_observer/navigator_observer.dart';
 import 'package:chucker_flutter/src/view/chucker_page.dart';
 import 'package:chucker_flutter/src/view/widgets/notification.dart'
     as notification;
-import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 
 ///[ChuckerUiHelper] handles the UI part of `chucker_flutter`
 ///
@@ -73,40 +69,12 @@ class ChuckerUiHelper {
       ChuckerUiOptions.positionRight.isNotZero &&
       ChuckerUiOptions.positionLeft.isNotZero;
 
-  ///[showChuckerScreen] shows the screen containing detail information of
-  ///api request
-  static void showChuckerScreen({
-    required final String baseUrl,
-    required final int connectionTimeout,
-    required final String requestPath,
-    required final String body,
-    required final String? contentType,
-    required final Map<String, dynamic> headers,
-    required final int sendTimeout,
-    required final String responseType,
-    required final int receiveTimeout,
-    required final Map<String, dynamic> queryParameters,
-    required final String method,
-  }) {
-    showModalBottomSheet(
+  ///[showChuckerScreen] shows the screen containing the list of recored
+  ///api requests
+  static void showChuckerScreen() {
+    showCupertinoModalPopup(
       context: ChuckerObserver.navigatorObserver.navigator!.context,
-      builder: (_) => ChuckerPage(
-        chuckerState: ChuckerState(
-          requestBasics: RequestBasics(
-            baseUrl: baseUrl,
-            requestPath: requestPath,
-            method: method,
-            headers: headers,
-            body: body,
-            contentType: contentType,
-            queryParameters: queryParameters,
-            connectionTimeout: connectionTimeout,
-            receiveTimeout: receiveTimeout,
-            sendTimeout: sendTimeout,
-            responseType: responseType,
-          ),
-        ),
-      ),
+      builder: (_) => const ChuckerPage(),
     );
   }
 }
