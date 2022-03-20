@@ -18,6 +18,7 @@ class ApisListingItemWidget extends StatelessWidget {
     required this.checked,
     required this.onChecked,
     required this.showDelete,
+    required this.onPressed,
     Key? key,
   }) : super(key: key);
 
@@ -48,89 +49,96 @@ class ApisListingItemWidget extends StatelessWidget {
   ///Whether to hide or show delete button
   final bool showDelete;
 
+  ///Callback when user presses this instance
+  final VoidCallback onPressed;
+
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(16),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          SizedBox(
-            width: 68,
-            child: Column(
-              children: [
-                Chip(
-                  backgroundColor: statusCodeBackColor(statusCode),
-                  label: Text(
-                    statusCode.toString(),
-                    textAlign: TextAlign.center,
-                    style: context.theme.textTheme.caption!.copyWith(
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
-                Visibility(
-                  visible: showDelete,
-                  child: TextButton(
-                    onPressed: () => onDelete(dateTime.toString()),
-                    child: Text(
-                      'DELETE',
+    return InkWell(
+      onTap: onPressed,
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SizedBox(
+              width: 68,
+              child: Column(
+                children: [
+                  Chip(
+                    backgroundColor: statusCodeBackColor(statusCode),
+                    label: Text(
+                      statusCode.toString(),
+                      textAlign: TextAlign.center,
                       style: context.theme.textTheme.caption!.copyWith(
-                        color: Colors.red,
+                        color: Colors.white,
                       ),
                     ),
                   ),
-                ),
-              ],
-            ),
-          ),
-          const SizedBox(width: 16),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  children: [
-                    Chip(
-                      backgroundColor: methodBackColor(method),
-                      label: Text(
-                        method,
+                  const SizedBox(height: 8),
+                  Visibility(
+                    visible: showDelete,
+                    child: TextButton(
+                      onPressed: () => onDelete(dateTime.toString()),
+                      child: Text(
+                        'DELETE',
                         style: context.theme.textTheme.caption!.copyWith(
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
+                          color: Colors.red,
                         ),
                       ),
                     ),
-                    const Expanded(child: SizedBox.shrink()),
-                    Checkbox(
-                      value: checked,
-                      activeColor: Colors.green,
-                      onChanged: (_) => onChecked(dateTime.toString()),
-                    )
-                  ],
-                ),
-                Text(
-                  path,
-                  style: context.theme.textTheme.caption!.copyWith(
-                    fontWeight: FontWeight.bold,
                   ),
-                ),
-                const SizedBox(height: 8),
-                Text(
-                  baseUrl.isEmpty ? 'N/A' : baseUrl,
-                  style: context.theme.textTheme.caption!
-                      .copyWith(color: Colors.grey),
-                ),
-                const SizedBox(height: 8),
-                Text(
-                  dateTime.toString(),
-                  style: context.theme.textTheme.caption!
-                      .copyWith(color: Colors.grey),
-                ),
-              ],
+                ],
+              ),
             ),
-          )
-        ],
+            const SizedBox(width: 16),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      Chip(
+                        backgroundColor: methodBackColor(method),
+                        label: Text(
+                          method,
+                          style: context.theme.textTheme.caption!.copyWith(
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                      const Expanded(child: SizedBox.shrink()),
+                      Checkbox(
+                        value: checked,
+                        activeColor: Colors.green,
+                        onChanged: (_) => onChecked(dateTime.toString()),
+                      )
+                    ],
+                  ),
+                  Text(
+                    path,
+                    style: context.theme.textTheme.caption!.copyWith(
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  Text(
+                    baseUrl.isEmpty ? 'N/A' : baseUrl,
+                    style: context.theme.textTheme.caption!
+                        .copyWith(color: Colors.grey),
+                  ),
+                  const SizedBox(height: 8),
+                  Text(
+                    dateTime.toString(),
+                    style: context.theme.textTheme.caption!
+                        .copyWith(color: Colors.grey),
+                  ),
+                ],
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

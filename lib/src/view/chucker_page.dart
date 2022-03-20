@@ -4,8 +4,8 @@ import 'package:chucker_flutter/src/models/api_response.dart';
 import 'package:chucker_flutter/src/shared_preferences_manager.dart';
 import 'package:chucker_flutter/src/view/helper/colors.dart';
 import 'package:chucker_flutter/src/view/helper/method_enums.dart';
-import 'package:chucker_flutter/src/view/helper/strings.dart';
 import 'package:chucker_flutter/src/view/tabs/apis_listing.dart';
+import 'package:chucker_flutter/src/view/widgets/app_bar.dart';
 import 'package:chucker_flutter/src/view/widgets/confirmation_dialog.dart';
 import 'package:chucker_flutter/src/view/widgets/filter_buttons.dart';
 import 'package:chucker_flutter/src/view/widgets/menu_buttons.dart';
@@ -31,11 +31,11 @@ class _ChuckerPageState extends State<ChuckerPage> {
   static final _tabsHeadings = [
     _TabModel(
       label: 'Success Requests',
-      icon: const Icon(Icons.check_circle, color: Colors.green),
+      icon: const Icon(Icons.check_circle, color: Colors.white),
     ),
     _TabModel(
       label: 'Fail Requests',
-      icon: const Icon(Icons.abc_outlined, color: Colors.red),
+      icon: const Icon(Icons.error, color: Colors.white),
     ),
   ];
 
@@ -54,17 +54,17 @@ class _ChuckerPageState extends State<ChuckerPage> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         tabBarTheme: TabBarTheme(
           labelColor: Colors.white,
           labelStyle: context.theme.textTheme.bodyText1,
         ),
-        primaryColor: primaryColor,
+        backgroundColor: primaryColor,
       ),
       home: Scaffold(
-        appBar: AppBar(
-          backgroundColor: primaryColor,
-          title: const Text(packageName),
+        appBar: ChuckerAppBar(
+          onBackPressed: () => context.navigator.pop(),
           actions: [
             Theme(
               data: ThemeData(
@@ -130,7 +130,11 @@ class _ChuckerPageState extends State<ChuckerPage> {
               Material(
                 color: primaryColor,
                 child: TabBar(
-                  tabs: _tabsHeadings.map((e) => Tab(text: e.label)).toList(),
+                  tabs: _tabsHeadings
+                      .map(
+                        (e) => Tab(text: e.label, icon: e.icon),
+                      )
+                      .toList(),
                 ),
               ),
               Expanded(

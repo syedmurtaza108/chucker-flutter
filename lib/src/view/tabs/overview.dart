@@ -1,0 +1,165 @@
+import 'package:chucker_flutter/src/extensions.dart';
+import 'package:chucker_flutter/src/helpers/status_code_map.dart';
+import 'package:chucker_flutter/src/models/api_response.dart';
+import 'package:chucker_flutter/src/view/helper/colors.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+
+///Shows the api response summary
+class OverviewTabView extends StatelessWidget {
+  ///Shows the api response summary
+  const OverviewTabView({
+    required this.api,
+    Key? key,
+  }) : super(key: key);
+
+  ///The item of which summary is to be shown
+  final ApiResponse api;
+
+  @override
+  Widget build(BuildContext context) {
+    return SingleChildScrollView(
+      padding: const EdgeInsets.all(16),
+      child: Table(
+        border: TableBorder.all(),
+        columnWidths: const {0: FixedColumnWidth(100)},
+        children: [
+          TableRow(
+            decoration: BoxDecoration(color: Colors.grey[300]),
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 8),
+                child: Text(
+                  'Attribute',
+                  style: context.theme.textTheme.bodyText2!.copyWith(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 8),
+                child: Text(
+                  'Value',
+                  style: context.theme.textTheme.bodyText2!.copyWith(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            ],
+          ),
+          _dataRow(context, attribute: 'Base URL', value: api.baseUrl),
+          _dataRow(context, attribute: 'Path', value: api.path),
+          _dataRow(
+            context,
+            attribute: 'Method',
+            value: api.method,
+            valueColor: methodBackColor(api.method),
+          ),
+          _dataRow(
+            context,
+            attribute: 'Status Code',
+            value: '${api.statusCode} (${statusCodes[api.statusCode]})',
+            valueColor: statusCodeBackColor(api.statusCode),
+          ),
+          _dataRow(
+            context,
+            attribute: 'Request Time',
+            value: api.requestTime.toString(),
+          ),
+          _dataRow(
+            context,
+            attribute: 'Response Time',
+            value: api.responseTime.toString(),
+          ),
+          _dataRow(context, attribute: 'Headers', value: api.headers),
+          _dataRow(
+            context,
+            attribute: 'Query Parameters',
+            value: api.queryParameters,
+          ),
+          _dataRow(
+            context,
+            attribute: 'Content Type',
+            value: api.contentType ?? 'N/A',
+          ),
+          _dataRow(
+            context,
+            attribute: 'Response Type',
+            value: api.responseType,
+          ),
+          _dataRow(
+            context,
+            attribute: 'Connection Timeout',
+            value: '${api.connectionTimeout} ms',
+          ),
+          _dataRow(
+            context,
+            attribute: 'Receive Timeout',
+            value: '${api.receiveTimeout} ms',
+          ),
+          _dataRow(
+            context,
+            attribute: 'Send Timeout',
+            value: '${api.sendTimeout} ms',
+          ),
+        ],
+      ),
+    );
+  }
+
+  TableRow _dataRow(
+    BuildContext context, {
+    required String attribute,
+    required String value,
+    Color? valueColor,
+  }) {
+    return TableRow(
+      children: [
+        TableCell(
+          verticalAlignment: TableCellVerticalAlignment.middle,
+          child: Padding(
+            padding: const EdgeInsets.all(8),
+            child: Text(
+              attribute,
+              style: context.theme.textTheme.bodyText2,
+              textAlign: TextAlign.center,
+            ),
+          ),
+        ),
+        TableCell(
+          verticalAlignment: TableCellVerticalAlignment.middle,
+          child: Padding(
+            padding: const EdgeInsets.all(8),
+            child: Row(
+              children: [
+                Expanded(
+                  child: Text(
+                    value,
+                    style: context.theme.textTheme.caption!.copyWith(
+                      color: valueColor,
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 8),
+                TextButton(
+                  onPressed: () =>
+                      Clipboard.setData(ClipboardData(text: value)),
+                  child: Text(
+                    'Copy',
+                    style: context.theme.textTheme.caption!.copyWith(
+                      color: primaryColor,
+                    ),
+                  ),
+                )
+              ],
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}

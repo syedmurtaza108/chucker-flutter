@@ -18,19 +18,52 @@ class _TodoPageState extends State<TodoPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        actions: [
-          ElevatedButton(
-            onPressed: cubit.loadData,
-            child: const Text('Load Data'),
-          )
-        ],
+        title: const Text('Chucker Flutter Example'),
       ),
       body: BlocBuilder<TodoCubit, List<TodoModel>>(
         builder: (context, state) {
-          return ListView.separated(
-            itemBuilder: (_, i) => Text(state[i].title),
-            itemCount: state.length,
-            separatorBuilder: (_, __) => const Divider(),
+          return SingleChildScrollView(
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                const SizedBox(height: 16),
+                ElevatedButton(
+                  onPressed: cubit.get,
+                  child: const Text('GET'),
+                ),
+                const SizedBox(height: 16),
+                ElevatedButton(
+                  onPressed: cubit.getWithParam,
+                  child: const Text('GET WITH PARAMS'),
+                ),
+                const SizedBox(height: 16),
+                ElevatedButton(
+                  onPressed: cubit.post,
+                  child: const Text('POST'),
+                ),
+                const SizedBox(height: 16),
+                ElevatedButton(
+                  onPressed: cubit.put,
+                  child: const Text('PUT'),
+                ),
+                const SizedBox(height: 16),
+                ElevatedButton(
+                  onPressed: cubit.delete,
+                  child: const Text('DELETE'),
+                ),
+                const SizedBox(height: 16),
+                ElevatedButton(
+                  onPressed: cubit.patch,
+                  child: const Text('PATCH'),
+                ),
+                const SizedBox(height: 16),
+                ElevatedButton(
+                  onPressed: () => cubit.get(error: true),
+                  child: const Text('ERROR'),
+                ),
+              ],
+            ),
           );
         },
       ),

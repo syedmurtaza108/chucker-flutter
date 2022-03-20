@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 ///[ApiResponse] is the model to save and retrieve from shared preferences
 class ApiResponse {
   ///[ApiResponse] is the model to save and retrieve from shared preferences
@@ -25,7 +27,7 @@ class ApiResponse {
 
   ///Convert json to [ApiResponse]
   factory ApiResponse.fromJson(Map<String, dynamic> json) => ApiResponse(
-        body: json['body'] as String,
+        body: json['body'] as Map<String, dynamic>,
         baseUrl: json['baseUrl'] as String,
         method: json['method'] as String,
         statusCode: json['statusCode'] as int,
@@ -34,7 +36,7 @@ class ApiResponse {
         headers: json['headers'] as String,
         queryParameters: json['queryParameters'] as String,
         receiveTimeout: json['receiveTimeout'] as int,
-        request: json['request'] as String,
+        request: json['request'] as Map<String, dynamic>,
         requestSize: json['requestSize'] as double,
         requestTime: DateTime.parse(json['requestTime'] as String),
         response: json['method'] as String,
@@ -71,13 +73,13 @@ class ApiResponse {
   final double responseSize;
 
   ///request
-  final String request;
+  final Map<String, dynamic> request;
 
   ///response
   final String response;
 
   ///body
-  final String body;
+  final Map<String, dynamic> body;
 
   ///contentType
   final String? contentType;
@@ -138,9 +140,9 @@ class ApiResponse {
     int? statusCode,
     double? requestSize,
     double? responseSize,
-    String? request,
+    Map<String, dynamic>? request,
     String? response,
-    String? body,
+    Map<String, dynamic>? body,
     String? contentType,
     String? headers,
     int? sendTimeout,
@@ -171,5 +173,32 @@ class ApiResponse {
       sendTimeout: sendTimeout ?? this.sendTimeout,
       checked: checked ?? this.checked,
     );
+  }
+
+  @override
+  String toString() {
+    return '''
+***************** Overview *****************
+Base URL: $baseUrl
+Path: $path
+Method: $method
+Status Code: $statusCode
+Request Time: ${requestTime.toString()}
+Response Time: ${responseTime.toString()}
+Headers: $headers
+Query Params: $queryParameters
+Content Type: $contentType
+Response Type: $responseType
+Connection Timeout: $connectionTimeout ms
+Receive Timeout: $receiveTimeout ms
+Send Timeout: $sendTimeout ms
+
+***************** Request *****************
+
+${jsonEncode(request)}
+
+***************** Response *****************
+
+${jsonEncode(body)}''';
   }
 }

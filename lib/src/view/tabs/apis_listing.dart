@@ -1,4 +1,6 @@
+import 'package:chucker_flutter/src/extensions.dart';
 import 'package:chucker_flutter/src/models/api_response.dart';
+import 'package:chucker_flutter/src/view/api_detail_page.dart';
 import 'package:chucker_flutter/src/view/widgets/apis_listing_item.dart';
 import 'package:flutter/material.dart';
 
@@ -50,6 +52,9 @@ class _ApisListingTabViewState extends State<ApisListingTabView> {
           checked: api.checked,
           onChecked: widget.onChecked,
           showDelete: widget.showDelete,
+          onPressed: () => context.navigator.push(
+            MaterialPageRoute(builder: (_) => ApiDetailsPage(api: api)),
+          ),
         );
       },
       separatorBuilder: (_, __) => const Divider(),

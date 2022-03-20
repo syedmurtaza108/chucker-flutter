@@ -43,7 +43,7 @@ class ChuckerDioInterceptor extends Interceptor {
   void _saveResponse(Response response) {
     SharedPreferencesManager.getInstance().addApiResponse(
       ApiResponse(
-        body: response.data.toString(),
+        body: {'data': response.data},
         path: response.requestOptions.path,
         baseUrl: response.requestOptions.baseUrl,
         method: response.requestOptions.method,
@@ -53,7 +53,7 @@ class ChuckerDioInterceptor extends Interceptor {
         headers: response.requestOptions.headers.toString(),
         queryParameters: response.requestOptions.queryParameters.toString(),
         receiveTimeout: response.requestOptions.receiveTimeout,
-        request: response.requestOptions.data.toString(),
+        request: {'request': response.requestOptions.data},
         requestSize: 2,
         requestTime: _requestTime,
         response: response.data.toString(),
@@ -69,7 +69,7 @@ class ChuckerDioInterceptor extends Interceptor {
   void _saveError(DioError response) {
     SharedPreferencesManager.getInstance().addApiResponse(
       ApiResponse(
-        body: response.error.toString(),
+        body: {'error': response.error},
         path: response.requestOptions.path,
         baseUrl: response.requestOptions.baseUrl,
         method: response.requestOptions.method,
@@ -79,7 +79,7 @@ class ChuckerDioInterceptor extends Interceptor {
         headers: response.requestOptions.headers.toString(),
         queryParameters: response.requestOptions.queryParameters.toString(),
         receiveTimeout: response.requestOptions.receiveTimeout,
-        request: response.requestOptions.data.toString(),
+        request: {'request': response.requestOptions.data},
         requestSize: 2,
         requestTime: _requestTime,
         response: response.error.toString(),
