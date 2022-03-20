@@ -52,6 +52,33 @@ class SharedPreferencesManager {
     for (final item in list) {
       apiResponses.add(ApiResponse.fromJson(item as Map<String, dynamic>));
     }
+    apiResponses.sort((a, b) => b.requestTime.compareTo(a.requestTime));
     return apiResponses;
+  }
+
+  ///[deleteAnApi] deletes an api record from local disk
+  Future<void> deleteAnApi(String dateTime) async {
+    final apis = await getAllApiResponses();
+    apis.removeWhere((e) => e.requestTime.toString() == dateTime);
+
+    final preferences = await SharedPreferences.getInstance();
+
+    await preferences.setString(
+      _kApiResponses,
+      jsonEncode(apis),
+    );
+  }
+
+  ///[deleteAnApi] deletes an api record from local disk
+  Future<void> deleteSelected(List<String> dateTimes) async {
+    final apis = await getAllApiResponses();
+    apis.removeWhere((e) => dateTimes.contains(e.requestTime.toString()));
+
+    final preferences = await SharedPreferences.getInstance();
+
+    await preferences.setString(
+      _kApiResponses,
+      jsonEncode(apis),
+    );
   }
 }

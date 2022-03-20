@@ -1,7 +1,4 @@
-import 'package:json_annotation/json_annotation.dart';
-
 ///[ApiResponse] is the model to save and retrieve from shared preferences
-@JsonSerializable()
 class ApiResponse {
   ///[ApiResponse] is the model to save and retrieve from shared preferences
   ApiResponse({
@@ -23,6 +20,7 @@ class ApiResponse {
     required this.responseTime,
     required this.responseType,
     required this.sendTimeout,
+    required this.checked,
   });
 
   ///Convert json to [ApiResponse]
@@ -45,6 +43,7 @@ class ApiResponse {
         responseType: json['responseType'] as String,
         sendTimeout: json['sendTimeout'] as int,
         path: json['path'] as String,
+        checked: json['checked'] as bool? ?? false,
       );
 
   ///requestTime
@@ -101,6 +100,9 @@ class ApiResponse {
   ///connectionTimeout
   final int connectionTimeout;
 
+  ///For selection purpose
+  final bool checked;
+
   ///Convert [ApiResponse] to json.
   Map<String, dynamic> toJson() {
     return {
@@ -122,6 +124,52 @@ class ApiResponse {
       'statusCode': statusCode,
       'baseUrl': baseUrl,
       'path': path,
+      'checked': checked,
     };
+  }
+
+  ///Copies current data and returns new object
+  ApiResponse copyWith({
+    DateTime? requestTime,
+    DateTime? responseTime,
+    String? baseUrl,
+    String? path,
+    String? method,
+    int? statusCode,
+    double? requestSize,
+    double? responseSize,
+    String? request,
+    String? response,
+    String? body,
+    String? contentType,
+    String? headers,
+    int? sendTimeout,
+    String? responseType,
+    int? receiveTimeout,
+    String? queryParameters,
+    int? connectionTimeout,
+    bool? checked,
+  }) {
+    return ApiResponse(
+      body: body ?? this.body,
+      baseUrl: baseUrl ?? this.baseUrl,
+      path: path ?? this.path,
+      method: method ?? this.method,
+      statusCode: statusCode ?? this.statusCode,
+      connectionTimeout: connectionTimeout ?? this.connectionTimeout,
+      contentType: contentType ?? this.contentType,
+      headers: headers ?? this.headers,
+      queryParameters: queryParameters ?? this.queryParameters,
+      receiveTimeout: receiveTimeout ?? this.receiveTimeout,
+      request: request ?? this.request,
+      requestSize: requestSize ?? this.requestSize,
+      requestTime: requestTime ?? this.requestTime,
+      response: response ?? this.response,
+      responseSize: responseSize ?? this.responseSize,
+      responseTime: responseTime ?? this.responseTime,
+      responseType: responseType ?? this.responseType,
+      sendTimeout: sendTimeout ?? this.sendTimeout,
+      checked: checked ?? this.checked,
+    );
   }
 }

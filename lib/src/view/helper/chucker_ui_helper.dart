@@ -4,7 +4,7 @@ import 'package:chucker_flutter/src/navigator_observer/navigator_observer.dart';
 import 'package:chucker_flutter/src/view/chucker_page.dart';
 import 'package:chucker_flutter/src/view/widgets/notification.dart'
     as notification;
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 ///[ChuckerUiHelper] handles the UI part of `chucker_flutter`
 ///
@@ -72,9 +72,9 @@ class ChuckerUiHelper {
   ///[showChuckerScreen] shows the screen containing the list of recored
   ///api requests
   static void showChuckerScreen() {
-    showCupertinoModalPopup(
-      context: ChuckerObserver.navigatorObserver.navigator!.context,
-      builder: (_) => const ChuckerPage(),
+    final context = ChuckerObserver.navigatorObserver.navigator!.context;
+    context.navigator.push(
+      MaterialPageRoute(builder: (_) => const ChuckerPage()),
     );
   }
 }

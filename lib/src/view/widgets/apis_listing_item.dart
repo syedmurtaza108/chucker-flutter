@@ -14,6 +14,10 @@ class ApisListingItemWidget extends StatelessWidget {
     required this.method,
     required this.path,
     required this.statusCode,
+    required this.onDelete,
+    required this.checked,
+    required this.onChecked,
+    required this.showDelete,
     Key? key,
   }) : super(key: key);
 
@@ -32,6 +36,18 @@ class ApisListingItemWidget extends StatelessWidget {
   ///Creation time of api request
   final DateTime dateTime;
 
+  ///Callback to delete a request
+  final void Function(String) onDelete;
+
+  ///Used for selection
+  final bool checked;
+
+  ///Callback to select a request
+  final void Function(String) onChecked;
+
+  ///Whether to hide or show delete button
+  final bool showDelete;
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -39,14 +55,33 @@ class ApisListingItemWidget extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Chip(
-            backgroundColor: statusCodeBackColor(statusCode),
-            label: Text(
-              statusCode.toString(),
-              textAlign: TextAlign.center,
-              style: context.theme.textTheme.bodyText1!.copyWith(
-                color: Colors.white,
-              ),
+          SizedBox(
+            width: 68,
+            child: Column(
+              children: [
+                Chip(
+                  backgroundColor: statusCodeBackColor(statusCode),
+                  label: Text(
+                    statusCode.toString(),
+                    textAlign: TextAlign.center,
+                    style: context.theme.textTheme.caption!.copyWith(
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+                Visibility(
+                  visible: showDelete,
+                  child: TextButton(
+                    onPressed: () => onDelete(dateTime.toString()),
+                    child: Text(
+                      'DELETE',
+                      style: context.theme.textTheme.caption!.copyWith(
+                        color: Colors.red,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
           const SizedBox(width: 16),
@@ -60,38 +95,38 @@ class ApisListingItemWidget extends StatelessWidget {
                       backgroundColor: methodBackColor(method),
                       label: Text(
                         method,
-                        style: context.theme.textTheme.bodyText1!.copyWith(
+                        style: context.theme.textTheme.caption!.copyWith(
                           fontWeight: FontWeight.bold,
                           color: Colors.white,
                         ),
                       ),
                     ),
-                    const SizedBox(width: 16),
-                    Text(
-                      path,
-                      style: context.theme.textTheme.bodyText1!.copyWith(
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
+                    const Expanded(child: SizedBox.shrink()),
+                    Checkbox(
+                      value: checked,
+                      activeColor: Colors.green,
+                      onChanged: (_) => onChecked(dateTime.toString()),
+                    )
                   ],
                 ),
-                const SizedBox(height: 16),
-                Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(
-                      baseUrl.isEmpty ? 'N/A' : baseUrl,
-                      style: context.theme.textTheme.bodyText2!
-                          .copyWith(color: Colors.grey),
-                    ),
-                    const SizedBox(width: 16),
-                    Text(
-                      dateTime.toString(),
-                      style: context.theme.textTheme.bodyText2!
-                          .copyWith(color: Colors.grey),
-                    ),
-                  ],
-                )
+                Text(
+                  path,
+                  style: context.theme.textTheme.caption!.copyWith(
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                const SizedBox(height: 8),
+                Text(
+                  baseUrl.isEmpty ? 'N/A' : baseUrl,
+                  style: context.theme.textTheme.caption!
+                      .copyWith(color: Colors.grey),
+                ),
+                const SizedBox(height: 8),
+                Text(
+                  dateTime.toString(),
+                  style: context.theme.textTheme.caption!
+                      .copyWith(color: Colors.grey),
+                ),
               ],
             ),
           )

@@ -4,6 +4,7 @@ import 'package:chucker_flutter/chucker_flutter.dart';
 import 'package:chucker_flutter/src/extensions.dart';
 import 'package:chucker_flutter/src/view/helper/chucker_ui_helper.dart';
 import 'package:chucker_flutter/src/view/helper/colors.dart';
+import 'package:chucker_flutter/src/view/widgets/chucker_button.dart';
 import 'package:flutter/material.dart';
 
 ///Notification widget showing in overlay notification
@@ -41,7 +42,7 @@ class _NotificationState extends State<Notification>
   )..forward();
 
   late final Animation<Offset> _offsetAnimation = Tween<Offset>(
-    begin: const Offset(0, 0.5),
+    begin: const Offset(0, 1.5),
     end: Offset.zero,
   ).animate(
     CurvedAnimation(parent: _controller, curve: Curves.fastLinearToSlowEaseIn),
@@ -80,15 +81,20 @@ class _NotificationState extends State<Notification>
         child: Padding(
           padding: const EdgeInsets.all(32),
           child: Material(
-            elevation: 10,
             color: Colors.transparent,
-            borderRadius: BorderRadius.circular(10),
             child: Container(
               padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
                 color: statusCodeBackColor(widget.statusCode),
-                borderRadius: BorderRadius.circular(10),
-                border: Border.all(),
+                borderRadius: BorderRadius.circular(64),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.5),
+                    spreadRadius: 5,
+                    blurRadius: 7,
+                    offset: const Offset(0, 3), // changes position of shadow
+                  ),
+                ],
               ),
               child: Row(
                 mainAxisSize: MainAxisSize.min,
@@ -104,23 +110,21 @@ class _NotificationState extends State<Notification>
                     ),
                   ),
                   const SizedBox(width: 16),
-                  Text(
-                    widget.path,
-                    textAlign: TextAlign.center,
-                    style: const TextStyle(
-                      fontSize: 14,
-                      color: Colors.white,
+                  Expanded(
+                    child: Text(
+                      widget.path,
+                      textAlign: TextAlign.center,
+                      style: context.theme.textTheme.bodyText2,
                     ),
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
                   ),
                   const SizedBox(width: 16),
-                  ElevatedButton(
-                    onPressed: ChuckerUiHelper.showChuckerScreen,
-                    style: ElevatedButton.styleFrom(
-                      primary: primaryColor,
-                    ),
-                    child: const Text('Show Details'),
+                  ChuckerButton(
+                    onPressed: () {
+                      _controller.animateTo(0);
+                      ChuckerUiHelper.showChuckerScreen();
+                    },
+                    text: 'Details',
+                    foreColor: Colors.white,
                   )
                 ],
               ),

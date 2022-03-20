@@ -11,3 +11,9 @@ extension ThemeExtension on BuildContext {
   ///Theme of the context
   ThemeData get theme => Theme.of(this);
 }
+
+///Gets navigator with respect to given context
+extension NavigatorExtension on BuildContext {
+  ///Navigator of the  context
+  NavigatorState get navigator => Navigator.of(this);
+}

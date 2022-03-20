@@ -5,7 +5,7 @@ import 'package:dio/dio.dart';
 
 ///[ChuckerDioInterceptor] adds support for `chucker_flutter` in [Dio] library.
 class ChuckerDioInterceptor extends Interceptor {
-  late final DateTime _requestTime;
+  late DateTime _requestTime;
   @override
   Future<void> onRequest(
     RequestOptions options,
@@ -61,6 +61,7 @@ class ChuckerDioInterceptor extends Interceptor {
         responseTime: DateTime.now(),
         responseType: response.requestOptions.responseType.name,
         sendTimeout: response.requestOptions.sendTimeout,
+        checked: false,
       ),
     );
   }
@@ -86,6 +87,7 @@ class ChuckerDioInterceptor extends Interceptor {
         responseTime: DateTime.now(),
         responseType: response.requestOptions.responseType.name,
         sendTimeout: response.requestOptions.sendTimeout,
+        checked: false,
       ),
     );
   }

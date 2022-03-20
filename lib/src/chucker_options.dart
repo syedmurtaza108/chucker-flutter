@@ -33,8 +33,20 @@ class ChuckerOptions {
   ///amount of memory on user's device.***
   static int apiThresholds = 100;
 
-  ///[httpMethod] default http method filter in apis listing screen 
-  ///[ChuckerPage]. Its default value is [HttpMethod.none] which means that 
+  ///[httpMethod] default http method filter in apis listing screen
+  ///[ChuckerPage]. Its default value is [HttpMethod.none] which means that
   ///no filter is applied.
   static HttpMethod httpMethod = HttpMethod.none;
+
+  ///[showRequestsStats] decides whether to show apis requests summary at the
+  ///top of api requests listing screen. Its default value is `true`
+  static bool showRequestsStats = true;
+
+  ///[showNotification] decides whether to show notification when a request
+  ///is succeeded or failed
+  static bool showNotification = true;
+
+  ///[showDeleteConfirmDialog] decides whether to show a confirmation dialog
+  ///before deleting a record. Its default value is `true`
+  static bool showDeleteConfirmDialog = true;
 }
