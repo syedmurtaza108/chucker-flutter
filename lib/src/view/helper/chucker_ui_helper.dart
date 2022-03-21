@@ -1,5 +1,5 @@
-import 'package:chucker_flutter/chucker_flutter.dart';
 import 'package:chucker_flutter/src/extensions.dart';
+import 'package:chucker_flutter/src/models/settings.dart';
 import 'package:chucker_flutter/src/navigator_observer/navigator_observer.dart';
 import 'package:chucker_flutter/src/view/chucker_page.dart';
 import 'package:chucker_flutter/src/view/widgets/notification.dart'
@@ -13,6 +13,9 @@ import 'package:flutter/material.dart';
 ///of `chucker_flutter`
 class ChuckerUiHelper {
   static OverlayEntry? _overlayEntry;
+
+  ///[settings] to modify ui behaviour of chucker screens and notification
+  static Settings settings = Settings.defaultObject();
 
   ///[showNotification] shows the rest api [method] (GET, POST, PUT, etc),
   ///[statusCode] (200, 400, etc) response status and [path]
@@ -35,7 +38,7 @@ class ChuckerUiHelper {
       builder: (context) {
         if (_isPositionGiven) {
           return Positioned(
-            top: ChuckerOptions.positionTop,
+            top: settings.positionTop,
             child: notification.Notification(
               statusCode: statusCode,
               method: method,
@@ -44,8 +47,9 @@ class ChuckerUiHelper {
             ),
           );
         }
+
         return Align(
-          alignment: ChuckerOptions.notificationAlignment,
+          alignment: settings.notificationAlignment,
           child: notification.Notification(
             statusCode: statusCode,
             method: method,
@@ -64,10 +68,10 @@ class ChuckerUiHelper {
   }
 
   static bool get _isPositionGiven =>
-      ChuckerOptions.positionBottom.isNotZero &&
-      ChuckerOptions.positionTop.isNotZero &&
-      ChuckerOptions.positionRight.isNotZero &&
-      ChuckerOptions.positionLeft.isNotZero;
+      settings.positionBottom.isNotZero &&
+      settings.positionTop.isNotZero &&
+      settings.positionRight.isNotZero &&
+      settings.positionLeft.isNotZero;
 
   ///[showChuckerScreen] shows the screen containing the list of recored
   ///api requests

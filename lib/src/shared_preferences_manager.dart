@@ -1,12 +1,16 @@
 import 'dart:convert';
 
-import 'package:chucker_flutter/chucker_flutter.dart';
 import 'package:chucker_flutter/src/models/api_response.dart';
+import 'package:chucker_flutter/src/models/settings.dart';
+import 'package:chucker_flutter/src/view/helper/chucker_ui_helper.dart';
+import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 ///[SharedPreferencesManager] handles storage of API responses
 class SharedPreferencesManager {
-  SharedPreferencesManager._();
+  SharedPreferencesManager._() {
+    getSettings();
+  }
 
   static SharedPreferencesManager? _sharedPreferencesManager;
 
@@ -17,13 +21,15 @@ class SharedPreferencesManager {
   }
 
   static const String _kApiResponses = 'api_responses';
+  static const String _kSettings = 'chucker_settings';
 
   ///[addApiResponse] sets an API response to local disk
   Future<void> addApiResponse(ApiResponse apiResponse) async {
     final newResponses = List<ApiResponse>.empty(growable: true);
     final previousResponses = await getAllApiResponses();
+    final settings = await getSettings();
 
-    if (previousResponses.length == ChuckerOptions.apiThresholds) {
+    if (previousResponses.length == settings.apiThresholds) {
       previousResponses.removeAt(0);
     }
 
@@ -80,5 +86,38 @@ class SharedPreferencesManager {
       _kApiResponses,
       jsonEncode(apis),
     );
+  }
+
+  ///[setSettings] saves the chucker settings in user's disk
+  Future<void> setSettings(Settings settings) async {
+    final preferences = await SharedPreferences.getInstance();
+
+    await preferences.setString(
+      _kSettings,
+      jsonEncode(settings),
+    );
+  }
+
+  ///[getSettings] gets the chucker settings from user's disk
+  Future<Settings> getSettings() async {
+    final preferences = await SharedPreferences.getInstance();
+
+    var settings = Settings.defaultObject();
+
+    try {
+      final json = preferences.getString(_kSettings);
+      if (json == null) {
+        return settings;
+      }
+      settings = Settings.fromJson(
+        jsonDecode(json) as Map<String, dynamic>,
+      );
+    } catch (e) {
+      debugPrint(e.toString());
+    }
+
+    ChuckerUiHelper.settings = settings;
+
+    return settings;
   }
 }

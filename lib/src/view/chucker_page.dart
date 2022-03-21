@@ -1,9 +1,10 @@
-import 'package:chucker_flutter/chucker_flutter.dart';
 import 'package:chucker_flutter/src/extensions.dart';
 import 'package:chucker_flutter/src/models/api_response.dart';
 import 'package:chucker_flutter/src/shared_preferences_manager.dart';
+import 'package:chucker_flutter/src/view/helper/chucker_ui_helper.dart';
 import 'package:chucker_flutter/src/view/helper/colors.dart';
 import 'package:chucker_flutter/src/view/helper/method_enums.dart';
+import 'package:chucker_flutter/src/view/settings_page.dart';
 import 'package:chucker_flutter/src/view/tabs/apis_listing.dart';
 import 'package:chucker_flutter/src/view/widgets/app_bar.dart';
 import 'package:chucker_flutter/src/view/widgets/confirmation_dialog.dart';
@@ -22,7 +23,7 @@ class ChuckerPage extends StatefulWidget {
 }
 
 class _ChuckerPageState extends State<ChuckerPage> {
-  var _httpMethod = ChuckerOptions.httpMethod;
+  var _httpMethod = ChuckerUiHelper.settings.httpMethod;
 
   List<ApiResponse> _apis = List.empty();
 
@@ -83,7 +84,7 @@ class _ChuckerPageState extends State<ChuckerPage> {
             MenuButtons(
               enableDelete: _selectedApis.isNotEmpty,
               onDelete: _deleteAllSelected,
-              onSettings: () {},
+              onSettings: _openSettings,
             ),
           ],
         ),
@@ -162,7 +163,8 @@ class _ChuckerPageState extends State<ChuckerPage> {
     );
   }
 
-  int get _remaingRequests => ChuckerOptions.apiThresholds - _apis.length;
+  int get _remaingRequests =>
+      ChuckerUiHelper.settings.apiThresholds - _apis.length;
 
   List<ApiResponse> _successApis({bool filterApply = true}) {
     final query = _query.toLowerCase();
@@ -274,6 +276,12 @@ class _ChuckerPageState extends State<ChuckerPage> {
       return null;
     }
     return false;
+  }
+
+  void _openSettings() {
+    context.navigator.push(
+      MaterialPageRoute(builder: (_) => const SettingsPage()),
+    );
   }
 }
 

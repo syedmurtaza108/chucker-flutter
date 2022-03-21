@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:chucker_flutter/chucker_flutter.dart';
 import 'package:chucker_flutter/src/extensions.dart';
 import 'package:chucker_flutter/src/view/helper/chucker_ui_helper.dart';
 import 'package:chucker_flutter/src/view/helper/colors.dart';
@@ -37,7 +36,7 @@ class Notification extends StatefulWidget {
 class _NotificationState extends State<Notification>
     with SingleTickerProviderStateMixin {
   late final AnimationController _controller = AnimationController(
-    duration: ChuckerOptions.duration,
+    duration: ChuckerUiHelper.settings.duration,
     vsync: this,
   )..forward();
 
@@ -51,7 +50,7 @@ class _NotificationState extends State<Notification>
   @override
   void initState() {
     Future.delayed(
-      Duration(seconds: ChuckerOptions.duration.inSeconds - 1),
+      Duration(seconds: ChuckerUiHelper.settings.duration.inSeconds - 1),
       _controller.reverse,
     );
 
