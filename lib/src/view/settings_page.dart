@@ -1,6 +1,8 @@
 import 'package:chucker_flutter/src/extensions.dart';
+import 'package:chucker_flutter/src/shared_preferences_manager.dart';
 import 'package:chucker_flutter/src/view/helper/chucker_ui_helper.dart';
 import 'package:chucker_flutter/src/view/helper/colors.dart';
+import 'package:chucker_flutter/src/view/helper/method_enums.dart';
 import 'package:chucker_flutter/src/view/widgets/alignment_menu.dart';
 import 'package:chucker_flutter/src/view/widgets/app_bar.dart';
 import 'package:chucker_flutter/src/view/widgets/http_methods_menu.dart';
@@ -39,11 +41,7 @@ class _SettingsPageState extends State<SettingsPage> {
                 activeColor: primaryColor,
                 value: _settings.showNotification,
                 onChanged: (value) {
-                  setState(() {
-                    _settings = _settings.copyWith(
-                      showNotification: value,
-                    );
-                  });
+                  _saveSettings(showNotification: value);
                 },
               ),
             ),
@@ -54,18 +52,14 @@ class _SettingsPageState extends State<SettingsPage> {
                   '''Notification will appear on screen for these seconds''',
               helperText: '${_settings.duration.inSeconds} seconds',
               child: Slider.adaptive(
-                min: 1,
+                min: 2,
                 max: 10,
-                divisions: 10,
+                divisions: 9,
                 activeColor: primaryColor,
                 label: _settings.duration.inSeconds.toString(),
                 value: _settings.duration.inSeconds.toDouble(),
                 onChanged: (value) {
-                  setState(
-                    () => _settings = _settings.copyWith(
-                      duration: Duration(seconds: value.toInt()),
-                    ),
-                  );
+                  _saveSettings(duration: Duration(seconds: value.toInt()));
                 },
               ),
             ),
@@ -74,84 +68,14 @@ class _SettingsPageState extends State<SettingsPage> {
               title: 'Alignment',
               description:
                   '''Notification will appear on screeen with reference to this alignment''',
-              importantInfo:
-                  '''It will not work if any of the position attributes is non-zero.''',
               child: AlignmentMenu(
                 notificationAlignment: _settings.notificationAlignment,
                 title: _getAlignmentMenuTitle(),
                 onSelect: (alignment) {
-                  setState(
-                    () => _settings = _settings.copyWith(
-                      notificationAlignment: alignment,
-                    ),
-                  );
+                  _saveSettings(notificationAlignment: alignment);
                 },
               ),
               padding: 16,
-            ),
-            const SizedBox(height: 16),
-            _settingRow(
-              title: 'Position Bottom',
-              description:
-                  '''The position of notification from bottom of screen.''',
-              helperText: _settings.positionBottom.toString(),
-              child: _PositionField(
-                onChange: (text) {
-                  setState(
-                    () => _settings = _settings.copyWith(
-                      positionBottom: double.tryParse(text) ?? 0,
-                    ),
-                  );
-                },
-              ),
-            ),
-            const SizedBox(height: 16),
-            _settingRow(
-              title: 'Position Top',
-              description:
-                  '''The position of notification from top of screen.''',
-              helperText: _settings.positionTop.toString(),
-              child: _PositionField(
-                onChange: (text) {
-                  setState(
-                    () => _settings = _settings.copyWith(
-                      positionTop: double.tryParse(text) ?? 0,
-                    ),
-                  );
-                },
-              ),
-            ),
-            const SizedBox(height: 16),
-            _settingRow(
-              title: 'Position Left',
-              description:
-                  '''The position of notification from left of screen.''',
-              helperText: _settings.positionLeft.toString(),
-              child: _PositionField(
-                onChange: (text) {
-                  setState(
-                    () => _settings = _settings.copyWith(
-                      positionLeft: double.tryParse(text) ?? 0,
-                    ),
-                  );
-                },
-              ),
-            ),
-            const SizedBox(height: 16),
-            _settingRow(
-              title: 'Position Right',
-              description:
-                  '''The position of notification from right of screen.''',
-              helperText: _settings.positionRight.toString(),
-              child: _PositionField(
-                onChange: (text) {
-                  setState(
-                    () => _settings = _settings.copyWith(
-                      positionRight: double.tryParse(text) ?? 0,
-                    ),
-                  );
-                },
-              ),
             ),
             const SizedBox(height: 16),
             const Padding(
@@ -167,11 +91,7 @@ class _SettingsPageState extends State<SettingsPage> {
               child: HttpMethodsMenu(
                 httpMethod: _settings.httpMethod,
                 onFilter: (method) {
-                  setState(
-                    () => _settings = _settings.copyWith(
-                      httpMethod: method,
-                    ),
-                  );
+                  _saveSettings(httpMethod: method);
                 },
               ),
               padding: 16,
@@ -185,11 +105,7 @@ class _SettingsPageState extends State<SettingsPage> {
                 activeColor: primaryColor,
                 value: _settings.showRequestsStats,
                 onChanged: (value) {
-                  setState(() {
-                    _settings = _settings.copyWith(
-                      showRequestsStats: value,
-                    );
-                  });
+                  _saveSettings(showRequestsStats: value);
                 },
               ),
             ),
@@ -214,11 +130,7 @@ class _SettingsPageState extends State<SettingsPage> {
                 label: _settings.apiThresholds.toString(),
                 value: _settings.apiThresholds.toDouble(),
                 onChanged: (value) {
-                  setState(
-                    () => _settings = _settings.copyWith(
-                      apiThresholds: value.toInt(),
-                    ),
-                  );
+                  _saveSettings(apiThresholds: value.toInt());
                 },
               ),
             ),
@@ -236,11 +148,7 @@ class _SettingsPageState extends State<SettingsPage> {
                 activeColor: primaryColor,
                 value: _settings.showDeleteConfirmDialog,
                 onChanged: (value) {
-                  setState(() {
-                    _settings = _settings.copyWith(
-                      showDeleteConfirmDialog: value,
-                    );
-                  });
+                  _saveSettings(showDeleteConfirmDialog: value);
                 },
               ),
             ),
@@ -249,6 +157,36 @@ class _SettingsPageState extends State<SettingsPage> {
         ),
       ),
     );
+  }
+
+  void _saveSettings({
+    Duration? duration,
+    double? positionTop,
+    double? positionBottom,
+    double? positionRight,
+    double? positionLeft,
+    Alignment? notificationAlignment,
+    int? apiThresholds,
+    HttpMethod? httpMethod,
+    bool? showRequestsStats,
+    bool? showNotification,
+    bool? showDeleteConfirmDialog,
+  }) {
+    _settings = _settings.copyWith(
+      duration: duration,
+      positionBottom: positionBottom,
+      positionLeft: positionLeft,
+      positionRight: positionRight,
+      positionTop: positionTop,
+      httpMethod: httpMethod,
+      notificationAlignment: notificationAlignment,
+      apiThresholds: apiThresholds,
+      showRequestsStats: showRequestsStats,
+      showNotification: showNotification,
+      showDeleteConfirmDialog: showDeleteConfirmDialog,
+    );
+    SharedPreferencesManager.getInstance().setSettings(_settings);
+    setState(() {});
   }
 
   String _getAlignmentMenuTitle() {
@@ -361,38 +299,6 @@ class _SettingsPageState extends State<SettingsPage> {
         color: primaryColor,
         fontWeight: FontWeight.bold,
       ),
-    );
-  }
-}
-
-class _PositionField extends StatelessWidget {
-  const _PositionField({
-    required this.onChange,
-    Key? key,
-  }) : super(key: key);
-
-  final void Function(String) onChange;
-
-  @override
-  Widget build(BuildContext context) {
-    return TextField(
-      decoration: const InputDecoration(
-        contentPadding: EdgeInsets.symmetric(horizontal: 8),
-        border: OutlineInputBorder(
-          borderSide: BorderSide(
-            color: primaryColor,
-            width: 2,
-          ),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(
-            color: primaryColor,
-            width: 2,
-          ),
-        ),
-      ),
-      keyboardType: TextInputType.number,
-      onChanged: onChange,
     );
   }
 }

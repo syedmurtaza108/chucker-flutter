@@ -20,12 +20,12 @@ class ChuckerDioInterceptor extends Interceptor {
     Response response,
     ResponseInterceptorHandler handler,
   ) async {
-    _saveResponse(response);
     ChuckerUiHelper.showNotification(
       method: response.requestOptions.method,
       statusCode: response.statusCode ?? -1,
       path: response.requestOptions.path,
     );
+    _saveResponse(response);
     handler.next(response);
   }
 

@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 
 ///[ChuckerUiHelper] handles the UI part of `chucker_flutter`
 ///
-///You must initialize [ChuckerObserver.navigatorObserver] in the `MaterialApp`
+///You must initialize ChuckerObserver in the `MaterialApp`
 /// of your application as it is required to show notification and the screens
 ///of `chucker_flutter`
 class ChuckerUiHelper {
@@ -24,9 +24,11 @@ class ChuckerUiHelper {
     required int statusCode,
     required String path,
   }) {
-    final overlay = ChuckerObserver.navigatorObserver.navigator!.overlay;
-    _overlayEntry = _createOverlayEntry(method, statusCode, path);
-    overlay?.insert(_overlayEntry!);
+    if (ChuckerUiHelper.settings.showNotification) {
+      final overlay = ChuckerFlutter.navigatorObserver.navigator!.overlay;
+      _overlayEntry = _createOverlayEntry(method, statusCode, path);
+      overlay?.insert(_overlayEntry!);
+    }
   }
 
   static OverlayEntry _createOverlayEntry(
@@ -39,6 +41,9 @@ class ChuckerUiHelper {
         if (_isPositionGiven) {
           return Positioned(
             top: settings.positionTop,
+            left: settings.positionLeft,
+            right: settings.positionRight,
+            bottom: settings.positionBottom,
             child: notification.Notification(
               statusCode: statusCode,
               method: method,
@@ -68,24 +73,24 @@ class ChuckerUiHelper {
   }
 
   static bool get _isPositionGiven =>
-      settings.positionBottom.isNotZero &&
-      settings.positionTop.isNotZero &&
-      settings.positionRight.isNotZero &&
+      settings.positionBottom.isNotZero ||
+      settings.positionTop.isNotZero ||
+      settings.positionRight.isNotZero ||
       settings.positionLeft.isNotZero;
 
   ///[showChuckerScreen] shows the screen containing the list of recored
   ///api requests
   static void showChuckerScreen() {
-    final context = ChuckerObserver.navigatorObserver.navigator!.context;
+    final context = ChuckerFlutter.navigatorObserver.navigator!.context;
     context.navigator.push(
       MaterialPageRoute(builder: (_) => const ChuckerPage()),
     );
   }
 }
 
-///[ChuckerObserver] is the helper class of [ChuckerNavigatorObserver]
-class ChuckerObserver {
+///[ChuckerFlutter] is a helper class to initialize the library
+class ChuckerFlutter {
   ///[navigatorObserver] observes the navigation of your app. It must be
-  ///referenced in flutter
+  ///referenced in your MaterialApp widget
   static final navigatorObserver = ChuckerNavigatorObserver();
 }

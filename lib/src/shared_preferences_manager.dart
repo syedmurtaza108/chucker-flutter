@@ -27,9 +27,8 @@ class SharedPreferencesManager {
   Future<void> addApiResponse(ApiResponse apiResponse) async {
     final newResponses = List<ApiResponse>.empty(growable: true);
     final previousResponses = await getAllApiResponses();
-    final settings = await getSettings();
 
-    if (previousResponses.length == settings.apiThresholds) {
+    if (previousResponses.length == ChuckerUiHelper.settings.apiThresholds) {
       previousResponses.removeAt(0);
     }
 
@@ -96,6 +95,9 @@ class SharedPreferencesManager {
       _kSettings,
       jsonEncode(settings),
     );
+    debugPrint(jsonEncode(settings));
+
+    ChuckerUiHelper.settings = settings;
   }
 
   ///[getSettings] gets the chucker settings from user's disk
@@ -104,20 +106,22 @@ class SharedPreferencesManager {
 
     var settings = Settings.defaultObject();
 
+    final jsonString = preferences.getString(_kSettings);
+
+    debugPrint('jsonString: $jsonString');
+
+    if (jsonString == null) {
+      return settings;
+    }
+    final json = jsonDecode(jsonString);
+
     try {
-      final json = preferences.getString(_kSettings);
-      if (json == null) {
-        return settings;
-      }
-      settings = Settings.fromJson(
-        jsonDecode(json) as Map<String, dynamic>,
-      );
+      settings = Settings.fromJson(json as Map<String, dynamic>);
     } catch (e) {
-      debugPrint(e.toString());
+      debugPrint('try: $e');
     }
 
     ChuckerUiHelper.settings = settings;
-
     return settings;
   }
 }

@@ -1,6 +1,7 @@
 import 'package:chucker_flutter/src/extensions.dart';
 import 'package:chucker_flutter/src/models/api_response.dart';
 import 'package:chucker_flutter/src/shared_preferences_manager.dart';
+import 'package:chucker_flutter/src/view/api_detail_page.dart';
 import 'package:chucker_flutter/src/view/helper/chucker_ui_helper.dart';
 import 'package:chucker_flutter/src/view/helper/colors.dart';
 import 'package:chucker_flutter/src/view/helper/method_enums.dart';
@@ -93,27 +94,35 @@ class _ChuckerPageState extends State<ChuckerPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              const SizedBox(height: 16),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                child: Row(
-                  children: [
-                    StatsTile(
-                      stats: _successApis(filterApply: false).length.toString(),
-                      title: 'Success\nRequests',
-                      backColor: Colors.greenAccent[400]!,
-                    ),
-                    StatsTile(
-                      stats: _failedApis(filterApply: false).length.toString(),
-                      title: 'Failed\nRequests',
-                      backColor: Colors.amber[300]!,
-                    ),
-                    StatsTile(
-                      stats: _remaingRequests.toString(),
-                      title: 'Remaining\nRequests',
-                      backColor: Colors.deepOrange[400]!,
-                    ),
-                  ],
+              Visibility(
+                visible: ChuckerUiHelper.settings.showRequestsStats,
+                child: const SizedBox(height: 16),
+              ),
+              Visibility(
+                visible: ChuckerUiHelper.settings.showRequestsStats,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: Row(
+                    children: [
+                      StatsTile(
+                        stats:
+                            _successApis(filterApply: false).length.toString(),
+                        title: 'Success\nRequests',
+                        backColor: Colors.greenAccent[400]!,
+                      ),
+                      StatsTile(
+                        stats:
+                            _failedApis(filterApply: false).length.toString(),
+                        title: 'Failed\nRequests',
+                        backColor: Colors.amber[300]!,
+                      ),
+                      StatsTile(
+                        stats: _remaingRequests.toString(),
+                        title: 'Remaining\nRequests',
+                        backColor: Colors.deepOrange[400]!,
+                      ),
+                    ],
+                  ),
                 ),
               ),
               const SizedBox(height: 16),
@@ -146,12 +155,14 @@ class _ChuckerPageState extends State<ChuckerPage> {
                       onDelete: _deleteAnApi,
                       onChecked: _selectAnApi,
                       showDelete: _selectedApis.isEmpty,
+                      onItemPressed: _openDetails,
                     ),
                     ApisListingTabView(
                       apis: _failedApis(),
                       onDelete: _deleteAnApi,
                       onChecked: _selectAnApi,
                       showDelete: _selectedApis.isEmpty,
+                      onItemPressed: _openDetails,
                     ),
                   ],
                 ),
@@ -209,14 +220,17 @@ class _ChuckerPageState extends State<ChuckerPage> {
   List<ApiResponse> get _selectedApis => _apis.where((e) => e.checked).toList();
 
   Future<void> _deleteAnApi(String dateTime) async {
-    final deleteConfirm = await showConfirmationDialog(
-          context,
-          title: 'Deletion of a Record',
-          message: 'Are you sure you want to delete the record permanently?',
-          yesButtonBackColor: Colors.red,
-          yesButtonForeColor: Colors.white,
-        ) ??
-        false;
+    var deleteConfirm = true;
+    if (ChuckerUiHelper.settings.showDeleteConfirmDialog) {
+      deleteConfirm = await showConfirmationDialog(
+            context,
+            title: 'Deletion of a Record',
+            message: 'Are you sure you want to delete the record permanently?',
+            yesButtonBackColor: Colors.red,
+            yesButtonForeColor: Colors.white,
+          ) ??
+          false;
+    }
     if (deleteConfirm) {
       final sharedPreferencesManager = SharedPreferencesManager.getInstance();
       await sharedPreferencesManager.deleteAnApi(dateTime);
@@ -227,15 +241,18 @@ class _ChuckerPageState extends State<ChuckerPage> {
   }
 
   Future<void> _deleteAllSelected() async {
-    final deleteConfirm = await showConfirmationDialog(
-          context,
-          title: 'Deletion of The Selected Records',
-          message:
-              '''Are you sure you want to delete the selected records permanently?''',
-          yesButtonBackColor: Colors.red,
-          yesButtonForeColor: Colors.white,
-        ) ??
-        false;
+    var deleteConfirm = true;
+    if (ChuckerUiHelper.settings.showDeleteConfirmDialog) {
+      deleteConfirm = await showConfirmationDialog(
+            context,
+            title: 'Deletion of The Selected Records',
+            message:
+                '''Are you sure you want to delete the selected records permanently?''',
+            yesButtonBackColor: Colors.red,
+            yesButtonForeColor: Colors.white,
+          ) ??
+          false;
+    }
     if (deleteConfirm) {
       final dateTimes = _selectedApis
           .where((e) => e.checked)
@@ -281,6 +298,12 @@ class _ChuckerPageState extends State<ChuckerPage> {
   void _openSettings() {
     context.navigator.push(
       MaterialPageRoute(builder: (_) => const SettingsPage()),
+    );
+  }
+
+  void _openDetails(ApiResponse api) {
+    context.navigator.push(
+      MaterialPageRoute(builder: (_) => ApiDetailsPage(api: api)),
     );
   }
 }

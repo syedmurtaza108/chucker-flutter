@@ -20,10 +20,14 @@ class Settings {
 
   ///Convert json to [Settings]
   factory Settings.fromJson(Map<String, dynamic> json) => Settings(
-        duration: Duration(milliseconds: json['duration'] as int),
+        duration: Duration(seconds: json['duration'] as int),
         notificationAlignment: Alignment(
-          (json['notificationAlignment'] as List<double>)[0],
-          (json['notificationAlignment'] as List<double>)[1],
+          double.parse(
+            (json['notificationAlignment'] as List<dynamic>)[0].toString(),
+          ),
+          double.parse(
+            (json['notificationAlignment'] as List<dynamic>)[1].toString(),
+          ),
         ),
         apiThresholds: json['apiThresholds'] as int,
         httpMethod: HttpMethod.values[json['httpMethod'] as int],
@@ -100,7 +104,7 @@ class Settings {
   Map<String, dynamic> toJson() {
     return {
       'apiThresholds': apiThresholds,
-      'duration': duration.inMicroseconds,
+      'duration': duration.inSeconds,
       'httpMethod': httpMethod.index,
       'notificationAlignment': [
         notificationAlignment.x,
