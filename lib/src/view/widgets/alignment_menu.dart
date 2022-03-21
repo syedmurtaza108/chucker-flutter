@@ -1,3 +1,4 @@
+import 'package:chucker_flutter/src/view/helper/colors.dart';
 import 'package:flutter/material.dart';
 
 ///Alignment Menu for settings page
@@ -27,7 +28,14 @@ class _AlignmentMenuState extends State<AlignmentMenu> {
   @override
   Widget build(BuildContext context) {
     return PopupMenuButton(
-      child: Center(child: Text(widget.title)),
+      child: Container(
+        decoration: BoxDecoration(
+          border: Border.all(color: primaryColor),
+          borderRadius: BorderRadius.circular(8),
+        ),
+        padding: const EdgeInsets.all(16),
+        child: Center(child: Text(widget.title)),
+      ),
       itemBuilder: (_) => [
         _radioButton('BottomCenter', Alignment.bottomCenter),
         _radioButton('BottomLeft', Alignment.bottomLeft),

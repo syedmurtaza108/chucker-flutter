@@ -66,7 +66,7 @@ class ApisListingItemWidget extends StatelessWidget {
               child: Column(
                 children: [
                   Chip(
-                    backgroundColor: statusCodeBackColor(statusCode),
+                    backgroundColor: statusColor(statusCode),
                     label: Text(
                       statusCode.toString(),
                       textAlign: TextAlign.center,
@@ -99,7 +99,7 @@ class ApisListingItemWidget extends StatelessWidget {
                   Row(
                     children: [
                       Chip(
-                        backgroundColor: methodBackColor(method),
+                        backgroundColor: methodColor(method),
                         label: Text(
                           method,
                           style: context.theme.textTheme.caption!.copyWith(

@@ -84,8 +84,13 @@ class _NotificationState extends State<Notification>
             child: Container(
               padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
-                color: statusCodeBackColor(widget.statusCode),
-                borderRadius: BorderRadius.circular(64),
+                border: Border(
+                  left: BorderSide(
+                    color: statusColor(widget.statusCode),
+                    width: 8,
+                  ),
+                ),
+                color: Colors.white,
                 boxShadow: [
                   BoxShadow(
                     color: Colors.grey.withOpacity(0.5),
@@ -98,22 +103,32 @@ class _NotificationState extends State<Notification>
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Chip(
-                    backgroundColor: Colors.white,
-                    label: Text(
-                      '${widget.method.toUpperCase()}: ${widget.statusCode}',
-                      textAlign: TextAlign.center,
-                      style: context.theme.textTheme.bodyText1!.copyWith(
-                        fontWeight: FontWeight.bold,
-                      ),
+                  Text(
+                    widget.statusCode.toString(),
+                    textAlign: TextAlign.center,
+                    style: context.theme.textTheme.bodyText1!.copyWith(
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
                   const SizedBox(width: 16),
                   Expanded(
-                    child: Text(
-                      widget.path,
-                      textAlign: TextAlign.center,
-                      style: context.theme.textTheme.bodyText2,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text(
+                          widget.method.toUpperCase(),
+                          style: context.theme.textTheme.bodyText2!.copyWith(
+                            fontWeight: FontWeight.bold,
+                            color: methodColor(widget.method),
+                          ),
+                        ),
+                        const SizedBox(height: 4),
+                        Text(
+                          widget.path,
+                          style: context.theme.textTheme.caption,
+                        ),
+                      ],
                     ),
                   ),
                   const SizedBox(width: 16),

@@ -57,13 +57,13 @@ class OverviewTabView extends StatelessWidget {
             context,
             attribute: 'Method',
             value: api.method,
-            valueColor: methodBackColor(api.method),
+            valueColor: methodColor(api.method),
           ),
           _dataRow(
             context,
             attribute: 'Status Code',
             value: '${api.statusCode} (${statusCodes[api.statusCode]})',
-            valueColor: statusCodeBackColor(api.statusCode),
+            valueColor: statusColor(api.statusCode),
           ),
           _dataRow(
             context,

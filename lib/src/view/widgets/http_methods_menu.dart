@@ -26,21 +26,27 @@ class _HttpMethodsMenuState extends State<HttpMethodsMenu> {
   @override
   Widget build(BuildContext context) {
     return PopupMenuButton(
-      child: Center(
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            const Text('Http Method: '),
-            Chip(
-              label: Text(
-                _getMethodName(),
-                style: context.theme.textTheme.bodyText1!.copyWith(
-                  color: Colors.white,
+      child: Container(
+        decoration: BoxDecoration(
+          border: Border.all(color: primaryColor),
+          borderRadius: BorderRadius.circular(8),
+        ),
+        child: Center(
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const Text('Http Method: '),
+              Chip(
+                label: Text(
+                  _getMethodName(),
+                  style: context.theme.textTheme.bodyText1!.copyWith(
+                    color: Colors.white,
+                  ),
                 ),
-              ),
-              backgroundColor: methodBackColor(_getMethodName()),
-            )
-          ],
+                backgroundColor: methodColor(_getMethodName()),
+              )
+            ],
+          ),
         ),
       ),
       itemBuilder: (_) => [

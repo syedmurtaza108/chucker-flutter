@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 const primaryColor = Color(0xFF01569a);
 
 ///Render background color with respect to api status code
-Color statusCodeBackColor(int statusCode) {
+Color statusColor(int statusCode) {
   if (statusCode > 199 && statusCode < 300) {
     return Colors.green;
   } else if (statusCode > 399 && statusCode < 500) {
@@ -16,7 +16,7 @@ Color statusCodeBackColor(int statusCode) {
 }
 
 ///Render background color with respect to api method
-Color methodBackColor(String method) {
+Color methodColor(String method) {
   final lMethod = method.toLowerCase();
   if (lMethod.contains('get')) {
     return Colors.brown[600]!;
