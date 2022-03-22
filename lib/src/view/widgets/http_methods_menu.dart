@@ -1,4 +1,6 @@
 import 'package:chucker_flutter/src/helpers/extensions.dart';
+import 'package:chucker_flutter/src/localization/localization.dart';
+
 import 'package:chucker_flutter/src/view/helper/colors.dart';
 import 'package:chucker_flutter/src/view/helper/method_enums.dart';
 import 'package:flutter/material.dart';
@@ -50,7 +52,7 @@ class _HttpMethodsMenuState extends State<HttpMethodsMenu> {
         ),
       ),
       itemBuilder: (_) => [
-        _radioButton('ALL', HttpMethod.none),
+        _radioButton(Localization.strings['all']!, HttpMethod.none),
         _radioButton('GET', HttpMethod.get),
         _radioButton('POST', HttpMethod.post),
         _radioButton('PUT', HttpMethod.put),
@@ -94,7 +96,7 @@ class _HttpMethodsMenuState extends State<HttpMethodsMenu> {
       case HttpMethod.delete:
         return 'DELETE';
       case HttpMethod.none:
-        return 'ALL';
+        return Localization.strings['all']!;
     }
   }
 }

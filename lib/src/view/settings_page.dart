@@ -1,11 +1,15 @@
 import 'package:chucker_flutter/src/helpers/extensions.dart';
+
 import 'package:chucker_flutter/src/helpers/shared_preferences_manager.dart';
+import 'package:chucker_flutter/src/localization/localization.dart';
 import 'package:chucker_flutter/src/view/helper/chucker_ui_helper.dart';
 import 'package:chucker_flutter/src/view/helper/colors.dart';
+import 'package:chucker_flutter/src/view/helper/languages.dart';
 import 'package:chucker_flutter/src/view/helper/method_enums.dart';
 import 'package:chucker_flutter/src/view/widgets/alignment_menu.dart';
 import 'package:chucker_flutter/src/view/widgets/app_bar.dart';
 import 'package:chucker_flutter/src/view/widgets/http_methods_menu.dart';
+import 'package:chucker_flutter/src/view/widgets/language_menu.dart';
 import 'package:flutter/material.dart';
 
 ///Chucker Flutter Settings
@@ -19,9 +23,11 @@ class SettingsPage extends StatefulWidget {
 
 class _SettingsPageState extends State<SettingsPage> {
   var _settings = ChuckerUiHelper.settings;
+  // @override
+  // late final context = ChuckerFlutter.navigatorObserver.navigator!.context;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext _) {
     return Scaffold(
       appBar: ChuckerAppBar(
         onBackPressed: () => context.navigator.pop(),
@@ -31,12 +37,11 @@ class _SettingsPageState extends State<SettingsPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            _heading('Notification'),
+            _heading(Localization.strings['notification']!),
             const SizedBox(height: 16),
             _settingRow(
-              title: 'Show',
-              description:
-                  '''If on, you will receive an in-app notification whenever a network request will succeed or fail.''',
+              title: Localization.strings['show']!,
+              description: Localization.strings['notificationSettingDesc']!,
               child: Switch.adaptive(
                 activeColor: primaryColor,
                 value: _settings.showNotification,
@@ -47,10 +52,10 @@ class _SettingsPageState extends State<SettingsPage> {
             ),
             const SizedBox(height: 16),
             _settingRow(
-              title: 'Duration',
-              description:
-                  '''Notification will appear on screen for these seconds''',
-              helperText: '${_settings.duration.inSeconds} seconds',
+              title: Localization.strings['duration']!,
+              description: Localization.strings['durationSettingDesc']!,
+              helperText:
+                  '''${_settings.duration.inSeconds} ${Localization.strings['seconds']}''',
               child: Slider.adaptive(
                 min: 2,
                 max: 10,
@@ -65,9 +70,8 @@ class _SettingsPageState extends State<SettingsPage> {
             ),
             const SizedBox(height: 16),
             _settingRow(
-              title: 'Alignment',
-              description:
-                  '''Notification will appear on screeen with reference to this alignment''',
+              title: Localization.strings['alignment']!,
+              description: Localization.strings['alignmentSettingDesc']!,
               child: AlignmentMenu(
                 notificationAlignment: _settings.notificationAlignment,
                 title: _getAlignmentMenuTitle(),
@@ -82,12 +86,11 @@ class _SettingsPageState extends State<SettingsPage> {
               padding: EdgeInsets.symmetric(vertical: 16),
               child: Divider(),
             ),
-            _heading('APIs Listing Screen'),
+            _heading(Localization.strings['apiListingScreen']!),
             const SizedBox(height: 16),
             _settingRow(
-              title: 'Selected Http Method',
-              description:
-                  '''This http method will automatically be selected when you will go on api requests listing screen''',
+              title: Localization.strings['selectedMethod']!,
+              description: Localization.strings['selectedMethodDesc']!,
               child: HttpMethodsMenu(
                 httpMethod: _settings.httpMethod,
                 onFilter: (method) {
@@ -98,9 +101,8 @@ class _SettingsPageState extends State<SettingsPage> {
             ),
             const SizedBox(height: 16),
             _settingRow(
-              title: 'Show Requests Statistics',
-              description:
-                  '''If on, the stats section of screen will remain visible.''',
+              title: Localization.strings['showRequestStats']!,
+              description: Localization.strings['showRequestStatsDesc']!,
               child: Switch.adaptive(
                 activeColor: primaryColor,
                 value: _settings.showRequestsStats,
@@ -113,15 +115,14 @@ class _SettingsPageState extends State<SettingsPage> {
               padding: EdgeInsets.symmetric(vertical: 16),
               child: Divider(),
             ),
-            _heading('API Requests'),
+            _heading(Localization.strings['apiRequests']!),
             const SizedBox(height: 16),
             _settingRow(
-              title: 'Threshold',
-              helperText: '${_settings.apiThresholds} apis',
-              description:
-                  '''The maximum number of api requests that you can save on device. When you will reach this threshold, an old request will be deleted before saving a new one.''',
-              importantInfo:
-                  '''Select the value carefully, a large number may result in huge consumption of user device's memory.''',
+              title: Localization.strings['threshold']!,
+              helperText:
+                  '${_settings.apiThresholds} ${Localization.strings['apis']}',
+              description: Localization.strings['apiSettingDesc']!,
+              importantInfo: Localization.strings['apiSettingsImpInfo'],
               child: Slider.adaptive(
                 min: 100,
                 max: 1000,
@@ -138,12 +139,11 @@ class _SettingsPageState extends State<SettingsPage> {
               padding: EdgeInsets.symmetric(vertical: 16),
               child: Divider(),
             ),
-            _heading('Deletion of Requests'),
+            _heading(Localization.strings['deletionOfRequests']!),
             const SizedBox(height: 16),
             _settingRow(
-              title: 'Show Confirm Dialog',
-              description:
-                  '''If on, a confirmation dialog will appear whenever you will attempt to delete a record.''',
+              title: Localization.strings['showConfirmDialog']!,
+              description: Localization.strings['showDialogDesc']!,
               child: Switch.adaptive(
                 activeColor: primaryColor,
                 value: _settings.showDeleteConfirmDialog,
@@ -151,6 +151,23 @@ class _SettingsPageState extends State<SettingsPage> {
                   _saveSettings(showDeleteConfirmDialog: value);
                 },
               ),
+            ),
+            const Padding(
+              padding: EdgeInsets.symmetric(vertical: 16),
+              child: Divider(),
+            ),
+            _heading(Localization.strings['language']!),
+            const SizedBox(height: 16),
+            _settingRow(
+              title: Localization.strings['chuckerLanguage']!,
+              description: Localization.strings['chuckerLanguageDesc']!,
+              child: LanguagesMenu(
+                language: _settings.language,
+                onSelect: (language) {
+                  _saveSettings(language: language);
+                },
+              ),
+              padding: 16,
             ),
             const SizedBox(height: 16),
           ],
@@ -171,6 +188,7 @@ class _SettingsPageState extends State<SettingsPage> {
     bool? showRequestsStats,
     bool? showNotification,
     bool? showDeleteConfirmDialog,
+    Language? language,
   }) {
     _settings = _settings.copyWith(
       duration: duration,
@@ -184,6 +202,7 @@ class _SettingsPageState extends State<SettingsPage> {
       showRequestsStats: showRequestsStats,
       showNotification: showNotification,
       showDeleteConfirmDialog: showDeleteConfirmDialog,
+      language: language,
     );
     SharedPreferencesManager.getInstance().setSettings(_settings);
     setState(() {});
@@ -245,7 +264,7 @@ class _SettingsPageState extends State<SettingsPage> {
                   Visibility(
                     visible: helperText != null,
                     child: Text(
-                      'Current Value: $helperText',
+                      '${Localization.strings['currentValue']} $helperText',
                       style: context.theme.textTheme.caption!.copyWith(
                         fontWeight: FontWeight.bold,
                       ),

@@ -1,5 +1,7 @@
 import 'package:chucker_flutter/src/helpers/extensions.dart';
+
 import 'package:chucker_flutter/src/helpers/shared_preferences_manager.dart';
+import 'package:chucker_flutter/src/localization/localization.dart';
 import 'package:chucker_flutter/src/models/api_response.dart';
 import 'package:chucker_flutter/src/view/api_detail_page.dart';
 import 'package:chucker_flutter/src/view/helper/chucker_ui_helper.dart';
@@ -24,19 +26,21 @@ class ChuckerPage extends StatefulWidget {
 }
 
 class _ChuckerPageState extends State<ChuckerPage> {
+  // @override
+  // late final context = ChuckerFlutter.navigatorObserver.navigator!.context;
   var _httpMethod = ChuckerUiHelper.settings.httpMethod;
 
   List<ApiResponse> _apis = List.empty();
 
   var _query = '';
 
-  static final _tabsHeadings = [
+  final _tabsHeadings = [
     _TabModel(
-      label: 'Success Requests',
+      label: Localization.strings['successRequest']!,
       icon: const Icon(Icons.check_circle, color: Colors.white),
     ),
     _TabModel(
-      label: 'Fail Requests',
+      label: Localization.strings['failedRequests']!,
       icon: const Icon(Icons.error, color: Colors.white),
     ),
   ];
@@ -54,121 +58,109 @@ class _ChuckerPageState extends State<ChuckerPage> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        tabBarTheme: TabBarTheme(
-          labelColor: Colors.white,
-          labelStyle: context.theme.textTheme.bodyText1,
-        ),
-        backgroundColor: primaryColor,
+  Widget build(_) {
+    return Scaffold(
+      appBar: ChuckerAppBar(
+        onBackPressed: () => ChuckerFlutter.navigatorObserver.navigator?.pop(),
+        actions: [
+          Theme(
+            data: ThemeData(
+              checkboxTheme: const CheckboxThemeData(
+                side: BorderSide(color: Colors.white),
+              ),
+            ),
+            child: Checkbox(
+              tristate: true,
+              value: _selectAllCheckState(),
+              onChanged: (checked) {
+                _selectDeselectAll(checked ?? false);
+              },
+            ),
+          ),
+          MenuButtons(
+            enableDelete: _selectedApis.isNotEmpty,
+            onDelete: _deleteAllSelected,
+            onSettings: _openSettings,
+          ),
+        ],
       ),
-      home: Scaffold(
-        appBar: ChuckerAppBar(
-          onBackPressed: () => context.navigator.pop(),
-          actions: [
-            Theme(
-              data: ThemeData(
-                checkboxTheme: const CheckboxThemeData(
-                  side: BorderSide(color: Colors.white),
-                ),
-              ),
-              child: Checkbox(
-                tristate: true,
-                value: _selectAllCheckState(),
-                onChanged: (checked) {
-                  _selectDeselectAll(checked ?? false);
-                },
-              ),
+      body: DefaultTabController(
+        length: 2,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Visibility(
+              visible: ChuckerUiHelper.settings.showRequestsStats,
+              child: const SizedBox(height: 16),
             ),
-            MenuButtons(
-              enableDelete: _selectedApis.isNotEmpty,
-              onDelete: _deleteAllSelected,
-              onSettings: _openSettings,
-            ),
-          ],
-        ),
-        body: DefaultTabController(
-          length: 2,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Visibility(
-                visible: ChuckerUiHelper.settings.showRequestsStats,
-                child: const SizedBox(height: 16),
-              ),
-              Visibility(
-                visible: ChuckerUiHelper.settings.showRequestsStats,
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
-                  child: Row(
-                    children: [
-                      StatsTile(
-                        stats:
-                            _successApis(filterApply: false).length.toString(),
-                        title: 'Success\nRequests',
-                        backColor: Colors.greenAccent[400]!,
-                      ),
-                      StatsTile(
-                        stats:
-                            _failedApis(filterApply: false).length.toString(),
-                        title: 'Failed\nRequests',
-                        backColor: Colors.amber[300]!,
-                      ),
-                      StatsTile(
-                        stats: _remaingRequests.toString(),
-                        title: 'Remaining\nRequests',
-                        backColor: Colors.deepOrange[400]!,
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              const SizedBox(height: 16),
-              FilterButtons(
-                onFilter: (httpMethod) {
-                  setState(() => _httpMethod = httpMethod);
-                },
-                onSearch: (query) {
-                  setState(() => _query = query);
-                },
-                httpMethod: _httpMethod,
-                query: _query,
-              ),
-              const SizedBox(height: 16),
-              Material(
-                color: primaryColor,
-                child: TabBar(
-                  tabs: _tabsHeadings
-                      .map(
-                        (e) => Tab(text: e.label, icon: e.icon),
-                      )
-                      .toList(),
-                ),
-              ),
-              Expanded(
-                child: TabBarView(
+            Visibility(
+              visible: ChuckerUiHelper.settings.showRequestsStats,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: Row(
                   children: [
-                    ApisListingTabView(
-                      apis: _successApis(),
-                      onDelete: _deleteAnApi,
-                      onChecked: _selectAnApi,
-                      showDelete: _selectedApis.isEmpty,
-                      onItemPressed: _openDetails,
+                    StatsTile(
+                      stats: _successApis(filterApply: false).length.toString(),
+                      title: Localization.strings['successRequest']!,
+                      backColor: Colors.greenAccent[400]!,
                     ),
-                    ApisListingTabView(
-                      apis: _failedApis(),
-                      onDelete: _deleteAnApi,
-                      onChecked: _selectAnApi,
-                      showDelete: _selectedApis.isEmpty,
-                      onItemPressed: _openDetails,
+                    StatsTile(
+                      stats: _failedApis(filterApply: false).length.toString(),
+                      title: Localization.strings['failedRequests']!,
+                      backColor: Colors.amber[300]!,
+                    ),
+                    StatsTile(
+                      stats: _remaingRequests.toString(),
+                      title: Localization.strings['remainingRequests']!,
+                      backColor: Colors.deepOrange[400]!,
                     ),
                   ],
                 ),
               ),
-            ],
-          ),
+            ),
+            const SizedBox(height: 16),
+            FilterButtons(
+              onFilter: (httpMethod) {
+                setState(() => _httpMethod = httpMethod);
+              },
+              onSearch: (query) {
+                setState(() => _query = query);
+              },
+              httpMethod: _httpMethod,
+              query: _query,
+            ),
+            const SizedBox(height: 16),
+            Material(
+              color: primaryColor,
+              child: TabBar(
+                tabs: _tabsHeadings
+                    .map(
+                      (e) => Tab(text: e.label, icon: e.icon),
+                    )
+                    .toList(),
+              ),
+            ),
+            Expanded(
+              child: TabBarView(
+                children: [
+                  ApisListingTabView(
+                    apis: _successApis(),
+                    onDelete: _deleteAnApi,
+                    onChecked: _selectAnApi,
+                    showDelete: _selectedApis.isEmpty,
+                    onItemPressed: _openDetails,
+                  ),
+                  ApisListingTabView(
+                    apis: _failedApis(),
+                    onDelete: _deleteAnApi,
+                    onChecked: _selectAnApi,
+                    showDelete: _selectedApis.isEmpty,
+                    onItemPressed: _openDetails,
+                  ),
+                ],
+              ),
+            ),
+          ],
         ),
       ),
     );
@@ -224,8 +216,8 @@ class _ChuckerPageState extends State<ChuckerPage> {
     if (ChuckerUiHelper.settings.showDeleteConfirmDialog) {
       deleteConfirm = await showConfirmationDialog(
             context,
-            title: 'Deletion of a Record',
-            message: 'Are you sure you want to delete the record permanently?',
+            title: Localization.strings['singleDeletionTitle']!,
+            message: Localization.strings['singleDeletionMessage']!,
             yesButtonBackColor: Colors.red,
             yesButtonForeColor: Colors.white,
           ) ??
@@ -245,9 +237,8 @@ class _ChuckerPageState extends State<ChuckerPage> {
     if (ChuckerUiHelper.settings.showDeleteConfirmDialog) {
       deleteConfirm = await showConfirmationDialog(
             context,
-            title: 'Deletion of The Selected Records',
-            message:
-                '''Are you sure you want to delete the selected records permanently?''',
+            title: Localization.strings['multipleDeletionTitle']!,
+            message: Localization.strings['multipleDeletionMessage']!,
             yesButtonBackColor: Colors.red,
             yesButtonForeColor: Colors.white,
           ) ??

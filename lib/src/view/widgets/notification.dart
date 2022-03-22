@@ -1,6 +1,8 @@
 import 'dart:async';
 
 import 'package:chucker_flutter/src/helpers/extensions.dart';
+import 'package:chucker_flutter/src/localization/localization.dart';
+
 import 'package:chucker_flutter/src/view/helper/chucker_ui_helper.dart';
 import 'package:chucker_flutter/src/view/helper/colors.dart';
 import 'package:chucker_flutter/src/view/widgets/primary_button.dart';
@@ -135,7 +137,7 @@ class _NotificationState extends State<Notification>
                       _controller.animateTo(0);
                       ChuckerUiHelper.showChuckerScreen();
                     },
-                    text: 'Details',
+                    text: Localization.strings['details']!,
                     foreColor: Colors.white,
                   )
                 ],

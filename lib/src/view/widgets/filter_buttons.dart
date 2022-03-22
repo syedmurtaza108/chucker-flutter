@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:chucker_flutter/src/localization/localization.dart';
 import 'package:chucker_flutter/src/view/helper/colors.dart';
 import 'package:chucker_flutter/src/view/helper/method_enums.dart';
 import 'package:chucker_flutter/src/view/widgets/http_methods_menu.dart';
@@ -66,7 +67,9 @@ class _FilterButtonsState extends State<FilterButtons> {
             width: 128,
             height: 48,
             child: PrimaryButton(
-              text: !_openSearch ? 'Show Search' : 'Hide Search',
+              text: !_openSearch
+                  ? Localization.strings['showSearch']!
+                  : Localization.strings['hideSearch']!,
               onPressed: () => setState(() => _openSearch = !_openSearch),
               foreColor: Colors.white,
             ),
@@ -123,7 +126,7 @@ class _SearchField extends StatelessWidget {
             width: 2,
           ),
         ),
-        hintText: 'Base url, status code or date',
+        hintText: 'Base url, status code, date',
       ),
       onChanged: onSearch,
     );

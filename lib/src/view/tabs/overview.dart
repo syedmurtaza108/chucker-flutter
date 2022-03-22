@@ -1,5 +1,7 @@
 import 'package:chucker_flutter/src/helpers/extensions.dart';
+
 import 'package:chucker_flutter/src/helpers/status_code_map.dart';
+import 'package:chucker_flutter/src/localization/localization.dart';
 import 'package:chucker_flutter/src/models/api_response.dart';
 import 'package:chucker_flutter/src/view/helper/colors.dart';
 import 'package:flutter/material.dart';
@@ -30,7 +32,7 @@ class OverviewTabView extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 8),
                 child: Text(
-                  'Attribute',
+                  Localization.strings['attribute']!,
                   style: context.theme.textTheme.bodyText2!.copyWith(
                     fontWeight: FontWeight.bold,
                     fontSize: 16,
@@ -41,7 +43,7 @@ class OverviewTabView extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 8),
                 child: Text(
-                  'Value',
+                  Localization.strings['value']!,
                   style: context.theme.textTheme.bodyText2!.copyWith(
                     fontWeight: FontWeight.bold,
                     fontSize: 16,
@@ -149,7 +151,7 @@ class OverviewTabView extends StatelessWidget {
                   onPressed: () =>
                       Clipboard.setData(ClipboardData(text: value)),
                   child: Text(
-                    'Copy',
+                    Localization.strings['copy']!,
                     style: context.theme.textTheme.caption!.copyWith(
                       color: primaryColor,
                     ),

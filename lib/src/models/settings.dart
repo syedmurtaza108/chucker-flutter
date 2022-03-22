@@ -1,3 +1,4 @@
+import 'package:chucker_flutter/src/view/helper/languages.dart';
 import 'package:chucker_flutter/src/view/helper/method_enums.dart';
 import 'package:flutter/material.dart';
 
@@ -16,6 +17,7 @@ class Settings {
     required this.positionLeft,
     required this.positionRight,
     required this.positionTop,
+    required this.language,
   });
 
   ///Convert json to [Settings]
@@ -38,6 +40,7 @@ class Settings {
         positionLeft: json['positionLeft'] as double,
         positionRight: json['positionRight'] as double,
         positionTop: json['positionTop'] as double,
+        language: Language.values[json['language'] as int],
       );
 
   ///Default object containing the default values for chucker settings
@@ -53,6 +56,7 @@ class Settings {
         positionLeft: 0,
         positionRight: 0,
         positionTop: 0,
+        language: Language.english,
       );
 
   ///[duration] is the amount of time of making notification visible on screen.
@@ -100,12 +104,16 @@ class Settings {
   ///before deleting a record. Its default value is `true`
   final bool showDeleteConfirmDialog;
 
+  ///[language] used for localization
+  final Language language;
+
   ///Convert [Settings] to json.
   Map<String, dynamic> toJson() {
     return {
       'apiThresholds': apiThresholds,
       'duration': duration.inSeconds,
       'httpMethod': httpMethod.index,
+      'language': language.index,
       'notificationAlignment': [
         notificationAlignment.x,
         notificationAlignment.y
@@ -133,6 +141,7 @@ class Settings {
     bool? showRequestsStats,
     bool? showNotification,
     bool? showDeleteConfirmDialog,
+    Language? language,
   }) {
     return Settings(
       duration: duration ?? this.duration,
@@ -148,6 +157,7 @@ class Settings {
       positionLeft: positionLeft ?? this.positionLeft,
       positionRight: positionRight ?? this.positionRight,
       positionTop: positionTop ?? this.positionTop,
+      language: language ?? this.language,
     );
   }
 }

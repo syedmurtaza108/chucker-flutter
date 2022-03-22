@@ -11,6 +11,8 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_json_viewer: ^1.0.1
+  flutter_localizations:
+    sdk: flutter
   http: ^0.13.4
   share_plus: ^4.0.1
   shared_preferences: ^2.0.13

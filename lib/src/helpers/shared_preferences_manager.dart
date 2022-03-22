@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:chucker_flutter/src/localization/localization.dart';
 import 'package:chucker_flutter/src/models/api_response.dart';
 import 'package:chucker_flutter/src/models/settings.dart';
 import 'package:chucker_flutter/src/view/helper/chucker_ui_helper.dart';
@@ -49,15 +50,14 @@ class SharedPreferencesManager {
     final apiResponses = List<ApiResponse>.empty(growable: true);
 
     final preferences = await SharedPreferences.getInstance();
-    
+
     final json = preferences.getString(_kApiResponses);
-    
+
     if (json == null) {
       return apiResponses;
     }
 
     final list = jsonDecode(json);
-    
 
     for (final item in list) {
       apiResponses.add(ApiResponse.fromJson(item as Map<String, dynamic>));
@@ -123,6 +123,7 @@ class SharedPreferencesManager {
     settings = Settings.fromJson(json as Map<String, dynamic>);
 
     ChuckerUiHelper.settings = settings;
+    Localization.updateLocalization();
     return settings;
   }
 }

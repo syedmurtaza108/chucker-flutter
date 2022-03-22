@@ -1,4 +1,6 @@
 import 'package:chucker_flutter/src/helpers/extensions.dart';
+import 'package:chucker_flutter/src/localization/localization.dart';
+
 import 'package:chucker_flutter/src/models/api_response.dart';
 import 'package:chucker_flutter/src/view/helper/colors.dart';
 import 'package:chucker_flutter/src/view/tabs/overview.dart';
@@ -44,13 +46,13 @@ class ApiDetailsPage extends StatelessWidget {
         length: 3,
         child: Column(
           children: [
-            const Material(
+            Material(
               color: primaryColor,
               child: TabBar(
                 tabs: [
-                  Tab(text: 'OVERVIEW'),
-                  Tab(text: 'REQUEST'),
-                  Tab(text: 'RESPONSE'),
+                  Tab(text: Localization.strings['overview']),
+                  Tab(text: Localization.strings['request']),
+                  Tab(text: Localization.strings['response']),
                 ],
               ),
             ),

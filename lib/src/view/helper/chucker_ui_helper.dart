@@ -1,7 +1,11 @@
 import 'package:chucker_flutter/src/helpers/extensions.dart';
+import 'package:chucker_flutter/src/helpers/shared_preferences_manager.dart';
+import 'package:chucker_flutter/src/localization/localization.dart';
+
 import 'package:chucker_flutter/src/models/settings.dart';
 import 'package:chucker_flutter/src/view/chucker_page.dart';
 import 'package:chucker_flutter/src/view/helper/chucker_button.dart';
+import 'package:chucker_flutter/src/view/helper/colors.dart';
 import 'package:chucker_flutter/src/view/widgets/notification.dart'
     as notification;
 import 'package:flutter/material.dart';
@@ -81,9 +85,25 @@ class ChuckerUiHelper {
   ///[showChuckerScreen] shows the screen containing the list of recored
   ///api requests
   static void showChuckerScreen() {
+    SharedPreferencesManager.getInstance().getSettings();
     final context = ChuckerFlutter.navigatorObserver.navigator!.context;
     context.navigator.push(
-      MaterialPageRoute(builder: (_) => const ChuckerPage()),
+      MaterialPageRoute(
+        builder: (context) => MaterialApp(
+          debugShowCheckedModeBanner: false,
+          localizationsDelegates: Localization.localizationsDelegates,
+          supportedLocales: Localization.supportedLocales,
+          locale: Localization.currentLocale,
+          theme: ThemeData(
+            tabBarTheme: TabBarTheme(
+              labelColor: Colors.white,
+              labelStyle: context.theme.textTheme.bodyText1,
+            ),
+            backgroundColor: primaryColor,
+          ),
+          home: const ChuckerPage(),
+        ),
+      ),
     );
   }
 }

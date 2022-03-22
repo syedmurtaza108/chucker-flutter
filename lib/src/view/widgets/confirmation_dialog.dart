@@ -1,4 +1,6 @@
 import 'package:chucker_flutter/src/helpers/extensions.dart';
+import 'package:chucker_flutter/src/localization/localization.dart';
+
 import 'package:chucker_flutter/src/view/widgets/primary_button.dart';
 import 'package:flutter/material.dart';
 
@@ -25,14 +27,14 @@ class _ConfirmationDialog extends StatelessWidget {
         TextButton(
           onPressed: () => context.navigator.pop(false),
           child: Text(
-            'NO',
+            Localization.strings['no']!,
             style: context.theme.textTheme.bodyText1!.copyWith(
               color: Colors.black,
             ),
           ),
         ),
         PrimaryButton(
-          text: 'YES',
+          text: Localization.strings['yes']!,
           onPressed: () => context.navigator.pop(true),
           foreColor: yesButtonForeColor,
           backColor: yesButtonBackColor,

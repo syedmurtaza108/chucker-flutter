@@ -1,3 +1,4 @@
+import 'package:chucker_flutter/src/localization/localization.dart';
 import 'package:flutter/material.dart';
 
 ///Menu items shown on chucker main page
@@ -12,8 +13,10 @@ class MenuButtons extends StatelessWidget {
 
   ///Whether to enable delete button or not
   final bool enableDelete;
+
   ///Callback when delete pressed
   final VoidCallback onDelete;
+
   ///Callback when settings pressed
   final VoidCallback onSettings;
 
@@ -31,11 +34,11 @@ class MenuButtons extends StatelessWidget {
         PopupMenuItem(
           value: 0,
           enabled: enableDelete,
-          child: const Text('Delete'),
+          child: Text(Localization.strings['delete']!),
         ),
-        const PopupMenuItem(
+        PopupMenuItem(
           value: 1,
-          child: Text('Settings'),
+          child: Text(Localization.strings['settings']!),
         ),
       ],
     );

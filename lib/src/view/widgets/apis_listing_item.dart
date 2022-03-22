@@ -1,4 +1,6 @@
 import 'package:chucker_flutter/src/helpers/extensions.dart';
+import 'package:chucker_flutter/src/localization/localization.dart';
+
 import 'package:chucker_flutter/src/models/api_response.dart';
 import 'package:chucker_flutter/src/view/helper/colors.dart';
 import 'package:flutter/material.dart';
@@ -81,7 +83,7 @@ class ApisListingItemWidget extends StatelessWidget {
                     child: TextButton(
                       onPressed: () => onDelete(dateTime.toString()),
                       child: Text(
-                        'DELETE',
+                        Localization.strings['delete']!,
                         style: context.theme.textTheme.caption!.copyWith(
                           color: Colors.red,
                         ),
@@ -124,7 +126,7 @@ class ApisListingItemWidget extends StatelessWidget {
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    baseUrl.isEmpty ? 'N/A' : baseUrl,
+                    baseUrl.isEmpty ? Localization.strings['nA']! : baseUrl,
                     style: context.theme.textTheme.caption!
                         .copyWith(color: Colors.grey),
                   ),
