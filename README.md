@@ -29,6 +29,10 @@ Chucker Flutter inspects the **HTTP(S) requests/responses** triggered by your Fl
 
 Flutter Apps, using Chucker Flutter, show in-app **notifications** which tell the status (e.g. 200, 400, 500 and so) and requested url and upon clicking on details button it navigates to Chucker Flutter main screen. You cannot manipulate Chucker Flutter behaviour using its setting by navigating to Settings page from the menu button of Chucker Flutter main page.
 
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/44249868/159582442-70df2530-0578-421b-bb5f-954841f9106a.gif" alt="chucker http sample" width="50%"/>
+</p>
+
 # Getting Started
 
 To use Chucker Flutter you need to add the  **pub spec dependency** to your `pubspec.yaml` file of your flutter app.
@@ -65,14 +69,6 @@ MaterialApp(
 * Localization (Current support for English 🇺🇸 and Urdu 🇵🇰)
 * Searching🔍 and sharing👯
 * Json responses in tree form 🌴 (Thanks to <a href="https://pub.dev/packages/flutter_json_viewer/install">Flutter Json Viewer</a>)
-
-### Hide-Header
-
-**Warning** The data stored by Chucker Flutter may contain sensitive information such as Authorization headers.
-
-It is intended for **use during development**, and not in release builds or other production deployments.
-
-You can redact headers that contain sensitive information by calling `redactHeader(String)` on the `ChuckerInterceptor`.
 
 ### Libraries
 

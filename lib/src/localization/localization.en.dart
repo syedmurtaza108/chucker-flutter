@@ -1,9 +1,9 @@
 part of 'localization.dart';
 
 const _en = {
-  'successRequest': 'Success Requests',
-  'failedRequests': 'Failed Requests',
-  'remainingRequests': 'Remaining Requests',
+  'successRequest': 'Success\nRequests',
+  'failedRequests': 'Failed\nRequests',
+  'remainingRequests': 'Remaining\nRequests',
   'singleDeletionTitle': 'Deletion of a Record',
   'singleDeletionMessage':
       '''Are you sure you want to delete the record permanently?''',
@@ -59,5 +59,7 @@ const _en = {
   'language': 'Language',
   'chuckerLanguage': 'Chucker Language',
   'chuckerLanguageDesc':
-      '''It will take effect the next time when you come to chucker screen'''
+      '''It will take effect the next time when you come to chucker screen''',
+  'successRequestsWithSpace': 'Success Requests',
+  'failedRequestsWithSpace': 'Failed Requests',
 };

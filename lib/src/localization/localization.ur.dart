@@ -1,9 +1,9 @@
 part of 'localization.dart';
 
 const _ur = {
-  'successRequest': 'کامیاب درخواستیں',
-  'failedRequests': 'ناکام درخواستیں',
-  'remainingRequests': 'باقی درخواستیں',
+  'successRequest': 'کامیاب\nدرخواستیں',
+  'failedRequests': 'ناکام\nدرخواستیں',
+  'remainingRequests': 'باقی\nدرخواستیں',
   'singleDeletionTitle': 'مندرج اعداد و شمار کی تحذیف',
   'singleDeletionMessage':
       '''کیا آپ چنندہ اعداد و شمار کو حذف کرنا چاہتے ہیں؟''',
@@ -53,5 +53,7 @@ const _ur = {
   'currentValue': 'موجودہ قدر: ',
   'language': 'زبان',
   'chuckerLanguage': 'Chucker زبان',
-  'chuckerLanguageDesc': '''زبان کی تبدیل اگلی بار ظاہر ہوگی '''
+  'chuckerLanguageDesc': '''زبان کی تبدیل اگلی بار ظاہر ہوگی ''',
+  'successRequestsWithSpace': 'کامیاب درخواستیں',
+  'failedRequestsWithSpace': 'ناکام درخواستیں',
 };

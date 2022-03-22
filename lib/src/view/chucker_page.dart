@@ -36,11 +36,11 @@ class _ChuckerPageState extends State<ChuckerPage> {
 
   final _tabsHeadings = [
     _TabModel(
-      label: Localization.strings['successRequest']!,
+      label: Localization.strings['successRequestsWithSpace']!,
       icon: const Icon(Icons.check_circle, color: Colors.white),
     ),
     _TabModel(
-      label: Localization.strings['failedRequests']!,
+      label: Localization.strings['failedRequestsWithSpace']!,
       icon: const Icon(Icons.error, color: Colors.white),
     ),
   ];
