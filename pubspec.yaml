@@ -1,7 +1,7 @@
 name: chucker_flutter
-description: A Very Good Project created by Very Good CLI.
-version: 1.0.0+1
-publish_to: none
+description: An HTTP requests inspector inspired by Chucker Android
+version: 1.0.0
+homepage: https://github.com/syedmurtaza108/chucker-flutter
 
 environment:
   sdk: ">=2.16.0 <3.0.0"
