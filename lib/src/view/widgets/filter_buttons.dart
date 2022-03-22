@@ -34,7 +34,7 @@ class FilterButtons extends StatefulWidget {
 }
 
 class _FilterButtonsState extends State<FilterButtons> {
-  var _openSearch = true;
+  var _openSearch = false;
 
   Timer? _debounce;
 
@@ -66,7 +66,7 @@ class _FilterButtonsState extends State<FilterButtons> {
             width: 128,
             height: 48,
             child: PrimaryButton(
-              text: _openSearch ? 'Show Filter' : 'Hide Filter',
+              text: !_openSearch ? 'Show Search' : 'Hide Search',
               onPressed: () => setState(() => _openSearch = !_openSearch),
               foreColor: Colors.white,
             ),
