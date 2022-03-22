@@ -1,4 +1,4 @@
-import 'package:chucker_flutter/src/extensions.dart';
+import 'package:chucker_flutter/src/helpers/extensions.dart';
 import 'package:chucker_flutter/src/view/helper/colors.dart';
 import 'package:chucker_flutter/src/view/helper/method_enums.dart';
 import 'package:flutter/material.dart';

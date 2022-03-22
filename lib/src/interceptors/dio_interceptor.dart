@@ -1,5 +1,5 @@
+import 'package:chucker_flutter/src/helpers/shared_preferences_manager.dart';
 import 'package:chucker_flutter/src/models/api_response.dart';
-import 'package:chucker_flutter/src/shared_preferences_manager.dart';
 import 'package:chucker_flutter/src/view/helper/chucker_ui_helper.dart';
 import 'package:dio/dio.dart';
 
@@ -31,12 +31,12 @@ class ChuckerDioInterceptor extends Interceptor {
 
   @override
   Future<void> onError(DioError err, ErrorInterceptorHandler handler) async {
-    _saveError(err);
     ChuckerUiHelper.showNotification(
       method: err.requestOptions.method,
       statusCode: err.response?.statusCode ?? -1,
       path: err.requestOptions.path,
     );
+    _saveError(err);
     handler.next(err);
   }
 
@@ -56,7 +56,6 @@ class ChuckerDioInterceptor extends Interceptor {
         request: {'request': response.requestOptions.data},
         requestSize: 2,
         requestTime: _requestTime,
-        response: response.data.toString(),
         responseSize: 2,
         responseTime: DateTime.now(),
         responseType: response.requestOptions.responseType.name,
@@ -82,7 +81,6 @@ class ChuckerDioInterceptor extends Interceptor {
         request: {'request': response.requestOptions.data},
         requestSize: 2,
         requestTime: _requestTime,
-        response: response.error.toString(),
         responseSize: 2,
         responseTime: DateTime.now(),
         responseType: response.requestOptions.responseType.name,

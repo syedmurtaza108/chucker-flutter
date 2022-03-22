@@ -1,8 +1,8 @@
 import 'dart:convert';
 
-///[ApiResponse] is the model to save and retrieve from shared preferences
+///[ApiResponse] is the api data model to save and retrieve from local disk
 class ApiResponse {
-  ///[ApiResponse] is the model to save and retrieve from shared preferences
+  ///[ApiResponse] is the api data model to save and retrieve from local disk
   ApiResponse({
     required this.body,
     required this.baseUrl,
@@ -17,7 +17,6 @@ class ApiResponse {
     required this.request,
     required this.requestSize,
     required this.requestTime,
-    required this.response,
     required this.responseSize,
     required this.responseTime,
     required this.responseType,
@@ -39,7 +38,6 @@ class ApiResponse {
         request: json['request'] as Map<String, dynamic>,
         requestSize: json['requestSize'] as double,
         requestTime: DateTime.parse(json['requestTime'] as String),
-        response: json['method'] as String,
         responseSize: json['responseSize'] as double,
         responseTime: DateTime.parse(json['responseTime'] as String),
         responseType: json['responseType'] as String,
@@ -48,61 +46,58 @@ class ApiResponse {
         checked: json['checked'] as bool? ?? false,
       );
 
-  ///requestTime
+  ///DateTime when request is sent
   final DateTime requestTime;
 
-  ///responseTime
+  ///DateTime when response is received
   final DateTime responseTime;
 
-  ///url
+  /// Request base url, it can contain sub path.
   final String baseUrl;
 
-  ///url
+  /// Api end-point
   final String path;
 
-  ///method
+  ///Http method such `GET`
   final String method;
 
-  ///statusCode
+  ///Http status code. For more details, visit [https://developer.mozilla.org/en-US/docs/Web/HTTP/Status]
   final int statusCode;
 
-  ///requestSize
+  ///Size of request data
   final double requestSize;
 
-  ///responseSize
+  ///Size of response data
   final double responseSize;
 
-  ///request
+  ///Request data
   final Map<String, dynamic> request;
 
-  ///response
-  final String response;
-
-  ///body
+  ///Response data
   final Map<String, dynamic> body;
 
-  ///contentType
+  ///Request data type
   final String? contentType;
 
-  ///headers
+  ///Request headers
   final String headers;
 
-  ///sendTimeout
+  ///Timeout in milliseconds for sending data
   final int sendTimeout;
 
-  ///responseType
+  ///Response data type
   final String responseType;
 
-  ///receiveTimeout
+  ///Timeout in milliseconds for receiving data
   final int receiveTimeout;
 
-  ///queryParameters
+  ///Request query params
   final String queryParameters;
 
-  ///connectionTimeout
+  ///Timeout in milliseconds for making connection
   final int connectionTimeout;
 
-  ///For selection purpose
+  ///To check whether user has selected this instance or not
   final bool checked;
 
   ///Convert [ApiResponse] to json.
@@ -118,7 +113,6 @@ class ApiResponse {
       'request': request,
       'requestSize': requestSize,
       'requestTime': requestTime.toIso8601String(),
-      'response': response,
       'responseSize': responseSize,
       'responseTime': responseTime.toIso8601String(),
       'responseType': responseType,
@@ -166,7 +160,6 @@ class ApiResponse {
       request: request ?? this.request,
       requestSize: requestSize ?? this.requestSize,
       requestTime: requestTime ?? this.requestTime,
-      response: response ?? this.response,
       responseSize: responseSize ?? this.responseSize,
       responseTime: responseTime ?? this.responseTime,
       responseType: responseType ?? this.responseType,

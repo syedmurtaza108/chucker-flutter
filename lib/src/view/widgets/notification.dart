@@ -1,9 +1,9 @@
 import 'dart:async';
 
-import 'package:chucker_flutter/src/extensions.dart';
+import 'package:chucker_flutter/src/helpers/extensions.dart';
 import 'package:chucker_flutter/src/view/helper/chucker_ui_helper.dart';
 import 'package:chucker_flutter/src/view/helper/colors.dart';
-import 'package:chucker_flutter/src/view/widgets/chucker_button.dart';
+import 'package:chucker_flutter/src/view/widgets/primary_button.dart';
 import 'package:flutter/material.dart';
 
 ///Notification widget showing in overlay notification
@@ -130,7 +130,7 @@ class _NotificationState extends State<Notification>
                     ],
                   ),
                   const SizedBox(width: 16),
-                  ChuckerButton(
+                  PrimaryButton(
                     onPressed: () {
                       _controller.animateTo(0);
                       ChuckerUiHelper.showChuckerScreen();

@@ -1,5 +1,5 @@
-import 'package:chucker_flutter/src/extensions.dart';
-import 'package:chucker_flutter/src/shared_preferences_manager.dart';
+import 'package:chucker_flutter/src/helpers/extensions.dart';
+import 'package:chucker_flutter/src/helpers/shared_preferences_manager.dart';
 import 'package:chucker_flutter/src/view/helper/chucker_ui_helper.dart';
 import 'package:chucker_flutter/src/view/helper/colors.dart';
 import 'package:chucker_flutter/src/view/helper/method_enums.dart';

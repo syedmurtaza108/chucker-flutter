@@ -1,7 +1,7 @@
-import 'package:chucker_flutter/src/extensions.dart';
+import 'package:chucker_flutter/src/helpers/extensions.dart';
 import 'package:chucker_flutter/src/models/settings.dart';
-import 'package:chucker_flutter/src/navigator_observer/navigator_observer.dart';
 import 'package:chucker_flutter/src/view/chucker_page.dart';
+import 'package:chucker_flutter/src/view/helper/chucker_button.dart';
 import 'package:chucker_flutter/src/view/widgets/notification.dart'
     as notification;
 import 'package:flutter/material.dart';
@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 ///[ChuckerUiHelper] handles the UI part of `chucker_flutter`
 ///
 ///You must initialize ChuckerObserver in the `MaterialApp`
-/// of your application as it is required to show notification and the screens
+///of your application as it is required to show notification and the screens
 ///of `chucker_flutter`
 class ChuckerUiHelper {
   static OverlayEntry? _overlayEntry;
@@ -92,5 +92,8 @@ class ChuckerUiHelper {
 class ChuckerFlutter {
   ///[navigatorObserver] observes the navigation of your app. It must be
   ///referenced in your MaterialApp widget
-  static final navigatorObserver = ChuckerNavigatorObserver();
+  static final navigatorObserver = NavigatorObserver();
+
+  ///[ChuckerButton] can be placed anywhere in the UI to open Chucker Screen
+  static final chuckerButton = ChuckerButton.getInstance();
 }

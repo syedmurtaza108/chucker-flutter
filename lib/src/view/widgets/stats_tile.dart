@@ -1,4 +1,4 @@
-import 'package:chucker_flutter/src/extensions.dart';
+import 'package:chucker_flutter/src/helpers/extensions.dart';
 import 'package:flutter/material.dart';
 
 ///Shows statistics of api requests as summary

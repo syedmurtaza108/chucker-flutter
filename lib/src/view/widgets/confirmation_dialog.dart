@@ -1,5 +1,5 @@
-import 'package:chucker_flutter/src/extensions.dart';
-import 'package:chucker_flutter/src/view/widgets/chucker_button.dart';
+import 'package:chucker_flutter/src/helpers/extensions.dart';
+import 'package:chucker_flutter/src/view/widgets/primary_button.dart';
 import 'package:flutter/material.dart';
 
 class _ConfirmationDialog extends StatelessWidget {
@@ -31,7 +31,7 @@ class _ConfirmationDialog extends StatelessWidget {
             ),
           ),
         ),
-        ChuckerButton(
+        PrimaryButton(
           text: 'YES',
           onPressed: () => context.navigator.pop(true),
           foreColor: yesButtonForeColor,

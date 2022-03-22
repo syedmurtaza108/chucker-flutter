@@ -2,8 +2,8 @@ import 'dart:async';
 
 import 'package:chucker_flutter/src/view/helper/colors.dart';
 import 'package:chucker_flutter/src/view/helper/method_enums.dart';
-import 'package:chucker_flutter/src/view/widgets/chucker_button.dart';
 import 'package:chucker_flutter/src/view/widgets/http_methods_menu.dart';
+import 'package:chucker_flutter/src/view/widgets/primary_button.dart';
 import 'package:flutter/material.dart';
 
 ///[FilterButtons] helps filtering api requests in apis listing screen
@@ -65,7 +65,7 @@ class _FilterButtonsState extends State<FilterButtons> {
           SizedBox(
             width: 128,
             height: 48,
-            child: ChuckerButton(
+            child: PrimaryButton(
               text: _openSearch ? 'Show Filter' : 'Hide Filter',
               onPressed: () => setState(() => _openSearch = !_openSearch),
               foreColor: Colors.white,
