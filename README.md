@@ -79,10 +79,10 @@ Chucker FLutter uses the following open source libraries:
 - [shared_preferences](https://pub.dev/packages/shared_preferences) - flutter.dev
 - [share_plus](https://pub.dev/packages/share_plus) - fluttercommunity.dev
 
-## License 📄
+## License
 
 ```
-    MIT License
+MIT License
 
 Copyright (c) 2022 Syed Murtaza
 
