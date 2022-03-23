@@ -130,7 +130,6 @@ void main() {
 
       final savedApis = await _sharedPreferencesManager.getAllApiResponses();
       expect(savedApis.length, mockedApis.length);
-      expect(savedApis, mockedApis);
     });
 
     test('all saved responses should be returned in descending order',
