@@ -218,12 +218,12 @@ void main() {
         );
 
         expect(ChuckerUiHelper.settings.apiThresholds, 100);
-        
+
         //It is necessary to call to avoid retrieving previous data
         SharedPreferences.setMockInitialValues({});
 
         await _sharedPreferencesManager.setSettings(mySettings);
-        
+
         expect(ChuckerUiHelper.settings.apiThresholds, 20);
       },
     );

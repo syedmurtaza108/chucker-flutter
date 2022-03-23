@@ -16,5 +16,5 @@ enum HttpMethod {
   delete,
 
   ///No [HttpMethod] is selected
-  none, 
+  none,
 }
