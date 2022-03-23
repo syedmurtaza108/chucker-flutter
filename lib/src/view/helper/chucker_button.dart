@@ -18,7 +18,7 @@ class ChuckerButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const PrimaryButton(
-      text: 'Open Chucker',
+      text: 'Open Chucker Flutter',
       foreColor: Colors.white,
       onPressed: ChuckerUiHelper.showChuckerScreen,
     );
