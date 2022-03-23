@@ -10,16 +10,8 @@
 
 * [Getting Started](#getting-started)
 * [Features](#features)
-* [Hide Header️](#hide-header)
-  * 
-  * [Decode-Body](#decode-body-)
-* [Migrating](#migrating-)
-* [Snapshots](#snapshots-)
-* [FAQ](#faq-)
-* [Contributing](#contributing-)
-  * [Building](#building-)
-* [Acknowledgments](#acknowledgments-)
-* [License](#license-)
+* [Libraries](#libraries)
+* [License](#license)
 
 # Chucker Flutter
 
