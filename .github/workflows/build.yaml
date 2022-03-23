@@ -2,7 +2,7 @@ name: build
 on: 
   push:
     branches: [master]
-  paths-ignore:
+    paths-ignore:
       - '**/README.md'
   pull_request:
     branches: [master]
