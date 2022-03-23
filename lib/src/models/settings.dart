@@ -160,4 +160,40 @@ class Settings {
       language: language ?? this.language,
     );
   }
+
+  @override
+
+  ///Equates [other] to this
+  // ignore: avoid_equals_and_hash_code_on_mutable_classes
+  bool operator ==(Object other) =>
+      other is Settings &&
+      other.apiThresholds == apiThresholds &&
+      other.duration == duration &&
+      other.httpMethod == httpMethod &&
+      other.language == language &&
+      other.notificationAlignment == notificationAlignment &&
+      other.positionBottom == positionBottom &&
+      other.positionLeft == positionLeft &&
+      other.positionRight == positionRight &&
+      other.positionTop == positionTop &&
+      other.showDeleteConfirmDialog == showDeleteConfirmDialog &&
+      other.showNotification == showNotification &&
+      other.showRequestsStats == showRequestsStats;
+
+  @override
+  // ignore: avoid_equals_and_hash_code_on_mutable_classes
+  int get hashCode => Object.hash(
+        apiThresholds,
+        duration,
+        httpMethod,
+        language,
+        notificationAlignment,
+        positionBottom,
+        positionLeft,
+        positionRight,
+        positionTop,
+        showDeleteConfirmDialog,
+        showNotification,
+        showRequestsStats,
+      );
 }

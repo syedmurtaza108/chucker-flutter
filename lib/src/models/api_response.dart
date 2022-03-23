@@ -46,6 +46,28 @@ class ApiResponse {
         checked: json['checked'] as bool? ?? false,
       );
 
+  ///Mocked instance of [ApiResponse]. ***ONLY FOR TESTING****
+  factory ApiResponse.mock() => ApiResponse(
+        body: {'': ''},
+        baseUrl: '',
+        path: '',
+        method: 'GET',
+        statusCode: 200,
+        connectionTimeout: 0,
+        contentType: 'application/json',
+        headers: '',
+        queryParameters: '',
+        receiveTimeout: 0,
+        request: {'': ''},
+        requestSize: 0,
+        requestTime: DateTime.now(),
+        responseSize: 0,
+        responseTime: DateTime.now(),
+        responseType: 'json',
+        sendTimeout: 0,
+        checked: false,
+      );
+
   ///DateTime when request is sent
   final DateTime requestTime;
 
@@ -194,4 +216,14 @@ ${jsonEncode(request)}
 
 ${jsonEncode(body)}''';
   }
+
+  @override
+  ///Equates [other] to this
+  // ignore: avoid_equals_and_hash_code_on_mutable_classes
+  bool operator ==(Object other) =>
+      other is ApiResponse && other.requestTime == requestTime;
+
+  @override
+  // ignore: avoid_equals_and_hash_code_on_mutable_classes
+  int get hashCode => requestTime.millisecondsSinceEpoch;
 }
