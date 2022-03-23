@@ -1,5 +1,4 @@
 import 'package:chucker_flutter/chucker_flutter.dart';
-import 'package:example/model/todo.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -21,7 +20,7 @@ class _TodoPageState extends State<TodoPage> {
       appBar: AppBar(
         title: const Text('Chucker Flutter Example'),
       ),
-      body: BlocBuilder<TodoCubit, List<TodoModel>>(
+      body: BlocBuilder<TodoCubit, void>(
         builder: (context, state) {
           return SingleChildScrollView(
             padding: const EdgeInsets.all(16),

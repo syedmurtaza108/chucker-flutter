@@ -10,7 +10,7 @@ const _en = {
   'multipleDeletionTitle': 'Deletion of The Selected Records',
   'multipleDeletionMessage':
       '''Are you sure you want to delete the selected records permanently?''',
-  'noApiMessage': 'No api response found at the moment',
+  'noApiMessage': 'No api response found',
   'attribute': 'Attribute',
   'value': 'Value',
   'copy': 'Copy',

@@ -2,7 +2,7 @@ import 'package:chucker_flutter/src/helpers/extensions.dart';
 import 'package:chucker_flutter/src/localization/localization.dart';
 
 import 'package:chucker_flutter/src/view/helper/colors.dart';
-import 'package:chucker_flutter/src/view/helper/method_enums.dart';
+import 'package:chucker_flutter/src/view/helper/http_methods.dart';
 import 'package:flutter/material.dart';
 
 ///Http Methods Menu

@@ -6,7 +6,7 @@ import 'package:chucker_flutter/src/models/api_response.dart';
 import 'package:chucker_flutter/src/view/api_detail_page.dart';
 import 'package:chucker_flutter/src/view/helper/chucker_ui_helper.dart';
 import 'package:chucker_flutter/src/view/helper/colors.dart';
-import 'package:chucker_flutter/src/view/helper/method_enums.dart';
+import 'package:chucker_flutter/src/view/helper/http_methods.dart';
 import 'package:chucker_flutter/src/view/settings_page.dart';
 import 'package:chucker_flutter/src/view/tabs/apis_listing.dart';
 import 'package:chucker_flutter/src/view/widgets/app_bar.dart';

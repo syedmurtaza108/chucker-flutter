@@ -1,5 +1,4 @@
 import 'package:chucker_flutter/src/view/helper/colors.dart';
-import 'package:chucker_flutter/src/view/helper/strings.dart';
 import 'package:flutter/material.dart';
 
 ///Reusable appbar
@@ -30,7 +29,7 @@ class _ChuckerAppBarState extends State<ChuckerAppBar> {
   Widget build(BuildContext _) {
     return AppBar(
       backgroundColor: primaryColor,
-      title: const Text(packageName),
+      title: const Text('Chucker Flutter'),
       leading: IconButton(
         icon: const Icon(Icons.arrow_back),
         onPressed: widget.onBackPressed,

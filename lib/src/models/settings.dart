@@ -1,5 +1,5 @@
+import 'package:chucker_flutter/src/view/helper/http_methods.dart';
 import 'package:chucker_flutter/src/view/helper/languages.dart';
-import 'package:chucker_flutter/src/view/helper/method_enums.dart';
 import 'package:flutter/material.dart';
 
 ///[Settings] is the model to save and retrieve settings from shared preferences

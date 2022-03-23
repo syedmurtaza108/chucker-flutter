@@ -1,10 +1,9 @@
 import 'package:chucker_flutter/chucker_flutter.dart';
 import 'package:dio/dio.dart';
-import 'package:example/model/todo.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class TodoCubit extends Cubit<List<TodoModel>> {
+class TodoCubit extends Cubit<void> {
   TodoCubit() : super(List.empty()) {
     _dio.interceptors.add(ChuckerDioInterceptor());
   }

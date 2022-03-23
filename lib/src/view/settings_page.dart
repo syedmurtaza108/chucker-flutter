@@ -1,11 +1,10 @@
 import 'package:chucker_flutter/src/helpers/extensions.dart';
-
 import 'package:chucker_flutter/src/helpers/shared_preferences_manager.dart';
 import 'package:chucker_flutter/src/localization/localization.dart';
 import 'package:chucker_flutter/src/view/helper/chucker_ui_helper.dart';
 import 'package:chucker_flutter/src/view/helper/colors.dart';
+import 'package:chucker_flutter/src/view/helper/http_methods.dart';
 import 'package:chucker_flutter/src/view/helper/languages.dart';
-import 'package:chucker_flutter/src/view/helper/method_enums.dart';
 import 'package:chucker_flutter/src/view/widgets/alignment_menu.dart';
 import 'package:chucker_flutter/src/view/widgets/app_bar.dart';
 import 'package:chucker_flutter/src/view/widgets/http_methods_menu.dart';
