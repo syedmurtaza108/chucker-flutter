@@ -93,20 +93,22 @@ class OverviewTabView extends StatelessWidget {
             attribute: 'Response Type',
             value: api.responseType,
           ),
-          _dataRow(
-            context,
-            attribute: 'Connection Timeout',
-            value: '${api.connectionTimeout} ms',
-          ),
+          _dataRow(context,
+              attribute: 'Connection Timeout',
+              value: api.connectionTimeout.isNotZero
+                  ? '${api.connectionTimeout} ms'
+                  : 'N/A'),
           _dataRow(
             context,
             attribute: 'Receive Timeout',
-            value: '${api.receiveTimeout} ms',
+            value: api.receiveTimeout.isNotZero
+                ? '${api.receiveTimeout} ms'
+                : 'N/A',
           ),
           _dataRow(
             context,
             attribute: 'Send Timeout',
-            value: '${api.sendTimeout} ms',
+            value: api.sendTimeout.isNotZero ? '${api.sendTimeout} ms' : 'N/A',
           ),
         ],
       ),
