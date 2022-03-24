@@ -22,6 +22,7 @@ class ApiResponse {
     required this.responseType,
     required this.sendTimeout,
     required this.checked,
+    required this.clientLibrary,
   });
 
   ///Convert json to [ApiResponse]
@@ -44,6 +45,7 @@ class ApiResponse {
         sendTimeout: json['sendTimeout'] as int,
         path: json['path'] as String,
         checked: json['checked'] as bool? ?? false,
+        clientLibrary: (json['clientLibrary'] as String?) ?? 'N/A',
       );
 
   ///Mocked instance of [ApiResponse]. ***ONLY FOR TESTING****
@@ -66,6 +68,7 @@ class ApiResponse {
         responseType: 'json',
         sendTimeout: 0,
         checked: false,
+        clientLibrary: '',
       );
 
   ///DateTime when request is sent
@@ -122,6 +125,9 @@ class ApiResponse {
   ///To check whether user has selected this instance or not
   final bool checked;
 
+  ///The client which is used for network call
+  final String clientLibrary;
+
   ///Convert [ApiResponse] to json.
   Map<String, dynamic> toJson() {
     return {
@@ -143,6 +149,7 @@ class ApiResponse {
       'baseUrl': baseUrl,
       'path': path,
       'checked': checked,
+      'clientLibrary': clientLibrary,
     };
   }
 
@@ -167,6 +174,7 @@ class ApiResponse {
     String? queryParameters,
     int? connectionTimeout,
     bool? checked,
+    String? clientLibrary,
   }) {
     return ApiResponse(
       body: body ?? this.body,
@@ -187,6 +195,7 @@ class ApiResponse {
       responseType: responseType ?? this.responseType,
       sendTimeout: sendTimeout ?? this.sendTimeout,
       checked: checked ?? this.checked,
+      clientLibrary: clientLibrary ?? this.clientLibrary,
     );
   }
 
@@ -207,6 +216,7 @@ Response Type: $responseType
 Connection Timeout: $connectionTimeout ms
 Receive Timeout: $receiveTimeout ms
 Send Timeout: $sendTimeout ms
+Client Library: $clientLibrary
 
 ***************** Request *****************
 

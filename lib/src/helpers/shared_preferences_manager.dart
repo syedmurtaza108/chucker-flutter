@@ -31,7 +31,7 @@ class SharedPreferencesManager {
     final previousResponses = await getAllApiResponses();
 
     if (previousResponses.length == ChuckerUiHelper.settings.apiThresholds) {
-      previousResponses.removeAt(0);
+      previousResponses.removeAt(previousResponses.length - 1);
     }
 
     newResponses

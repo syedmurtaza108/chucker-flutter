@@ -68,10 +68,16 @@ class _TodoPageState extends State<TodoPage> {
 
   Future<void> getWithParam() async {
     try {
-      //To produce an error response just adding random string to path
-      _dio.get('/posts', queryParameters: {
-        'userId': 1,
-      });
+      const path = '/posts';
+
+      switch (_clientType) {
+        case _Client.dio:
+          _dio.get(path, queryParameters: {'userId': 1});
+          break;
+        case _Client.http:
+          _chuckerHttpClient.get(Uri.parse('$_baseUrl$path?userId=1'));
+          break;
+      }
     } catch (e) {
       debugPrint(e.toString());
     }
@@ -79,14 +85,20 @@ class _TodoPageState extends State<TodoPage> {
 
   Future<void> post() async {
     try {
-      await _dio.post(
-        '/posts',
-        data: {
-          'title': 'foo',
-          'body': 'bar',
-          'userId': 101010,
-        },
-      );
+      const path = '/posts';
+      final request = {
+        'title': 'foo',
+        'body': 'bar',
+        'userId': '101010',
+      };
+      switch (_clientType) {
+        case _Client.dio:
+          await _dio.post(path, data: request);
+          break;
+        case _Client.http:
+          _chuckerHttpClient.post(Uri.parse('$_baseUrl$path'), body: request);
+          break;
+      }
     } catch (e) {
       debugPrint(e.toString());
     }
@@ -94,14 +106,20 @@ class _TodoPageState extends State<TodoPage> {
 
   Future<void> put() async {
     try {
-      await _dio.put(
-        '/posts/1',
-        data: {
-          'title': 'PUT foo',
-          'body': 'PUT bar',
-          'userId': 101010,
-        },
-      );
+      const path = '/posts/1';
+      final request = {
+        'title': 'PUT foo',
+        'body': 'PUT bar',
+        'userId': '101010',
+      };
+      switch (_clientType) {
+        case _Client.dio:
+          await _dio.put(path, data: request);
+          break;
+        case _Client.http:
+          _chuckerHttpClient.put(Uri.parse('$_baseUrl$path'), body: request);
+          break;
+      }
     } catch (e) {
       debugPrint(e.toString());
     }
@@ -109,7 +127,16 @@ class _TodoPageState extends State<TodoPage> {
 
   Future<void> delete() async {
     try {
-      await _dio.delete('/posts/1');
+      const path = '/posts/1';
+
+      switch (_clientType) {
+        case _Client.dio:
+          await _dio.delete(path);
+          break;
+        case _Client.http:
+          _chuckerHttpClient.delete(Uri.parse('$_baseUrl$path'));
+          break;
+      }
     } catch (e) {
       debugPrint(e.toString());
     }
@@ -117,10 +144,16 @@ class _TodoPageState extends State<TodoPage> {
 
   Future<void> patch() async {
     try {
-      await _dio.patch(
-        '/posts/1',
-        data: {'title': 'PATCH foo'},
-      );
+      const path = '/posts/1';
+      final request = {'title': 'PATCH foo'};
+      switch (_clientType) {
+        case _Client.dio:
+          await _dio.patch(path, data: request);
+          break;
+        case _Client.http:
+          _chuckerHttpClient.patch(Uri.parse('$_baseUrl$path'), body: request);
+          break;
+      }
     } catch (e) {
       debugPrint(e.toString());
     }
@@ -138,6 +171,21 @@ class _TodoPageState extends State<TodoPage> {
       appBar: AppBar(
         title: const Text('Chucker Flutter Example'),
       ),
+      persistentFooterButtons: [
+        Text('Using ${_clientType.name} library'),
+        const SizedBox(width: 16),
+        ElevatedButton(
+          onPressed: () {
+            setState(
+              () => _clientType =
+                  _clientType == _Client.dio ? _Client.http : _Client.dio,
+            );
+          },
+          child: Text(
+            'Change to ${_clientType == _Client.dio ? 'http' : 'dio'}',
+          ),
+        )
+      ],
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
         child: Column(

@@ -1,7 +1,11 @@
+import 'dart:convert';
+
 import 'package:chucker_flutter/src/helpers/shared_preferences_manager.dart';
 import 'package:chucker_flutter/src/models/api_response.dart';
 import 'package:chucker_flutter/src/view/helper/chucker_ui_helper.dart';
+import 'package:flutter/material.dart';
 import 'package:http/http.dart';
+import 'package:http/io_client.dart';
 
 ///`Chucker Flutter`'s wrapper for `http` library
 class ChuckerHttpClient extends BaseClient {
@@ -64,16 +68,32 @@ class ChuckerHttpClient extends BaseClient {
       path: interceptedRequest.url.path,
     );
 
-    _saveResponse(interceptedRequest, interceptedResponse);
+    await _saveResponse(interceptedRequest, interceptedResponse);
 
     return interceptedResponse as StreamedResponse;
   }
 
-  void _saveResponse(BaseRequest request, BaseResponse response) {
-    SharedPreferencesManager.getInstance().addApiResponse(
+  Future<void> _saveResponse(BaseRequest request, BaseResponse response) async {
+    dynamic requestBody = '';
+    dynamic responseBody = '';
+
+    if (request is Request && request.contentLength > 0) {
+      requestBody = request.bodyFields;
+    }
+
+    if (response is IOStreamedResponse) {
+      final List<int> bytes = await response.stream.toBytes();
+
+      try {
+        responseBody = jsonDecode(utf8.decode(bytes));
+      } catch (e, s) {
+        debugPrint(s.toString());
+      }
+    }
+
+    await SharedPreferencesManager.getInstance().addApiResponse(
       ApiResponse(
-        //TODO
-        body: {'data': response.contentLength},
+        body: {'data': responseBody},
         path: request.url.path,
         baseUrl: request.url.origin,
         method: request.method,
@@ -83,8 +103,7 @@ class ChuckerHttpClient extends BaseClient {
         headers: request.headers.toString(),
         queryParameters: request.url.queryParameters.toString(),
         receiveTimeout: 0,
-        //TODO
-        request: {'request': request.followRedirects},
+        request: {'request': requestBody},
         requestSize: request.contentLength?.toDouble() ?? 0,
         requestTime: _requestTime,
         responseSize: response.contentLength?.toDouble() ?? 0,
@@ -92,6 +111,7 @@ class ChuckerHttpClient extends BaseClient {
         responseType: response.headers['content-type'] ?? 'N/A',
         sendTimeout: 0,
         checked: false,
+        clientLibrary: 'Http',
       ),
     );
   }
