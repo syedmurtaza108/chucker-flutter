@@ -90,13 +90,6 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  flutter_json_viewer:
-    dependency: transitive
-    description:
-      name: flutter_json_viewer
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.0.1"
   flutter_lints:
     dependency: "direct dev"
     description:
