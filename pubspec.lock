@@ -209,7 +209,7 @@ packages:
       name: share_plus
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "4.0.2"
+    version: "4.0.3"
   share_plus_linux:
     dependency: transitive
     description:
@@ -230,7 +230,7 @@ packages:
       name: share_plus_platform_interface
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.0.1"
+    version: "3.0.2"
   share_plus_web:
     dependency: transitive
     description:
@@ -431,7 +431,7 @@ packages:
       name: win32
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.4.2"
+    version: "2.4.4"
   xdg_directories:
     dependency: transitive
     description:
