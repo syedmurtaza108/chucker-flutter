@@ -32,7 +32,6 @@ class TodoPage extends StatefulWidget {
   @override
   State<TodoPage> createState() => _TodoPageState();
 }
-
 class _TodoPageState extends State<TodoPage> {
   final _baseUrl = 'https://jsonplaceholder.typicode.com';
   var _clientType = _Client.http;
@@ -46,7 +45,7 @@ class _TodoPageState extends State<TodoPage> {
     ),
   );
 
-  late final _chuckerHttpClient = ChuckerHttpClient(http.Client());
+  final _chuckerHttpClient = ChuckerHttpClient(http.Client());
 
   Future<void> get({bool error = false}) async {
     try {

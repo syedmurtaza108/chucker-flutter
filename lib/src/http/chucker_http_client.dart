@@ -5,7 +5,6 @@ import 'package:chucker_flutter/src/models/api_response.dart';
 import 'package:chucker_flutter/src/view/helper/chucker_ui_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
-import 'package:http/io_client.dart';
 
 ///`Chucker Flutter`'s wrapper for `http` library
 class ChuckerHttpClient extends BaseClient {
@@ -58,9 +57,11 @@ class ChuckerHttpClient extends BaseClient {
     _requestTime = DateTime.now();
     final interceptedRequest = onRequest(request);
 
-    final stream = await _client.send(request);
+    final response = await _client.send(request);
 
-    final interceptedResponse = onResponse(stream);
+    final bytes = await response.stream.first;
+
+    final interceptedResponse = onResponse(response);
 
     ChuckerUiHelper.showNotification(
       method: interceptedRequest.method,
@@ -68,27 +69,34 @@ class ChuckerHttpClient extends BaseClient {
       path: interceptedRequest.url.path,
     );
 
-    await _saveResponse(interceptedRequest, interceptedResponse);
+    await _saveResponse(
+      interceptedRequest,
+      bytes,
+      response.statusCode,
+      response.contentLength?.toDouble() ?? 0,
+      response.headers['content-type'] ?? 'N/A',
+    );
 
-    return interceptedResponse as StreamedResponse;
+    return StreamedResponse(ByteStream.fromBytes(bytes), response.statusCode);
   }
 
-  Future<void> _saveResponse(BaseRequest request, BaseResponse response) async {
+  Future<void> _saveResponse(
+    BaseRequest request,
+    List<int> bytes,
+    final int statusCode,
+    final double contentLength,
+    final String contentType,
+  ) async {
     dynamic requestBody = '';
     dynamic responseBody = '';
 
     if (request is Request && request.contentLength > 0) {
       requestBody = request.bodyFields;
     }
-
-    if (response is IOStreamedResponse) {
-      final List<int> bytes = await response.stream.toBytes();
-
-      try {
-        responseBody = jsonDecode(utf8.decode(bytes));
-      } catch (e, s) {
-        debugPrint(s.toString());
-      }
+    try {
+      responseBody = jsonDecode(utf8.decode(bytes));
+    } catch (e, s) {
+      debugPrint(s.toString());
     }
 
     await SharedPreferencesManager.getInstance().addApiResponse(
@@ -97,7 +105,7 @@ class ChuckerHttpClient extends BaseClient {
         path: request.url.path,
         baseUrl: request.url.origin,
         method: request.method,
-        statusCode: response.statusCode,
+        statusCode: statusCode,
         connectionTimeout: 0,
         contentType: request.headers['Content-Type'],
         headers: request.headers.toString(),
@@ -106,9 +114,9 @@ class ChuckerHttpClient extends BaseClient {
         request: {'request': requestBody},
         requestSize: request.contentLength?.toDouble() ?? 0,
         requestTime: _requestTime,
-        responseSize: response.contentLength?.toDouble() ?? 0,
+        responseSize: contentLength,
         responseTime: DateTime.now(),
-        responseType: response.headers['content-type'] ?? 'N/A',
+        responseType: contentType,
         sendTimeout: 0,
         checked: false,
         clientLibrary: 'Http',
