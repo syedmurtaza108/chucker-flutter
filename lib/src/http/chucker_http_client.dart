@@ -59,7 +59,7 @@ class ChuckerHttpClient extends BaseClient {
 
     final response = await _client.send(request);
 
-    final bytes = await response.stream.first;
+    final bytes = await response.stream.toBytes();
 
     final interceptedResponse = onResponse(response);
 
@@ -74,7 +74,7 @@ class ChuckerHttpClient extends BaseClient {
       bytes,
       response.statusCode,
       response.contentLength?.toDouble() ?? 0,
-      response.headers['content-type'] ?? 'N/A',
+      response.headers['content-type'] ?? response.headers['Content-Type'] ?? 'N/A',
     );
 
     return StreamedResponse(ByteStream.fromBytes(bytes), response.statusCode);
@@ -94,7 +94,8 @@ class ChuckerHttpClient extends BaseClient {
       requestBody = request.bodyFields;
     }
     try {
-      responseBody = jsonDecode(utf8.decode(bytes));
+      final a = utf8.decode(bytes);
+      responseBody = jsonDecode(a);
     } catch (e, s) {
       debugPrint(s.toString());
     }
