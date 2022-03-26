@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:chucker_flutter/src/helpers/shared_preferences_manager.dart';
 import 'package:chucker_flutter/src/models/api_response.dart';
 import 'package:chucker_flutter/src/view/helper/chucker_ui_helper.dart';
@@ -68,7 +70,7 @@ class ChuckerDioInterceptor extends Interceptor {
   void _saveError(DioError response) {
     SharedPreferencesManager.getInstance().addApiResponse(
       ApiResponse(
-        body: {'error': response.error},
+        body: {'error': jsonDecode(response.response.toString())},
         path: response.requestOptions.path,
         baseUrl: response.requestOptions.baseUrl,
         method: response.requestOptions.method,
