@@ -32,6 +32,7 @@ class TodoPage extends StatefulWidget {
   @override
   State<TodoPage> createState() => _TodoPageState();
 }
+
 class _TodoPageState extends State<TodoPage> {
   final _baseUrl = 'https://jsonplaceholder.typicode.com';
   var _clientType = _Client.http;

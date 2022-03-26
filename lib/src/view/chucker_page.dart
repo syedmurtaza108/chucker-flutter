@@ -1,5 +1,3 @@
-import 'package:chucker_flutter/src/helpers/extensions.dart';
-
 import 'package:chucker_flutter/src/helpers/shared_preferences_manager.dart';
 import 'package:chucker_flutter/src/localization/localization.dart';
 import 'package:chucker_flutter/src/models/api_response.dart';
@@ -287,13 +285,13 @@ class _ChuckerPageState extends State<ChuckerPage> {
   }
 
   void _openSettings() {
-    context.navigator.push(
+    ChuckerFlutter.navigatorObserver.navigator?.push(
       MaterialPageRoute(builder: (_) => const SettingsPage()),
     );
   }
 
   void _openDetails(ApiResponse api) {
-    context.navigator.push(
+    ChuckerFlutter.navigatorObserver.navigator?.push(
       MaterialPageRoute(builder: (_) => ApiDetailsPage(api: api)),
     );
   }
