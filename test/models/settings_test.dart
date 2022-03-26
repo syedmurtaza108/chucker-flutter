@@ -8,7 +8,7 @@ void main() {
   Settings _getMockedSettings() {
     const duration = Duration(seconds: 100);
     const alignment = Alignment.center;
-    const threshold = 2;
+    const threshold = 400;
     const method = HttpMethod.delete;
     const showNotification = false;
     const showDeleteConfirmDialog = true;
@@ -91,5 +91,30 @@ void main() {
     final fromSettings = Settings.fromJson(toJson);
 
     expect(settings, fromSettings);
+  });
+
+  test('toString should never return empty string', () {
+    final settings = _getMockedSettings();
+    expect(settings.toString().isNotEmpty, true);
+  });
+
+  test('hashCode should return request time in milliseconds', () {
+    final settings = _getMockedSettings();
+
+    final hash = Object.hash(
+      settings.apiThresholds,
+      settings.duration,
+      settings.httpMethod,
+      settings.language,
+      settings.notificationAlignment,
+      settings.positionBottom,
+      settings.positionLeft,
+      settings.positionRight,
+      settings.positionTop,
+      settings.showDeleteConfirmDialog,
+      settings.showNotification,
+      settings.showRequestsStats,
+    );
+    expect(settings.hashCode, hash);
   });
 }

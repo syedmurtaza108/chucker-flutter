@@ -142,4 +142,10 @@ void main() {
     final response = ApiResponse.fromJson(toJson);
     _equateApiResponses(response, mockedResponse);
   });
+
+  test('hashCode should return request time in milliseconds', () {
+    final now = DateTime.now();
+    final mockedResponse = _getMockedResponse().copyWith(requestTime: now);
+    expect(mockedResponse.hashCode, now.millisecondsSinceEpoch);
+  });
 }
