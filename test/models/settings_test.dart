@@ -93,11 +93,6 @@ void main() {
     expect(settings, fromSettings);
   });
 
-  test('toString should never return empty string', () {
-    final settings = _getMockedSettings();
-    expect(settings.toString().isNotEmpty, true);
-  });
-
   test('hashCode should return request time in milliseconds', () {
     final settings = _getMockedSettings();
 

@@ -143,6 +143,11 @@ void main() {
     _equateApiResponses(response, mockedResponse);
   });
 
+  test('toString should never return empty string', () {
+    final mockedResponse = _getMockedResponse();
+    expect(mockedResponse.toString().isNotEmpty, true);
+  });
+
   test('hashCode should return request time in milliseconds', () {
     final now = DateTime.now();
     final mockedResponse = _getMockedResponse().copyWith(requestTime: now);
