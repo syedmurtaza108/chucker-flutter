@@ -8,13 +8,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 void main() {
   late final SharedPreferencesManager _sharedPreferencesManager;
 
-  var _prefsNotInitialized = true;
-
-  setUp(() {
-    if (_prefsNotInitialized) {
-      _sharedPreferencesManager = SharedPreferencesManager.getInstance();
-      _prefsNotInitialized = false;
-    }
+  setUpAll(() {
+    _sharedPreferencesManager = SharedPreferencesManager.getInstance();
   });
 
   test('getInstance always returns the same instance', () {

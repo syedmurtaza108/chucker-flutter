@@ -98,6 +98,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.13.4"
+  http_mock_adapter:
+    dependency: "direct main"
+    description:
+      name: http_mock_adapter
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.3.2"
   http_parser:
     dependency: transitive
     description:

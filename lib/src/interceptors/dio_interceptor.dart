@@ -27,7 +27,7 @@ class ChuckerDioInterceptor extends Interceptor {
       statusCode: response.statusCode ?? -1,
       path: response.requestOptions.path,
     );
-    _saveResponse(response);
+    await _saveResponse(response);
     handler.next(response);
   }
 
@@ -38,12 +38,12 @@ class ChuckerDioInterceptor extends Interceptor {
       statusCode: err.response?.statusCode ?? -1,
       path: err.requestOptions.path,
     );
-    _saveError(err);
+    await _saveError(err);
     handler.next(err);
   }
 
-  void _saveResponse(Response response) {
-    SharedPreferencesManager.getInstance().addApiResponse(
+  Future<void> _saveResponse(Response response) async {
+    await SharedPreferencesManager.getInstance().addApiResponse(
       ApiResponse(
         body: {'data': response.data},
         path: response.requestOptions.path,
@@ -68,10 +68,10 @@ class ChuckerDioInterceptor extends Interceptor {
     );
   }
 
-  void _saveError(DioError response) {
-    SharedPreferencesManager.getInstance().addApiResponse(
+  Future<void> _saveError(DioError response) async {
+    await SharedPreferencesManager.getInstance().addApiResponse(
       ApiResponse(
-        body: {'error': jsonDecode(response.response.toString())},
+        body: {'data': jsonDecode(response.response.toString())},
         path: response.requestOptions.path,
         baseUrl: response.requestOptions.baseUrl,
         method: response.requestOptions.method,

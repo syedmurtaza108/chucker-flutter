@@ -32,15 +32,10 @@ void main() {
 
   late final SharedPreferencesManager _sharedPreferencesManager;
 
-  var _prefsNotInitialized = true;
-
-  setUp(() {
-    if (_prefsNotInitialized) {
-      _client = ChuckerHttpClient(_mockClient);
-      _sharedPreferencesManager = SharedPreferencesManager.getInstance();
-      _myChuckerHttpClient = _MyChuckerHttpClient(_mockClient);
-      _prefsNotInitialized = false;
-    }
+  setUpAll(() {
+    _client = ChuckerHttpClient(_mockClient);
+    _sharedPreferencesManager = SharedPreferencesManager.getInstance();
+    _myChuckerHttpClient = _MyChuckerHttpClient(_mockClient);
   });
   test('Response should be saved in shared preferences when call succeeds',
       () async {
