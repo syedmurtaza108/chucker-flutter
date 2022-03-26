@@ -65,7 +65,7 @@ MaterialApp(
 ## Features
 
 * Support for **Dio** and **Http**
-* Works in all (Windows💻, Linux🖥️, Mac🧑‍💻, Android📱, iOS📲) platforms (⚠️For android you need to make minSdkVersion **22** in build.gradle file)
+* Works in all (Windows💻, Linux🖥️, Mac🧑‍💻, Web🌍, Android📱, iOS📲) platforms (⚠️For android you need to make minSdkVersion **22** in build.gradle file)
 * Easy integration
 * Customization
 * Localization (Current support for English 🇺🇸 and Urdu 🇵🇰)
