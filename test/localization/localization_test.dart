@@ -62,4 +62,47 @@ void main() {
 
     expect(isDuplicate, false);
   });
+
+  test(
+    'There should be exact same number of translation maps and locales',
+    () {
+      expect(
+        Localization.supportedLocales.length,
+        Localization.stringMaps.length,
+      );
+    },
+  );
+
+  test(
+    '.strings should return the correct translations based on locale',
+    () {
+      var isCorrectMap = true;
+      for (var i = 0; i < Language.values.length; i++) {
+        Localization.updateLocalization(Language.values[i]);
+        if (Localization.strings != Localization.stringMaps[i]) {
+          isCorrectMap = false;
+          break;
+        }
+      }
+
+      expect(isCorrectMap, true);
+    },
+  );
+
+  test(
+    'Current locale should be updated',
+    () {
+      var isCorrectLocale = true;
+      for (var i = 0; i < Language.values.length; i++) {
+        Localization.updateLocalization(Language.values[i]);
+        if (Localization.currentLocale.languageCode !=
+            Localization.supportedLocales[i].languageCode) {
+          isCorrectLocale = false;
+          break;
+        }
+      }
+
+      expect(isCorrectLocale, true);
+    },
+  );
 }

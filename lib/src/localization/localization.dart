@@ -1,4 +1,3 @@
-import 'package:chucker_flutter/src/view/helper/chucker_ui_helper.dart';
 import 'package:chucker_flutter/src/view/helper/languages.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -24,6 +23,12 @@ class Localization {
   ///Localized strings
   static Map<String, String> strings = _en;
 
+  ///Return all translation maps
+  ///
+  ///This must be in exact order as of [supportedLocales] otherwise tests may
+  ///fail
+  static List<Map<String, String>> stringMaps = [_en, _ur];
+
   ///Updates chucker language
   static void updateLocalization(Language language) {
     switch (language) {
@@ -34,6 +39,6 @@ class Localization {
         strings = _en;
         break;
     }
-    currentLocale = supportedLocales[ChuckerUiHelper.settings.language.index];
+    currentLocale = supportedLocales[language.index];
   }
 }
