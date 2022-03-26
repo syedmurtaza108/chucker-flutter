@@ -28,7 +28,8 @@ class ChuckerUiHelper {
     required int statusCode,
     required String path,
   }) {
-    if (ChuckerUiHelper.settings.showNotification) {
+    if (ChuckerUiHelper.settings.showNotification &&
+        ChuckerFlutter.navigatorObserver.navigator != null) {
       final overlay = ChuckerFlutter.navigatorObserver.navigator!.overlay;
       _overlayEntry = _createOverlayEntry(method, statusCode, path);
       overlay?.insert(_overlayEntry!);

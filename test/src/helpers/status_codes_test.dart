@@ -6,13 +6,13 @@ void main() {
     var isDuplicate = false;
 
     final phrases = List<String>.empty(growable: true);
-      for (final phrase in statusCodes.values) {
-        if (phrases.contains(phrase)) {
-          isDuplicate = true;
-          break;
-        }
-        phrases.add(phrase);
+    for (final phrase in statusCodes.values) {
+      if (phrases.contains(phrase)) {
+        isDuplicate = true;
+        break;
       }
+      phrases.add(phrase);
+    }
 
     expect(isDuplicate, false);
   });
