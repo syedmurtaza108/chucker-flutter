@@ -3,11 +3,11 @@ import 'package:chucker_flutter/src/localization/localization.dart';
 
 import 'package:chucker_flutter/src/models/api_response.dart';
 import 'package:chucker_flutter/src/view/helper/colors.dart';
+import 'package:chucker_flutter/src/view/json_tree/json_tree.dart';
 import 'package:chucker_flutter/src/view/tabs/overview.dart';
 import 'package:chucker_flutter/src/view/widgets/app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_json_viewer/flutter_json_viewer.dart';
 import 'package:share_plus/share_plus.dart';
 
 ///Shows detail of api request and response
@@ -62,11 +62,11 @@ class ApiDetailsPage extends StatelessWidget {
                   OverviewTabView(api: api),
                   SingleChildScrollView(
                     padding: const EdgeInsets.all(16),
-                    child: JsonViewer(api.request),
+                    child: JsonTree(json: api.request),
                   ),
                   SingleChildScrollView(
                     padding: const EdgeInsets.all(16),
-                    child: JsonViewer(api.body),
+                    child: JsonTree(json: api.body),
                   ),
                 ],
               ),
