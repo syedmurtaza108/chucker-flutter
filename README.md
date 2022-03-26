@@ -5,7 +5,9 @@
 	<a href="https://pub.dev/packages/chucker_flutter"><img src="https://img.shields.io/pub/v/chucker_flutter" alt="Pub.dev Badge"></a>
 	<a href="https://github.com/syedmurtaza108/chucker-flutter/actions"><img src="https://github.com/syedmurtaza108/chucker-flutter/actions/workflows/build.yaml/badge.svg" alt="GitHub Build Badge"></a>
 	<a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/license-MIT-purple.svg" alt="MIT License Badge"></a>
-	<a href="https://github.com/EdsonBueno/focus_detector"><img src="https://img.shields.io/badge/platform-flutter-ff69b4.svg" alt="Flutter Platform Badge"></a>
+	<a href="https://github.com/syedmurtaza108/chucker-flutter"><img src="https://img.shields.io/badge/platform-flutter-ff69b4.svg" alt="Flutter Platform Badge"></a>	
+	<a href="https://syedmurtaza.site"><img src="https://img.shields.io/badge/Developed%20By-Syed%20Murtaza-brightgreen" alt="Flutter Platform Badge"></a>
+	
 </p>
 
 * [Getting Started](#getting-started)
@@ -17,7 +19,7 @@
 
 An HTTP requests inspector inspired by <a href="https://github.com/ChuckerTeam/chucker">Chucker Android</a>
 
-Chucker Flutter inspects the **HTTP(S) requests/responses** triggered by your Flutter App. It works as a **Dio Interceptor** and stores data relatated to network requests and responses on local storage, and providing a UI for inspecting and sharing their content.
+Chucker Flutter inspects the **HTTP(S) requests/responses** triggered by your Flutter App. It works as an **Interceptor** and stores data relatated to network requests and responses on local storage, and providing a UI for inspecting and sharing their content.
 
 Flutter Apps, using Chucker Flutter, show in-app **notifications** which tell the status (e.g. 200, 400, 500 and so) and requested url and upon clicking on details button it navigates to Chucker Flutter main screen. You cannot manipulate Chucker Flutter behaviour using its setting by navigating to Settings page from the menu button of Chucker Flutter main page.
 
@@ -36,10 +38,17 @@ dependencies:
   chucker_flutter: latest-version
 ```
 
-To make `ChuckerDioInterceptor` work, just add it in your `Dio` object e.g.:
+To make `Chucker Flutter` work in `Dio`, just add it in your `Dio` object e.g.:
 
 ```dart
 Dio().interceptors.add(ChuckerDioInterceptor());
+```
+
+To make `Chucker Flutter` work in `Http`, you need to use `ChuckerHttpClient`  object e.g.:
+
+```dart
+final _chuckerHttpClient = ChuckerHttpClient(http.Client());
+_chuckerHttpClient.get(Uri.parse('$_baseUrl$path'));
 ```
 
 The very last thing is to connect Chucker Flutter screens to your app. To do so, you only need to add Chucker Flutter's `NavigatorObserver` in your app's `MaterialApp`  e.g.:
@@ -54,22 +63,22 @@ MaterialApp(
 
 ## Features
 
-* Support for **Dio**
-* Works in all (Windows💻, Linux🖥️, Mac🧑‍💻, Android📱, iOS📲) platforms 
+* Support for **Dio** and **Http**
+* Works in all (Windows💻, Linux🖥️, Mac🧑‍💻, Android📱, iOS📲) platforms (⚠️For android you need to make minSdkVersion **22** in build.gradle file)
 * Easy integration
 * Customization
 * Localization (Current support for English 🇺🇸 and Urdu 🇵🇰)
 * Searching🔍 and sharing👯
-* Json responses in tree form 🌴 (Thanks to <a href="https://pub.dev/packages/flutter_json_viewer/install">Flutter Json Viewer</a>)
+* Json responses in tree form
 
 ### Libraries
 
 Chucker FLutter uses the following open source libraries:
 
-- [flutter_json_viewer](https://pub.dev/packages/flutter_json_viewer/install)
 - [dio](https://pub.dev/packages/dio) - flutterchina.club
 - [shared_preferences](https://pub.dev/packages/shared_preferences) - flutter.dev
 - [share_plus](https://pub.dev/packages/share_plus) - fluttercommunity.dev
+- [http](https://pub.dev/packages/http) - dart.dev
 
 ## License
 
