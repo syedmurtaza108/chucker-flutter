@@ -1,0 +1,2 @@
+///empty string
+const emptyString = '';

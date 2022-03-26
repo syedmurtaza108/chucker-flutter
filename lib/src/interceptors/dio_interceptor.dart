@@ -63,6 +63,7 @@ class ChuckerDioInterceptor extends Interceptor {
         responseType: response.requestOptions.responseType.name,
         sendTimeout: response.requestOptions.sendTimeout,
         checked: false,
+        clientLibrary: 'Dio',
       ),
     );
   }
@@ -88,6 +89,7 @@ class ChuckerDioInterceptor extends Interceptor {
         responseType: response.requestOptions.responseType.name,
         sendTimeout: response.requestOptions.sendTimeout,
         checked: false,
+        clientLibrary: 'Dio',
       ),
     );
   }

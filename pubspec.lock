@@ -76,13 +76,6 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  flutter_json_viewer:
-    dependency: "direct main"
-    description:
-      name: flutter_json_viewer
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.0.1"
   flutter_localizations:
     dependency: "direct main"
     description: flutter
@@ -98,6 +91,13 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  http:
+    dependency: "direct main"
+    description:
+      name: http
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.13.4"
   http_parser:
     dependency: transitive
     description:
@@ -202,7 +202,7 @@ packages:
       name: share_plus
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "4.0.2"
+    version: "4.0.3"
   share_plus_linux:
     dependency: transitive
     description:
@@ -223,7 +223,7 @@ packages:
       name: share_plus_platform_interface
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.0.1"
+    version: "3.0.2"
   share_plus_web:
     dependency: transitive
     description:
@@ -424,7 +424,7 @@ packages:
       name: win32
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.4.2"
+    version: "2.4.4"
   xdg_directories:
     dependency: transitive
     description:
