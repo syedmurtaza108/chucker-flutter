@@ -25,8 +25,15 @@ class Localization {
   static Map<String, String> strings = _en;
 
   ///Updates chucker language
-  static void updateLocalization() {
-    strings = ChuckerUiHelper.settings.language == Language.urdu ? _ur : _en;
+  static void updateLocalization(Language language) {
+    switch (language) {
+      case Language.urdu:
+        strings = _ur;
+        break;
+      case Language.english:
+        strings = _en;
+        break;
+    }
     currentLocale = supportedLocales[ChuckerUiHelper.settings.language.index];
   }
 }

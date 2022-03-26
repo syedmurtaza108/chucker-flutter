@@ -7,9 +7,9 @@ const _ur = {
   'singleDeletionTitle': 'مندرج اعداد و شمار کی تحذیف',
   'singleDeletionMessage':
       '''کیا آپ چنندہ اعداد و شمار کو حذف کرنا چاہتے ہیں؟''',
-  'multipleDeletionTitle': 'مندرج اعداد و شمار کی تحذیف',
+  'multipleDeletionTitle': 'مندرج چنندہ اعداد و شمار کی تحذیف',
   'multipleDeletionMessage':
-      '''کیا آپ چنندہ اعداد و شمار کو حذف کرنا چاہتے ہیں؟''',
+      '''کیا آپ چنندہ تمام اعداد و شمار کو حذف کرنا چاہتے ہیں؟''',
   'noApiMessage': 'کوئی درخواست موجود نہیں',
   'attribute': 'صنف',
   'value': 'قدر',
@@ -40,7 +40,7 @@ const _ur = {
   'selectedMethodDesc': '''یہ Http Method ہر بار آنے پر خود ہی چنا ہوا ہوگا''',
   'showRequestStats': 'اعداد و شمار دکھائیں',
   'showRequestStatsDesc': '''اگر اجازت ہوگی تو اعداد و شمار نظر آئیں گے''',
-  'apiRequests': 'درخواستیں',
+  'apiRequests': 'API درخواستیں',
   'threshold': 'حد',
   'apis': 'درخواستیں',
   'apiSettingDesc': '''اس سے زیادہ درخواستیں آپ کے پاس محفوظ نہیں ہوں گی''',

@@ -123,7 +123,7 @@ class SharedPreferencesManager {
     settings = Settings.fromJson(json as Map<String, dynamic>);
 
     ChuckerUiHelper.settings = settings;
-    Localization.updateLocalization();
+    Localization.updateLocalization(ChuckerUiHelper.settings.language);
     return settings;
   }
 }
