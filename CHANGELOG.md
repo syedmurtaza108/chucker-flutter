@@ -5,3 +5,9 @@
 ## 1.0.0+1
 
 * Minor refactoring
+
+## 1.1.0
+
+* Added support for Dart's Http library
+* Created custom json tree viewer
+* Minor issues fixes
