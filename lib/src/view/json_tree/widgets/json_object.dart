@@ -34,7 +34,6 @@ class __JsonObjectState extends State<_JsonObject> {
             return Column(
               children: [
                 Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Visibility(
                       visible: canExpand && (open[entry.key] ?? false),
@@ -47,17 +46,16 @@ class __JsonObjectState extends State<_JsonObject> {
                     ),
                     Visibility(
                       visible: canExpand && button,
-                      child: TextButton(
+                      child: SizeableTextButton(
+                        height: 32,
                         onPressed: () {
                           setState(() {
                             open[entry.key] = !(open[entry.key] ?? false);
                           });
                         },
-                        child: Text(
-                          entry.key,
-                          style: context.theme.textTheme.bodyText1!.copyWith(
-                            fontWeight: FontWeight.bold,
-                          ),
+                        text: entry.key,
+                        style: context.theme.textTheme.bodyText1!.copyWith(
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
                     ),
@@ -74,7 +72,7 @@ class __JsonObjectState extends State<_JsonObject> {
                         ),
                       ),
                     ),
-                    const SizedBox(width: 3),
+                    const SizedBox(width: 4),
                     _JsonValue(
                       value: entry.value,
                       onOpen: () {

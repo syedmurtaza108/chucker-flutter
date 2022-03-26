@@ -38,7 +38,6 @@ class __JsonListState extends State<_JsonList> {
           return Column(
             children: [
               Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Visibility(
                     visible: canExpand && isObjectExpends[i],
@@ -50,17 +49,16 @@ class __JsonListState extends State<_JsonList> {
                   ),
                   Visibility(
                     visible: canExpand && button,
-                    child: TextButton(
+                    child: SizeableTextButton(
+                      height: 32,
                       onPressed: () {
                         setState(
                           () => isObjectExpends[i] = !isObjectExpends[i],
                         );
                       },
-                      child: Text(
-                        '[$i]:',
-                        style: context.theme.textTheme.bodyText1!.copyWith(
-                          fontWeight: FontWeight.bold,
-                        ),
+                      text: '[$i]:',
+                      style: context.theme.textTheme.bodyText1!.copyWith(
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
                   ),

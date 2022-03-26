@@ -22,29 +22,26 @@ class _JsonValue extends StatelessWidget {
             ),
           );
         }
-        return TextButton(
+        return SizeableTextButton(
+          height: 32,
           onPressed: onOpen,
-          child: Text(
-            'List[${(value as List).length}]',
-            style: context.theme.textTheme.bodyText2!.copyWith(
-              color: Colors.red,
-            ),
+          text: 'List[${(value as List).length}]',
+          style: context.theme.textTheme.bodyText2!.copyWith(
+            color: Colors.red,
           ),
         );
       }
-      return TextButton(
+      return SizeableTextButton(
         onPressed: onOpen,
-        child: Text(
-          'Object',
-          style: context.theme.textTheme.bodyText2!.copyWith(
-            fontWeight: FontWeight.bold,
-          ),
+        height: 32,
+        text: 'Object',
+        style: context.theme.textTheme.bodyText2!.copyWith(
+          fontWeight: FontWeight.bold,
         ),
       );
     }
     return Expanded(
       child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Expanded(
             child: Builder(
@@ -92,18 +89,14 @@ class _JsonValue extends StatelessWidget {
           ),
           Visibility(
             visible: value.toString().isNotEmpty,
-            child: TextButton(
+            child: SizeableTextButton(
+              height: 30,
               onPressed: () => Clipboard.setData(
                 ClipboardData(text: value.toString()),
               ),
-              child: Text(
-                Localization.strings['copy']!,
-                style: context.theme.textTheme.caption!.copyWith(
-                  color: primaryColor,
-                ),
-              ),
+              text: Localization.strings['copy']!,
             ),
-          )
+          ),
         ],
       ),
     );

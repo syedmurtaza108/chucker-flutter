@@ -4,6 +4,7 @@ import 'package:chucker_flutter/src/helpers/status_code_map.dart';
 import 'package:chucker_flutter/src/localization/localization.dart';
 import 'package:chucker_flutter/src/models/api_response.dart';
 import 'package:chucker_flutter/src/view/helper/colors.dart';
+import 'package:chucker_flutter/src/view/widgets/sizeable_text_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -156,15 +157,10 @@ class OverviewTabView extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(width: 8),
-                TextButton(
+                SizeableTextButton(
                   onPressed: () =>
                       Clipboard.setData(ClipboardData(text: value)),
-                  child: Text(
-                    Localization.strings['copy']!,
-                    style: context.theme.textTheme.caption!.copyWith(
-                      color: primaryColor,
-                    ),
-                  ),
+                  text: Localization.strings['copy']!,
                 )
               ],
             ),
