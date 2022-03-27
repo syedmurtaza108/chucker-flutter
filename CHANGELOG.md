@@ -11,3 +11,8 @@
 * Added support for Dart's Http library
 * Created custom json tree viewer
 * Minor issues fixes
+
+## 1.1.1
+
+* Minor issues fixes
+* Tests
