@@ -23,7 +23,7 @@ class ChuckerUiHelper {
 
   ///[showNotification] shows the rest api [method] (GET, POST, PUT, etc),
   ///[statusCode] (200, 400, etc) response status and [path]
-  static void showNotification({
+  static bool showNotification({
     required String method,
     required int statusCode,
     required String path,
@@ -34,7 +34,9 @@ class ChuckerUiHelper {
       final _entry = _createOverlayEntry(method, statusCode, path);
       _overlayEntries.add(_entry);
       overlay?.insert(_entry);
+      return true;
     }
+    return false;
   }
 
   static OverlayEntry _createOverlayEntry(
