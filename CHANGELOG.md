@@ -16,3 +16,7 @@
 
 * Minor issues fixes
 * Tests
+
+## 1.1.1+1
+
+* Read me updated
