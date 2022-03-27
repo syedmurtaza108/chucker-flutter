@@ -24,7 +24,9 @@ Chucker Flutter inspects the **HTTP(S) requests/responses** triggered by your Fl
 
 Flutter Apps, using Chucker Flutter, show in-app **notifications** which tell the status (e.g. 200, 400, 500 and so) and requested url and upon clicking on details button it navigates to Chucker Flutter main screen. You cannot manipulate Chucker Flutter behaviour using its setting by navigating to Settings page from the menu button of Chucker Flutter main page.
 
-https://user-images.githubusercontent.com/44249868/160267137-4b4ceb99-8b13-4769-91f9-8f7e05e05b20.mp4
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/44249868/160268415-c224083c-00b8-4700-a47f-0ab953eea1f6.gif" alt="chucker http sample" width="50%"/>
+</p>
 
 # Getting Started
 
