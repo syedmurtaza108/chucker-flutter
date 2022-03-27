@@ -12,7 +12,7 @@ class ChuckerButton extends StatelessWidget {
   ///[getInstance] returns the singleton object of [ChuckerButton]
   // ignore: prefer_constructors_over_static_methods
   static ChuckerButton getInstance() {
-    return _button ??= const ChuckerButton._();
+    return _button ??= const ChuckerButton._(key: Key('chucker_button'));
   }
 
   @override

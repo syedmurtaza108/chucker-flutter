@@ -16,7 +16,7 @@ import 'package:flutter/material.dart';
 ///of your application as it is required to show notification and the screens
 ///of `chucker_flutter`
 class ChuckerUiHelper {
-  static OverlayEntry? _overlayEntry;
+  static final List<OverlayEntry?> _overlayEntries = List.empty(growable: true);
 
   ///[settings] to modify ui behaviour of chucker screens and notification
   static Settings settings = Settings.defaultObject();
@@ -31,8 +31,9 @@ class ChuckerUiHelper {
     if (ChuckerUiHelper.settings.showNotification &&
         ChuckerFlutter.navigatorObserver.navigator != null) {
       final overlay = ChuckerFlutter.navigatorObserver.navigator!.overlay;
-      _overlayEntry = _createOverlayEntry(method, statusCode, path);
-      overlay?.insert(_overlayEntry!);
+      final _entry = _createOverlayEntry(method, statusCode, path);
+      _overlayEntries.add(_entry);
+      overlay?.insert(_entry);
     }
   }
 
@@ -43,21 +44,6 @@ class ChuckerUiHelper {
   ) {
     return OverlayEntry(
       builder: (context) {
-        if (_isPositionGiven) {
-          return Positioned(
-            top: settings.positionTop,
-            left: settings.positionLeft,
-            right: settings.positionRight,
-            bottom: settings.positionBottom,
-            child: notification.Notification(
-              statusCode: statusCode,
-              method: method,
-              path: path,
-              removeNotification: _removeNotification,
-            ),
-          );
-        }
-
         return Align(
           alignment: settings.notificationAlignment,
           child: notification.Notification(
@@ -72,16 +58,13 @@ class ChuckerUiHelper {
   }
 
   static void _removeNotification() {
-    if (_overlayEntry != null) {
-      _overlayEntry!.remove();
+    for (final entry in _overlayEntries) {
+      if (entry != null) {
+        entry.remove();
+      }
     }
+    _overlayEntries.clear();
   }
-
-  static bool get _isPositionGiven =>
-      settings.positionBottom.isNotZero ||
-      settings.positionTop.isNotZero ||
-      settings.positionRight.isNotZero ||
-      settings.positionLeft.isNotZero;
 
   ///[showChuckerScreen] shows the screen containing the list of recored
   ///api requests
@@ -91,6 +74,7 @@ class ChuckerUiHelper {
     context.navigator.push(
       MaterialPageRoute(
         builder: (context) => MaterialApp(
+          key: const Key('chucker_material_app'),
           debugShowCheckedModeBanner: false,
           localizationsDelegates: Localization.localizationsDelegates,
           supportedLocales: Localization.supportedLocales,
