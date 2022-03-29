@@ -20,3 +20,7 @@
 ## 1.1.1+1
 
 * Read me updated
+
+## 1.1.1+2
+
+* Minor improvements
