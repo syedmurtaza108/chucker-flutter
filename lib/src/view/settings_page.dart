@@ -22,8 +22,6 @@ class SettingsPage extends StatefulWidget {
 
 class _SettingsPageState extends State<SettingsPage> {
   var _settings = ChuckerUiHelper.settings;
-  // @override
-  // late final context = ChuckerFlutter.navigatorObserver.navigator!.context;
 
   @override
   Widget build(BuildContext _) {
