@@ -1,6 +1,7 @@
 import 'package:chucker_flutter/src/helpers/shared_preferences_manager.dart';
+import 'package:chucker_flutter/src/view/helper/http_methods.dart';
+import 'package:chucker_flutter/src/view/helper/languages.dart';
 import 'package:chucker_flutter/src/view/settings_page.dart';
-import 'package:chucker_flutter/src/view/widgets/alignment_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -158,10 +159,79 @@ void main() {
 
       await tester.pumpWidget(const MaterialApp(home: SettingsPage()));
 
-      final menu = find.byType(AlignmentMenu);
+      final menu = find.byType(PopupMenuButton).evaluate();
 
-      await tester.tap(menu);
+      //Alignment menu becomes visible
+      await tester.tap(find.byWidget(menu.first.widget));
       await tester.pumpAndSettle();
+
+      //Click on BottomLeft
+      await tester.tap(find.text('BottomLeft'));
+      await tester.pumpAndSettle();
+
+      final newSettings = await _sharedPreferencesManager.getSettings();
+
+      expect(newSettings.notificationAlignment, Alignment.bottomLeft);
+    },
+  );
+
+  testWidgets(
+    'Httpm Methods menu should save default method in shared preferences',
+    (WidgetTester tester) async {
+      SharedPreferences.setMockInitialValues({});
+
+      final settings = await _sharedPreferencesManager.getSettings();
+
+      expect(settings.httpMethod, HttpMethod.none);
+
+      await tester.pumpWidget(const MaterialApp(home: SettingsPage()));
+
+      final menu = find.byType(PopupMenuButton).evaluate();
+
+      //Http method menu becomes visible
+      await tester.tap(find.byWidget(menu.elementAt(1).widget));
+      await tester.pumpAndSettle();
+
+      //Click on Delete method
+      await tester.tap(find.text('DELETE'));
+      await tester.pumpAndSettle();
+
+      final newSettings = await _sharedPreferencesManager.getSettings();
+
+      expect(newSettings.httpMethod, HttpMethod.delete);
+    },
+  );
+
+  testWidgets(
+    'Language menu should save language in shared preferences',
+    (WidgetTester tester) async {
+      SharedPreferences.setMockInitialValues({});
+
+      final settings = await _sharedPreferencesManager.getSettings();
+
+      expect(settings.language, Language.english);
+
+      await tester.pumpWidget(const MaterialApp(home: SettingsPage()));
+
+      final menu = find.byType(PopupMenuButton).evaluate();
+
+      await tester.dragUntilVisible(
+        find.byWidget(menu.elementAt(2).widget),
+        find.byType(ListView),
+        const Offset(0, 500),
+      );
+
+      //Http method menu becomes visible
+      await tester.tap(find.byWidget(menu.elementAt(2).widget));
+      await tester.pumpAndSettle();
+
+      //Click on Delete method
+      await tester.tap(find.text('urdu'));
+      await tester.pumpAndSettle();
+
+      final newSettings = await _sharedPreferencesManager.getSettings();
+
+      expect(newSettings.language, Language.urdu);
     },
   );
 }
