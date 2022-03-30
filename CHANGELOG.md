@@ -24,3 +24,8 @@
 ## 1.1.1+2
 
 * Minor improvements
+
+## 1.1.2
+
+* Fixed Directionality issue in RTL languages
+* Minor improvements
