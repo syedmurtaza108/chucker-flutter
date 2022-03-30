@@ -25,149 +25,152 @@ class _SettingsPageState extends State<SettingsPage> {
 
   @override
   Widget build(BuildContext _) {
-    return Scaffold(
-      appBar: ChuckerAppBar(
-        onBackPressed: () => context.navigator.pop(),
-      ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            _heading(Localization.strings['notification']!),
-            const SizedBox(height: 16),
-            _settingRow(
-              title: Localization.strings['show']!,
-              description: Localization.strings['notificationSettingDesc']!,
-              child: Switch.adaptive(
-                activeColor: primaryColor,
-                value: _settings.showNotification,
-                onChanged: (value) {
-                  _saveSettings(showNotification: value);
-                },
+    return Directionality(
+      textDirection: Localization.textDirection,
+      child: Scaffold(
+        appBar: ChuckerAppBar(
+          onBackPressed: () => context.navigator.pop(),
+        ),
+        body: SingleChildScrollView(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              _heading(Localization.strings['notification']!),
+              const SizedBox(height: 16),
+              _settingRow(
+                title: Localization.strings['show']!,
+                description: Localization.strings['notificationSettingDesc']!,
+                child: Switch.adaptive(
+                  activeColor: primaryColor,
+                  value: _settings.showNotification,
+                  onChanged: (value) {
+                    _saveSettings(showNotification: value);
+                  },
+                ),
               ),
-            ),
-            const SizedBox(height: 16),
-            _settingRow(
-              title: Localization.strings['duration']!,
-              description: Localization.strings['durationSettingDesc']!,
-              helperText:
-                  '''${_settings.duration.inSeconds} ${Localization.strings['seconds']}''',
-              child: Slider.adaptive(
-                min: 2,
-                max: 10,
-                divisions: 9,
-                activeColor: primaryColor,
-                label: _settings.duration.inSeconds.toString(),
-                value: _settings.duration.inSeconds.toDouble(),
-                onChanged: (value) {
-                  _saveSettings(duration: Duration(seconds: value.toInt()));
-                },
+              const SizedBox(height: 16),
+              _settingRow(
+                title: Localization.strings['duration']!,
+                description: Localization.strings['durationSettingDesc']!,
+                helperText:
+                    '''${_settings.duration.inSeconds} ${Localization.strings['seconds']}''',
+                child: Slider.adaptive(
+                  min: 2,
+                  max: 10,
+                  divisions: 9,
+                  activeColor: primaryColor,
+                  label: _settings.duration.inSeconds.toString(),
+                  value: _settings.duration.inSeconds.toDouble(),
+                  onChanged: (value) {
+                    _saveSettings(duration: Duration(seconds: value.toInt()));
+                  },
+                ),
               ),
-            ),
-            const SizedBox(height: 16),
-            _settingRow(
-              title: Localization.strings['alignment']!,
-              description: Localization.strings['alignmentSettingDesc']!,
-              child: AlignmentMenu(
-                notificationAlignment: _settings.notificationAlignment,
-                title: _getAlignmentMenuTitle(),
-                onSelect: (alignment) {
-                  _saveSettings(notificationAlignment: alignment);
-                },
+              const SizedBox(height: 16),
+              _settingRow(
+                title: Localization.strings['alignment']!,
+                description: Localization.strings['alignmentSettingDesc']!,
+                child: AlignmentMenu(
+                  notificationAlignment: _settings.notificationAlignment,
+                  title: _getAlignmentMenuTitle(),
+                  onSelect: (alignment) {
+                    _saveSettings(notificationAlignment: alignment);
+                  },
+                ),
+                padding: 16,
               ),
-              padding: 16,
-            ),
-            const SizedBox(height: 16),
-            const Padding(
-              padding: EdgeInsets.symmetric(vertical: 16),
-              child: Divider(),
-            ),
-            _heading(Localization.strings['apiListingScreen']!),
-            const SizedBox(height: 16),
-            _settingRow(
-              title: Localization.strings['selectedMethod']!,
-              description: Localization.strings['selectedMethodDesc']!,
-              child: HttpMethodsMenu(
-                httpMethod: _settings.httpMethod,
-                onFilter: (method) {
-                  _saveSettings(httpMethod: method);
-                },
+              const SizedBox(height: 16),
+              const Padding(
+                padding: EdgeInsets.symmetric(vertical: 16),
+                child: Divider(),
               ),
-              padding: 16,
-            ),
-            const SizedBox(height: 16),
-            _settingRow(
-              title: Localization.strings['showRequestStats']!,
-              description: Localization.strings['showRequestStatsDesc']!,
-              child: Switch.adaptive(
-                activeColor: primaryColor,
-                value: _settings.showRequestsStats,
-                onChanged: (value) {
-                  _saveSettings(showRequestsStats: value);
-                },
+              _heading(Localization.strings['apiListingScreen']!),
+              const SizedBox(height: 16),
+              _settingRow(
+                title: Localization.strings['selectedMethod']!,
+                description: Localization.strings['selectedMethodDesc']!,
+                child: HttpMethodsMenu(
+                  httpMethod: _settings.httpMethod,
+                  onFilter: (method) {
+                    _saveSettings(httpMethod: method);
+                  },
+                ),
+                padding: 16,
               ),
-            ),
-            const Padding(
-              padding: EdgeInsets.symmetric(vertical: 16),
-              child: Divider(),
-            ),
-            _heading(Localization.strings['apiRequests']!),
-            const SizedBox(height: 16),
-            _settingRow(
-              title: Localization.strings['threshold']!,
-              helperText:
-                  '${_settings.apiThresholds} ${Localization.strings['apis']}',
-              description: Localization.strings['apiSettingDesc']!,
-              importantInfo: Localization.strings['apiSettingsImpInfo'],
-              child: Slider.adaptive(
-                min: 100,
-                max: 1000,
-                divisions: 90,
-                activeColor: primaryColor,
-                label: _settings.apiThresholds.toString(),
-                value: _settings.apiThresholds.toDouble(),
-                onChanged: (value) {
-                  _saveSettings(apiThresholds: value.toInt());
-                },
+              const SizedBox(height: 16),
+              _settingRow(
+                title: Localization.strings['showRequestStats']!,
+                description: Localization.strings['showRequestStatsDesc']!,
+                child: Switch.adaptive(
+                  activeColor: primaryColor,
+                  value: _settings.showRequestsStats,
+                  onChanged: (value) {
+                    _saveSettings(showRequestsStats: value);
+                  },
+                ),
               ),
-            ),
-            const Padding(
-              padding: EdgeInsets.symmetric(vertical: 16),
-              child: Divider(),
-            ),
-            _heading(Localization.strings['deletionOfRequests']!),
-            const SizedBox(height: 16),
-            _settingRow(
-              title: Localization.strings['showConfirmDialog']!,
-              description: Localization.strings['showDialogDesc']!,
-              child: Switch.adaptive(
-                activeColor: primaryColor,
-                value: _settings.showDeleteConfirmDialog,
-                onChanged: (value) {
-                  _saveSettings(showDeleteConfirmDialog: value);
-                },
+              const Padding(
+                padding: EdgeInsets.symmetric(vertical: 16),
+                child: Divider(),
               ),
-            ),
-            const Padding(
-              padding: EdgeInsets.symmetric(vertical: 16),
-              child: Divider(),
-            ),
-            _heading(Localization.strings['language']!),
-            const SizedBox(height: 16),
-            _settingRow(
-              title: Localization.strings['chuckerLanguage']!,
-              description: Localization.strings['chuckerLanguageDesc']!,
-              child: LanguagesMenu(
-                language: _settings.language,
-                onSelect: (language) {
-                  _saveSettings(language: language);
-                },
+              _heading(Localization.strings['apiRequests']!),
+              const SizedBox(height: 16),
+              _settingRow(
+                title: Localization.strings['threshold']!,
+                helperText:
+                    '''${_settings.apiThresholds} ${Localization.strings['apis']}''',
+                description: Localization.strings['apiSettingDesc']!,
+                importantInfo: Localization.strings['apiSettingsImpInfo'],
+                child: Slider.adaptive(
+                  min: 100,
+                  max: 1000,
+                  divisions: 90,
+                  activeColor: primaryColor,
+                  label: _settings.apiThresholds.toString(),
+                  value: _settings.apiThresholds.toDouble(),
+                  onChanged: (value) {
+                    _saveSettings(apiThresholds: value.toInt());
+                  },
+                ),
               ),
-              padding: 16,
-            ),
-            const SizedBox(height: 16),
-          ],
+              const Padding(
+                padding: EdgeInsets.symmetric(vertical: 16),
+                child: Divider(),
+              ),
+              _heading(Localization.strings['deletionOfRequests']!),
+              const SizedBox(height: 16),
+              _settingRow(
+                title: Localization.strings['showConfirmDialog']!,
+                description: Localization.strings['showDialogDesc']!,
+                child: Switch.adaptive(
+                  activeColor: primaryColor,
+                  value: _settings.showDeleteConfirmDialog,
+                  onChanged: (value) {
+                    _saveSettings(showDeleteConfirmDialog: value);
+                  },
+                ),
+              ),
+              const Padding(
+                padding: EdgeInsets.symmetric(vertical: 16),
+                child: Divider(),
+              ),
+              _heading(Localization.strings['language']!),
+              const SizedBox(height: 16),
+              _settingRow(
+                title: Localization.strings['chuckerLanguage']!,
+                description: Localization.strings['chuckerLanguageDesc']!,
+                child: LanguagesMenu(
+                  language: _settings.language,
+                  onSelect: (language) {
+                    _saveSettings(language: language);
+                  },
+                ),
+                padding: 16,
+              ),
+              const SizedBox(height: 16),
+            ],
+          ),
         ),
       ),
     );

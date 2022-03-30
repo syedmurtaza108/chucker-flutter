@@ -24,8 +24,6 @@ class ChuckerPage extends StatefulWidget {
 }
 
 class _ChuckerPageState extends State<ChuckerPage> {
-  // @override
-  // late final context = ChuckerFlutter.navigatorObserver.navigator!.context;
   var _httpMethod = ChuckerUiHelper.settings.httpMethod;
 
   List<ApiResponse> _apis = List.empty();

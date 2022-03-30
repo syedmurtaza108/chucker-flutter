@@ -72,8 +72,7 @@ class ChuckerUiHelper {
   ///api requests
   static void showChuckerScreen() {
     SharedPreferencesManager.getInstance().getSettings();
-    final context = ChuckerFlutter.navigatorObserver.navigator!.context;
-    context.navigator.push(
+    ChuckerFlutter.navigatorObserver.navigator!.push(
       MaterialPageRoute(
         builder: (context) => MaterialApp(
           key: const Key('chucker_material_app'),

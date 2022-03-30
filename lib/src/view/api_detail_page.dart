@@ -24,54 +24,57 @@ class ApiDetailsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: ChuckerAppBar(
-        onBackPressed: () => context.navigator.pop(),
-        actions: [
-          IconButton(
-            onPressed: () {
-              Clipboard.setData(ClipboardData(text: api.toString()));
-            },
-            icon: const Icon(Icons.copy),
-          ),
-          IconButton(
-            onPressed: () {
-              Share.share(api.toString());
-            },
-            icon: const Icon(Icons.share),
-          ),
-        ],
-      ),
-      body: DefaultTabController(
-        length: 3,
-        child: Column(
-          children: [
-            Material(
-              color: primaryColor,
-              child: TabBar(
-                tabs: [
-                  Tab(text: Localization.strings['overview']),
-                  Tab(text: Localization.strings['request']),
-                  Tab(text: Localization.strings['response']),
-                ],
-              ),
+    return Directionality(
+      textDirection: Localization.textDirection,
+      child: Scaffold(
+        appBar: ChuckerAppBar(
+          onBackPressed: () => context.navigator.pop(),
+          actions: [
+            IconButton(
+              onPressed: () {
+                Clipboard.setData(ClipboardData(text: api.toString()));
+              },
+              icon: const Icon(Icons.copy),
             ),
-            Expanded(
-              child: TabBarView(
-                children: [
-                  OverviewTabView(api: api),
-                  SingleChildScrollView(
-                    padding: const EdgeInsets.all(16),
-                    child: JsonTree(json: api.request),
-                  ),
-                  SingleChildScrollView(
-                    padding: const EdgeInsets.all(16),
-                    child: JsonTree(json: api.body),
-                  ),
-                ],
-              ),
+            IconButton(
+              onPressed: () {
+                Share.share(api.toString());
+              },
+              icon: const Icon(Icons.share),
             ),
           ],
+        ),
+        body: DefaultTabController(
+          length: 3,
+          child: Column(
+            children: [
+              Material(
+                color: primaryColor,
+                child: TabBar(
+                  tabs: [
+                    Tab(text: Localization.strings['overview']),
+                    Tab(text: Localization.strings['request']),
+                    Tab(text: Localization.strings['response']),
+                  ],
+                ),
+              ),
+              Expanded(
+                child: TabBarView(
+                  children: [
+                    OverviewTabView(api: api),
+                    SingleChildScrollView(
+                      padding: const EdgeInsets.all(16),
+                      child: JsonTree(json: api.request),
+                    ),
+                    SingleChildScrollView(
+                      padding: const EdgeInsets.all(16),
+                      child: JsonTree(json: api.body),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

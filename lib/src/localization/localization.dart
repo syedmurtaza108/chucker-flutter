@@ -20,6 +20,9 @@ class Localization {
   ///Current locale. It can be changed from settings page
   static Locale currentLocale = supportedLocales.first;
 
+  ///Text direction based on current locale settings
+  static TextDirection textDirection = TextDirection.ltr;
+
   ///Localized strings
   static Map<String, String> strings = _en;
 
@@ -40,5 +43,15 @@ class Localization {
         break;
     }
     currentLocale = supportedLocales[language.index];
+    textDirection = _textDirection(language);
+  }
+
+  static TextDirection _textDirection(Language language) {
+    switch (language) {
+      case Language.english:
+        return TextDirection.ltr;
+      case Language.urdu:
+        return TextDirection.rtl;
+    }
   }
 }
