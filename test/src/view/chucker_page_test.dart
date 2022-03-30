@@ -108,12 +108,8 @@ void main() {
       final sharedPreferencesManager = SharedPreferencesManager.getInstance();
 
       final successReq = ApiResponse.mock().copyWith(statusCode: 200);
-      final failReq = ApiResponse.mock().copyWith(statusCode: 400);
-      final successReq2 = ApiResponse.mock().copyWith(statusCode: 200);
 
       await sharedPreferencesManager.addApiResponse(successReq);
-      await sharedPreferencesManager.addApiResponse(failReq);
-      await sharedPreferencesManager.addApiResponse(successReq2);
 
       await tester.pumpWidget(const MaterialApp(home: ChuckerPage()));
       await tester.pumpAndSettle();
@@ -124,11 +120,9 @@ void main() {
           .first
           .widget as TabBarView;
 
-      var successTab = tabBarView.children[0] as ApisListingTabView;
-      var failureTab = tabBarView.children[1] as ApisListingTabView;
+      final successTab = tabBarView.children[0] as ApisListingTabView;
 
-      var totalChecked = successTab.apis.where((e) => e.checked).length +
-          failureTab.apis.where((e) => e.checked).length;
+      final totalChecked = successTab.apis.where((e) => e.checked).length;
 
       //Since no item is selected
       expect(totalChecked, 0);
@@ -142,14 +136,11 @@ void main() {
           .first
           .widget as TabBarView;
 
-      successTab = tabBarView.children[0] as ApisListingTabView;
-      failureTab = tabBarView.children[1] as ApisListingTabView;
+      final successTab1 = tabBarView.children[0] as ApisListingTabView;
 
-      totalChecked = successTab.apis.where((e) => e.checked).length +
-          failureTab.apis.where((e) => e.checked).length;
+      final totalChecked1 = successTab1.apis.where((e) => e.checked).length;
 
-      //Since all selected
-      expect(totalChecked, 3);
+      expect(totalChecked1, 1);
     },
   );
 }
