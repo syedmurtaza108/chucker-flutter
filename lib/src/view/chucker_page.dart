@@ -138,6 +138,7 @@ class _ChuckerPageState extends State<ChuckerPage> {
             ),
             Expanded(
               child: TabBarView(
+                key: const Key('apis_tab_bar_view'),
                 children: [
                   ApisListingTabView(
                     apis: _successApis(),
@@ -147,6 +148,7 @@ class _ChuckerPageState extends State<ChuckerPage> {
                     onItemPressed: _openDetails,
                   ),
                   ApisListingTabView(
+                    key: const Key('fail_tab_view'),
                     apis: _failedApis(),
                     onDelete: _deleteAnApi,
                     onChecked: _selectAnApi,
