@@ -90,7 +90,7 @@ class _JsonValue extends StatelessWidget {
           Visibility(
             visible: value.toString().isNotEmpty,
             child: SizeableTextButton(
-              height: 30,
+              height: 34,
               onPressed: () => Clipboard.setData(
                 ClipboardData(text: value.toString()),
               ),
