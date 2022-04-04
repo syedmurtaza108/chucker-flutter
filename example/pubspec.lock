@@ -36,6 +36,13 @@ packages:
       relative: true
     source: path
     version: "1.1.2"
+  chucker_flutter_ui:
+    dependency: "direct main"
+    description:
+      name: chucker_flutter_ui
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.0"
   clock:
     dependency: transitive
     description:
@@ -112,13 +119,6 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  http:
-    dependency: "direct main"
-    description:
-      name: http
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.13.4"
   http_mock_adapter:
     dependency: transitive
     description:
@@ -237,7 +237,7 @@ packages:
       name: share_plus
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "4.0.1"
+    version: "4.0.3"
   share_plus_linux:
     dependency: transitive
     description:
@@ -258,7 +258,7 @@ packages:
       name: share_plus_platform_interface
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.0.0"
+    version: "3.0.2"
   share_plus_web:
     dependency: transitive
     description:
@@ -452,7 +452,7 @@ packages:
       name: win32
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.4.2"
+    version: "2.5.1"
   xdg_directories:
     dependency: transitive
     description:

@@ -7,15 +7,13 @@ environment:
   sdk: ">=2.16.0 <3.0.0"
 
 dependencies:
+  chucker_flutter_ui: ^1.0.0
   dio: ^4.0.4
   flutter:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
-  http: ^0.13.4
   http_mock_adapter: ^0.3.2
-  share_plus: ^4.0.1
-  shared_preferences: ^2.0.13
 
 dev_dependencies:
   flutter_test:
