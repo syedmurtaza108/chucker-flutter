@@ -8,6 +8,7 @@ import 'package:chucker_flutter/src/view/helper/chucker_button.dart';
 import 'package:chucker_flutter/src/view/helper/colors.dart';
 import 'package:chucker_flutter/src/view/widgets/notification.dart'
     as notification;
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 ///[ChuckerUiHelper] handles the UI part of `chucker_flutter`
@@ -95,11 +96,14 @@ class ChuckerUiHelper {
 }
 
 ///[ChuckerFlutter] is a helper class to initialize the library
+///
+///[chuckerButton] and notifications only be visible in debug mode
 class ChuckerFlutter {
   ///[navigatorObserver] observes the navigation of your app. It must be
   ///referenced in your MaterialApp widget
   static final navigatorObserver = NavigatorObserver();
 
   ///[ChuckerButton] can be placed anywhere in the UI to open Chucker Screen
-  static final chuckerButton = ChuckerButton.getInstance();
+  static final chuckerButton =
+      kDebugMode ? ChuckerButton.getInstance() : const SizedBox.shrink();
 }

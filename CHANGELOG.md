@@ -29,3 +29,7 @@
 
 * Fixed Directionality issue in RTL languages
 * Minor improvements
+
+## 1.1.3
+
+* Add check for debug build. For now, the Chucker Flutter button and notifications would be visible in debug mode only.
