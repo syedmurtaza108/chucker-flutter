@@ -49,7 +49,7 @@ packages:
       name: dio
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "4.0.4"
+    version: "4.0.6"
   fake_async:
     dependency: transitive
     description:
@@ -431,7 +431,7 @@ packages:
       name: win32
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.4.4"
+    version: "2.5.1"
   xdg_directories:
     dependency: transitive
     description:
