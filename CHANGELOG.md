@@ -33,3 +33,7 @@
 ## 1.1.3
 
 * Add check for debug build. For now, the Chucker Flutter button and notifications would be visible in debug mode only.
+
+## 1.1.4
+
+* Minor fixes
