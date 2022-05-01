@@ -60,6 +60,7 @@ class ApiDetailsPage extends StatelessWidget {
               ),
               Expanded(
                 child: TabBarView(
+                  key: const Key('api_detail_tabbar_view'),
                   children: [
                     OverviewTabView(api: api),
                     SingleChildScrollView(
