@@ -37,3 +37,7 @@
 ## 1.1.4
 
 * Minor fixes
+
+## 1.2.0
+
+* Added support for Chopper Library
