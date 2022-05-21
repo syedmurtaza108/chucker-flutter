@@ -1,5 +1,8 @@
+import 'dart:convert';
+
 import 'package:chucker_flutter/chucker_flutter.dart';
 import 'package:dio/dio.dart';
+import 'package:example/chopper/chopper_service.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -48,6 +51,8 @@ class _TodoPageState extends State<TodoPage> {
 
   final _chuckerHttpClient = ChuckerHttpClient(http.Client());
 
+  final _chopperApiService = ChopperApiService.create();
+
   Future<void> get({bool error = false}) async {
     try {
       //To produce an error response just adding random string to path
@@ -59,6 +64,9 @@ class _TodoPageState extends State<TodoPage> {
           break;
         case _Client.http:
           _chuckerHttpClient.get(Uri.parse('$_baseUrl$path'));
+          break;
+        case _Client.chopper:
+          error ? _chopperApiService.getError() : _chopperApiService.get();
           break;
       }
     } catch (e) {
@@ -76,6 +84,9 @@ class _TodoPageState extends State<TodoPage> {
           break;
         case _Client.http:
           _chuckerHttpClient.get(Uri.parse('$_baseUrl$path?userId=1'));
+          break;
+        case _Client.chopper:
+          _chopperApiService.getWithParams();
           break;
       }
     } catch (e) {
@@ -96,7 +107,13 @@ class _TodoPageState extends State<TodoPage> {
           await _dio.post(path, data: request);
           break;
         case _Client.http:
-          _chuckerHttpClient.post(Uri.parse('$_baseUrl$path'), body: request);
+          _chuckerHttpClient.post(
+            Uri.parse('$_baseUrl$path'),
+            body: jsonEncode(request),
+          );
+          break;
+        case _Client.chopper:
+          _chopperApiService.post(request);
           break;
       }
     } catch (e) {
@@ -119,6 +136,9 @@ class _TodoPageState extends State<TodoPage> {
         case _Client.http:
           _chuckerHttpClient.put(Uri.parse('$_baseUrl$path'), body: request);
           break;
+        case _Client.chopper:
+          _chopperApiService.put(request);
+          break;
       }
     } catch (e) {
       debugPrint(e.toString());
@@ -136,6 +156,9 @@ class _TodoPageState extends State<TodoPage> {
         case _Client.http:
           _chuckerHttpClient.delete(Uri.parse('$_baseUrl$path'));
           break;
+        case _Client.chopper:
+          _chopperApiService.delete();
+          break;
       }
     } catch (e) {
       debugPrint(e.toString());
@@ -152,6 +175,9 @@ class _TodoPageState extends State<TodoPage> {
           break;
         case _Client.http:
           _chuckerHttpClient.patch(Uri.parse('$_baseUrl$path'), body: request);
+          break;
+        case _Client.chopper:
+          _chopperApiService.patch(request);
           break;
       }
     } catch (e) {
@@ -177,12 +203,23 @@ class _TodoPageState extends State<TodoPage> {
         ElevatedButton(
           onPressed: () {
             setState(
-              () => _clientType =
-                  _clientType == _Client.dio ? _Client.http : _Client.dio,
+              () {
+                switch (_clientType) {
+                  case _Client.dio:
+                    _clientType = _Client.http;
+                    break;
+                  case _Client.http:
+                    _clientType = _Client.chopper;
+                    break;
+                  case _Client.chopper:
+                    _clientType = _Client.dio;
+                    break;
+                }
+              },
             );
           },
           child: Text(
-            'Change to ${_clientType == _Client.dio ? 'http' : 'dio'}',
+            'Change to ${_clientType == _Client.dio ? 'Http' : _clientType == _Client.http ? 'Chopper' : 'Dio'}',
           ),
         )
       ],
@@ -238,4 +275,5 @@ class _TodoPageState extends State<TodoPage> {
 enum _Client {
   dio,
   http,
+  chopper,
 }
