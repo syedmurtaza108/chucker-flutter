@@ -28,15 +28,14 @@ abstract class ChopperApiService extends ChopperService {
 
   static ChopperApiService create() {
     final client = ChopperClient(
-      baseUrl: 'https://jsonplaceholder.typicode.com',
-      services: [
-        _$ChopperApiService(),
-      ],
-      interceptors: [
-        HttpLoggingInterceptor(),
-        ChuckerChopperInterceptor(),
-      ]
-    );
+        baseUrl: 'https://jsonplaceholder.typicode.com',
+        services: [
+          _$ChopperApiService(),
+        ],
+        interceptors: [
+          HttpLoggingInterceptor(),
+          ChuckerChopperInterceptor(),
+        ]);
     return _$ChopperApiService(client);
   }
 }
