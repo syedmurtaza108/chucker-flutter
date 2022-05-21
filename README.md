@@ -53,6 +53,17 @@ final _chuckerHttpClient = ChuckerHttpClient(http.Client());
 _chuckerHttpClient.get(Uri.parse('$_baseUrl$path'));
 ```
 
+To make `Chucker Flutter` work in `Chopper`, you need to use `ChuckerChopperInterceptor`  object e.g.:
+
+```dart
+final client = ChopperClient(
+        baseUrl: 'https://jsonplaceholder.typicode.com',
+        interceptors: [
+          ChuckerChopperInterceptor(),
+        ]
+);
+```
+
 The very last thing is to connect Chucker Flutter screens to your app. To do so, you only need to add Chucker Flutter's `NavigatorObserver` in your app's `MaterialApp`  e.g.:
 
 ```dart
@@ -81,6 +92,7 @@ Chucker FLutter uses the following open source libraries:
 - [shared_preferences](https://pub.dev/packages/shared_preferences) - flutter.dev
 - [share_plus](https://pub.dev/packages/share_plus) - fluttercommunity.dev
 - [http](https://pub.dev/packages/http) - dart.dev
+- [Chopper](https://pub.dev/packages/chopper) - hadrienlejard.io
 
 ## License
 
