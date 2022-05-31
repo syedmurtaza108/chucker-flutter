@@ -97,7 +97,7 @@ class ChuckerHttpClient extends BaseClient {
     dynamic responseBody = '';
 
     if (request is Request && request.contentLength > 0) {
-      requestBody = request.bodyFields;
+      requestBody = _getRequestBody(request);
     }
     try {
       final a = utf8.decode(bytes);
@@ -129,5 +129,13 @@ class ChuckerHttpClient extends BaseClient {
         clientLibrary: 'Http',
       ),
     );
+  }
+
+  dynamic _getRequestBody(Request request) {
+    try {
+      return jsonDecode(request.body);
+    } catch (e, s) {
+      debugPrint(s.toString());
+    }
   }
 }
