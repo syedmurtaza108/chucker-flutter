@@ -94,6 +94,18 @@ Chucker FLutter uses the following open source libraries:
 - [http](https://pub.dev/packages/http) - dart.dev
 - [Chopper](https://pub.dev/packages/chopper) - hadrienlejard.io
 
+## Contributors ✨
+
+Thanks go to this/these wonderful people👏
+
+<table>
+  <tr>
+    <td align="center"><a href="https://kentcdodds.com"><img src="https://avatars.githubusercontent.com/u/44375103?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Adeyemo Adedamola</b></sub></a><br /> <a href="https://github.com/syedmurtaza108/chucker-flutter/commits?author=Dammyololade" title="Documentation">📖</a> </td>
+   
+  </tr>
+  
+</table>
+
 ## License
 
 ```
