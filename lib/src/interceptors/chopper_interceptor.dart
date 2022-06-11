@@ -25,9 +25,18 @@ class ChuckerChopperInterceptor extends ResponseInterceptor {
   }
 
   Future<void> _saveResponse(Response response) async {
+    dynamic responseBody = '';
+
+    try {
+      final body = utf8.decode(response.bodyBytes);
+      responseBody = jsonDecode(body);
+    } catch (e) {
+      debugPrint('Unable to parse json');
+    }
+
     await SharedPreferencesManager.getInstance().addApiResponse(
       ApiResponse(
-        body: {'data': jsonDecode(response.body.toString())},
+        body: {'data': responseBody},
         path: response.base.request?.url.path ?? emptyString,
         baseUrl: response.base.request?.url.origin ?? emptyString,
         method: response.base.request?.method ?? emptyString,
