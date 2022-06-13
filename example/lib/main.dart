@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 void main() {
+  ChuckerFlutter.showOnRelease = true;
   runApp(const App());
 }
 

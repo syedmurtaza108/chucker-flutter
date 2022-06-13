@@ -103,7 +103,13 @@ class ChuckerFlutter {
   ///referenced in your MaterialApp widget
   static final navigatorObserver = NavigatorObserver();
 
+  ///[showOnRelease] decides whether to allow Chucker Flutter working in release
+  ///mode or not.
+  ///By default its value is `false`
+  static bool showOnRelease = false;
+
   ///[ChuckerButton] can be placed anywhere in the UI to open Chucker Screen
-  static final chuckerButton =
-      kDebugMode ? ChuckerButton.getInstance() : const SizedBox.shrink();
+  static final chuckerButton = kDebugMode || ChuckerFlutter.showOnRelease
+      ? ChuckerButton.getInstance()
+      : const SizedBox.shrink();
 }

@@ -63,7 +63,7 @@ class ChuckerHttpClient extends BaseClient {
 
     final interceptedResponse = onResponse(response);
 
-    if (!kDebugMode) {
+    if (!kDebugMode && !ChuckerFlutter.showOnRelease) {
       return StreamedResponse(ByteStream.fromBytes(bytes), response.statusCode);
     }
 

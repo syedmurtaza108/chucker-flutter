@@ -13,7 +13,7 @@ import 'package:http/http.dart' as http;
 class ChuckerChopperInterceptor extends ResponseInterceptor {
   @override
   FutureOr<Response> onResponse(Response response) async {
-    if (kDebugMode) {
+    if (kDebugMode || ChuckerFlutter.showOnRelease) {
       ChuckerUiHelper.showNotification(
         method: response.base.request?.method ?? '',
         statusCode: response.statusCode,

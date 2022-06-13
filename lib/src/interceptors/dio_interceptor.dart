@@ -23,7 +23,7 @@ class ChuckerDioInterceptor extends Interceptor {
     Response response,
     ResponseInterceptorHandler handler,
   ) async {
-    if (!kDebugMode) {
+    if (!kDebugMode && !ChuckerFlutter.showOnRelease) {
       handler.next(response);
       return;
     }
@@ -38,7 +38,7 @@ class ChuckerDioInterceptor extends Interceptor {
 
   @override
   Future<void> onError(DioError err, ErrorInterceptorHandler handler) async {
-    if (!kDebugMode) {
+    if (!kDebugMode && !ChuckerFlutter.showOnRelease) {
       handler.next(err);
       return;
     }
