@@ -113,23 +113,25 @@ class _NotificationState extends State<Notification>
                     ),
                   ),
                   const SizedBox(width: 16),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Text(
-                        widget.method.toUpperCase(),
-                        style: context.theme.textTheme.bodyText2!.copyWith(
-                          fontWeight: FontWeight.bold,
-                          color: methodColor(widget.method),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text(
+                          widget.method.toUpperCase(),
+                          style: context.theme.textTheme.bodyText2!.copyWith(
+                            fontWeight: FontWeight.bold,
+                            color: methodColor(widget.method),
+                          ),
                         ),
-                      ),
-                      const SizedBox(height: 4),
-                      Text(
-                        widget.path,
-                        style: context.theme.textTheme.caption,
-                      ),
-                    ],
+                        const SizedBox(height: 4),
+                        Text(
+                          widget.path,
+                          style: context.theme.textTheme.caption,
+                        ),
+                      ],
+                    ),
                   ),
                   const SizedBox(width: 16),
                   PrimaryButton(

@@ -49,3 +49,8 @@
 ## 1.2.2
 
 * Minor fixes
+
+## 1.2.3
+
+* Added support for running Chucker Flutter in release mode
+* Minor fixes
