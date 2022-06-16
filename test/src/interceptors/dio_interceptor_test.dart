@@ -1,7 +1,6 @@
 import 'package:chucker_flutter/chucker_flutter.dart';
 import 'package:chucker_flutter/src/helpers/shared_preferences_manager.dart';
 import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http_mock_adapter/http_mock_adapter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -49,9 +48,8 @@ void main() {
 
     try {
       await _dio.get(_failPath);
-    } catch (e) {
-      debugPrint('Dio error');
-    }
+      // ignore: empty_catches
+    } catch (e) {}
 
     final responses = await _sharedPreferencesManager.getAllApiResponses();
 

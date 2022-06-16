@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:chucker_flutter/src/helpers/constants.dart';
 import 'package:chucker_flutter/src/helpers/shared_preferences_manager.dart';
 import 'package:chucker_flutter/src/models/api_response.dart';
 import 'package:chucker_flutter/src/view/helper/chucker_ui_helper.dart';
@@ -64,7 +65,9 @@ class ChuckerDioInterceptor extends Interceptor {
         headers: response.requestOptions.headers.toString(),
         queryParameters: response.requestOptions.queryParameters.toString(),
         receiveTimeout: response.requestOptions.receiveTimeout,
-        request: {'request': response.requestOptions.data},
+        request: {
+          'request': _separateFileObjects(response.requestOptions).data
+        },
         requestSize: 2,
         requestTime: _requestTime,
         responseSize: 2,
@@ -90,7 +93,9 @@ class ChuckerDioInterceptor extends Interceptor {
         headers: response.requestOptions.headers.toString(),
         queryParameters: response.requestOptions.queryParameters.toString(),
         receiveTimeout: response.requestOptions.receiveTimeout,
-        request: {'request': response.requestOptions.data},
+        request: {
+          'request': _separateFileObjects(response.requestOptions).data
+        },
         requestSize: 2,
         requestTime: _requestTime,
         responseSize: 2,
@@ -101,5 +106,18 @@ class ChuckerDioInterceptor extends Interceptor {
         clientLibrary: 'Dio',
       ),
     );
+  }
+
+  RequestOptions _separateFileObjects(RequestOptions request) {
+    if (request.data is! FormData) {
+      return request;
+    }
+
+    final formData = request.data as FormData;
+    final formFields = formData.fields.map((e) => {e.key: e.value}).toList()
+      ..addAll(
+        formData.files.map((e) => {e.key: e.value.filename ?? emptyString}),
+      );
+    return RequestOptions(path: request.path, data: formFields);
   }
 }
