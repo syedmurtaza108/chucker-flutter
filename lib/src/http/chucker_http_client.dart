@@ -102,9 +102,8 @@ class ChuckerHttpClient extends BaseClient {
     try {
       final a = utf8.decode(bytes);
       responseBody = jsonDecode(a);
-    } catch (e, s) {
-      debugPrint(s.toString());
-    }
+    // ignore: empty_catches
+    } catch (e) {}
 
     await SharedPreferencesManager.getInstance().addApiResponse(
       ApiResponse(
@@ -134,8 +133,7 @@ class ChuckerHttpClient extends BaseClient {
   dynamic _getRequestBody(Request request) {
     try {
       return jsonDecode(request.body);
-    } catch (e, s) {
-      debugPrint(s.toString());
-    }
+    // ignore: empty_catches
+    } catch (e) {}
   }
 }

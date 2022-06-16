@@ -4,7 +4,6 @@ import 'package:chucker_flutter/src/localization/localization.dart';
 import 'package:chucker_flutter/src/models/api_response.dart';
 import 'package:chucker_flutter/src/models/settings.dart';
 import 'package:chucker_flutter/src/view/helper/chucker_ui_helper.dart';
-import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 ///[SharedPreferencesManager] handles storage of chucker data on user's disk
@@ -101,7 +100,6 @@ class SharedPreferencesManager {
       _kSettings,
       jsonEncode(settings),
     );
-    debugPrint(jsonEncode(settings));
 
     ChuckerUiHelper.settings = settings;
   }
