@@ -30,7 +30,7 @@ class ChuckerChopperInterceptor extends ResponseInterceptor {
     try {
       final body = utf8.decode(response.bodyBytes);
       responseBody = jsonDecode(body);
-    // ignore: empty_catches
+      // ignore: empty_catches
     } catch (e) {}
 
     await SharedPreferencesManager.getInstance().addApiResponse(

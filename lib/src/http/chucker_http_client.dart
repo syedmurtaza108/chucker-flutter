@@ -102,7 +102,7 @@ class ChuckerHttpClient extends BaseClient {
     try {
       final a = utf8.decode(bytes);
       responseBody = jsonDecode(a);
-    // ignore: empty_catches
+      // ignore: empty_catches
     } catch (e) {}
 
     await SharedPreferencesManager.getInstance().addApiResponse(
@@ -133,7 +133,7 @@ class ChuckerHttpClient extends BaseClient {
   dynamic _getRequestBody(Request request) {
     try {
       return jsonDecode(request.body);
-    // ignore: empty_catches
+      // ignore: empty_catches
     } catch (e) {}
   }
 }

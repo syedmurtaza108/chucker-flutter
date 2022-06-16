@@ -58,3 +58,7 @@
 ## 1.2.4
 
 * Fixed multipart request exception in dio interceptor
+
+## 1.2.4+1
+
+* Dart format issue fixed
