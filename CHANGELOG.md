@@ -54,3 +54,7 @@
 
 * Added support for running Chucker Flutter in release mode
 * Minor fixes
+
+## 1.2.4
+
+* Fixed multipart request exception in dio interceptor
