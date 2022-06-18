@@ -34,10 +34,12 @@ class MenuButtons extends StatelessWidget {
         PopupMenuItem(
           value: 0,
           enabled: enableDelete,
+          key: const ValueKey('menu_delete'),
           child: Text(Localization.strings['delete']!),
         ),
         PopupMenuItem(
           value: 1,
+          key: const ValueKey('menu_settings'),
           child: Text(Localization.strings['settings']!),
         ),
       ],

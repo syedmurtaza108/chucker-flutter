@@ -71,7 +71,7 @@ void main() {
     },
   );
 
-   testWidgets(
+  testWidgets(
     'When preview mode button pressed in Request tab, json preview type should'
     ' be shuffled',
     (WidgetTester tester) async {

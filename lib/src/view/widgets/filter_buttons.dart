@@ -107,6 +107,7 @@ class _SearchField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextField(
+      key: const ValueKey('search_field'),
       controller: TextEditingController()
         ..text = query
         ..selection = TextSelection.fromPosition(
