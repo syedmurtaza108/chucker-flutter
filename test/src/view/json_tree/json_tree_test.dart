@@ -86,7 +86,9 @@ void main() {
         }
       ];
 
-      await tester.pumpWidget(const MaterialApp(home: JsonTree(json: json)));
+      await tester.pumpWidget(
+        MaterialApp(home: JsonTree(json: json, key: UniqueKey())),
+      );
 
       //Need to expand both objects
       final buttons = find.byType(SizeableTextButton).evaluate();
@@ -119,6 +121,58 @@ void main() {
       expect(_toText(elements[11]), object2values.elementAt(0).toString());
       expect(_toText(elements[13]), _toKeyFormat(object2Keys.elementAt(1)));
       expect(_toText(elements[14]), '"${object2values.elementAt(1)}"');
+    },
+  );
+
+  testWidgets(
+    'JsonTree should show Empty List when a value of array key is empty',
+    (WidgetTester tester) async {
+      await tester.pumpWidget(
+        const MaterialApp(home: JsonTree(json: {'id': []})),
+      );
+      expect(find.text('Empty List'), findsOneWidget);
+    },
+  );
+
+  testWidgets(
+    'JsonTree should show N/A when a value of key is null',
+    (WidgetTester tester) async {
+      await tester.pumpWidget(
+        const MaterialApp(home: JsonTree(json: {'id': null})),
+      );
+      expect(find.text('N/A'), findsOneWidget);
+    },
+  );
+
+  testWidgets(
+    'JsonTree should show copy success icon when copy button is pressed',
+    (WidgetTester tester) async {
+      await tester.pumpWidget(
+        const MaterialApp(home: JsonTree(json: {'id': 1})),
+      );
+
+      await tester.tap(find.text('Copy'));
+      await tester.pumpAndSettle(const Duration(seconds: 2));
+      expect(find.byIcon(Icons.done), findsOneWidget);
+    },
+  );
+
+  testWidgets(
+    'JsonTree should expand value of subkey when pressed',
+    (WidgetTester tester) async {
+      await tester.pumpWidget(
+        const MaterialApp(
+          home: JsonTree(
+            json: {
+              'data': {'id': 1}
+            },
+          ),
+        ),
+      );
+
+      await tester.tap(find.text('data'));
+      await tester.pumpAndSettle();
+      expect(find.text('1'), findsOneWidget);
     },
   );
 }

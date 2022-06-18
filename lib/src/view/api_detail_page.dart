@@ -152,11 +152,18 @@ class _PreviewModeControl extends StatelessWidget {
             ],
           ),
         ),
-        SizeableTextButton(
-          onPressed: onCopyPressed,
-          height: 34,
-          text: Localization.strings['copy']!,
-          style: context.textTheme.bodyText2!.toBold(),
+        Material(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(24),
+          ),
+          child: InkWell(
+            onTap: onCopyPressed,
+            borderRadius: BorderRadius.circular(24),
+            child: const Padding(
+              padding: EdgeInsets.all(8),
+              child: Icon(Icons.copy, color: primaryColor),
+            ),
+          ),
         ),
       ],
     );

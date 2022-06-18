@@ -1,6 +1,6 @@
 part of '../json_tree.dart';
 
-class _JsonValue extends StatelessWidget {
+class _JsonValue extends StatefulWidget {
   const _JsonValue({
     required this.value,
     required this.onOpen,
@@ -11,10 +11,17 @@ class _JsonValue extends StatelessWidget {
   final VoidCallback onOpen;
 
   @override
+  State<_JsonValue> createState() => _JsonValueState();
+}
+
+class _JsonValueState extends State<_JsonValue> {
+  var _copied = false;
+
+  @override
   Widget build(BuildContext context) {
-    if (_itemCanExpand(value)) {
-      if (value is List) {
-        if ((value as List).isEmpty) {
+    if (_itemCanExpand(widget.value)) {
+      if (widget.value is List) {
+        if ((widget.value as List).isEmpty) {
           return Text(
             'Empty List',
             style: context.textTheme.bodyText2!.withColor(Colors.red),
@@ -22,13 +29,13 @@ class _JsonValue extends StatelessWidget {
         }
         return SizeableTextButton(
           height: 32,
-          onPressed: onOpen,
-          text: 'List[${(value as List).length}]',
+          onPressed: widget.onOpen,
+          text: 'List[${(widget.value as List).length}]',
           style: context.textTheme.bodyText2!.withColor(Colors.red),
         );
       }
       return SizeableTextButton(
-        onPressed: onOpen,
+        onPressed: widget.onOpen,
         height: 32,
         text: 'Object',
         style: context.textTheme.bodyText2!.toBold(),
@@ -40,36 +47,36 @@ class _JsonValue extends StatelessWidget {
           Expanded(
             child: Builder(
               builder: (_) {
-                if (value == null) {
+                if (widget.value == null) {
                   return Text(
                     'N/A',
                     style: context.textTheme.bodyText2!.withColor(Colors.red),
                   );
                 }
-                if (value is int) {
+                if (widget.value is int) {
                   return Text(
-                    value.toString(),
+                    widget.value.toString(),
                     style: context.textTheme.bodyText2!.withColor(
                       Colors.purple,
                     ),
                   );
                 }
-                if (value is String) {
+                if (widget.value is String) {
                   return Text(
-                    '"$value"',
+                    '"${widget.value}"',
                     style: context.textTheme.bodyText2!.withColor(Colors.blue),
                   );
                 }
-                if (value is bool) {
+                if (widget.value is bool) {
                   return Text(
-                    value.toString(),
+                    widget.value.toString(),
                     style: context.textTheme.bodyText2!.withColor(
-                      (value as bool) ? Colors.green : Colors.red,
+                      (widget.value as bool) ? Colors.green : Colors.red,
                     ),
                   );
                 }
                 return Text(
-                  value.toString(),
+                  widget.value.toString(),
                   style: context.textTheme.bodyText2!.withColor(
                     Colors.orangeAccent,
                   ),
@@ -78,13 +85,29 @@ class _JsonValue extends StatelessWidget {
             ),
           ),
           Visibility(
-            visible: value.toString().isNotEmpty,
-            child: SizeableTextButton(
+            visible: widget.value.toString().isNotEmpty,
+            child: SizedBox(
               height: 34,
-              onPressed: () => Clipboard.setData(
-                ClipboardData(text: value.toString()),
+              width: 60,
+              child: AnimatedSwitcher(
+                duration: const Duration(milliseconds: 300),
+                child: _copied
+                    ? const Center(child: Icon(Icons.done, color: primaryColor))
+                    : SizeableTextButton(
+                        height: 34,
+                        onPressed: () async {
+                          setState(() => _copied = true);
+                          await Clipboard.setData(
+                            ClipboardData(text: widget.value.toString()),
+                          );
+                          Future.delayed(
+                            const Duration(seconds: 2),
+                            () => setState(() => _copied = false),
+                          );
+                        },
+                        text: Localization.strings['copy']!,
+                      ),
               ),
-              text: Localization.strings['copy']!,
             ),
           ),
         ],
