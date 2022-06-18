@@ -29,11 +29,11 @@ class _HttpMethodsMenuState extends State<HttpMethodsMenu> {
   Widget build(BuildContext context) {
     return PopupMenuButton(
       child: Container(
+        height: 48,
         decoration: BoxDecoration(
           border: Border.all(color: primaryColor),
           borderRadius: BorderRadius.circular(8),
         ),
-        padding: const EdgeInsets.all(9),
         child: Center(
           child: Row(
             mainAxisSize: MainAxisSize.min,

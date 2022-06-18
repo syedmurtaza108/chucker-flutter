@@ -145,7 +145,7 @@ class _PreviewModeControl extends StatelessWidget {
               ),
               SizeableTextButton(
                 onPressed: onPreviewPressed,
-                height: 32,
+                height: 34,
                 text: type,
                 style: context.textTheme.bodyText2!.toBold(),
               )
@@ -154,7 +154,7 @@ class _PreviewModeControl extends StatelessWidget {
         ),
         SizeableTextButton(
           onPressed: onCopyPressed,
-          height: 32,
+          height: 34,
           text: Localization.strings['copy']!,
           style: context.textTheme.bodyText2!.toBold(),
         ),
@@ -224,6 +224,7 @@ class _ResponseTab extends StatelessWidget {
           child: SelectableText(
             prettyJson,
             style: context.textTheme.bodyText1!.toBold(),
+            textDirection: TextDirection.ltr,
           ),
         );
     }
@@ -291,6 +292,7 @@ class _RequestTab extends StatelessWidget {
           child: SelectableText(
             prettyJson,
             style: context.textTheme.bodyText1!.toBold(),
+            textDirection: TextDirection.ltr,
           ),
         );
     }
