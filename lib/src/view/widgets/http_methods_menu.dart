@@ -33,6 +33,7 @@ class _HttpMethodsMenuState extends State<HttpMethodsMenu> {
           border: Border.all(color: primaryColor),
           borderRadius: BorderRadius.circular(8),
         ),
+        padding: const EdgeInsets.all(9),
         child: Center(
           child: Row(
             mainAxisSize: MainAxisSize.min,

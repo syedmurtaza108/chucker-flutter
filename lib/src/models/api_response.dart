@@ -220,11 +220,21 @@ Client Library: $clientLibrary
 
 ***************** Request *****************
 
-${jsonEncode(request)}
+$prettyJsonRequest
 
 ***************** Response *****************
 
-${jsonEncode(body)}''';
+$prettyJson''';
+  }
+
+  ///Formatted json response string
+  String get prettyJson {
+    return const JsonEncoder.withIndent('     ').convert(body);
+  }
+
+  ///Formatted json response string
+  String get prettyJsonRequest {
+    return const JsonEncoder.withIndent('     ').convert(request);
   }
 
   @override
