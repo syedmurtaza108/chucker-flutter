@@ -84,7 +84,7 @@ class ChuckerUiHelper {
           theme: ThemeData(
             tabBarTheme: TabBarTheme(
               labelColor: Colors.white,
-              labelStyle: context.theme.textTheme.bodyText1,
+              labelStyle: context.textTheme.bodyText1,
             ),
             backgroundColor: primaryColor,
           ),

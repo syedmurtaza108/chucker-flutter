@@ -13,7 +13,7 @@ class _JsonRoot extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (rootObject == null) {
-      return const Text(emptyString);
+      return const SizedBox.shrink();
     }
     if (rootObject is List) {
       return _JsonList(

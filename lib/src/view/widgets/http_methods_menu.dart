@@ -41,9 +41,7 @@ class _HttpMethodsMenuState extends State<HttpMethodsMenu> {
               Chip(
                 label: Text(
                   _getMethodName(),
-                  style: context.theme.textTheme.bodyText1!.copyWith(
-                    color: Colors.white,
-                  ),
+                  style: context.textTheme.bodyText1!.withColor(Colors.white),
                 ),
                 backgroundColor: methodColor(_getMethodName()),
               )

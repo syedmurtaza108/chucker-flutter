@@ -17,27 +17,21 @@ class _JsonValue extends StatelessWidget {
         if ((value as List).isEmpty) {
           return Text(
             'Empty List',
-            style: context.theme.textTheme.bodyText2!.copyWith(
-              color: Colors.red,
-            ),
+            style: context.textTheme.bodyText2!.withColor(Colors.red),
           );
         }
         return SizeableTextButton(
           height: 32,
           onPressed: onOpen,
           text: 'List[${(value as List).length}]',
-          style: context.theme.textTheme.bodyText2!.copyWith(
-            color: Colors.red,
-          ),
+          style: context.textTheme.bodyText2!.withColor(Colors.red),
         );
       }
       return SizeableTextButton(
         onPressed: onOpen,
         height: 32,
         text: 'Object',
-        style: context.theme.textTheme.bodyText2!.copyWith(
-          fontWeight: FontWeight.bold,
-        ),
+        style: context.textTheme.bodyText2!.toBold(),
       );
     }
     return Expanded(
@@ -49,39 +43,35 @@ class _JsonValue extends StatelessWidget {
                 if (value == null) {
                   return Text(
                     'N/A',
-                    style: context.theme.textTheme.bodyText2!.copyWith(
-                      color: Colors.red,
-                    ),
+                    style: context.textTheme.bodyText2!.withColor(Colors.red),
                   );
                 }
                 if (value is int) {
                   return Text(
                     value.toString(),
-                    style: context.theme.textTheme.bodyText2!.copyWith(
-                      color: Colors.purple,
+                    style: context.textTheme.bodyText2!.withColor(
+                      Colors.purple,
                     ),
                   );
                 }
                 if (value is String) {
                   return Text(
                     '"$value"',
-                    style: context.theme.textTheme.bodyText2!.copyWith(
-                      color: Colors.blue,
-                    ),
+                    style: context.textTheme.bodyText2!.withColor(Colors.blue),
                   );
                 }
                 if (value is bool) {
                   return Text(
                     value.toString(),
-                    style: context.theme.textTheme.bodyText2!.copyWith(
-                      color: (value as bool) ? Colors.green : Colors.red,
+                    style: context.textTheme.bodyText2!.withColor(
+                      (value as bool) ? Colors.green : Colors.red,
                     ),
                   );
                 }
                 return Text(
                   value.toString(),
-                  style: context.theme.textTheme.bodyText2!.copyWith(
-                    color: Colors.orangeAccent,
+                  style: context.textTheme.bodyText2!.withColor(
+                    Colors.orangeAccent,
                   ),
                 );
               },

@@ -108,9 +108,7 @@ class _NotificationState extends State<Notification>
                   Text(
                     widget.statusCode.toString(),
                     textAlign: TextAlign.center,
-                    style: context.theme.textTheme.bodyText1!.copyWith(
-                      fontWeight: FontWeight.bold,
-                    ),
+                    style: context.textTheme.bodyText1!.toBold(),
                   ),
                   const SizedBox(width: 16),
                   Expanded(
@@ -120,15 +118,14 @@ class _NotificationState extends State<Notification>
                       children: [
                         Text(
                           widget.method.toUpperCase(),
-                          style: context.theme.textTheme.bodyText2!.copyWith(
-                            fontWeight: FontWeight.bold,
-                            color: methodColor(widget.method),
-                          ),
+                          style: context.textTheme.bodyText2!
+                              .toBold()
+                              .withColor(methodColor(widget.method)),
                         ),
                         const SizedBox(height: 4),
                         Text(
                           widget.path,
-                          style: context.theme.textTheme.caption,
+                          style: context.textTheme.caption,
                         ),
                       ],
                     ),
