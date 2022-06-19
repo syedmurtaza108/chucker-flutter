@@ -26,7 +26,7 @@ Chucker Flutter inspects the **HTTP(S) requests/responses** triggered by your Fl
 Flutter Apps, using Chucker Flutter, show in-app **notifications** which tell the status (e.g. 200, 400, 500 and so) and requested url and upon clicking on details button it navigates to Chucker Flutter main screen. You cannot manipulate Chucker Flutter behaviour using its setting by navigating to Settings page from the menu button of Chucker Flutter main page.
 
 <p align="center">
-  <img src="https://user-images.githubusercontent.com/44249868/160268415-c224083c-00b8-4700-a47f-0ab953eea1f6.gif" alt="chucker http sample" width="50%"/>
+  <img src="https://user-images.githubusercontent.com/44249868/174470855-17383d2d-914f-4e4c-80fc-4bd52a4cdd61.gif" alt="chucker http sample" width="50%"/>
 </p>
 
 # Getting Started
@@ -72,6 +72,15 @@ MaterialApp(
       navigatorObservers: [ChuckerFlutter.navigatorObserver],
 ```
 
+By default Chucker Flutter only runs in `debug` mode but you can allow it to run in release mode too using its `showOnRelease` property  e.g.:
+
+```dart
+void main() {
+  ChuckerFlutter.showOnRelease = true;
+  runApp(const App());
+}
+```
+
 **Congratulations!** 🎊 You are done. Rest on us!
 
 ## Features
@@ -82,7 +91,9 @@ MaterialApp(
 * Customization
 * Localization (Current support for English 🇺🇸 and Urdu 🇵🇰)
 * Searching🔍 and sharing👯
-* Json responses in tree form
+* Json request and responses in tree form
+* Json request and response in pretty json format
+* Image URL preview
 
 ### Libraries
 
@@ -94,7 +105,7 @@ Chucker FLutter uses the following open source libraries:
 - [http](https://pub.dev/packages/http) - dart.dev
 - [Chopper](https://pub.dev/packages/chopper) - hadrienlejard.io
 
-## Contributors ✨
+## Contributors
 
 Thanks go to this/these wonderful people👏
 
