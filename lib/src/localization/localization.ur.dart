@@ -59,4 +59,5 @@ const _ur = {
   'jsonPreviewMode': 'JSON دیکھنے کا انداز: ',
   'tree': 'شجری',
   'text': 'تحریری',
+  'imageCouldNotBeLoaded': 'تصویر نہیں ظاہر کی جاسکی',
 };

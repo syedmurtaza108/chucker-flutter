@@ -32,3 +32,14 @@ extension TextStyleExtension on TextStyle {
   ///Change font size of  a text
   TextStyle withSize(double size) => copyWith(fontSize: size);
 }
+
+///String extensions
+extension StringExtension on String {
+  ///Checks if a url is image
+  bool isImageUrl() {
+    final imageUrlRegex = RegExp(
+      r'(http(s?):)([/|.|\w|\s|-])*\.(?:jpg|gif|png)',
+    );
+    return imageUrlRegex.hasMatch(this);
+  }
+}

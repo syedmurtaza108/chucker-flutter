@@ -65,4 +65,5 @@ const _en = {
   'jsonPreviewMode': 'Json Preview Mode: ',
   'tree': 'Tree',
   'text': 'Text',
+  'imageCouldNotBeLoaded': 'Image could not be loaded',
 };

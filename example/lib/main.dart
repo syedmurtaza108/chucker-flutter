@@ -43,7 +43,6 @@ class _TodoPageState extends State<TodoPage> {
 
   late final _dio = Dio(
     BaseOptions(
-      baseUrl: _baseUrl,
       sendTimeout: const Duration(seconds: 30).inMilliseconds,
       connectTimeout: const Duration(seconds: 30).inMilliseconds,
       receiveTimeout: const Duration(seconds: 30).inMilliseconds,
@@ -61,7 +60,7 @@ class _TodoPageState extends State<TodoPage> {
 
       switch (_clientType) {
         case _Client.dio:
-          _dio.get(path);
+          _dio.get('$_baseUrl$path');
           break;
         case _Client.http:
           _chuckerHttpClient.get(Uri.parse('$_baseUrl$path'));
@@ -81,7 +80,7 @@ class _TodoPageState extends State<TodoPage> {
 
       switch (_clientType) {
         case _Client.dio:
-          _dio.get(path, queryParameters: {'userId': 1});
+          _dio.get('$_baseUrl$path', queryParameters: {'userId': 1});
           break;
         case _Client.http:
           _chuckerHttpClient.get(Uri.parse('$_baseUrl$path?userId=1'));
@@ -105,7 +104,7 @@ class _TodoPageState extends State<TodoPage> {
       };
       switch (_clientType) {
         case _Client.dio:
-          await _dio.post(path, data: request);
+          await _dio.post('$_baseUrl$path', data: request);
           break;
         case _Client.http:
           _chuckerHttpClient.post(
@@ -132,7 +131,7 @@ class _TodoPageState extends State<TodoPage> {
       };
       switch (_clientType) {
         case _Client.dio:
-          await _dio.put(path, data: request);
+          await _dio.put('$_baseUrl$path', data: request);
           break;
         case _Client.http:
           _chuckerHttpClient.put(Uri.parse('$_baseUrl$path'), body: request);
@@ -152,7 +151,7 @@ class _TodoPageState extends State<TodoPage> {
 
       switch (_clientType) {
         case _Client.dio:
-          await _dio.delete(path);
+          await _dio.delete('$_baseUrl$path');
           break;
         case _Client.http:
           _chuckerHttpClient.delete(Uri.parse('$_baseUrl$path'));
@@ -172,13 +171,62 @@ class _TodoPageState extends State<TodoPage> {
       final request = {'title': 'PATCH foo'};
       switch (_clientType) {
         case _Client.dio:
-          await _dio.patch(path, data: request);
+          await _dio.patch('$_baseUrl$path', data: request);
           break;
         case _Client.http:
           _chuckerHttpClient.patch(Uri.parse('$_baseUrl$path'), body: request);
           break;
         case _Client.chopper:
           _chopperApiService.patch(request);
+          break;
+      }
+    } catch (e) {
+      debugPrint(e.toString());
+    }
+  }
+
+  Future<void> uploadImage() async {
+    try {
+      switch (_clientType) {
+        case _Client.dio:
+          try {
+            final formData = FormData.fromMap(
+              {
+                "key": "6d207e02198a847aa98d0a2a901485a5",
+                "source": await MultipartFile.fromFile('assets/logo.png'),
+              },
+            );
+            _dio.post(
+              'https://freeimage.host/api/1/upload',
+              data: formData,
+            );
+          } catch (e) {
+            debugPrint(e.toString());
+          }
+          break;
+        case _Client.http:
+          var request = http.MultipartRequest(
+            'POST',
+            Uri.parse('https://freeimage.host/api/1/upload'),
+          );
+          request.fields.addAll(
+            {'key': '6d207e02198a847aa98d0a2a901485a5'},
+          );
+          request.files.add(
+            await http.MultipartFile.fromPath(
+              'source',
+              'assets/logo.png',
+            ),
+          );
+
+          _chuckerHttpClient.send(request);
+          break;
+        case _Client.chopper:
+          final a = await http.MultipartFile.fromPath(
+            'source',
+            'assets/logo.png',
+          );
+          _chopperApiService.imageUpload(a);
           break;
       }
     } catch (e) {
@@ -266,6 +314,13 @@ class _TodoPageState extends State<TodoPage> {
               onPressed: () => get(error: true),
               child: const Text('ERROR'),
             ),
+            const SizedBox(height: 16),
+            ElevatedButton(
+              onPressed: uploadImage,
+              child: const Text('UPLOAD IMAGE (Chucker Flutter Logo)'),
+            ),
+            const SizedBox(height: 16),
+            Image.asset('assets/logo.png'),
           ],
         ),
       ),

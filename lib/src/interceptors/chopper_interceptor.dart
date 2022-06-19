@@ -68,10 +68,27 @@ class ChuckerChopperInterceptor extends ResponseInterceptor {
   }
 
   dynamic _requestBody(Response response) {
+    if (response.base.request is http.MultipartRequest) {
+      return _separateFileObjects(
+        response.base.request! as http.MultipartRequest,
+      );
+    }
+
     if (response.base.request is http.Request) {
       final request = response.base.request! as http.Request;
       return request.body.isNotEmpty ? request.bodyFields : emptyString;
     }
     return emptyString;
+  }
+
+  dynamic _separateFileObjects(http.MultipartRequest request) {
+    final formFields =
+        request.fields.entries.map((e) => {e.key: e.value}).toList()
+          ..addAll(
+            request.files.map(
+              (e) => {e.field: e.filename ?? emptyString},
+            ),
+          );
+    return formFields;
   }
 }

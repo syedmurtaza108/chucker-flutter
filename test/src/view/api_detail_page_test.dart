@@ -95,4 +95,39 @@ void main() {
       expect(find.byType(SelectableText), findsOneWidget);
     },
   );
+
+  testWidgets(
+    'When json value is image url image preview button should be visible',
+    (WidgetTester tester) async {
+      final api = ApiResponse.mock().copyWith(
+        body: {'data': 'https://example.png'},
+      );
+
+      await tester.pumpWidget(MaterialApp(home: ApiDetailsPage(api: api)));
+      await tester.pumpAndSettle();
+
+      await tester.tap(find.text('RESPONSE'));
+      await tester.pumpAndSettle();
+
+      expect(find.byIcon(Icons.preview_rounded), findsOneWidget);
+    },
+  );
+
+  testWidgets(
+    'When image preview button is pressed, image preview dialog should open',
+    (WidgetTester tester) async {
+      final api = ApiResponse.mock().copyWith(
+        body: {'data': 'https://example.png'},
+      );
+
+      await tester.pumpWidget(MaterialApp(home: ApiDetailsPage(api: api)));
+      await tester.pumpAndSettle();
+
+      await tester.tap(find.text('RESPONSE'));
+      await tester.pumpAndSettle();
+
+      await tester.tap(find.byIcon(Icons.preview_rounded));
+      await tester.pumpAndSettle();
+    },
+  );
 }

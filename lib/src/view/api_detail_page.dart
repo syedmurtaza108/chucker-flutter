@@ -230,7 +230,7 @@ class _ResponseTab extends StatelessWidget {
           width: double.maxFinite,
           child: SelectableText(
             prettyJson,
-            style: context.textTheme.bodyText1!.toBold(),
+            style: context.textTheme.bodyText1,
             textDirection: TextDirection.ltr,
           ),
         );
@@ -298,7 +298,7 @@ class _RequestTab extends StatelessWidget {
           width: double.maxFinite,
           child: SelectableText(
             prettyJson,
-            style: context.textTheme.bodyText1!.toBold(),
+            style: context.textTheme.bodyText1,
             textDirection: TextDirection.ltr,
           ),
         );

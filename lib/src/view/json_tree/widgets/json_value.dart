@@ -85,6 +85,22 @@ class _JsonValueState extends State<_JsonValue> {
             ),
           ),
           Visibility(
+            visible: widget.value.toString().isImageUrl(),
+            child: IconButton(
+              splashRadius: 16,
+              icon: const Icon(Icons.preview_rounded, color: primaryColor),
+              onPressed: () {
+                showDialog<bool>(
+                  context: context,
+                  barrierDismissible: false,
+                  builder: (_) => ImagePreviewDialog(
+                    path: widget.value.toString(),
+                  ),
+                );
+              },
+            ),
+          ),
+          Visibility(
             visible: widget.value.toString().isNotEmpty,
             child: SizedBox(
               height: 34,
