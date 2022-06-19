@@ -111,13 +111,8 @@ void main() {
       final sharedPreferencesManager = SharedPreferencesManager.getInstance();
 
       final successReq = ApiResponse.mock().copyWith(statusCode: 200);
-      final successReq2 = ApiResponse.mock().copyWith(
-        statusCode: 200,
-        baseUrl: 'base',
-      );
 
       await sharedPreferencesManager.addApiResponse(successReq);
-      await sharedPreferencesManager.addApiResponse(successReq2);
 
       await tester.pumpWidget(const MaterialApp(home: ChuckerPage()));
       await tester.pumpAndSettle();
@@ -148,7 +143,7 @@ void main() {
 
       final totalChecked1 = successTab1.apis.where((e) => e.checked).length;
 
-      expect(totalChecked1, 2);
+      expect(totalChecked1, 1);
     },
   );
 
@@ -164,14 +159,8 @@ void main() {
         statusCode: 200,
         checked: true,
       );
-      final successReq2 = ApiResponse.mock().copyWith(
-        statusCode: 200,
-        baseUrl: 'base',
-        checked: true,
-      );
 
       await sharedPreferencesManager.addApiResponse(successReq);
-      await sharedPreferencesManager.addApiResponse(successReq2);
 
       await tester.pumpWidget(const MaterialApp(home: ChuckerPage()));
       await tester.pumpAndSettle();
@@ -186,7 +175,7 @@ void main() {
 
       final totalChecked = successTab.apis.where((e) => e.checked).length;
 
-      expect(totalChecked, 2);
+      expect(totalChecked, 1);
 
       await tester.tap(find.byType(Checkbox).first);
       await tester.pumpAndSettle();
@@ -239,7 +228,7 @@ void main() {
   );
 
   testWidgets(
-    'When api lists are not emptu, on click on item '
+    'When api lists are not empty, on click on item '
     'user should be redirected to details page',
     (WidgetTester tester) async {
       SharedPreferences.setMockInitialValues({});
