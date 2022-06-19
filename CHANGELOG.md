@@ -62,3 +62,8 @@
 ## 1.2.4+1
 
 * Dart format issue fixed
+
+## 1.3.0
+
+* Support for Json preview in both tree and text (pretty json) forms
+* Support for Image url preview
