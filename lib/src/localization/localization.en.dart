@@ -62,4 +62,8 @@ const _en = {
       '''It will take effect the next time when you come to chucker screen''',
   'successRequestsWithSpace': 'Success Requests',
   'failedRequestsWithSpace': 'Failed Requests',
+  'jsonPreviewMode': 'Json Preview Mode: ',
+  'tree': 'Tree',
+  'text': 'Text',
+  'imageCouldNotBeLoaded': 'Image could not be loaded',
 };

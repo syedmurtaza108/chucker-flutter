@@ -56,4 +56,8 @@ const _ur = {
   'chuckerLanguageDesc': '''زبان کی تبدیل اگلی بار ظاہر ہوگی ''',
   'successRequestsWithSpace': 'کامیاب درخواستیں',
   'failedRequestsWithSpace': 'ناکام درخواستیں',
+  'jsonPreviewMode': 'JSON دیکھنے کا انداز: ',
+  'tree': 'شجری',
+  'text': 'تحریری',
+  'imageCouldNotBeLoaded': 'تصویر نہیں ظاہر کی جاسکی',
 };

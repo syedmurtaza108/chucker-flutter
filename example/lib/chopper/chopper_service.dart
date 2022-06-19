@@ -1,5 +1,6 @@
 import 'package:chopper/chopper.dart';
 import 'package:chucker_flutter/chucker_flutter.dart';
+import 'package:http/http.dart' as http;
 
 part 'chopper_service.chopper.dart';
 
@@ -8,34 +9,38 @@ abstract class ChopperApiService extends ChopperService {
   @Get(path: '/posts/1')
   Future<Response<dynamic>> get();
 
-  @Get(path: '/error')
+  @Get(path: 'https://jsonplaceholder.typicode.com/error')
   Future<Response<dynamic>> getError();
 
-  @Get(path: '/posts?userId=1')
+  @Get(path: 'https://jsonplaceholder.typicode.com/posts?userId=1')
   Future<Response<dynamic>> getWithParams();
 
-  @Post(path: '/posts')
+  @Post(path: 'https://jsonplaceholder.typicode.com/posts')
   Future<Response<dynamic>> post(@Body() dynamic body);
 
-  @Put(path: '/posts/1')
+  @Put(path: 'https://jsonplaceholder.typicode.com/posts/1')
   Future<Response<dynamic>> put(@Body() Map<String, dynamic> body);
 
-  @Delete(path: '/posts/1')
+  @Delete(path: 'https://jsonplaceholder.typicode.com/posts/1')
   Future<Response<dynamic>> delete();
 
-  @Patch(path: '/posts/1')
+  @Patch(path: 'https://jsonplaceholder.typicode.com/posts/1')
   Future<Response<dynamic>> patch(@Body() Map<String, dynamic> body);
 
+  @Post(path: 'https://freeimage.host/api/1/upload')
+  @multipart
+  Future<Response<dynamic>> imageUpload(
+    @PartFile('source') http.MultipartFile body, {
+    @Part('key') String key = '6d207e02198a847aa98d0a2a901485a5',
+  });
+
   static ChopperApiService create() {
-    final client = ChopperClient(
-        baseUrl: 'https://jsonplaceholder.typicode.com',
-        services: [
-          _$ChopperApiService(),
-        ],
-        interceptors: [
-          HttpLoggingInterceptor(),
-          ChuckerChopperInterceptor(),
-        ]);
+    final client = ChopperClient(services: [
+      _$ChopperApiService(),
+    ], interceptors: [
+      HttpLoggingInterceptor(),
+      ChuckerChopperInterceptor(),
+    ]);
     return _$ChopperApiService(client);
   }
 }

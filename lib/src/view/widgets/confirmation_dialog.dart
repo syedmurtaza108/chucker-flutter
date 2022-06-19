@@ -28,9 +28,7 @@ class _ConfirmationDialog extends StatelessWidget {
           onPressed: () => context.navigator.pop(false),
           child: Text(
             Localization.strings['no']!,
-            style: context.theme.textTheme.bodyText1!.copyWith(
-              color: Colors.black,
-            ),
+            style: context.textTheme.bodyText1!.withColor(Colors.black),
           ),
         ),
         PrimaryButton(

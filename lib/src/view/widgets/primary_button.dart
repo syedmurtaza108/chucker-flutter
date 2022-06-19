@@ -40,7 +40,7 @@ class PrimaryButton extends StatelessWidget {
         ),
         child: Text(
           text,
-          style: context.theme.textTheme.bodyText1!.copyWith(color: foreColor),
+          style: context.textTheme.bodyText1!.copyWith(color: foreColor),
         ),
       ),
     );

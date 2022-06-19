@@ -6,21 +6,27 @@ import 'package:chucker_flutter/src/view/helper/colors.dart';
 import 'package:chucker_flutter/src/view/json_tree/json_tree.dart';
 import 'package:chucker_flutter/src/view/tabs/overview.dart';
 import 'package:chucker_flutter/src/view/widgets/app_bar.dart';
+import 'package:chucker_flutter/src/view/widgets/sizeable_text_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:share_plus/share_plus.dart';
 
 ///Shows detail of api request and response
-class ApiDetailsPage extends StatelessWidget {
+class ApiDetailsPage extends StatefulWidget {
   ///Shows detail of api request and response
 
-  const ApiDetailsPage({
-    required this.api,
-    Key? key,
-  }) : super(key: key);
+  const ApiDetailsPage({required this.api, Key? key}) : super(key: key);
 
   ///[ApiResponse] of which detail is to be shown
   final ApiResponse api;
+
+  @override
+  State<ApiDetailsPage> createState() => _ApiDetailsPageState();
+}
+
+class _ApiDetailsPageState extends State<ApiDetailsPage> {
+  var _jsonRequestPreviewType = _JsonPreviewType.tree;
+  var _jsonResponsePreviewType = _JsonPreviewType.tree;
 
   @override
   Widget build(BuildContext context) {
@@ -32,13 +38,13 @@ class ApiDetailsPage extends StatelessWidget {
           actions: [
             IconButton(
               onPressed: () {
-                Clipboard.setData(ClipboardData(text: api.toString()));
+                Clipboard.setData(ClipboardData(text: widget.api.toString()));
               },
               icon: const Icon(Icons.copy),
             ),
             IconButton(
               onPressed: () {
-                Share.share(api.toString());
+                Share.share(widget.api.toString());
               },
               icon: const Icon(Icons.share),
             ),
@@ -62,15 +68,19 @@ class ApiDetailsPage extends StatelessWidget {
                 child: TabBarView(
                   key: const Key('api_detail_tabbar_view'),
                   children: [
-                    OverviewTabView(api: api),
-                    SingleChildScrollView(
-                      padding: const EdgeInsets.all(16),
-                      child: JsonTree(json: api.request),
+                    OverviewTabView(api: widget.api),
+                    _RequestTab(
+                      jsonPreviewType: _jsonRequestPreviewType,
+                      onShufflePreview: _shuffleRequestPreviewType,
+                      json: widget.api.request,
+                      prettyJson: widget.api.prettyJsonRequest,
                     ),
-                    SingleChildScrollView(
-                      padding: const EdgeInsets.all(16),
-                      child: JsonTree(json: api.body),
-                    ),
+                    _ResponseTab(
+                      jsonPreviewType: _jsonResponsePreviewType,
+                      onShufflePreview: _shuffleResponsePreviewType,
+                      json: widget.api.body,
+                      prettyJson: widget.api.prettyJson,
+                    )
                   ],
                 ),
               ),
@@ -80,4 +90,223 @@ class ApiDetailsPage extends StatelessWidget {
       ),
     );
   }
+
+  void _shuffleResponsePreviewType() {
+    switch (_jsonResponsePreviewType) {
+      case _JsonPreviewType.tree:
+        setState(() => _jsonResponsePreviewType = _JsonPreviewType.text);
+        break;
+      case _JsonPreviewType.text:
+        setState(() => _jsonResponsePreviewType = _JsonPreviewType.tree);
+        break;
+    }
+  }
+
+  void _shuffleRequestPreviewType() {
+    switch (_jsonRequestPreviewType) {
+      case _JsonPreviewType.tree:
+        setState(() => _jsonRequestPreviewType = _JsonPreviewType.text);
+        break;
+      case _JsonPreviewType.text:
+        setState(() => _jsonRequestPreviewType = _JsonPreviewType.tree);
+        break;
+    }
+  }
+}
+
+class _PreviewModeControl extends StatelessWidget {
+  const _PreviewModeControl({
+    required this.jsonPreviewType,
+    required this.onPreviewPressed,
+    required this.onCopyPressed,
+    Key? key,
+  }) : super(key: key);
+
+  final _JsonPreviewType jsonPreviewType;
+  final VoidCallback onPreviewPressed;
+  final VoidCallback onCopyPressed;
+
+  @override
+  Widget build(BuildContext context) {
+    final type = jsonPreviewType == _JsonPreviewType.text
+        ? Localization.strings['text']!
+        : Localization.strings['tree']!;
+
+    return Row(
+      children: [
+        Expanded(
+          child: Row(
+            children: [
+              Text(
+                Localization.strings['jsonPreviewMode']!,
+                style: context.textTheme.bodyText2!
+                    .toBold()
+                    .withColor(primaryColor),
+              ),
+              SizeableTextButton(
+                onPressed: onPreviewPressed,
+                height: 34,
+                text: type,
+                style: context.textTheme.bodyText2!.toBold(),
+              )
+            ],
+          ),
+        ),
+        Material(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(24),
+          ),
+          child: InkWell(
+            onTap: onCopyPressed,
+            borderRadius: BorderRadius.circular(24),
+            child: const Padding(
+              padding: EdgeInsets.all(8),
+              child: Icon(Icons.copy, color: primaryColor),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class _ResponseTab extends StatelessWidget {
+  const _ResponseTab({
+    required this.jsonPreviewType,
+    required this.onShufflePreview,
+    required this.json,
+    required this.prettyJson,
+    Key? key,
+  }) : super(key: key);
+
+  final dynamic json;
+  final String prettyJson;
+  final _JsonPreviewType jsonPreviewType;
+  final VoidCallback onShufflePreview;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Container(
+          padding: const EdgeInsets.all(8),
+          decoration: BoxDecoration(
+            color: secondaryColor,
+            boxShadow: [
+              BoxShadow(
+                color: secondaryColor.withOpacity(0.3),
+                spreadRadius: 2,
+                blurRadius: 7,
+                offset: const Offset(0, 8),
+              )
+            ],
+          ),
+          child: _PreviewModeControl(
+            jsonPreviewType: jsonPreviewType,
+            onCopyPressed: _copyJsonResponse,
+            onPreviewPressed: onShufflePreview,
+          ),
+        ),
+        Expanded(
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.all(16),
+            child: _renderJsonWidget(context),
+          ),
+        ),
+      ],
+    );
+  }
+
+  void _copyJsonResponse() {
+    Clipboard.setData(ClipboardData(text: prettyJson));
+  }
+
+  Widget _renderJsonWidget(BuildContext context) {
+    switch (jsonPreviewType) {
+      case _JsonPreviewType.tree:
+        return JsonTree(json: json);
+      case _JsonPreviewType.text:
+        return SizedBox(
+          width: double.maxFinite,
+          child: SelectableText(
+            prettyJson,
+            style: context.textTheme.bodyText1,
+            textDirection: TextDirection.ltr,
+          ),
+        );
+    }
+  }
+}
+
+class _RequestTab extends StatelessWidget {
+  const _RequestTab({
+    required this.jsonPreviewType,
+    required this.onShufflePreview,
+    required this.json,
+    required this.prettyJson,
+    Key? key,
+  }) : super(key: key);
+
+  final dynamic json;
+  final String prettyJson;
+  final _JsonPreviewType jsonPreviewType;
+  final VoidCallback onShufflePreview;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Container(
+          padding: const EdgeInsets.all(8),
+          decoration: BoxDecoration(
+            color: secondaryColor,
+            boxShadow: [
+              BoxShadow(
+                color: secondaryColor.withOpacity(0.3),
+                spreadRadius: 2,
+                blurRadius: 7,
+                offset: const Offset(0, 8),
+              )
+            ],
+          ),
+          child: _PreviewModeControl(
+            jsonPreviewType: jsonPreviewType,
+            onCopyPressed: _copyJsonRequest,
+            onPreviewPressed: onShufflePreview,
+          ),
+        ),
+        Expanded(
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.all(16),
+            child: _renderJsonWidget(context),
+          ),
+        ),
+      ],
+    );
+  }
+
+  void _copyJsonRequest() {
+    Clipboard.setData(ClipboardData(text: prettyJson));
+  }
+
+  Widget _renderJsonWidget(BuildContext context) {
+    switch (jsonPreviewType) {
+      case _JsonPreviewType.tree:
+        return JsonTree(json: json);
+      case _JsonPreviewType.text:
+        return SizedBox(
+          width: double.maxFinite,
+          child: SelectableText(
+            prettyJson,
+            style: context.textTheme.bodyText1,
+            textDirection: TextDirection.ltr,
+          ),
+        );
+    }
+  }
+}
+
+enum _JsonPreviewType {
+  tree,
+  text,
 }

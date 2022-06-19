@@ -57,18 +57,14 @@ class __JsonListState extends State<_JsonList> {
                         );
                       },
                       text: '[$i]:',
-                      style: context.theme.textTheme.bodyText1!.copyWith(
-                        fontWeight: FontWeight.bold,
-                      ),
+                      style: context.textTheme.bodyText1!.toBold(),
                     ),
                   ),
                   Visibility(
                     visible: !canExpand || !button,
                     child: Text(
                       '[$i]:',
-                      style: context.theme.textTheme.bodyText2!.copyWith(
-                        fontWeight: FontWeight.bold,
-                      ),
+                      style: context.textTheme.bodyText2!.toBold(),
                     ),
                   ),
                   const SizedBox(width: 3),

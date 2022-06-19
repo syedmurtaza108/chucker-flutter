@@ -31,17 +31,13 @@ class StatsTile extends StatelessWidget {
             Text(
               stats,
               textAlign: TextAlign.center,
-              style: context.theme.textTheme.headline5!.copyWith(
-                fontWeight: FontWeight.bold,
-              ),
+              style: context.textTheme.headline5!.toBold(),
             ),
             const SizedBox(height: 8),
             Text(
               title,
               textAlign: TextAlign.center,
-              style: context.theme.textTheme.caption!.copyWith(
-                fontWeight: FontWeight.bold,
-              ),
+              style: context.textTheme.caption!.toBold(),
             ),
             const SizedBox(height: 16),
           ],

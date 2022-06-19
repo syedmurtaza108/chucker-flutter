@@ -2,6 +2,8 @@ import 'package:chucker_flutter/src/helpers/shared_preferences_manager.dart';
 import 'package:chucker_flutter/src/models/api_response.dart';
 import 'package:chucker_flutter/src/view/chucker_page.dart';
 import 'package:chucker_flutter/src/view/tabs/apis_listing.dart';
+import 'package:chucker_flutter/src/view/widgets/apis_listing_item.dart';
+import 'package:chucker_flutter/src/view/widgets/menu_buttons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -101,7 +103,8 @@ void main() {
   );
 
   testWidgets(
-    'On click on select all check all requests should be selected',
+    'When items are not selected, on click on select all '
+    'requests should be selected',
     (WidgetTester tester) async {
       SharedPreferences.setMockInitialValues({});
 
@@ -141,6 +144,166 @@ void main() {
       final totalChecked1 = successTab1.apis.where((e) => e.checked).length;
 
       expect(totalChecked1, 1);
+    },
+  );
+
+  testWidgets(
+    'When items are selected, on click on select all '
+    'requests should be deselected',
+    (WidgetTester tester) async {
+      SharedPreferences.setMockInitialValues({});
+
+      final sharedPreferencesManager = SharedPreferencesManager.getInstance();
+
+      final successReq = ApiResponse.mock().copyWith(
+        statusCode: 200,
+        checked: true,
+      );
+
+      await sharedPreferencesManager.addApiResponse(successReq);
+
+      await tester.pumpWidget(const MaterialApp(home: ChuckerPage()));
+      await tester.pumpAndSettle();
+
+      var tabBarView = find
+          .byKey(const Key('apis_tab_bar_view'))
+          .evaluate()
+          .first
+          .widget as TabBarView;
+
+      final successTab = tabBarView.children[0] as ApisListingTabView;
+
+      final totalChecked = successTab.apis.where((e) => e.checked).length;
+
+      expect(totalChecked, 1);
+
+      await tester.tap(find.byType(Checkbox).first);
+      await tester.pumpAndSettle();
+
+      tabBarView = find
+          .byKey(const Key('apis_tab_bar_view'))
+          .evaluate()
+          .first
+          .widget as TabBarView;
+
+      final successTab1 = tabBarView.children[0] as ApisListingTabView;
+
+      final totalChecked1 = successTab1.apis.where((e) => e.checked).length;
+
+      expect(totalChecked1, 0);
+    },
+  );
+
+  testWidgets(
+    'App bar should have menu item on top with delete and settings buttons',
+    (WidgetTester tester) async {
+      SharedPreferences.setMockInitialValues({});
+
+      final sharedPreferencesManager = SharedPreferencesManager.getInstance();
+      final successReq = ApiResponse.mock();
+
+      await sharedPreferencesManager.addApiResponse(successReq);
+      await tester.pumpWidget(const MaterialApp(home: ChuckerPage()));
+      await tester.pumpAndSettle();
+
+      await tester.tap(find.byType(Checkbox).first);
+      await tester.pumpAndSettle();
+
+      //Open menu
+      await tester.tap(find.byType(MenuButtons));
+      await tester.pumpAndSettle();
+
+      //Open settings page
+      await tester.tap(find.byKey(const ValueKey('menu_settings')));
+      await tester.pumpAndSettle();
+
+      //Open menu again
+      await tester.tap(find.byType(MenuButtons));
+      await tester.pumpAndSettle();
+
+      //Open delete dialog
+      await tester.tap(find.byKey(const ValueKey('menu_delete')));
+      await tester.pumpAndSettle();
+    },
+  );
+
+  testWidgets(
+    'When api lists are not empty, on click on item '
+    'user should be redirected to details page',
+    (WidgetTester tester) async {
+      SharedPreferences.setMockInitialValues({});
+
+      final sharedPreferencesManager = SharedPreferencesManager.getInstance();
+
+      final successReq = ApiResponse.mock();
+
+      await sharedPreferencesManager.addApiResponse(successReq);
+
+      await tester.pumpWidget(const MaterialApp(home: ChuckerPage()));
+      await tester.pumpAndSettle();
+
+      await tester.tap(find.byType(ApisListingItemWidget).first);
+      await tester.pumpAndSettle();
+    },
+  );
+
+  testWidgets(
+    'On click on Show Search button search field should be visible ',
+    (WidgetTester tester) async {
+      await tester.pumpWidget(const MaterialApp(home: ChuckerPage()));
+      await tester.pumpAndSettle();
+
+      await tester.tap(find.text('Show Search'));
+      await tester.pumpAndSettle(const Duration(seconds: 2));
+
+      expect(find.byKey(const ValueKey('search_field')), findsOneWidget);
+    },
+  );
+
+  testWidgets(
+    'On typing on search field, filtered item should be returned',
+    (WidgetTester tester) async {
+      SharedPreferences.setMockInitialValues({});
+
+      final sharedPreferencesManager = SharedPreferencesManager.getInstance();
+
+      final successReq = ApiResponse.mock().copyWith(baseUrl: 'hello');
+      final successReq2 = ApiResponse.mock().copyWith(baseUrl: 'hi');
+
+      await sharedPreferencesManager.addApiResponse(successReq);
+      await sharedPreferencesManager.addApiResponse(successReq2);
+
+      await tester.pumpWidget(const MaterialApp(home: ChuckerPage()));
+      await tester.pumpAndSettle();
+
+      var tabBarView = find
+          .byKey(const Key('apis_tab_bar_view'))
+          .evaluate()
+          .first
+          .widget as TabBarView;
+
+      var successTab = tabBarView.children[0] as ApisListingTabView;
+
+      expect(successTab.apis.length, 2);
+
+      await tester.tap(find.text('Show Search'));
+      await tester.pumpAndSettle(const Duration(seconds: 2));
+
+      await tester.enterText(
+        find.byKey(const ValueKey('search_field')),
+        'hi',
+      );
+      await tester.pumpAndSettle(const Duration(seconds: 1));
+
+      tabBarView = find
+          .byKey(const Key('apis_tab_bar_view'))
+          .evaluate()
+          .first
+          .widget as TabBarView;
+
+      successTab = tabBarView.children[0] as ApisListingTabView;
+
+      expect(successTab.apis.length, 1);
     },
   );
 }

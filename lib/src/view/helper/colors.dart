@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 ///main color used for `chucker_flutter`
 const primaryColor = Color(0xFF01569a);
 
+///secondary color used in UI
+const secondaryColor = Color(0xFFd5d8ff);
+
 ///Render background color with respect to api status code
 Color statusColor(int statusCode) {
   if (statusCode > 199 && statusCode < 300) {

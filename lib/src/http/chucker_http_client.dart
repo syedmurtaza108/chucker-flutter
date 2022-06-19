@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:chucker_flutter/src/helpers/constants.dart';
 import 'package:chucker_flutter/src/helpers/shared_preferences_manager.dart';
 import 'package:chucker_flutter/src/models/api_response.dart';
 import 'package:chucker_flutter/src/view/helper/chucker_ui_helper.dart';
@@ -99,6 +100,10 @@ class ChuckerHttpClient extends BaseClient {
     if (request is Request && request.contentLength > 0) {
       requestBody = _getRequestBody(request);
     }
+
+    if (request is MultipartRequest) {
+      requestBody = _separateFileObjects(request);
+    }
     try {
       final a = utf8.decode(bytes);
       responseBody = jsonDecode(a);
@@ -135,5 +140,16 @@ class ChuckerHttpClient extends BaseClient {
       return jsonDecode(request.body);
       // ignore: empty_catches
     } catch (e) {}
+  }
+
+  dynamic _separateFileObjects(MultipartRequest request) {
+    final formFields =
+        request.fields.entries.map((e) => {e.key: e.value}).toList()
+          ..addAll(
+            request.files.map(
+              (e) => {e.field: e.filename ?? emptyString},
+            ),
+          );
+    return formFields;
   }
 }
