@@ -19,6 +19,9 @@ import 'package:flutter/material.dart';
 class ChuckerUiHelper {
   static final List<OverlayEntry?> _overlayEntries = List.empty(growable: true);
 
+  ///Only for testing
+  static bool notificationShown = false;
+
   ///[settings] to modify ui behaviour of chucker screens and notification
   static Settings settings = Settings.defaultObject();
 
@@ -35,8 +38,10 @@ class ChuckerUiHelper {
       final _entry = _createOverlayEntry(method, statusCode, path);
       _overlayEntries.add(_entry);
       overlay?.insert(_entry);
+      notificationShown = true;
       return true;
     }
+    notificationShown = false;
     return false;
   }
 
@@ -108,8 +113,11 @@ class ChuckerFlutter {
   ///By default its value is `false`
   static bool showOnRelease = false;
 
+  ///[isDebugMode] A wrapper of Flutter's `kDebugMode` constant
+  static bool isDebugMode = kDebugMode;
+
   ///[ChuckerButton] can be placed anywhere in the UI to open Chucker Screen
-  static final chuckerButton = kDebugMode || ChuckerFlutter.showOnRelease
+  static final chuckerButton = isDebugMode || ChuckerFlutter.showOnRelease
       ? ChuckerButton.getInstance()
       : const SizedBox.shrink();
 }

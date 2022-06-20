@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:chucker_flutter/chucker_flutter.dart';
 import 'package:chucker_flutter/src/helpers/shared_preferences_manager.dart';
+import 'package:chucker_flutter/src/view/helper/chucker_ui_helper.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart';
 import 'package:http/testing.dart';
@@ -79,6 +80,73 @@ void main() {
     final responses = await _sharedPreferencesManager.getAllApiResponses();
     expect(responses.length, 1);
     expect(_myChuckerHttpClient.statusCode, 500);
+  });
+  test(
+      'When UI is running in release mode and showOnRelease is false'
+      ' notification should not be shown', () async {
+    ChuckerFlutter.isDebugMode = false;
+    await _myChuckerHttpClient.get(Uri.parse('$_baseUrl$_internalErrorPath'));
+    ChuckerFlutter.isDebugMode = true;
+    expect(ChuckerUiHelper.notificationShown, false);
+  });
+
+  test('When request has body, its json should be decoded to String', () async {
+    SharedPreferences.setMockInitialValues({});
+    final request = {
+      'title': 'foo',
+    };
+    await _myChuckerHttpClient.post(
+      Uri.parse('$_baseUrl$_successPath'),
+      body: jsonEncode(request),
+    );
+
+    const prettyJson = '''
+{
+     "request": {
+          "title": "foo"
+     }
+}''';
+
+    final responses = await _sharedPreferencesManager.getAllApiResponses();
+
+    expect(responses.first.prettyJsonRequest, prettyJson);
+  });
+
+  test(
+      'When request has multippart body, its file details should be added'
+      ' in api response model', () async {
+    SharedPreferences.setMockInitialValues({});
+    final request = MultipartRequest(
+      'POST',
+      Uri.parse('$_baseUrl$_successPath'),
+    );
+    request.fields.addAll(
+      {'key': '123'},
+    );
+    request.files.add(
+      MultipartFile.fromString(
+        'file',
+        'file content',
+        filename: 'a.png',
+      ),
+    );
+    await _myChuckerHttpClient.send(request);
+
+    const prettyJson = '''
+{
+     "request": [
+          {
+               "key": "123"
+          },
+          {
+               "file": "a.png"
+          }
+     ]
+}''';
+
+    final responses = await _sharedPreferencesManager.getAllApiResponses();
+
+    expect(responses.first.prettyJsonRequest, prettyJson);
   });
 }
 

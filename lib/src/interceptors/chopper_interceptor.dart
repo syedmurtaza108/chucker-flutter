@@ -6,14 +6,13 @@ import 'package:chucker_flutter/src/helpers/constants.dart';
 import 'package:chucker_flutter/src/helpers/shared_preferences_manager.dart';
 import 'package:chucker_flutter/src/models/api_response.dart';
 import 'package:chucker_flutter/src/view/helper/chucker_ui_helper.dart';
-import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 
 ///[ChuckerChopperInterceptor] adds support for `chucker_flutter` in Chopper
 class ChuckerChopperInterceptor extends ResponseInterceptor {
   @override
   FutureOr<Response> onResponse(Response response) async {
-    if (kDebugMode || ChuckerFlutter.showOnRelease) {
+    if (ChuckerFlutter.isDebugMode || ChuckerFlutter.showOnRelease) {
       ChuckerUiHelper.showNotification(
         method: response.base.request?.method ?? '',
         statusCode: response.statusCode,

@@ -306,4 +306,38 @@ void main() {
       expect(successTab.apis.length, 1);
     },
   );
+
+  testWidgets(
+    'On click on delete button, an api detail should be deleted',
+    (WidgetTester tester) async {
+      SharedPreferences.setMockInitialValues({});
+
+      final sharedPreferencesManager = SharedPreferencesManager.getInstance();
+
+      final api = ApiResponse.mock();
+
+      await sharedPreferencesManager.addApiResponse(api);
+
+      await tester.pumpWidget(const MaterialApp(home: ChuckerPage()));
+      await tester.pumpAndSettle();
+
+      final tabBarView = find
+          .byKey(const Key('apis_tab_bar_view'))
+          .evaluate()
+          .first
+          .widget as TabBarView;
+
+      final successTab = tabBarView.children[0] as ApisListingTabView;
+
+      expect(successTab.apis.length, 1);
+
+      await tester.tap(find.text('DELETE').first);
+      await tester.pumpAndSettle();
+
+      await tester.tap(find.text('YES'));
+      await tester.pumpAndSettle(const Duration(seconds: 3));
+
+      expect((await sharedPreferencesManager.getAllApiResponses()).length, 0);
+    },
+  );
 }

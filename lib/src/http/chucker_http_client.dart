@@ -4,7 +4,6 @@ import 'package:chucker_flutter/src/helpers/constants.dart';
 import 'package:chucker_flutter/src/helpers/shared_preferences_manager.dart';
 import 'package:chucker_flutter/src/models/api_response.dart';
 import 'package:chucker_flutter/src/view/helper/chucker_ui_helper.dart';
-import 'package:flutter/foundation.dart';
 import 'package:http/http.dart';
 
 ///`Chucker Flutter`'s wrapper for `http` library
@@ -64,7 +63,7 @@ class ChuckerHttpClient extends BaseClient {
 
     final interceptedResponse = onResponse(response);
 
-    if (!kDebugMode && !ChuckerFlutter.showOnRelease) {
+    if (!ChuckerFlutter.isDebugMode && !ChuckerFlutter.showOnRelease) {
       return StreamedResponse(ByteStream.fromBytes(bytes), response.statusCode);
     }
 
