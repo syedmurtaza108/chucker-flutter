@@ -61,4 +61,45 @@ void main() {
     expect(responses.length, 1);
     expect(responses.first.statusCode, 400);
   });
+
+  test(
+      'When request has multippart body, its file details should be added'
+      ' in api response model', () async {
+    SharedPreferences.setMockInitialValues({});
+    await _chopperClient.send(
+      chopper.Request(
+        'POST',
+        _successPath,
+        _baseUrl,
+        parts: <chopper.PartValue>[
+          const chopper.PartValue<String>('key', '123'),
+          chopper.PartValueFile<MultipartFile>(
+            'source',
+            MultipartFile.fromString(
+              'file',
+              'file content',
+              filename: 'a.png',
+            ),
+          )
+        ],
+        multipart: true,
+      ),
+    );
+
+    const prettyJson = '''
+{
+     "request": [
+          {
+               "key": "123"
+          },
+          {
+               "file": "a.png"
+          }
+     ]
+}''';
+
+    final responses = await _sharedPreferencesManager.getAllApiResponses();
+
+    expect(responses.first.prettyJsonRequest, prettyJson);
+  });
 }
