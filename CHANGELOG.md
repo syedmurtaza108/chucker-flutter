@@ -67,3 +67,7 @@
 
 * Support for Json preview in both tree and text (pretty json) forms
 * Support for Image url preview
+
+## 1.3.1
+
+* Minor issue fixes

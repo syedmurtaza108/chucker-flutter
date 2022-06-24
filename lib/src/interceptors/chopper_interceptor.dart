@@ -75,9 +75,16 @@ class ChuckerChopperInterceptor extends ResponseInterceptor {
 
     if (response.base.request is http.Request) {
       final request = response.base.request! as http.Request;
-      return request.body.isNotEmpty ? request.bodyFields : emptyString;
+      return request.body.isNotEmpty ? _getRequestBody(request) : emptyString;
     }
     return emptyString;
+  }
+
+  dynamic _getRequestBody(http.Request request) {
+    try {
+      return jsonDecode(request.body);
+      // ignore: empty_catches
+    } catch (e) {}
   }
 
   dynamic _separateFileObjects(http.MultipartRequest request) {

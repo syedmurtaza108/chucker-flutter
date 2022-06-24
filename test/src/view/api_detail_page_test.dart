@@ -1,11 +1,16 @@
+import 'package:chucker_flutter/chucker_flutter.dart';
+import 'package:chucker_flutter/src/helpers/shared_preferences_manager.dart';
 import 'package:chucker_flutter/src/models/api_response.dart';
 import 'package:chucker_flutter/src/view/api_detail_page.dart';
+import 'package:chucker_flutter/src/view/chucker_page.dart';
 import 'package:chucker_flutter/src/view/json_tree/json_tree.dart';
 import 'package:chucker_flutter/src/view/widgets/sizeable_text_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
+  final _sharedPreferencesManager = SharedPreferencesManager.getInstance();
   testWidgets(
     'When page opened, three tabs should be loaded',
     (WidgetTester tester) async {
@@ -128,6 +133,43 @@ void main() {
 
       await tester.tap(find.byIcon(Icons.preview_rounded));
       await tester.pumpAndSettle();
+    },
+  );
+
+  testWidgets(
+    'When back button is pressed, screen should be navigated back',
+    (WidgetTester tester) async {
+      SharedPreferences.setMockInitialValues({});
+
+      final api = ApiResponse.mock().copyWith(
+        body: {'data': 'https://example.png'},
+      );
+
+      await _sharedPreferencesManager.addApiResponse(api);
+
+      await tester.pumpWidget(
+        MaterialApp(
+          navigatorObservers: [ChuckerFlutter.navigatorObserver],
+          home: const ChuckerPage(),
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      final apiListinItemWidget = find.byKey(
+        const ValueKey('api_listing_item_widget'),
+      );
+
+      await tester.tap(apiListinItemWidget);
+      await tester.pumpAndSettle();
+
+      //New screen is pushed
+      expect(apiListinItemWidget, findsNothing);
+
+      await tester.tap(find.byKey(const ValueKey('chucker_back_button')));
+      await tester.pumpAndSettle();
+
+      //Chucker page is popped
+      expect(apiListinItemWidget, findsOneWidget);
     },
   );
 }

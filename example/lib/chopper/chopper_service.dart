@@ -6,7 +6,7 @@ part 'chopper_service.chopper.dart';
 
 @ChopperApi()
 abstract class ChopperApiService extends ChopperService {
-  @Get(path: '/posts/1')
+  @Get(path: 'https://jsonplaceholder.typicode.com/posts/1')
   Future<Response<dynamic>> get();
 
   @Get(path: 'https://jsonplaceholder.typicode.com/error')

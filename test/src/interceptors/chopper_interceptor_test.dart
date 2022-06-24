@@ -102,4 +102,26 @@ void main() {
 
     expect(responses.first.prettyJsonRequest, prettyJson);
   });
+
+  test('When request has body, its json should be decoded to String', () async {
+    SharedPreferences.setMockInitialValues({});
+    final request = {
+      'title': 'foo',
+    };
+    await _chopperClient.post(
+      _successPath,
+      body: jsonEncode(request),
+    );
+
+    const prettyJson = '''
+{
+     "request": {
+          "title": "foo"
+     }
+}''';
+
+    final responses = await _sharedPreferencesManager.getAllApiResponses();
+
+    expect(responses.first.prettyJsonRequest, prettyJson);
+  });
 }

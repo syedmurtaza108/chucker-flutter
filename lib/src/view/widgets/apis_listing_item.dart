@@ -57,6 +57,7 @@ class ApisListingItemWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
+      key: const ValueKey('api_listing_item_widget'),
       onTap: onPressed,
       child: Padding(
         padding: const EdgeInsets.all(16),

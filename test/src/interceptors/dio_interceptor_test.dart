@@ -75,9 +75,19 @@ void main() {
       'When UI is running in release mode and showOnRelease is false'
       ' notification should not be shown', () async {
     ChuckerFlutter.isDebugMode = false;
+
+    //For success request
     await _dio.get(_successPath);
-    ChuckerFlutter.isDebugMode = true;
     expect(ChuckerUiHelper.notificationShown, false);
+
+    //For failure request
+    try {
+      await _dio.get(_failPath);
+      // ignore: empty_catches
+    } catch (e) {}
+    expect(ChuckerUiHelper.notificationShown, false);
+    
+    ChuckerFlutter.isDebugMode = true;
   });
 
   test(
