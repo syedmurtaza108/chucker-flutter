@@ -86,7 +86,7 @@ void main() {
       // ignore: empty_catches
     } catch (e) {}
     expect(ChuckerUiHelper.notificationShown, false);
-    
+
     ChuckerFlutter.isDebugMode = true;
   });
 
