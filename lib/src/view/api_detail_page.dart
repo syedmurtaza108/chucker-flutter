@@ -57,6 +57,8 @@ class _ApiDetailsPageState extends State<ApiDetailsPage> {
               Material(
                 color: primaryColor,
                 child: TabBar(
+                  labelColor: Colors.white,
+                  unselectedLabelColor: Colors.white.withOpacity(0.8),
                   tabs: [
                     Tab(text: Localization.strings['overview']),
                     Tab(text: Localization.strings['request']),

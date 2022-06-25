@@ -18,7 +18,7 @@ class _$ChopperApiService extends ChopperApiService {
 
   @override
   Future<Response<dynamic>> get() {
-    final $url = '/posts/1';
+    final $url = 'https://jsonplaceholder.typicode.com/posts/1';
     final $request = Request('GET', $url, client.baseUrl);
     return client.send<dynamic, dynamic>($request);
   }
