@@ -41,4 +41,27 @@ void main() {
       expect(chuckerScreen, findsOneWidget);
     },
   );
+
+  testWidgets(
+    'notification should be removed after setting duration (by default 2 sec)',
+    (WidgetTester tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          navigatorObservers: [ChuckerFlutter.navigatorObserver],
+          home: const Scaffold(),
+        ),
+      );
+
+      await tester.pumpAndSettle();
+
+      ChuckerUiHelper.showNotification(
+        method: 'GET',
+        statusCode: 200,
+        path: 'path',
+      );
+      // ignore: flutter_style_todos
+      //TODO Need to revisit this
+      await tester.pumpAndSettle(const Duration(seconds: 1));
+    },
+  );
 }

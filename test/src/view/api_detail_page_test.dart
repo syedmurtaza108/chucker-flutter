@@ -73,6 +73,13 @@ void main() {
 
       expect(find.byType(JsonTree), findsNothing);
       expect(find.byType(SelectableText), findsOneWidget);
+
+      ///On press shuffled with Tree type
+      await tester.tap(find.byType(SizeableTextButton));
+      await tester.pumpAndSettle();
+
+      expect(find.byType(JsonTree), findsOneWidget);
+      expect(find.byType(SelectableText), findsNothing);
     },
   );
 
@@ -92,12 +99,19 @@ void main() {
       expect(find.byType(JsonTree), findsOneWidget);
       expect(find.byType(SelectableText), findsNothing);
 
-      ///On press shuffled with Text type widget
+      ///On press shuffled with Text type
       await tester.tap(find.byType(SizeableTextButton));
       await tester.pumpAndSettle();
 
       expect(find.byType(JsonTree), findsNothing);
       expect(find.byType(SelectableText), findsOneWidget);
+
+      ///On press shuffled with Tree type
+      await tester.tap(find.byType(SizeableTextButton));
+      await tester.pumpAndSettle();
+
+      expect(find.byType(JsonTree), findsOneWidget);
+      expect(find.byType(SelectableText), findsNothing);
     },
   );
 
@@ -170,6 +184,37 @@ void main() {
 
       //Chucker page is popped
       expect(apiListinItemWidget, findsOneWidget);
+    },
+  );
+
+  testWidgets(
+    'When copy button is pressed, copy callback should be called',
+    (WidgetTester tester) async {
+      SharedPreferences.setMockInitialValues({});
+
+      final api = ApiResponse.mock().copyWith(
+        body: {'data': 'https://example.png'},
+      );
+
+      await _sharedPreferencesManager.addApiResponse(api);
+
+      await tester.pumpWidget(
+        MaterialApp(
+          navigatorObservers: [ChuckerFlutter.navigatorObserver],
+          home: ApiDetailsPage(api: api),
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      await tester.tap(find.text('RESPONSE'));
+      await tester.pumpAndSettle();
+
+      await tester.tap(find.byKey(const ValueKey('api_detail_copy')));
+
+      await tester.tap(find.text('REQUEST'));
+      await tester.pumpAndSettle();
+
+      await tester.tap(find.byKey(const ValueKey('api_detail_copy')));
     },
   );
 }

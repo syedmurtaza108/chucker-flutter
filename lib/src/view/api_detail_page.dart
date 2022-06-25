@@ -159,6 +159,7 @@ class _PreviewModeControl extends StatelessWidget {
             borderRadius: BorderRadius.circular(24),
           ),
           child: InkWell(
+            key: const ValueKey('api_detail_copy'),
             onTap: onCopyPressed,
             borderRadius: BorderRadius.circular(24),
             child: const Padding(

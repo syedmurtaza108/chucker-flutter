@@ -152,8 +152,8 @@ void main() {
       );
 
       await tester.tap(find.text('Copy'));
-      await tester.pumpAndSettle(const Duration(seconds: 2));
-      expect(find.byIcon(Icons.done), findsOneWidget);
+      await tester.pumpAndSettle(const Duration(seconds: 1));
+      expect(find.text('Copy'), findsNothing);
     },
   );
 

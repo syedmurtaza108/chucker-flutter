@@ -51,6 +51,7 @@ class _NotificationState extends State<Notification>
 
   @override
   void initState() {
+    super.initState();
     Future.delayed(
       Duration(seconds: ChuckerUiHelper.settings.duration.inSeconds - 1),
       _controller.reverse,
@@ -64,12 +65,12 @@ class _NotificationState extends State<Notification>
         }
       },
     );
-    super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
+      key: const ValueKey('notification_button'),
       onTap: () {
         if (_controller.isAnimating) {
           _controller.stop();
