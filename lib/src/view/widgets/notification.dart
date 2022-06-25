@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:chucker_flutter/src/helpers/extensions.dart';
 import 'package:chucker_flutter/src/localization/localization.dart';
-
 import 'package:chucker_flutter/src/view/helper/chucker_ui_helper.dart';
 import 'package:chucker_flutter/src/view/helper/colors.dart';
 import 'package:chucker_flutter/src/view/widgets/primary_button.dart';
@@ -54,7 +53,9 @@ class _NotificationState extends State<Notification>
     super.initState();
     Future.delayed(
       Duration(seconds: ChuckerUiHelper.settings.duration.inSeconds - 1),
-      _controller.reverse,
+      () {
+        if (mounted) _controller.reverse();
+      },
     );
 
     _controller.addListener(
