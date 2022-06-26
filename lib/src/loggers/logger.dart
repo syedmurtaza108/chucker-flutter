@@ -21,10 +21,10 @@ class Logger {
   static const _ansiBlue = '\x1B[34m';
 
   ///
-  static void json(String json) {
+  static void json(String json, {bool isRequest = false}) {
     final prettyJson = _jsonEncoder.convert(jsonDecode(json));
-    log('↘️$_ansiYellow JSON');
-    // print(prettyJson.split('\n').length);
+    final emoji = isRequest ? '↗️' : '↘️';
+    log('$emoji$_ansiYellow JSON');
     log('$_ansiYellow$prettyJson$_ansiReset');
   }
 

@@ -17,7 +17,7 @@ class ChuckerHttpLoggingInterceptor
     if (base is http.Request) {
       final body = base.body;
       if (body.isNotEmpty) {
-        Logger.json(body);
+        Logger.json(body, isRequest: true);
         bytes = ' (${base.bodyBytes.length}-byte body)';
       }
     }
@@ -42,7 +42,7 @@ class ChuckerHttpLoggingInterceptor
       }
     }
 
-    Logger.request('END ${base.method}$bytes');
+    Logger.response('END ${base.method}$bytes');
     return response;
   }
 }
