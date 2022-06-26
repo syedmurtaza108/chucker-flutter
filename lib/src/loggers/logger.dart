@@ -1,8 +1,11 @@
+import 'dart:convert';
 import 'dart:developer';
 
 ///Helps printing network request and response in aesthetic way
 class Logger {
   Logger._();
+
+  static const _jsonEncoder = JsonEncoder.withIndent('  ');
 
   static const tlCorner = '┌';
   static const blCorner = '└';
@@ -34,8 +37,9 @@ class Logger {
   }
 
   static void json(String json) {
+    final prettyJson = _jsonEncoder.convert(json);
     log('↘️$_ansiYellow JSON');
-    json.split('\n').forEach((e) {
+    prettyJson.split('\n').forEach((e) {
       log('$_ansiYellow$e$_ansiReset');
     });
   }
