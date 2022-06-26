@@ -17,7 +17,7 @@ class ChuckerHttpLoggingInterceptor
     if (base is http.Request) {
       final body = base.body;
       if (body.isNotEmpty) {
-        Logger.request(body);
+        Logger.json(body);
         bytes = ' (${base.bodyBytes.length}-byte body)';
       }
     }
@@ -29,9 +29,9 @@ class ChuckerHttpLoggingInterceptor
   @override
   FutureOr<Response> onResponse(Response response) {
     final base = response.base.request;
-    Logger.i('<-- ${response.statusCode} ${base!.url}');
+    Logger.response('${response.statusCode} ${base!.url}');
 
-    response.base.headers.forEach((k, v) => Logger.i('$k: $v'));
+    response.base.headers.forEach((k, v) => Logger.response('$k: $v'));
 
     var bytes = '';
     if (response.base is http.Response) {
@@ -42,7 +42,7 @@ class ChuckerHttpLoggingInterceptor
       }
     }
 
-    Logger.i('--> END ${base.method}$bytes');
+    Logger.request('END ${base.method}$bytes');
     return response;
   }
 }
