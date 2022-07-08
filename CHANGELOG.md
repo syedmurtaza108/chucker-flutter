@@ -75,3 +75,7 @@
 ## 1.3.2
 
 * Exception in Animation controller reverse function fixed
+
+## 1.3.3
+
+* Minor fixes

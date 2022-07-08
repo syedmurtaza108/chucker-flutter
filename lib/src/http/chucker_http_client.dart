@@ -55,6 +55,8 @@ class ChuckerHttpClient extends BaseClient {
   @override
   Future<StreamedResponse> send(BaseRequest request) async {
     _requestTime = DateTime.now();
+    await SharedPreferencesManager.getInstance().getSettings();
+
     final interceptedRequest = onRequest(request);
 
     final response = await _client.send(request);

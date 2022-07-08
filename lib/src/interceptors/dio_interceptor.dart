@@ -23,6 +23,8 @@ class ChuckerDioInterceptor extends Interceptor {
     Response response,
     ResponseInterceptorHandler handler,
   ) async {
+    await SharedPreferencesManager.getInstance().getSettings();
+
     if (!ChuckerFlutter.isDebugMode && !ChuckerFlutter.showOnRelease) {
       handler.next(response);
       return;
@@ -38,6 +40,8 @@ class ChuckerDioInterceptor extends Interceptor {
 
   @override
   Future<void> onError(DioError err, ErrorInterceptorHandler handler) async {
+    await SharedPreferencesManager.getInstance().getSettings();
+
     if (!ChuckerFlutter.isDebugMode && !ChuckerFlutter.showOnRelease) {
       handler.next(err);
       return;
