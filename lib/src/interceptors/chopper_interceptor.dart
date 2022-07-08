@@ -12,6 +12,8 @@ import 'package:http/http.dart' as http;
 class ChuckerChopperInterceptor extends ResponseInterceptor {
   @override
   FutureOr<Response> onResponse(Response response) async {
+    await SharedPreferencesManager.getInstance().getSettings();
+
     if (ChuckerFlutter.isDebugMode || ChuckerFlutter.showOnRelease) {
       ChuckerUiHelper.showNotification(
         method: response.base.request?.method ?? '',
