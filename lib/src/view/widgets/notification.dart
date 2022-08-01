@@ -1,7 +1,9 @@
 import 'dart:async';
 
 import 'package:chucker_flutter/src/helpers/extensions.dart';
+import 'package:chucker_flutter/src/helpers/shared_preferences_manager.dart';
 import 'package:chucker_flutter/src/localization/localization.dart';
+import 'package:chucker_flutter/src/view/api_detail_page.dart';
 import 'package:chucker_flutter/src/view/helper/chucker_ui_helper.dart';
 import 'package:chucker_flutter/src/view/helper/colors.dart';
 import 'package:chucker_flutter/src/view/widgets/primary_button.dart';
@@ -15,6 +17,7 @@ class Notification extends StatefulWidget {
     required this.method,
     required this.path,
     required this.removeNotification,
+    required this.requestTime,
     Key? key,
   }) : super(key: key);
 
@@ -29,6 +32,9 @@ class Notification extends StatefulWidget {
 
   ///Call back to notify parent to remove notification
   final VoidCallback removeNotification;
+
+  ///Time when api request sent
+  final DateTime requestTime;
 
   @override
   State<Notification> createState() => _NotificationState();
@@ -137,6 +143,7 @@ class _NotificationState extends State<Notification>
                     onPressed: () {
                       _controller.animateTo(0);
                       ChuckerUiHelper.showChuckerScreen();
+                      _openDetails();
                     },
                     text: Localization.strings['details']!,
                     foreColor: Colors.white,
@@ -147,6 +154,15 @@ class _NotificationState extends State<Notification>
           ),
         ),
       ),
+    );
+  }
+
+  Future<void> _openDetails() async {
+    final api = await SharedPreferencesManager.getInstance().getApiResponse(
+      widget.requestTime,
+    );
+    await ChuckerFlutter.navigatorObserver.navigator?.push(
+      MaterialPageRoute(builder: (_) => ApiDetailsPage(api: api)),
     );
   }
 

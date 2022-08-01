@@ -12,6 +12,7 @@ import 'package:http/http.dart' as http;
 class ChuckerChopperInterceptor extends ResponseInterceptor {
   @override
   FutureOr<Response> onResponse(Response response) async {
+    final time = DateTime.now();
     await SharedPreferencesManager.getInstance().getSettings();
 
     if (ChuckerFlutter.isDebugMode || ChuckerFlutter.showOnRelease) {
@@ -19,13 +20,14 @@ class ChuckerChopperInterceptor extends ResponseInterceptor {
         method: response.base.request?.method ?? '',
         statusCode: response.statusCode,
         path: response.base.request?.url.path ?? '',
+        requestTime: time,
       );
-      await _saveResponse(response);
+      await _saveResponse(response, time);
     }
     return response;
   }
 
-  Future<void> _saveResponse(Response response) async {
+  Future<void> _saveResponse(Response response, DateTime time) async {
     dynamic responseBody = '';
 
     try {
@@ -50,7 +52,7 @@ class ChuckerChopperInterceptor extends ResponseInterceptor {
         receiveTimeout: 0,
         request: {'request': _requestBody(response)},
         requestSize: 2,
-        requestTime: DateTime.now(),
+        requestTime: time,
         responseSize: 2,
         responseTime: DateTime.now(),
         responseType: response.base.headers['content-type'] ?? 'N/A',

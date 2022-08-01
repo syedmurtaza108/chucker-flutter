@@ -33,6 +33,7 @@ class ChuckerDioInterceptor extends Interceptor {
       method: response.requestOptions.method,
       statusCode: response.statusCode ?? -1,
       path: response.requestOptions.path,
+      requestTime: _requestTime,
     );
     await _saveResponse(response);
     handler.next(response);
@@ -50,6 +51,7 @@ class ChuckerDioInterceptor extends Interceptor {
       method: err.requestOptions.method,
       statusCode: err.response?.statusCode ?? -1,
       path: err.requestOptions.path,
+      requestTime: _requestTime,
     );
     await _saveError(err);
     handler.next(err);
