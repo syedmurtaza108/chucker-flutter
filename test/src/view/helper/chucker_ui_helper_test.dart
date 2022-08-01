@@ -17,6 +17,7 @@ void main() {
         method: 'GET',
         statusCode: 200,
         path: '/',
+        requestTime: DateTime.now(),
       );
 
       expect(shown, true);
@@ -58,6 +59,7 @@ void main() {
         method: 'GET',
         statusCode: 200,
         path: 'path',
+        requestTime: DateTime.now(),
       );
       // ignore: flutter_style_todos
       //TODO Need to revisit this

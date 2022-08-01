@@ -124,4 +124,28 @@ class SharedPreferencesManager {
     Localization.updateLocalization(ChuckerUiHelper.settings.language);
     return settings;
   }
+
+  ///[getAllApiResponses] returns single api response at given time
+  Future<ApiResponse> getApiResponse(DateTime time) async {
+    final apiResponses = List<ApiResponse>.empty(growable: true);
+
+    final preferences = await SharedPreferences.getInstance();
+
+    final json = preferences.getString(_kApiResponses);
+
+    if (json == null) {
+      return ApiResponse.mock();
+    }
+
+    final list = jsonDecode(json);
+
+    for (final item in list) {
+      apiResponses.add(ApiResponse.fromJson(item as Map<String, dynamic>));
+    }
+
+    return apiResponses.firstWhere(
+      (api) => api.requestTime.compareTo(time) == 0,
+      orElse: () => apiResponses.first,
+    );
+  }
 }

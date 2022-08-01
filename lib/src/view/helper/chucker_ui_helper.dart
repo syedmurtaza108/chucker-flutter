@@ -31,11 +31,12 @@ class ChuckerUiHelper {
     required String method,
     required int statusCode,
     required String path,
+    required DateTime requestTime,
   }) {
     if (ChuckerUiHelper.settings.showNotification &&
         ChuckerFlutter.navigatorObserver.navigator != null) {
       final overlay = ChuckerFlutter.navigatorObserver.navigator!.overlay;
-      final _entry = _createOverlayEntry(method, statusCode, path);
+      final _entry = _createOverlayEntry(method, statusCode, path, requestTime);
       _overlayEntries.add(_entry);
       overlay?.insert(_entry);
       notificationShown = true;
@@ -49,6 +50,7 @@ class ChuckerUiHelper {
     String method,
     int statusCode,
     String path,
+    DateTime requestTime,
   ) {
     return OverlayEntry(
       builder: (context) {
@@ -59,6 +61,7 @@ class ChuckerUiHelper {
             method: method,
             path: path,
             removeNotification: _removeNotification,
+            requestTime: requestTime,
           ),
         );
       },

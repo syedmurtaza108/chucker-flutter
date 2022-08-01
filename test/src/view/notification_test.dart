@@ -17,6 +17,7 @@ void main() {
         method: 'GET',
         statusCode: 200,
         path: 'path',
+        requestTime: DateTime.now(),
       );
 
       await tester.pumpAndSettle(const Duration(seconds: 3));
