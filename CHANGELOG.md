@@ -79,3 +79,7 @@
 ## 1.3.3
 
 * Minor fixes
+
+## 1.3.4
+
+* Minor improvements
