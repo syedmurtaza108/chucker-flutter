@@ -83,3 +83,11 @@
 ## 1.3.4
 
 * Minor improvements
+
+## 1.3.5
+
+* Minor improvements
+
+## 1.3.6
+
+* Dependencies updated
