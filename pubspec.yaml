@@ -10,7 +10,7 @@ environment:
   sdk: ">=2.16.0 <3.0.0"
 
 dependencies:
-  chopper: ^5.1.0
+  chopper: ^4.0.5
   dio: ^4.0.4
   flutter:
     sdk: flutter
