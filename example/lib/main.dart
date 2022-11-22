@@ -9,7 +9,7 @@ import 'package:http/http.dart' as http;
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   ChuckerFlutter.showOnRelease = true;
-  ChuckerFlutter.initNotificationService();
+  ChuckerFlutter.withLocalNotification();
   runApp(const App());
 }
 
@@ -240,9 +240,7 @@ class _TodoPageState extends State<TodoPage> {
   void initState() {
     super.initState();
     _dio.interceptors.add(
-      ChuckerDioInterceptor(
-        showNotificationOptions: ShowNotificationOptions.notification,
-      ),
+      ChuckerDioInterceptor(),
     );
   }
 

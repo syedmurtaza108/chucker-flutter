@@ -45,16 +45,22 @@ class ChuckerUiHelper {
     required int statusCode,
     required String path,
     required DateTime requestTime,
-    ShowNotificationOptions? showNotificationOptions,
   }) {
     if (ChuckerUiHelper.settings.showNotification &&
         ChuckerFlutter.navigatorObserver.navigator != null) {
       final overlay = ChuckerFlutter.navigatorObserver.navigator!.overlay;
-      if (showNotificationOptions == ShowNotificationOptions.notification) {
+      if (ChuckerFlutter.showNotificationOptions ==
+          ShowNotificationOptions.notification) {
         NotificationService.flutterLocalNotificationsPlugin.show(
           0,
           channelName,
-          'HTTP Requests: $path',
+          {
+            'HTTP Request': {
+              'method': method,
+              'status_code': statusCode,
+              'path': path,
+            }
+          }.toString(),
           NotificationDetails(
             android: androidNotificationDetails,
             iOS: iosNotificationDetails,
@@ -174,8 +180,15 @@ class ChuckerFlutter {
       ? ChuckerButton.getInstance()
       : const SizedBox.shrink();
 
+  ///[showNotificationOptions] show notification on toast or notification bar.
+  static ShowNotificationOptions showNotificationOptions =
+      ShowNotificationOptions.toast;
+
   /// init [NotificationService] for showing notification
-  static void initNotificationService() {
+  static void withLocalNotification() {
+    showNotificationOptions = !kIsWeb
+        ? ShowNotificationOptions.notification
+        : ShowNotificationOptions.toast;
     NotificationService.init(
       navigatorObserver: ChuckerFlutter.navigatorObserver,
     );
