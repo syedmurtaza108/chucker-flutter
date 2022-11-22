@@ -88,7 +88,6 @@ What you need to do is just add initialization of local notification. Add this i
 ```dart
   ChuckerFlutter.showOnRelease = true;
   ChuckerFlutter.withLocalNotification();
-}
 ```
 
 But you know, because this kind of notification depend on `flutter_local_notifications` plugin, so you need to follow their instructions about `Android` and `iOS` settings.
