@@ -83,13 +83,11 @@ void main() {
 
 ## Notifications
 By default, Chucker Flutter use toast/alert as notification. But now you can move it to local notification, all request will appear to notification bar.
-What you need to do is just add initialization of local notification. Add this initialization like this:
+What you need to do is just add initialization of local notification. Add this initialization below the code before:
 
 ```dart
-void main() {
   ChuckerFlutter.showOnRelease = true;
-  **ChuckerFlutter.withLocalNotification();**
-  runApp(const App());
+  ChuckerFlutter.withLocalNotification();
 }
 ```
 
