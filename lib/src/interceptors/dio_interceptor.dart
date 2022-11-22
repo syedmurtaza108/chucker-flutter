@@ -2,13 +2,22 @@ import 'dart:convert';
 
 import 'package:chucker_flutter/src/helpers/constants.dart';
 import 'package:chucker_flutter/src/helpers/shared_preferences_manager.dart';
+import 'package:chucker_flutter/src/helpers/show_notification_options.dart';
 import 'package:chucker_flutter/src/models/api_response.dart';
 import 'package:chucker_flutter/src/view/helper/chucker_ui_helper.dart';
 import 'package:dio/dio.dart';
 
 ///[ChuckerDioInterceptor] adds support for `chucker_flutter` in [Dio] library.
 class ChuckerDioInterceptor extends Interceptor {
+  ///[showNotificationOptions] show notification on toast or notification bar.
+  ChuckerDioInterceptor({
+    this.showNotificationOptions = ShowNotificationOptions.toast,
+  });
+
+  ///[showNotificationOptions] show notification on toast or notification bar.
+  final ShowNotificationOptions showNotificationOptions;
   late DateTime _requestTime;
+
   @override
   Future<void> onRequest(
     RequestOptions options,
@@ -24,7 +33,6 @@ class ChuckerDioInterceptor extends Interceptor {
     ResponseInterceptorHandler handler,
   ) async {
     await SharedPreferencesManager.getInstance().getSettings();
-
     if (!ChuckerFlutter.isDebugMode && !ChuckerFlutter.showOnRelease) {
       handler.next(response);
       return;
@@ -34,6 +42,7 @@ class ChuckerDioInterceptor extends Interceptor {
       statusCode: response.statusCode ?? -1,
       path: response.requestOptions.path,
       requestTime: _requestTime,
+      showNotificationOptions: showNotificationOptions,
     );
     await _saveResponse(response);
     handler.next(response);
@@ -52,6 +61,7 @@ class ChuckerDioInterceptor extends Interceptor {
       statusCode: err.response?.statusCode ?? -1,
       path: err.requestOptions.path,
       requestTime: _requestTime,
+      showNotificationOptions: showNotificationOptions,
     );
     await _saveError(err);
     handler.next(err);

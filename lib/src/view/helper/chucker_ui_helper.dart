@@ -1,4 +1,6 @@
+import 'package:chucker_flutter/chucker_flutter.dart';
 import 'package:chucker_flutter/src/helpers/extensions.dart';
+import 'package:chucker_flutter/src/helpers/notification_service.dart';
 import 'package:chucker_flutter/src/helpers/shared_preferences_manager.dart';
 import 'package:chucker_flutter/src/localization/localization.dart';
 
@@ -8,8 +10,10 @@ import 'package:chucker_flutter/src/view/helper/chucker_button.dart';
 import 'package:chucker_flutter/src/view/helper/colors.dart';
 import 'package:chucker_flutter/src/view/widgets/notification.dart'
     as notification;
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 ///[ChuckerUiHelper] handles the UI part of `chucker_flutter`
 ///
@@ -25,6 +29,15 @@ class ChuckerUiHelper {
   ///[settings] to modify ui behaviour of chucker screens and notification
   static Settings settings = Settings.defaultObject();
 
+  /// Notification Channel ID
+  static const channelId = 'Chucker';
+
+  /// Notification Channel Name
+  static const channelName = 'Chucker';
+
+  /// Notification Channel Description
+  static const channelDescription = 'Chucker';
+
   ///[showNotification] shows the rest api [method] (GET, POST, PUT, etc),
   ///[statusCode] (200, 400, etc) response status and [path]
   static bool showNotification({
@@ -32,19 +45,56 @@ class ChuckerUiHelper {
     required int statusCode,
     required String path,
     required DateTime requestTime,
+    ShowNotificationOptions? showNotificationOptions,
   }) {
     if (ChuckerUiHelper.settings.showNotification &&
         ChuckerFlutter.navigatorObserver.navigator != null) {
       final overlay = ChuckerFlutter.navigatorObserver.navigator!.overlay;
-      final _entry = _createOverlayEntry(method, statusCode, path, requestTime);
-      _overlayEntries.add(_entry);
-      overlay?.insert(_entry);
-      notificationShown = true;
+      if (showNotificationOptions == ShowNotificationOptions.notification) {
+        NotificationService.flutterLocalNotificationsPlugin.show(
+          0,
+          channelName,
+          'HTTP Requests: $path',
+          NotificationDetails(
+            android: androidNotificationDetails,
+            iOS: iosNotificationDetails,
+          ),
+          payload: '',
+        );
+      } else {
+        final _entry =
+            _createOverlayEntry(method, statusCode, path, requestTime);
+        _overlayEntries.add(_entry);
+        overlay?.insert(_entry);
+        notificationShown = true;
+      }
       return true;
     }
     notificationShown = false;
     return false;
   }
+
+  /// [AndroidNotificationDetails] give many
+  /// options for displaying android notifications
+  static AndroidNotificationDetails androidNotificationDetails =
+      const AndroidNotificationDetails(
+    channelId,
+    channelName,
+    channelDescription: channelDescription,
+    ticker: 'ticker',
+    groupKey: channelId,
+    enableVibration: false,
+  );
+
+  /// [DarwinNotificationDetails] give many
+  /// options for displaying iOS notifications
+  static DarwinNotificationDetails iosNotificationDetails =
+      const DarwinNotificationDetails(
+    presentAlert: true,
+    presentBadge: true,
+    presentSound: false,
+    threadIdentifier: 'requests',
+  );
 
   static OverlayEntry _createOverlayEntry(
     String method,
@@ -123,4 +173,11 @@ class ChuckerFlutter {
   static final chuckerButton = isDebugMode || ChuckerFlutter.showOnRelease
       ? ChuckerButton.getInstance()
       : const SizedBox.shrink();
+
+  /// init [NotificationService] for showing notification
+  static void initNotificationService() {
+    NotificationService.init(
+      navigatorObserver: ChuckerFlutter.navigatorObserver,
+    );
+  }
 }
