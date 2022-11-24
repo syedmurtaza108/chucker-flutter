@@ -11,7 +11,7 @@ environment:
 
 dependencies:
   chopper: ^5.1.0
-  dio: ^4.0.6
+  dio: ^4.0.4
   flutter:
     sdk: flutter
   flutter_local_notifications: ^12.0.3
