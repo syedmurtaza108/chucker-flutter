@@ -26,6 +26,10 @@ class ChuckerUiHelper {
   ///Only for testing
   static bool notificationShown = false;
 
+  ///Only for testing
+  static ShowNotificationOptions showNotificationOptions =
+      ShowNotificationOptions.toast;
+
   ///[settings] to modify ui behaviour of chucker screens and notification
   static Settings settings = Settings.defaultObject();
 
@@ -40,27 +44,29 @@ class ChuckerUiHelper {
 
   ///[showNotification] shows the rest api [method] (GET, POST, PUT, etc),
   ///[statusCode] (200, 400, etc) response status and [path]
-  static bool showNotification({
+  static Future<bool> showNotification({
     required String method,
     required int statusCode,
     required String path,
     required DateTime requestTime,
-  }) {
+  }) async {
     if (ChuckerUiHelper.settings.showNotification &&
         ChuckerFlutter.navigatorObserver.navigator != null) {
       final overlay = ChuckerFlutter.navigatorObserver.navigator!.overlay;
       if (ChuckerFlutter.showNotificationOptions ==
           ShowNotificationOptions.notification) {
-        NotificationService.flutterLocalNotificationsPlugin.show(
+        final responses =
+            await SharedPreferencesManager.getInstance().getAllApiResponses();
+        notificationShown = NotificationService.showNotification(
           0,
           channelName,
-          {
-            'HTTP Request': {
-              'method': method,
-              'status_code': statusCode,
-              'path': path,
-            }
-          }.toString(),
+          responses
+              .map(
+                (e) =>
+                    'Method: ${e.method}\nStatus Code: ${e.statusCode}\nPath:'
+                    ' ${e.path}\n\n',
+              )
+              .join(),
           NotificationDetails(
             android: androidNotificationDetails,
             iOS: iosNotificationDetails,
@@ -77,6 +83,7 @@ class ChuckerUiHelper {
       return true;
     }
     notificationShown = false;
+    showNotificationOptions = ChuckerFlutter.showNotificationOptions;
     return false;
   }
 
@@ -90,6 +97,8 @@ class ChuckerUiHelper {
     ticker: 'ticker',
     groupKey: channelId,
     enableVibration: false,
+    styleInformation: BigTextStyleInformation(''),
+    groupAlertBehavior: GroupAlertBehavior.children,
   );
 
   /// [DarwinNotificationDetails] give many
@@ -189,8 +198,10 @@ class ChuckerFlutter {
     showNotificationOptions = !kIsWeb
         ? ShowNotificationOptions.notification
         : ShowNotificationOptions.toast;
-    NotificationService.init(
-      navigatorObserver: ChuckerFlutter.navigatorObserver,
-    );
+    if (showNotificationOptions == ShowNotificationOptions.notification) {
+      NotificationService.init(
+        navigatorObserver: ChuckerFlutter.navigatorObserver,
+      );
+    }
   }
 }

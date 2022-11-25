@@ -10,6 +10,8 @@ import 'package:http/testing.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
+  TestWidgetsFlutterBinding.ensureInitialized();
+  SharedPreferences.setMockInitialValues({});
   const _mockedSuccessResponse = {'id': 1};
 
   const _baseUrl = 'https://www.example.com';
