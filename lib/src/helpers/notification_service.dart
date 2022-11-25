@@ -53,4 +53,21 @@ class NotificationService {
   static void openChucker() {
     ChuckerUiHelper.showChuckerScreen();
   }
+
+  /// Show Notification
+  static bool showNotification(
+    int id,
+    String title,
+    String body,
+    NotificationDetails notificationDetails, {
+    required String payload,
+  }) {
+    flutterLocalNotificationsPlugin.show(
+      id,
+      title,
+      body,
+      notificationDetails,
+    );
+    return true;
+  }
 }

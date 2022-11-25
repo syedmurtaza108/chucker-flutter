@@ -69,13 +69,6 @@ class ChuckerHttpClient extends BaseClient {
       return StreamedResponse(ByteStream.fromBytes(bytes), response.statusCode);
     }
 
-    ChuckerUiHelper.showNotification(
-      method: interceptedRequest.method,
-      statusCode: interceptedResponse.statusCode,
-      path: interceptedRequest.url.path,
-      requestTime: _requestTime,
-    );
-
     await _saveResponse(
       interceptedRequest,
       bytes,
@@ -84,6 +77,12 @@ class ChuckerHttpClient extends BaseClient {
       response.headers['content-type'] ??
           response.headers['Content-Type'] ??
           'N/A',
+    );
+    await ChuckerUiHelper.showNotification(
+      method: interceptedRequest.method,
+      statusCode: interceptedResponse.statusCode,
+      path: interceptedRequest.url.path,
+      requestTime: _requestTime,
     );
 
     return StreamedResponse(ByteStream.fromBytes(bytes), response.statusCode);

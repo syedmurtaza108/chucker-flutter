@@ -36,7 +36,7 @@ class PrimaryButton extends StatelessWidget {
       child: ElevatedButton(
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(
-          primary: backColor ?? primaryColor,
+          backgroundColor: backColor ?? primaryColor,
         ),
         child: Text(
           text,

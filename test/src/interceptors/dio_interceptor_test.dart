@@ -7,6 +7,8 @@ import 'package:http_mock_adapter/http_mock_adapter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
+  TestWidgetsFlutterBinding.ensureInitialized();
+  SharedPreferences.setMockInitialValues({});
   final _dio = Dio();
   late final SharedPreferencesManager _sharedPreferencesManager;
 

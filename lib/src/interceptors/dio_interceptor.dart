@@ -29,13 +29,14 @@ class ChuckerDioInterceptor extends Interceptor {
       handler.next(response);
       return;
     }
-    ChuckerUiHelper.showNotification(
+    await _saveResponse(response);
+    await ChuckerUiHelper.showNotification(
       method: response.requestOptions.method,
       statusCode: response.statusCode ?? -1,
       path: response.requestOptions.uri.path,
       requestTime: _requestTime,
     );
-    await _saveResponse(response);
+
     handler.next(response);
   }
 
@@ -47,13 +48,14 @@ class ChuckerDioInterceptor extends Interceptor {
       handler.next(err);
       return;
     }
-    ChuckerUiHelper.showNotification(
+    await _saveError(err);
+    await ChuckerUiHelper.showNotification(
       method: err.requestOptions.method,
       statusCode: err.response?.statusCode ?? -1,
       path: err.requestOptions.uri.path,
       requestTime: _requestTime,
     );
-    await _saveError(err);
+
     handler.next(err);
   }
 
