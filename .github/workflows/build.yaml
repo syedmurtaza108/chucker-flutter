@@ -1,11 +1,11 @@
 name: build
 on: 
   push:
-    branches: [master]
+    branches: [master, dev]
     paths-ignore:
       - '**/README.md'
   pull_request:
-    branches: [master]
+    branches: [master, dev]
 
 jobs: 
   build: 
