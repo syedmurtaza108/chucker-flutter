@@ -9,6 +9,7 @@ import 'package:dio/dio.dart';
 ///[ChuckerDioInterceptor] adds support for `chucker_flutter` in [Dio] library.
 class ChuckerDioInterceptor extends Interceptor {
   late DateTime _requestTime;
+
   @override
   Future<void> onRequest(
     RequestOptions options,
@@ -24,18 +25,18 @@ class ChuckerDioInterceptor extends Interceptor {
     ResponseInterceptorHandler handler,
   ) async {
     await SharedPreferencesManager.getInstance().getSettings();
-
     if (!ChuckerFlutter.isDebugMode && !ChuckerFlutter.showOnRelease) {
       handler.next(response);
       return;
     }
-    ChuckerUiHelper.showNotification(
+    await _saveResponse(response);
+    await ChuckerUiHelper.showNotification(
       method: response.requestOptions.method,
       statusCode: response.statusCode ?? -1,
-      path: response.requestOptions.path,
+      path: response.requestOptions.uri.path,
       requestTime: _requestTime,
     );
-    await _saveResponse(response);
+
     handler.next(response);
   }
 
@@ -47,13 +48,14 @@ class ChuckerDioInterceptor extends Interceptor {
       handler.next(err);
       return;
     }
-    ChuckerUiHelper.showNotification(
+    await _saveError(err);
+    await ChuckerUiHelper.showNotification(
       method: err.requestOptions.method,
       statusCode: err.response?.statusCode ?? -1,
-      path: err.requestOptions.path,
+      path: err.requestOptions.uri.path,
       requestTime: _requestTime,
     );
-    await _saveError(err);
+
     handler.next(err);
   }
 

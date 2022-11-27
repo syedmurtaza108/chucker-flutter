@@ -10,6 +10,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
+  TestWidgetsFlutterBinding.ensureInitialized();
+  SharedPreferences.setMockInitialValues({});
   final _sharedPreferencesManager = SharedPreferencesManager.getInstance();
   testWidgets(
     'When page opened, three tabs should be loaded',

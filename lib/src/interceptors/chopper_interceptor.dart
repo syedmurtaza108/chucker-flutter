@@ -16,13 +16,13 @@ class ChuckerChopperInterceptor extends ResponseInterceptor {
     await SharedPreferencesManager.getInstance().getSettings();
 
     if (ChuckerFlutter.isDebugMode || ChuckerFlutter.showOnRelease) {
-      ChuckerUiHelper.showNotification(
+      await _saveResponse(response, time);
+      await ChuckerUiHelper.showNotification(
         method: response.base.request?.method ?? '',
         statusCode: response.statusCode,
         path: response.base.request?.url.path ?? '',
         requestTime: time,
       );
-      await _saveResponse(response, time);
     }
     return response;
   }
@@ -63,11 +63,11 @@ class ChuckerChopperInterceptor extends ResponseInterceptor {
     );
   }
 
-  String _requestType(Response response) {
-    final contentTypes = response.base.request!.headers.entries
+  String? _requestType(Response response) {
+    final contentTypes = response.base.request?.headers.entries
         .where((element) => element.key == 'content-type');
 
-    return contentTypes.isEmpty ? 'N/A' : contentTypes.first.value;
+    return contentTypes?.isEmpty == true ? 'N/A' : contentTypes?.first.value;
   }
 
   dynamic _requestBody(Response response) {
@@ -78,15 +78,17 @@ class ChuckerChopperInterceptor extends ResponseInterceptor {
     }
 
     if (response.base.request is http.Request) {
-      final request = response.base.request! as http.Request;
-      return request.body.isNotEmpty ? _getRequestBody(request) : emptyString;
+      final request = response.base.request as http.Request?;
+      return request?.body.isNotEmpty == true
+          ? _getRequestBody(request)
+          : emptyString;
     }
     return emptyString;
   }
 
-  dynamic _getRequestBody(http.Request request) {
+  dynamic _getRequestBody(http.Request? request) {
     try {
-      return jsonDecode(request.body);
+      return jsonDecode(request!.body);
       // ignore: empty_catches
     } catch (e) {}
   }
