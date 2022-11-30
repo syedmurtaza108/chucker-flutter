@@ -8,8 +8,7 @@ import 'package:http/http.dart' as http;
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  ChuckerFlutter.showOnRelease = true;
-  ChuckerFlutter.withLocalNotification();
+  ChuckerFlutter.init(notificationType: NotificationType.localNotification);
   runApp(const App());
 }
 

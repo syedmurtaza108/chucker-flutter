@@ -26,10 +26,6 @@ class ChuckerUiHelper {
   ///Only for testing
   static bool notificationShown = false;
 
-  ///Only for testing
-  static ShowNotificationOptions showNotificationOptions =
-      ShowNotificationOptions.toast;
-
   ///[settings] to modify ui behaviour of chucker screens and notification
   static Settings settings = Settings.defaultObject();
 
@@ -37,10 +33,10 @@ class ChuckerUiHelper {
   static const channelId = 'Chucker';
 
   /// Notification Channel Name
-  static const channelName = 'Chucker';
+  static const channelName = 'Chucker Flutter';
 
   /// Notification Channel Description
-  static const channelDescription = 'Chucker';
+  static const channelDescription = 'Chucker Flutter';
 
   ///[showNotification] shows the rest api [method] (GET, POST, PUT, etc),
   ///[statusCode] (200, 400, etc) response status and [path]
@@ -53,38 +49,31 @@ class ChuckerUiHelper {
     if (ChuckerUiHelper.settings.showNotification &&
         ChuckerFlutter.navigatorObserver.navigator != null) {
       final overlay = ChuckerFlutter.navigatorObserver.navigator!.overlay;
-      if (ChuckerFlutter.showNotificationOptions ==
-          ShowNotificationOptions.notification) {
-        final responses =
-            await SharedPreferencesManager.getInstance().getAllApiResponses();
-        notificationShown = NotificationService.showNotification(
-          0,
-          channelName,
-          responses
-              .map(
-                (e) =>
-                    'Method: ${e.method}\nStatus Code: ${e.statusCode}\nPath:'
-                    ' ${e.path}\n\n',
-              )
-              .join(),
-          NotificationDetails(
-            android: androidNotificationDetails,
-            iOS: iosNotificationDetails,
-          ),
-          payload: '',
-        );
-      } else {
-        final _entry =
-            _createOverlayEntry(method, statusCode, path, requestTime);
-        _overlayEntries.add(_entry);
-        overlay?.insert(_entry);
-        notificationShown = true;
+
+      switch (ChuckerFlutter.notificationType) {
+        case NotificationType.toast:
+          final _entry =
+              _createOverlayEntry(method, statusCode, path, requestTime);
+          _overlayEntries.add(_entry);
+          overlay?.insert(_entry);
+          notificationShown = true;
+          break;
+        case NotificationType.localNotification:
+          notificationShown = NotificationService.showNotification(
+            DateTime.now().millisecondsSinceEpoch ~/ 100000,
+            channelName,
+            '($statusCode) $method\n$path',
+            NotificationDetails(
+              android: androidNotificationDetails,
+              iOS: iosNotificationDetails,
+            ),
+            payload: '',
+          );
+          break;
       }
       return true;
     }
-    notificationShown = false;
-    showNotificationOptions = ChuckerFlutter.showNotificationOptions;
-    return false;
+    return notificationShown = false;
   }
 
   /// [AndroidNotificationDetails] give many
@@ -97,8 +86,10 @@ class ChuckerUiHelper {
     ticker: 'ticker',
     groupKey: channelId,
     enableVibration: false,
+    category: AndroidNotificationCategory(channelName),
+    channelShowBadge: false,
     styleInformation: BigTextStyleInformation(''),
-    groupAlertBehavior: GroupAlertBehavior.children,
+    groupAlertBehavior: GroupAlertBehavior.summary,
   );
 
   /// [DarwinNotificationDetails] give many
@@ -176,29 +167,36 @@ class ChuckerFlutter {
   ///referenced in your MaterialApp widget
   static final navigatorObserver = NavigatorObserver();
 
-  ///[showOnRelease] decides whether to allow Chucker Flutter working in release
-  ///mode or not.
+  static var _showOnRelease = false;
+  static var _notificationType = NotificationType.toast;
+
+  ///Get [showOnRelease] which decides whether to allow Chucker Flutter working
+  ///in release mode or not.
   ///By default its value is `false`
-  static bool showOnRelease = false;
+  static bool get showOnRelease => _showOnRelease;
+
+  ///[NotificationType] show notification on toast or notification bar.
+  static NotificationType get notificationType => _notificationType;
 
   ///[isDebugMode] A wrapper of Flutter's `kDebugMode` constant
   static bool isDebugMode = kDebugMode;
 
   ///[ChuckerButton] can be placed anywhere in the UI to open Chucker Screen
-  static final chuckerButton = isDebugMode || ChuckerFlutter.showOnRelease
+  static final chuckerButton = isDebugMode || _showOnRelease
       ? ChuckerButton.getInstance()
       : const SizedBox.shrink();
 
-  ///[showNotificationOptions] show notification on toast or notification bar.
-  static ShowNotificationOptions showNotificationOptions =
-      ShowNotificationOptions.toast;
-
-  /// init [NotificationService] for showing notification
-  static void withLocalNotification() {
-    showNotificationOptions = !kIsWeb
-        ? ShowNotificationOptions.notification
-        : ShowNotificationOptions.toast;
-    if (showNotificationOptions == ShowNotificationOptions.notification) {
+  /// init [ChuckerFlutter] with custom values
+  static void init({
+    bool showOnRelease = false,
+    NotificationType notificationType = NotificationType.toast,
+  }) {
+    if (kIsWeb) {
+      _notificationType = NotificationType.toast;
+    } else {
+      _notificationType = notificationType;
+    }
+    if (_notificationType == NotificationType.localNotification) {
       NotificationService.init(
         navigatorObserver: ChuckerFlutter.navigatorObserver,
       );

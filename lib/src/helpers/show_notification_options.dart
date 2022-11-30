@@ -1,8 +1,9 @@
 /// Show notifications on
-enum ShowNotificationOptions {
+enum NotificationType {
   /// [toast] which is OverlayEntry
   toast,
 
-  /// [notification] which is Notification bar
-  notification,
+  /// [localNotification] which is shown using `flutter_local_notifications`
+  /// package
+  localNotification,
 }
