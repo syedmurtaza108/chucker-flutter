@@ -64,16 +64,18 @@ class ChuckerChopperInterceptor extends ResponseInterceptor {
   }
 
   String _requestType(Response response) {
-    final contentTypes = response.base.request!.headers.entries
+    final contentTypes = response.base.request?.headers.entries
         .where((element) => element.key == 'content-type');
 
-    return contentTypes.isEmpty ? 'N/A' : contentTypes.first.value;
+    return contentTypes?.isEmpty == true
+        ? 'N/A'
+        : contentTypes?.first.value ?? '';
   }
 
   dynamic _requestBody(Response response) {
     if (response.base.request is http.MultipartRequest) {
       return _separateFileObjects(
-        response.base.request! as http.MultipartRequest,
+        response.base.request as http.MultipartRequest?,
       );
     }
 
@@ -91,7 +93,8 @@ class ChuckerChopperInterceptor extends ResponseInterceptor {
     } catch (e) {}
   }
 
-  dynamic _separateFileObjects(http.MultipartRequest request) {
+  dynamic _separateFileObjects(http.MultipartRequest? request) {
+    if(request == null) return emptyString;
     final formFields =
         request.fields.entries.map((e) => {e.key: e.value}).toList()
           ..addAll(
