@@ -107,6 +107,10 @@ final exampleClient = ChopperClient(
   ],
 );
 ```
+
+![image](https://user-images.githubusercontent.com/44249868/206827243-e97a9465-b165-4af8-96a1-d48ea871164e.png)
+
+
 ### Libraries
 
 Chucker FLutter uses the following open source libraries:
