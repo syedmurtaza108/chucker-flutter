@@ -7,20 +7,10 @@ class Logger {
 
   static const _jsonEncoder = JsonEncoder.withIndent('  ');
 
-  static const tlCorner = '┌';
-  static const blCorner = '└';
-  static const mCorner = '├';
-  static const line = '│';
-  static const divider = '─';
-  static const dashedDivider = '┄';
-
   static const _ansiReset = '\x1B[0m';
-  static const _ansiRed = '\x1B[31m';
-  static const _ansiGreen = '\x1B[32m';
   static const _ansiYellow = '\x1B[33m';
-  static const _ansiBlue = '\x1B[34m';
 
-  ///
+  ///Logs formatted json
   static void json(String json, {bool isRequest = false}) {
     final prettyJson = _jsonEncoder.convert(jsonDecode(json));
     final emoji = isRequest ? '↗️' : '↘️';
@@ -28,13 +18,13 @@ class Logger {
     log('$_ansiYellow$prettyJson$_ansiReset');
   }
 
-  ///
+  ///Log request
   static void request(String request) {
     log('↗️$_ansiYellow$request');
   }
 
-  ///
-  static void response(String request) {
-    log('↘️$_ansiYellow$request');
+  ///Log response
+  static void response(String response) {
+    log('↘️$_ansiYellow$response');
   }
 }

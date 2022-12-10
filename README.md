@@ -94,7 +94,19 @@ void main() {
 * Json request and responses in tree form
 * Json request and response in pretty json format
 * Image URL preview
+* `ChuckerHttpLoggingInterceptor` for better readability of http request and response sent from client. To use this just add this interceptor in your `ChopperClient`
 
+```dart
+final exampleClient = ChopperClient(
+  services: [
+    _$ChopperApiService(),
+  ],
+  interceptors: [
+    ChuckerHttpLoggingInterceptor() //This for logging,
+    ChuckerChopperInterceptor(),
+  ],
+);
+```
 ### Libraries
 
 Chucker FLutter uses the following open source libraries:
