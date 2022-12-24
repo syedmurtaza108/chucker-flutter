@@ -123,4 +123,7 @@ class ChuckerFlutter {
   static final chuckerButton = isDebugMode || ChuckerFlutter.showOnRelease
       ? ChuckerButton.getInstance()
       : const SizedBox.shrink();
+
+  ///[showChuckerScreen] navigates to the chucker home screen
+  static void showChuckerScreen() => ChuckerUiHelper.showChuckerScreen();
 }
