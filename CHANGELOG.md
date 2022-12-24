@@ -96,3 +96,7 @@
 
 * `share_plus` major version upgrade
 * Logging interceptor added for Http client. See readme to learn how to use it.
+
+## 1.4.1
+
+* Exposed a method for navigation to chucker home page
