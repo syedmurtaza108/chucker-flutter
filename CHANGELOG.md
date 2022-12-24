@@ -100,3 +100,7 @@
 ## 1.4.1
 
 * Exposed a method for navigation to chucker home page
+
+## 1.4.1+1
+
+* Formatter issue fixed

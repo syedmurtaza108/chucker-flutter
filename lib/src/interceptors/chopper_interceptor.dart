@@ -94,7 +94,7 @@ class ChuckerChopperInterceptor extends ResponseInterceptor {
   }
 
   dynamic _separateFileObjects(http.MultipartRequest? request) {
-    if(request == null) return emptyString;
+    if (request == null) return emptyString;
     final formFields =
         request.fields.entries.map((e) => {e.key: e.value}).toList()
           ..addAll(
