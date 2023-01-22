@@ -104,3 +104,7 @@
 ## 1.4.1+1
 
 * Formatter issue fixed
+
+## 1.4.2
+
+* Dependencies update

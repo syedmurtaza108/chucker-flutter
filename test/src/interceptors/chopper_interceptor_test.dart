@@ -32,7 +32,7 @@ void main() {
   });
 
   late final _chopperClient = chopper.ChopperClient(
-    baseUrl: _baseUrl,
+    baseUrl: Uri.parse(_baseUrl),
     client: _mockClient,
     interceptors: [
       ChuckerChopperInterceptor(),
@@ -47,7 +47,7 @@ void main() {
   test('Response should be saved in shared preferences when call succeeds',
       () async {
     SharedPreferences.setMockInitialValues({});
-    await _chopperClient.get(_successPath);
+    await _chopperClient.get(Uri.parse(_successPath));
 
     final responses = await _sharedPreferencesManager.getAllApiResponses();
 
@@ -58,7 +58,7 @@ void main() {
 
   test('Error should be saved in shared preferences when call fails', () async {
     SharedPreferences.setMockInitialValues({});
-    await _chopperClient.get(_failPath);
+    await _chopperClient.get(Uri.parse(_failPath));
 
     final responses = await _sharedPreferencesManager.getAllApiResponses();
 
@@ -113,7 +113,7 @@ void main() {
       'title': 'foo',
     };
     await _chopperClient.post(
-      _successPath,
+      Uri.parse(_successPath),
       body: jsonEncode(request),
     );
 
