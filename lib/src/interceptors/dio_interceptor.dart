@@ -65,11 +65,13 @@ class ChuckerDioInterceptor extends Interceptor {
         baseUrl: response.requestOptions.baseUrl,
         method: response.requestOptions.method,
         statusCode: response.statusCode ?? -1,
-        connectionTimeout: response.requestOptions.connectTimeout,
+        connectionTimeout:
+            response.requestOptions.connectTimeout?.inMilliseconds ?? 0,
         contentType: response.requestOptions.contentType,
         headers: response.requestOptions.headers.toString(),
         queryParameters: response.requestOptions.queryParameters.toString(),
-        receiveTimeout: response.requestOptions.receiveTimeout,
+        receiveTimeout:
+            response.requestOptions.receiveTimeout?.inMilliseconds ?? 0,
         request: {
           'request': _separateFileObjects(response.requestOptions).data
         },
@@ -78,7 +80,7 @@ class ChuckerDioInterceptor extends Interceptor {
         responseSize: 2,
         responseTime: DateTime.now(),
         responseType: response.requestOptions.responseType.name,
-        sendTimeout: response.requestOptions.sendTimeout,
+        sendTimeout: response.requestOptions.sendTimeout?.inMilliseconds ?? 0,
         checked: false,
         clientLibrary: 'Dio',
       ),
@@ -93,11 +95,13 @@ class ChuckerDioInterceptor extends Interceptor {
         baseUrl: response.requestOptions.baseUrl,
         method: response.requestOptions.method,
         statusCode: response.response?.statusCode ?? -1,
-        connectionTimeout: response.requestOptions.connectTimeout,
+        connectionTimeout:
+            response.requestOptions.connectTimeout?.inMilliseconds ?? 0,
         contentType: response.requestOptions.contentType,
         headers: response.requestOptions.headers.toString(),
         queryParameters: response.requestOptions.queryParameters.toString(),
-        receiveTimeout: response.requestOptions.receiveTimeout,
+        receiveTimeout:
+            response.requestOptions.receiveTimeout?.inMilliseconds ?? 0,
         request: {
           'request': _separateFileObjects(response.requestOptions).data
         },
@@ -106,7 +110,7 @@ class ChuckerDioInterceptor extends Interceptor {
         responseSize: 2,
         responseTime: DateTime.now(),
         responseType: response.requestOptions.responseType.name,
-        sendTimeout: response.requestOptions.sendTimeout,
+        sendTimeout: response.requestOptions.sendTimeout?.inMilliseconds ?? 0,
         checked: false,
         clientLibrary: 'Dio',
       ),

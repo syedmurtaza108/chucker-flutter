@@ -63,7 +63,7 @@ packages:
       name: dio
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "4.0.6"
+    version: "5.0.3"
   fake_async:
     dependency: transitive
     description:
@@ -118,7 +118,7 @@ packages:
       name: http_mock_adapter
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.3.3"
+    version: "0.4.2"
   http_parser:
     dependency: transitive
     description:

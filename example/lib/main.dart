@@ -43,9 +43,9 @@ class _TodoPageState extends State<TodoPage> {
 
   late final _dio = Dio(
     BaseOptions(
-      sendTimeout: const Duration(seconds: 30).inMilliseconds,
-      connectTimeout: const Duration(seconds: 30).inMilliseconds,
-      receiveTimeout: const Duration(seconds: 30).inMilliseconds,
+      sendTimeout: const Duration(seconds: 30),
+      connectTimeout: const Duration(seconds: 30),
+      receiveTimeout: const Duration(seconds: 30),
     ),
   );
 
