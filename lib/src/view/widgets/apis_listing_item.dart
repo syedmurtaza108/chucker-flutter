@@ -73,7 +73,7 @@ class ApisListingItemWidget extends StatelessWidget {
                     label: Text(
                       statusCode.toString(),
                       textAlign: TextAlign.center,
-                      style: context.textTheme.caption!.withColor(Colors.white),
+                      style: context.textTheme.bodySmall!.withColor(Colors.white),
                     ),
                   ),
                   const SizedBox(height: 8),
@@ -83,7 +83,7 @@ class ApisListingItemWidget extends StatelessWidget {
                       onPressed: () => onDelete(dateTime.toString()),
                       child: Text(
                         Localization.strings['delete']!,
-                        style: context.textTheme.caption!.withColor(Colors.red),
+                        style: context.textTheme.bodySmall!.withColor(Colors.red),
                       ),
                     ),
                   ),
@@ -101,7 +101,7 @@ class ApisListingItemWidget extends StatelessWidget {
                         backgroundColor: methodColor(method),
                         label: Text(
                           method,
-                          style: context.textTheme.caption!
+                          style: context.textTheme.bodySmall!
                               .toBold()
                               .withColor(Colors.white),
                         ),
@@ -116,17 +116,17 @@ class ApisListingItemWidget extends StatelessWidget {
                   ),
                   Text(
                     path,
-                    style: context.textTheme.caption!.toBold(),
+                    style: context.textTheme.bodySmall!.toBold(),
                   ),
                   const SizedBox(height: 8),
                   Text(
                     baseUrl.isEmpty ? Localization.strings['nA']! : baseUrl,
-                    style: context.textTheme.caption!.withColor(Colors.grey),
+                    style: context.textTheme.bodySmall!.withColor(Colors.grey),
                   ),
                   const SizedBox(height: 8),
                   Text(
                     dateTime.toString(),
-                    style: context.textTheme.caption!.withColor(Colors.grey),
+                    style: context.textTheme.bodySmall!.withColor(Colors.grey),
                   ),
                 ],
               ),

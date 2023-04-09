@@ -141,7 +141,7 @@ class _PreviewModeControl extends StatelessWidget {
             children: [
               Text(
                 Localization.strings['jsonPreviewMode']!,
-                style: context.textTheme.bodyText2!
+                style: context.textTheme.bodyMedium!
                     .toBold()
                     .withColor(primaryColor),
               ),
@@ -149,7 +149,7 @@ class _PreviewModeControl extends StatelessWidget {
                 onPressed: onPreviewPressed,
                 height: 34,
                 text: type,
-                style: context.textTheme.bodyText2!.toBold(),
+                style: context.textTheme.bodyMedium!.toBold(),
               )
             ],
           ),
@@ -233,7 +233,7 @@ class _ResponseTab extends StatelessWidget {
           width: double.maxFinite,
           child: SelectableText(
             prettyJson,
-            style: context.textTheme.bodyText1,
+            style: context.textTheme.bodyLarge,
             textDirection: TextDirection.ltr,
           ),
         );
@@ -301,7 +301,7 @@ class _RequestTab extends StatelessWidget {
           width: double.maxFinite,
           child: SelectableText(
             prettyJson,
-            style: context.textTheme.bodyText1,
+            style: context.textTheme.bodyLarge,
             textDirection: TextDirection.ltr,
           ),
         );

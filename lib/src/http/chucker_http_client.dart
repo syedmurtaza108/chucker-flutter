@@ -92,9 +92,9 @@ class ChuckerHttpClient extends BaseClient {
   Future<void> _saveResponse(
     BaseRequest request,
     List<int> bytes,
-    final int statusCode,
-    final double contentLength,
-    final String contentType,
+    int statusCode,
+    double contentLength,
+    String contentType,
   ) async {
     dynamic requestBody = '';
     dynamic responseBody = '';

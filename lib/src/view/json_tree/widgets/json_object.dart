@@ -54,7 +54,7 @@ class __JsonObjectState extends State<_JsonObject> {
                           });
                         },
                         text: entry.key,
-                        style: context.textTheme.bodyText1!.toBold(),
+                        style: context.textTheme.bodyLarge!.toBold(),
                       ),
                     ),
                     Visibility(
@@ -65,7 +65,7 @@ class __JsonObjectState extends State<_JsonObject> {
                       visible: !canExpand || !button,
                       child: Text(
                         '${entry.key}:',
-                        style: context.textTheme.bodyText2!.toBold(),
+                        style: context.textTheme.bodyMedium!.toBold(),
                       ),
                     ),
                     const SizedBox(width: 4),

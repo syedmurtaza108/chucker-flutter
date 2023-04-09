@@ -34,7 +34,7 @@ class OverviewTabView extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(vertical: 8),
                 child: Text(
                   Localization.strings['attribute']!,
-                  style: context.textTheme.bodyText2!.toBold().withSize(16),
+                  style: context.textTheme.bodyMedium!.toBold().withSize(16),
                   textAlign: TextAlign.center,
                 ),
               ),
@@ -42,7 +42,7 @@ class OverviewTabView extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(vertical: 8),
                 child: Text(
                   Localization.strings['value']!,
-                  style: context.textTheme.bodyText2!.toBold().withSize(16),
+                  style: context.textTheme.bodyMedium!.toBold().withSize(16),
                   textAlign: TextAlign.center,
                 ),
               ),
@@ -131,7 +131,7 @@ class OverviewTabView extends StatelessWidget {
             padding: const EdgeInsets.all(8),
             child: Text(
               attribute,
-              style: context.textTheme.bodyText2,
+              style: context.textTheme.bodyMedium,
               textAlign: TextAlign.center,
             ),
           ),
@@ -145,7 +145,7 @@ class OverviewTabView extends StatelessWidget {
                 Expanded(
                   child: Text(
                     value,
-                    style: context.textTheme.caption!.withColor(valueColor),
+                    style: context.textTheme.bodySmall!.withColor(valueColor),
                   ),
                 ),
                 const SizedBox(width: 8),

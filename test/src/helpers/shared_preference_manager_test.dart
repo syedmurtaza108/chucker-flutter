@@ -6,10 +6,10 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
-  late final SharedPreferencesManager _sharedPreferencesManager;
+  late final SharedPreferencesManager sharedPreferencesManager;
 
   setUpAll(() {
-    _sharedPreferencesManager = SharedPreferencesManager.getInstance();
+    sharedPreferencesManager = SharedPreferencesManager.getInstance();
   });
 
   test('getInstance always returns the same instance', () {
@@ -31,17 +31,17 @@ void main() {
       SharedPreferences.setMockInitialValues({});
 
       for (var i = 0; i < mockedApis.length; i++) {
-        await _sharedPreferencesManager.addApiResponse(mockedApis[i]);
+        await sharedPreferencesManager.addApiResponse(mockedApis[i]);
       }
 
-      var savedApis = await _sharedPreferencesManager.getAllApiResponses();
+      var savedApis = await sharedPreferencesManager.getAllApiResponses();
       expect(savedApis.length, mockedApis.length);
 
-      await _sharedPreferencesManager.deleteAnApi(
+      await sharedPreferencesManager.deleteAnApi(
         mockedApis.first.requestTime.toString(),
       );
 
-      savedApis = await _sharedPreferencesManager.getAllApiResponses();
+      savedApis = await sharedPreferencesManager.getAllApiResponses();
       expect(savedApis.length, 1);
       expect(savedApis.first, mockedApis[1]);
     });
@@ -58,18 +58,18 @@ void main() {
       SharedPreferences.setMockInitialValues({});
 
       for (var i = 0; i < mockedApis.length; i++) {
-        await _sharedPreferencesManager.addApiResponse(mockedApis[i]);
+        await sharedPreferencesManager.addApiResponse(mockedApis[i]);
       }
 
-      var savedApis = await _sharedPreferencesManager.getAllApiResponses();
+      var savedApis = await sharedPreferencesManager.getAllApiResponses();
       expect(savedApis.length, mockedApis.length);
 
-      await _sharedPreferencesManager.deleteSelected([
+      await sharedPreferencesManager.deleteSelected([
         mockedApis[0].requestTime.toString(),
         mockedApis[1].requestTime.toString(),
       ]);
 
-      savedApis = await _sharedPreferencesManager.getAllApiResponses();
+      savedApis = await sharedPreferencesManager.getAllApiResponses();
       expect(savedApis.length, 1);
       expect(savedApis.first, mockedApis[2]);
     });
@@ -84,17 +84,17 @@ void main() {
       SharedPreferences.setMockInitialValues({});
 
       for (var i = 0; i < mockedApis.length; i++) {
-        await _sharedPreferencesManager.addApiResponse(mockedApis[i]);
+        await sharedPreferencesManager.addApiResponse(mockedApis[i]);
       }
 
-      var savedApis = await _sharedPreferencesManager.getAllApiResponses();
+      var savedApis = await sharedPreferencesManager.getAllApiResponses();
       expect(savedApis.length, mockedApis.length);
 
-      await _sharedPreferencesManager.deleteAnApi(
+      await sharedPreferencesManager.deleteAnApi(
         DateTime(2022, 1, 4).toString(),
       );
 
-      savedApis = await _sharedPreferencesManager.getAllApiResponses();
+      savedApis = await sharedPreferencesManager.getAllApiResponses();
       expect(savedApis.length, 2);
       expect(savedApis.first, mockedApis[1]);
     });
@@ -105,7 +105,7 @@ void main() {
       //It is necessary to call to avoid retrieving previous data
       SharedPreferences.setMockInitialValues({});
 
-      final savedApis = await _sharedPreferencesManager.getAllApiResponses();
+      final savedApis = await sharedPreferencesManager.getAllApiResponses();
       expect(savedApis.length, 0);
     });
     test(
@@ -120,10 +120,10 @@ void main() {
       SharedPreferences.setMockInitialValues({});
 
       for (var i = 0; i < mockedApis.length; i++) {
-        await _sharedPreferencesManager.addApiResponse(mockedApis[i]);
+        await sharedPreferencesManager.addApiResponse(mockedApis[i]);
       }
 
-      final savedApis = await _sharedPreferencesManager.getAllApiResponses();
+      final savedApis = await sharedPreferencesManager.getAllApiResponses();
       expect(savedApis.length, mockedApis.length);
     });
 
@@ -138,10 +138,10 @@ void main() {
       SharedPreferences.setMockInitialValues({});
 
       for (var i = 0; i < mockedApis.length; i++) {
-        await _sharedPreferencesManager.addApiResponse(mockedApis[i]);
+        await sharedPreferencesManager.addApiResponse(mockedApis[i]);
       }
 
-      final savedApis = await _sharedPreferencesManager.getAllApiResponses();
+      final savedApis = await sharedPreferencesManager.getAllApiResponses();
       expect(savedApis[0], mockedApis[1]);
       expect(savedApis[1], mockedApis[0]);
     });
@@ -156,9 +156,9 @@ void main() {
       //It is necessary to call to avoid retrieving previous data
       SharedPreferences.setMockInitialValues({});
 
-      await _sharedPreferencesManager.addApiResponse(mockedApi);
+      await sharedPreferencesManager.addApiResponse(mockedApi);
 
-      final savedApis = await _sharedPreferencesManager.getAllApiResponses();
+      final savedApis = await sharedPreferencesManager.getAllApiResponses();
       expect(savedApis.length, 1);
       expect(savedApis.first, mockedApi);
     });
@@ -174,16 +174,16 @@ void main() {
       //It is necessary to call to avoid retrieving previous data
       SharedPreferences.setMockInitialValues({});
 
-      await _sharedPreferencesManager.addApiResponse(mockedApi);
+      await sharedPreferencesManager.addApiResponse(mockedApi);
 
-      var savedApis = await _sharedPreferencesManager.getAllApiResponses();
+      var savedApis = await sharedPreferencesManager.getAllApiResponses();
 
       expect(savedApis.first.statusCode, 200);
       expect(savedApis.length, 1);
 
-      await _sharedPreferencesManager.addApiResponse(mockedApi2);
+      await sharedPreferencesManager.addApiResponse(mockedApi2);
 
-      savedApis = await _sharedPreferencesManager.getAllApiResponses();
+      savedApis = await sharedPreferencesManager.getAllApiResponses();
       expect(savedApis.first.statusCode, 400);
       expect(savedApis.length, 1);
     });
@@ -196,7 +196,7 @@ void main() {
         //It is necessary to call to avoid retrieving previous data
         SharedPreferences.setMockInitialValues({});
 
-        final settings = await _sharedPreferencesManager.getSettings();
+        final settings = await sharedPreferencesManager.getSettings();
         expect(settings, Settings.defaultObject());
       },
     );
@@ -217,7 +217,7 @@ void main() {
         //It is necessary to call to avoid retrieving previous data
         SharedPreferences.setMockInitialValues({});
 
-        await _sharedPreferencesManager.setSettings(mySettings);
+        await sharedPreferencesManager.setSettings(mySettings);
 
         expect(ChuckerUiHelper.settings.apiThresholds, 20);
       },
@@ -232,8 +232,8 @@ void main() {
         //It is necessary to call to avoid retrieving previous data
         SharedPreferences.setMockInitialValues({});
 
-        await _sharedPreferencesManager.setSettings(mySettings);
-        final settings = await _sharedPreferencesManager.getSettings();
+        await sharedPreferencesManager.setSettings(mySettings);
+        final settings = await sharedPreferencesManager.getSettings();
         expect(settings, mySettings);
       },
     );

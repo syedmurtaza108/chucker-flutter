@@ -56,7 +56,7 @@ class SharedPreferencesManager {
       return apiResponses;
     }
 
-    final list = jsonDecode(json);
+    final list = jsonDecode(json) as List<dynamic>;
 
     for (final item in list) {
       apiResponses.add(ApiResponse.fromJson(item as Map<String, dynamic>));
@@ -137,7 +137,7 @@ class SharedPreferencesManager {
       return ApiResponse.mock();
     }
 
-    final list = jsonDecode(json);
+    final list = jsonDecode(json) as List<dynamic>;
 
     for (final item in list) {
       apiResponses.add(ApiResponse.fromJson(item as Map<String, dynamic>));

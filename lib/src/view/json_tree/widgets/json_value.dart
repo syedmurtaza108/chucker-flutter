@@ -24,21 +24,21 @@ class _JsonValueState extends State<_JsonValue> {
         if ((widget.value as List).isEmpty) {
           return Text(
             'Empty List',
-            style: context.textTheme.bodyText2!.withColor(Colors.red),
+            style: context.textTheme.bodyMedium!.withColor(Colors.red),
           );
         }
         return SizeableTextButton(
           height: 32,
           onPressed: widget.onOpen,
           text: 'List[${(widget.value as List).length}]',
-          style: context.textTheme.bodyText2!.withColor(Colors.red),
+          style: context.textTheme.bodyMedium!.withColor(Colors.red),
         );
       }
       return SizeableTextButton(
         onPressed: widget.onOpen,
         height: 32,
         text: 'Object',
-        style: context.textTheme.bodyText2!.toBold(),
+        style: context.textTheme.bodyMedium!.toBold(),
       );
     }
     return Expanded(
@@ -50,13 +50,13 @@ class _JsonValueState extends State<_JsonValue> {
                 if (widget.value == null) {
                   return Text(
                     'N/A',
-                    style: context.textTheme.bodyText2!.withColor(Colors.red),
+                    style: context.textTheme.bodyMedium!.withColor(Colors.red),
                   );
                 }
                 if (widget.value is int) {
                   return Text(
                     widget.value.toString(),
-                    style: context.textTheme.bodyText2!.withColor(
+                    style: context.textTheme.bodyMedium!.withColor(
                       Colors.purple,
                     ),
                   );
@@ -64,20 +64,20 @@ class _JsonValueState extends State<_JsonValue> {
                 if (widget.value is String) {
                   return Text(
                     '"${widget.value}"',
-                    style: context.textTheme.bodyText2!.withColor(Colors.blue),
+                    style: context.textTheme.bodyMedium!.withColor(Colors.blue),
                   );
                 }
                 if (widget.value is bool) {
                   return Text(
                     widget.value.toString(),
-                    style: context.textTheme.bodyText2!.withColor(
+                    style: context.textTheme.bodyMedium!.withColor(
                       (widget.value as bool) ? Colors.green : Colors.red,
                     ),
                   );
                 }
                 return Text(
                   widget.value.toString(),
-                  style: context.textTheme.bodyText2!.withColor(
+                  style: context.textTheme.bodyMedium!.withColor(
                     Colors.orangeAccent,
                   ),
                 );

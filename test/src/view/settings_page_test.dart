@@ -7,10 +7,10 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
-  late final SharedPreferencesManager _sharedPreferencesManager;
+  late final SharedPreferencesManager sharedPreferencesManager;
 
   setUpAll(() {
-    _sharedPreferencesManager = SharedPreferencesManager.getInstance();
+    sharedPreferencesManager = SharedPreferencesManager.getInstance();
   });
 
   testWidgets(
@@ -18,7 +18,7 @@ void main() {
     (WidgetTester tester) async {
       SharedPreferences.setMockInitialValues({});
 
-      final settings = await _sharedPreferencesManager.getSettings();
+      final settings = await sharedPreferencesManager.getSettings();
 
       expect(settings.showNotification, true);
 
@@ -29,7 +29,7 @@ void main() {
       await tester.tap(find.byWidget(switches.first.widget));
       await tester.pumpAndSettle();
 
-      final newSettings = await _sharedPreferencesManager.getSettings();
+      final newSettings = await sharedPreferencesManager.getSettings();
 
       expect(newSettings.showNotification, false);
     },
@@ -40,7 +40,7 @@ void main() {
     (WidgetTester tester) async {
       SharedPreferences.setMockInitialValues({});
 
-      final settings = await _sharedPreferencesManager.getSettings();
+      final settings = await sharedPreferencesManager.getSettings();
 
       expect(settings.showRequestsStats, true);
 
@@ -51,7 +51,7 @@ void main() {
       await tester.tap(find.byWidget(switches.elementAt(1).widget));
       await tester.pumpAndSettle();
 
-      final newSettings = await _sharedPreferencesManager.getSettings();
+      final newSettings = await sharedPreferencesManager.getSettings();
 
       expect(newSettings.showRequestsStats, false);
     },
@@ -62,7 +62,7 @@ void main() {
     (WidgetTester tester) async {
       SharedPreferences.setMockInitialValues({});
 
-      final settings = await _sharedPreferencesManager.getSettings();
+      final settings = await sharedPreferencesManager.getSettings();
 
       expect(settings.showDeleteConfirmDialog, true);
 
@@ -81,7 +81,7 @@ void main() {
       await tester.tap(finderDeleteDioSwitch);
       await tester.pumpAndSettle();
 
-      final newSettings = await _sharedPreferencesManager.getSettings();
+      final newSettings = await sharedPreferencesManager.getSettings();
 
       expect(newSettings.showDeleteConfirmDialog, false);
     },
@@ -92,7 +92,7 @@ void main() {
     (WidgetTester tester) async {
       SharedPreferences.setMockInitialValues({});
 
-      final settings = await _sharedPreferencesManager.getSettings();
+      final settings = await sharedPreferencesManager.getSettings();
 
       expect(settings.duration.inSeconds, 2);
 
@@ -108,7 +108,7 @@ void main() {
 
       await tester.pumpAndSettle();
 
-      final newSettings = await _sharedPreferencesManager.getSettings();
+      final newSettings = await sharedPreferencesManager.getSettings();
 
       expect(newSettings.duration.inSeconds, 6);
     },
@@ -119,7 +119,7 @@ void main() {
     (WidgetTester tester) async {
       SharedPreferences.setMockInitialValues({});
 
-      final settings = await _sharedPreferencesManager.getSettings();
+      final settings = await sharedPreferencesManager.getSettings();
 
       expect(settings.apiThresholds, 100);
 
@@ -142,7 +142,7 @@ void main() {
 
       await tester.pumpAndSettle();
 
-      final newSettings = await _sharedPreferencesManager.getSettings();
+      final newSettings = await sharedPreferencesManager.getSettings();
 
       expect(newSettings.apiThresholds, 1000);
     },
@@ -153,7 +153,7 @@ void main() {
     (WidgetTester tester) async {
       SharedPreferences.setMockInitialValues({});
 
-      final settings = await _sharedPreferencesManager.getSettings();
+      final settings = await sharedPreferencesManager.getSettings();
 
       expect(settings.notificationAlignment, Alignment.bottomCenter);
 
@@ -169,7 +169,7 @@ void main() {
       await tester.tap(find.text('BottomLeft'));
       await tester.pumpAndSettle();
 
-      final newSettings = await _sharedPreferencesManager.getSettings();
+      final newSettings = await sharedPreferencesManager.getSettings();
 
       expect(newSettings.notificationAlignment, Alignment.bottomLeft);
     },
@@ -180,7 +180,7 @@ void main() {
     (WidgetTester tester) async {
       SharedPreferences.setMockInitialValues({});
 
-      final settings = await _sharedPreferencesManager.getSettings();
+      final settings = await sharedPreferencesManager.getSettings();
 
       expect(settings.httpMethod, HttpMethod.none);
 
@@ -196,7 +196,7 @@ void main() {
       await tester.tap(find.text('DELETE'));
       await tester.pumpAndSettle();
 
-      final newSettings = await _sharedPreferencesManager.getSettings();
+      final newSettings = await sharedPreferencesManager.getSettings();
 
       expect(newSettings.httpMethod, HttpMethod.delete);
     },
@@ -207,7 +207,7 @@ void main() {
     (WidgetTester tester) async {
       SharedPreferences.setMockInitialValues({});
 
-      final settings = await _sharedPreferencesManager.getSettings();
+      final settings = await sharedPreferencesManager.getSettings();
 
       expect(settings.language, Language.english);
 
@@ -229,7 +229,7 @@ void main() {
       await tester.tap(find.text('urdu'));
       await tester.pumpAndSettle();
 
-      final newSettings = await _sharedPreferencesManager.getSettings();
+      final newSettings = await sharedPreferencesManager.getSettings();
 
       expect(newSettings.language, Language.urdu);
     },

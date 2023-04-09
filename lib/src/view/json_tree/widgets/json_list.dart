@@ -57,14 +57,14 @@ class __JsonListState extends State<_JsonList> {
                         );
                       },
                       text: '[$i]:',
-                      style: context.textTheme.bodyText1!.toBold(),
+                      style: context.textTheme.bodyLarge!.toBold(),
                     ),
                   ),
                   Visibility(
                     visible: !canExpand || !button,
                     child: Text(
                       '[$i]:',
-                      style: context.textTheme.bodyText2!.toBold(),
+                      style: context.textTheme.bodyMedium!.toBold(),
                     ),
                   ),
                   const SizedBox(width: 3),

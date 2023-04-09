@@ -251,12 +251,12 @@ class _SettingsPageState extends State<SettingsPage> {
                 children: [
                   Text(
                     title,
-                    style: context.textTheme.bodyText2,
+                    style: context.textTheme.bodyMedium,
                   ),
                   const SizedBox(height: 8),
                   Text(
                     description,
-                    style: context.textTheme.caption,
+                    style: context.textTheme.bodySmall,
                   ),
                   Visibility(
                     visible: helperText != null,
@@ -266,7 +266,7 @@ class _SettingsPageState extends State<SettingsPage> {
                     visible: helperText != null,
                     child: Text(
                       '${Localization.strings['currentValue']} $helperText',
-                      style: context.textTheme.caption!.toBold(),
+                      style: context.textTheme.bodySmall!.toBold(),
                     ),
                   ),
                 ],
@@ -297,7 +297,7 @@ class _SettingsPageState extends State<SettingsPage> {
               Expanded(
                 child: Text(
                   importantInfo ?? emptyString,
-                  style: context.textTheme.caption!
+                  style: context.textTheme.bodySmall!
                       .toBold()
                       .withColor(Colors.orange),
                 ),
@@ -312,7 +312,7 @@ class _SettingsPageState extends State<SettingsPage> {
   Widget _heading(String heading) {
     return Text(
       heading,
-      style: context.textTheme.headline6!.toBold().withColor(
+      style: context.textTheme.titleLarge!.toBold().withColor(
             primaryColor,
           ),
     );

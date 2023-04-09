@@ -31,7 +31,7 @@ class ImagePreviewDialog extends StatelessWidget {
                     const SizedBox(height: 8),
                     Text(
                       Localization.strings['imageCouldNotBeLoaded']!,
-                      style: context.textTheme.bodyText1!.withColor(Colors.red),
+                      style: context.textTheme.bodyLarge!.withColor(Colors.red),
                     ),
                   ],
                 ),
