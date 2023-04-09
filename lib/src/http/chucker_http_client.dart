@@ -114,7 +114,7 @@ class ChuckerHttpClient extends BaseClient {
 
     await SharedPreferencesManager.getInstance().addApiResponse(
       ApiResponse(
-        body: {'data': responseBody},
+        body: responseBody,
         path: request.url.path,
         baseUrl: request.url.origin,
         method: request.method,

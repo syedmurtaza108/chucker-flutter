@@ -60,7 +60,7 @@ class ChuckerDioInterceptor extends Interceptor {
   Future<void> _saveResponse(Response<dynamic> response) async {
     await SharedPreferencesManager.getInstance().addApiResponse(
       ApiResponse(
-        body: {'data': response.data},
+        body: response.data,
         path: response.requestOptions.path,
         baseUrl: response.requestOptions.baseUrl,
         method: response.requestOptions.method,
@@ -90,7 +90,7 @@ class ChuckerDioInterceptor extends Interceptor {
   Future<void> _saveError(DioError response) async {
     await SharedPreferencesManager.getInstance().addApiResponse(
       ApiResponse(
-        body: {'data': jsonDecode(response.response.toString())},
+        body: jsonDecode(response.response.toString()),
         path: response.requestOptions.path,
         baseUrl: response.requestOptions.baseUrl,
         method: response.requestOptions.method,

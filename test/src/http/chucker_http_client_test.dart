@@ -49,7 +49,7 @@ void main() {
 
     expect(responses.length, 1);
     expect(responses.first.statusCode, 200);
-    expect(responses.first.body, {'data': mockedSuccessResponse});
+    expect(responses.first.body, mockedSuccessResponse);
   });
 
   test('Error should be saved in shared preferences when call fails', () async {
@@ -60,7 +60,7 @@ void main() {
 
     expect(responses.length, 1);
     expect(responses.first.statusCode, 400);
-    expect(responses.first.body, {'data': mockedErrorResponse});
+    expect(responses.first.body, mockedErrorResponse);
   });
 
   test('Request data should be intercepted when user calls onRequest',

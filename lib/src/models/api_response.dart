@@ -27,7 +27,7 @@ class ApiResponse {
 
   ///Convert json to [ApiResponse]
   factory ApiResponse.fromJson(Map<String, dynamic> json) => ApiResponse(
-        body: json['body'] as Map<String, dynamic>,
+        body: json['body'] as dynamic,
         baseUrl: json['baseUrl'] as String,
         method: json['method'] as String,
         statusCode: json['statusCode'] as int,
@@ -99,7 +99,7 @@ class ApiResponse {
   final Map<String, dynamic> request;
 
   ///Response data
-  final Map<String, dynamic> body;
+  final dynamic body;
 
   ///Request data type
   final String? contentType;

@@ -38,7 +38,7 @@ class ChuckerChopperInterceptor extends ResponseInterceptor {
 
     await SharedPreferencesManager.getInstance().addApiResponse(
       ApiResponse(
-        body: {'data': responseBody},
+        body: responseBody,
         path: response.base.request?.url.path ?? emptyString,
         baseUrl: response.base.request?.url.origin ?? emptyString,
         method: response.base.request?.method ?? emptyString,
