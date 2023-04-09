@@ -207,8 +207,8 @@ Base URL: $baseUrl
 Path: $path
 Method: $method
 Status Code: $statusCode
-Request Time: ${requestTime.toString()}
-Response Time: ${responseTime.toString()}
+Request Time: $requestTime
+Response Time: $responseTime
 Headers: $headers
 Query Params: $queryParameters
 Content Type: $contentType

@@ -20,7 +20,7 @@ class ChuckerDioInterceptor extends Interceptor {
 
   @override
   Future<void> onResponse(
-    Response response,
+    Response<dynamic> response,
     ResponseInterceptorHandler handler,
   ) async {
     await SharedPreferencesManager.getInstance().getSettings();
@@ -57,7 +57,7 @@ class ChuckerDioInterceptor extends Interceptor {
     handler.next(err);
   }
 
-  Future<void> _saveResponse(Response response) async {
+  Future<void> _saveResponse(Response<dynamic> response) async {
     await SharedPreferencesManager.getInstance().addApiResponse(
       ApiResponse(
         body: {'data': response.data},

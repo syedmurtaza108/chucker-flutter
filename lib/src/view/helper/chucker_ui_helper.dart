@@ -94,7 +94,9 @@ class ChuckerUiHelper {
               labelColor: Colors.white,
               labelStyle: context.textTheme.bodyLarge,
             ),
-            colorScheme: ColorScheme(background: primaryColor),
+            colorScheme: Theme.of(context).colorScheme.copyWith(
+                  background: primaryColor,
+                ),
           ),
           home: const ChuckerPage(),
         ),

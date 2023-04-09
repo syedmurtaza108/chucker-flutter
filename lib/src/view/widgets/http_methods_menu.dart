@@ -61,7 +61,7 @@ class _HttpMethodsMenuState extends State<HttpMethodsMenu> {
     );
   }
 
-  PopupMenuEntry _radioButton(
+  PopupMenuEntry<dynamic> _radioButton(
     String text,
     HttpMethod httpMethod,
   ) {

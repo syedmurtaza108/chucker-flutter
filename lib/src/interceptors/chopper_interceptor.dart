@@ -11,7 +11,7 @@ import 'package:http/http.dart' as http;
 ///[ChuckerChopperInterceptor] adds support for `chucker_flutter` in Chopper
 class ChuckerChopperInterceptor extends ResponseInterceptor {
   @override
-  FutureOr<Response> onResponse(Response response) async {
+  FutureOr<Response<dynamic>> onResponse(Response<dynamic> response) async {
     final time = DateTime.now();
     await SharedPreferencesManager.getInstance().getSettings();
 
@@ -27,7 +27,7 @@ class ChuckerChopperInterceptor extends ResponseInterceptor {
     return response;
   }
 
-  Future<void> _saveResponse(Response response, DateTime time) async {
+  Future<void> _saveResponse(Response<dynamic> response, DateTime time) async {
     dynamic responseBody = '';
 
     try {
@@ -63,16 +63,16 @@ class ChuckerChopperInterceptor extends ResponseInterceptor {
     );
   }
 
-  String _requestType(Response response) {
+  String _requestType(Response<dynamic> response) {
     final contentTypes = response.base.request?.headers.entries
         .where((element) => element.key == 'content-type');
 
-    return contentTypes?.isEmpty == true
+    return contentTypes?.isEmpty ?? false
         ? 'N/A'
         : contentTypes?.first.value ?? '';
   }
 
-  dynamic _requestBody(Response response) {
+  dynamic _requestBody(Response<dynamic> response) {
     if (response.base.request is http.MultipartRequest) {
       return _separateFileObjects(
         response.base.request as http.MultipartRequest?,

@@ -5,7 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
-  Settings _getMockedSettings() {
+  Settings getMockedSettings() {
     const duration = Duration(seconds: 100);
     const alignment = Alignment.center;
     const threshold = 400;
@@ -43,7 +43,7 @@ void main() {
   });
 
   test('CopyWith should copy each attribute properly', () {
-    final settings = _getMockedSettings();
+    final settings = getMockedSettings();
     final newSettings = Settings.defaultObject().copyWith(
       duration: settings.duration,
       notificationAlignment: settings.notificationAlignment,
@@ -63,7 +63,7 @@ void main() {
   });
 
   test('toJson should convert each attribute to its respective key', () {
-    final settings = _getMockedSettings();
+    final settings = getMockedSettings();
     final json = {
       'duration': settings.duration.inSeconds,
       'notificationAlignment': [
@@ -85,7 +85,7 @@ void main() {
   });
 
   test('fromJson should convert each key to its respective attribute', () {
-    final settings = _getMockedSettings();
+    final settings = getMockedSettings();
 
     final toJson = settings.toJson();
     final fromSettings = Settings.fromJson(toJson);
@@ -94,7 +94,7 @@ void main() {
   });
 
   test('hashCode should return request time in milliseconds', () {
-    final settings = _getMockedSettings();
+    final settings = getMockedSettings();
 
     final hash = Object.hash(
       settings.apiThresholds,

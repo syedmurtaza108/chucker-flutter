@@ -286,13 +286,13 @@ class _ChuckerPageState extends State<ChuckerPage> {
 
   void _openSettings() {
     ChuckerFlutter.navigatorObserver.navigator?.push(
-      MaterialPageRoute(builder: (_) => const SettingsPage()),
+      MaterialPageRoute<void>(builder: (_) => const SettingsPage()),
     );
   }
 
   void _openDetails(ApiResponse api) {
     ChuckerFlutter.navigatorObserver.navigator?.push(
-      MaterialPageRoute(builder: (_) => ApiDetailsPage(api: api)),
+      MaterialPageRoute<void>(builder: (_) => ApiDetailsPage(api: api)),
     );
   }
 }

@@ -46,7 +46,7 @@ void main() {
     () async {
       SharedPreferences.setMockInitialValues({});
 
-      await dio.get(successPath);
+      await dio.get<dynamic>(successPath);
 
       final responses = await sharedPreferencesManager.getAllApiResponses();
 
@@ -60,7 +60,7 @@ void main() {
     SharedPreferences.setMockInitialValues({});
 
     try {
-      await dio.get(failPath);
+      await dio.get<dynamic>(failPath);
       // ignore: empty_catches
     } catch (e) {}
 
@@ -77,12 +77,12 @@ void main() {
     ChuckerFlutter.isDebugMode = false;
 
     //For success request
-    await dio.get(successPath);
+    await dio.get<dynamic>(successPath);
     expect(ChuckerUiHelper.notificationShown, false);
 
     //For failure request
     try {
-      await dio.get(failPath);
+      await dio.get<dynamic>(failPath);
       // ignore: empty_catches
     } catch (e) {}
     expect(ChuckerUiHelper.notificationShown, false);
@@ -94,7 +94,7 @@ void main() {
       'When request has multippart body, its file details should be added'
       ' in api response model', () async {
     SharedPreferences.setMockInitialValues({});
-    await dio.post(successPath, data: formData);
+    await dio.post<dynamic>(successPath, data: formData);
 
     const prettyJson = '''
 {

@@ -4,16 +4,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
-  bool _favoritePersonalitiesButton(Element element) {
+  bool favoritePersonalitiesButton(Element element) {
     return (element.widget as SizeableTextButton).text ==
         'favoritePersonalities';
   }
 
-  String _toText(Element element) {
+  String toText(Element element) {
     return (element.widget as Text).data ?? '';
   }
 
-  String _toKeyFormat(String key) {
+  String toKeyFormat(String key) {
     return '$key:';
   }
 
@@ -36,7 +36,7 @@ void main() {
       final personalitiesButton = find
           .byType(SizeableTextButton)
           .evaluate()
-          .where(_favoritePersonalitiesButton)
+          .where(favoritePersonalitiesButton)
           .first
           .widget;
 
@@ -50,22 +50,22 @@ void main() {
       final keys = json.keys;
       final values = json.values;
 
-      expect(_toText(elements[0]), _toKeyFormat(keys.elementAt(0)));
-      expect(_toText(elements[1]), values.elementAt(0).toString());
-      expect(_toText(elements[3]), _toKeyFormat(keys.elementAt(1)));
-      expect(_toText(elements[4]), '"${values.elementAt(1)}"');
-      expect(_toText(elements[6]), _toKeyFormat(keys.elementAt(2)));
-      expect(_toText(elements[7]), values.elementAt(2).toString());
-      expect(_toText(elements[9]), _toKeyFormat(keys.elementAt(3)));
-      expect(_toText(elements[10]), values.elementAt(3).toString());
-      expect(_toText(elements[14]), _toKeyFormat('[0]'));
+      expect(toText(elements[0]), toKeyFormat(keys.elementAt(0)));
+      expect(toText(elements[1]), values.elementAt(0).toString());
+      expect(toText(elements[3]), toKeyFormat(keys.elementAt(1)));
+      expect(toText(elements[4]), '"${values.elementAt(1)}"');
+      expect(toText(elements[6]), toKeyFormat(keys.elementAt(2)));
+      expect(toText(elements[7]), values.elementAt(2).toString());
+      expect(toText(elements[9]), toKeyFormat(keys.elementAt(3)));
+      expect(toText(elements[10]), values.elementAt(3).toString());
+      expect(toText(elements[14]), toKeyFormat('[0]'));
       expect(
-        _toText(elements[15]),
+        toText(elements[15]),
         '"${(values.last as List).first}"',
       );
-      expect(_toText(elements[17]), _toKeyFormat('[1]'));
+      expect(toText(elements[17]), toKeyFormat('[1]'));
       expect(
-        _toText(elements[18]),
+        toText(elements[18]),
         '"${(values.last as List).elementAt(1)}"',
       );
     },
@@ -106,21 +106,21 @@ void main() {
       final object1Keys = json[0].keys;
       final object1values = json[0].values;
 
-      expect(_toText(elements[0]), _toKeyFormat('[0]'));
-      expect(_toText(elements[2]), _toKeyFormat(object1Keys.elementAt(0)));
-      expect(_toText(elements[3]), object1values.elementAt(0).toString());
-      expect(_toText(elements[5]), _toKeyFormat(object1Keys.elementAt(1)));
-      expect(_toText(elements[6]), '"${object1values.elementAt(1)}"');
+      expect(toText(elements[0]), toKeyFormat('[0]'));
+      expect(toText(elements[2]), toKeyFormat(object1Keys.elementAt(0)));
+      expect(toText(elements[3]), object1values.elementAt(0).toString());
+      expect(toText(elements[5]), toKeyFormat(object1Keys.elementAt(1)));
+      expect(toText(elements[6]), '"${object1values.elementAt(1)}"');
 
       //Parsing object 2
       final object2Keys = json[1].keys;
       final object2values = json[1].values;
 
-      expect(_toText(elements[8]), _toKeyFormat('[1]'));
-      expect(_toText(elements[10]), _toKeyFormat(object2Keys.elementAt(0)));
-      expect(_toText(elements[11]), object2values.elementAt(0).toString());
-      expect(_toText(elements[13]), _toKeyFormat(object2Keys.elementAt(1)));
-      expect(_toText(elements[14]), '"${object2values.elementAt(1)}"');
+      expect(toText(elements[8]), toKeyFormat('[1]'));
+      expect(toText(elements[10]), toKeyFormat(object2Keys.elementAt(0)));
+      expect(toText(elements[11]), object2values.elementAt(0).toString());
+      expect(toText(elements[13]), toKeyFormat(object2Keys.elementAt(1)));
+      expect(toText(elements[14]), '"${object2values.elementAt(1)}"');
     },
   );
 
@@ -128,7 +128,7 @@ void main() {
     'JsonTree should show Empty List when a value of array key is empty',
     (WidgetTester tester) async {
       await tester.pumpWidget(
-        const MaterialApp(home: JsonTree(json: {'id': []})),
+        const MaterialApp(home: JsonTree(json: {'id': <dynamic>[]})),
       );
       expect(find.text('Empty List'), findsOneWidget);
     },

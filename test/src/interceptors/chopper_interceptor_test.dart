@@ -47,7 +47,7 @@ void main() {
   test('Response should be saved in shared preferences when call succeeds',
       () async {
     SharedPreferences.setMockInitialValues({});
-    await chopperClient.get(Uri.parse(successPath));
+    await chopperClient.get<dynamic, dynamic>(Uri.parse(successPath));
 
     final responses = await sharedPreferencesManager.getAllApiResponses();
 
@@ -58,7 +58,7 @@ void main() {
 
   test('Error should be saved in shared preferences when call fails', () async {
     SharedPreferences.setMockInitialValues({});
-    await chopperClient.get(Uri.parse(failPath));
+    await chopperClient.get<dynamic, dynamic>(Uri.parse(failPath));
 
     final responses = await sharedPreferencesManager.getAllApiResponses();
 
@@ -112,7 +112,7 @@ void main() {
     final request = {
       'title': 'foo',
     };
-    await chopperClient.post(
+    await chopperClient.post<dynamic, dynamic>(
       Uri.parse(successPath),
       body: jsonEncode(request),
     );

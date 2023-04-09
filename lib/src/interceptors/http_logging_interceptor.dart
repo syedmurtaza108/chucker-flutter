@@ -27,7 +27,7 @@ class ChuckerHttpLoggingInterceptor
   }
 
   @override
-  FutureOr<Response> onResponse(Response response) {
+  FutureOr<Response<dynamic>> onResponse(Response<dynamic> response) {
     final base = response.base.request;
     Logger.response('${response.statusCode} ${base!.url}');
 

@@ -73,7 +73,9 @@ class ApisListingItemWidget extends StatelessWidget {
                     label: Text(
                       statusCode.toString(),
                       textAlign: TextAlign.center,
-                      style: context.textTheme.bodySmall!.withColor(Colors.white),
+                      style: context.textTheme.bodySmall!.withColor(
+                        Colors.white,
+                      ),
                     ),
                   ),
                   const SizedBox(height: 8),
@@ -83,7 +85,8 @@ class ApisListingItemWidget extends StatelessWidget {
                       onPressed: () => onDelete(dateTime.toString()),
                       child: Text(
                         Localization.strings['delete']!,
-                        style: context.textTheme.bodySmall!.withColor(Colors.red),
+                        style:
+                            context.textTheme.bodySmall!.withColor(Colors.red),
                       ),
                     ),
                   ),
