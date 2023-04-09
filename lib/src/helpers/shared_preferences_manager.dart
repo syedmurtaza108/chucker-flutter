@@ -8,16 +8,18 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 ///[SharedPreferencesManager] handles storage of chucker data on user's disk
 class SharedPreferencesManager {
-  SharedPreferencesManager._() {
-    getSettings();
+  SharedPreferencesManager._(bool initData) {
+    if (initData) {
+      getSettings();
+    }
   }
 
   static SharedPreferencesManager? _sharedPreferencesManager;
 
   ///[getInstance] returns the singleton object of [SharedPreferencesManager]
   // ignore: prefer_constructors_over_static_methods
-  static SharedPreferencesManager getInstance() {
-    return _sharedPreferencesManager ??= SharedPreferencesManager._();
+  static SharedPreferencesManager getInstance({bool initData = true}) {
+    return _sharedPreferencesManager ??= SharedPreferencesManager._(initData);
   }
 
   static const String _kApiResponses = 'api_responses';

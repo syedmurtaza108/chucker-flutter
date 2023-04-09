@@ -35,7 +35,9 @@ void main() {
 
   setUpAll(() {
     client = ChuckerHttpClient(mockClient);
-    sharedPreferencesManager = SharedPreferencesManager.getInstance();
+    sharedPreferencesManager = SharedPreferencesManager.getInstance(
+      initData: false,
+    );
     myChuckerHttpClient = _MyChuckerHttpClient(mockClient);
   });
   test('Response should be saved in shared preferences when call succeeds',

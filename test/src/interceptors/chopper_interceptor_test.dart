@@ -42,7 +42,9 @@ void main() {
   late final SharedPreferencesManager sharedPreferencesManager;
 
   setUpAll(() {
-    sharedPreferencesManager = SharedPreferencesManager.getInstance();
+    sharedPreferencesManager = SharedPreferencesManager.getInstance(
+      initData: false,
+    );
   });
   test('Response should be saved in shared preferences when call succeeds',
       () async {

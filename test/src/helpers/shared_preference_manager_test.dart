@@ -9,18 +9,26 @@ void main() {
   late final SharedPreferencesManager sharedPreferencesManager;
 
   setUpAll(() {
-    sharedPreferencesManager = SharedPreferencesManager.getInstance();
+    sharedPreferencesManager = SharedPreferencesManager.getInstance(
+      initData: false,
+    );
   });
 
   test('getInstance always returns the same instance', () {
-    final instance1 = SharedPreferencesManager.getInstance();
-    final instance2 = SharedPreferencesManager.getInstance();
-    final instance3 = SharedPreferencesManager.getInstance();
+    final instance1 = SharedPreferencesManager.getInstance(
+      initData: false,
+    );
+    final instance2 = SharedPreferencesManager.getInstance(
+      initData: false,
+    );
+    final instance3 = SharedPreferencesManager.getInstance(
+      initData: false,
+    );
     expect(instance1, instance2);
     expect(instance2, instance3);
   });
 
-  group('delete responses froms shared preferences', () {
+  group('delete responses from shared preferences', () {
     test('An api request should be deleted when deleteAnApi called ', () async {
       final mockedApis = [
         ApiResponse.mock().copyWith(requestTime: DateTime(2022, 1, 2)),

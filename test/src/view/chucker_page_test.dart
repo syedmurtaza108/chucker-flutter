@@ -14,7 +14,9 @@ void main() {
     (WidgetTester tester) async {
       SharedPreferences.setMockInitialValues({});
 
-      final sharedPreferencesManager = SharedPreferencesManager.getInstance();
+      final sharedPreferencesManager = SharedPreferencesManager.getInstance(
+        initData: false,
+      );
 
       final successReq = ApiResponse.mock().copyWith(statusCode: 200);
       final failReq = ApiResponse.mock().copyWith(statusCode: 400);
@@ -45,7 +47,9 @@ void main() {
     (WidgetTester tester) async {
       SharedPreferences.setMockInitialValues({});
 
-      final sharedPreferencesManager = SharedPreferencesManager.getInstance();
+      final sharedPreferencesManager = SharedPreferencesManager.getInstance(
+        initData: false,
+      );
 
       final successReq = ApiResponse.mock().copyWith(statusCode: 200);
       final failReq = ApiResponse.mock().copyWith(statusCode: 400);
@@ -76,7 +80,9 @@ void main() {
     (WidgetTester tester) async {
       SharedPreferences.setMockInitialValues({});
 
-      final sharedPreferencesManager = SharedPreferencesManager.getInstance();
+      final sharedPreferencesManager = SharedPreferencesManager.getInstance(
+        initData: false,
+      );
 
       final successReq = ApiResponse.mock().copyWith(statusCode: 200);
       final failReq = ApiResponse.mock().copyWith(statusCode: 400);
@@ -108,7 +114,9 @@ void main() {
     (WidgetTester tester) async {
       SharedPreferences.setMockInitialValues({});
 
-      final sharedPreferencesManager = SharedPreferencesManager.getInstance();
+      final sharedPreferencesManager = SharedPreferencesManager.getInstance(
+        initData: false,
+      );
 
       final successReq = ApiResponse.mock().copyWith(statusCode: 200);
 
@@ -153,7 +161,9 @@ void main() {
     (WidgetTester tester) async {
       SharedPreferences.setMockInitialValues({});
 
-      final sharedPreferencesManager = SharedPreferencesManager.getInstance();
+      final sharedPreferencesManager = SharedPreferencesManager.getInstance(
+        initData: false,
+      );
 
       final successReq = ApiResponse.mock().copyWith(
         statusCode: 200,
@@ -199,7 +209,9 @@ void main() {
     (WidgetTester tester) async {
       SharedPreferences.setMockInitialValues({});
 
-      final sharedPreferencesManager = SharedPreferencesManager.getInstance();
+      final sharedPreferencesManager = SharedPreferencesManager.getInstance(
+        initData: false,
+      );
       final successReq = ApiResponse.mock();
 
       await sharedPreferencesManager.addApiResponse(successReq);
@@ -233,7 +245,9 @@ void main() {
     (WidgetTester tester) async {
       SharedPreferences.setMockInitialValues({});
 
-      final sharedPreferencesManager = SharedPreferencesManager.getInstance();
+      final sharedPreferencesManager = SharedPreferencesManager.getInstance(
+        initData: false,
+      );
 
       final successReq = ApiResponse.mock();
 
@@ -265,7 +279,9 @@ void main() {
     (WidgetTester tester) async {
       SharedPreferences.setMockInitialValues({});
 
-      final sharedPreferencesManager = SharedPreferencesManager.getInstance();
+      final sharedPreferencesManager = SharedPreferencesManager.getInstance(
+        initData: false,
+      );
 
       final successReq = ApiResponse.mock().copyWith(baseUrl: 'hello');
       final successReq2 = ApiResponse.mock().copyWith(baseUrl: 'hi');
@@ -312,7 +328,9 @@ void main() {
     (WidgetTester tester) async {
       SharedPreferences.setMockInitialValues({});
 
-      final sharedPreferencesManager = SharedPreferencesManager.getInstance();
+      final sharedPreferencesManager = SharedPreferencesManager.getInstance(
+        initData: false,
+      );
 
       final api = ApiResponse.mock();
 
