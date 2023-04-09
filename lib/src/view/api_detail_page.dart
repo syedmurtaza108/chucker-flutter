@@ -50,43 +50,45 @@ class _ApiDetailsPageState extends State<ApiDetailsPage> {
             ),
           ],
         ),
-        body: DefaultTabController(
-          length: 3,
-          child: Column(
-            children: [
-              Material(
-                color: primaryColor,
-                child: TabBar(
-                  labelColor: Colors.white,
-                  unselectedLabelColor: Colors.white.withOpacity(0.8),
-                  tabs: [
-                    Tab(text: Localization.strings['overview']),
-                    Tab(text: Localization.strings['request']),
-                    Tab(text: Localization.strings['response']),
-                  ],
+        body: SafeArea(
+          child: DefaultTabController(
+            length: 3,
+            child: Column(
+              children: [
+                Material(
+                  color: primaryColor,
+                  child: TabBar(
+                    labelColor: Colors.white,
+                    unselectedLabelColor: Colors.white.withOpacity(0.8),
+                    tabs: [
+                      Tab(text: Localization.strings['overview']),
+                      Tab(text: Localization.strings['request']),
+                      Tab(text: Localization.strings['response']),
+                    ],
+                  ),
                 ),
-              ),
-              Expanded(
-                child: TabBarView(
-                  key: const Key('api_detail_tabbar_view'),
-                  children: [
-                    OverviewTabView(api: widget.api),
-                    _RequestTab(
-                      jsonPreviewType: _jsonRequestPreviewType,
-                      onShufflePreview: _shuffleRequestPreviewType,
-                      json: widget.api.request,
-                      prettyJson: widget.api.prettyJsonRequest,
-                    ),
-                    _ResponseTab(
-                      jsonPreviewType: _jsonResponsePreviewType,
-                      onShufflePreview: _shuffleResponsePreviewType,
-                      json: widget.api.body,
-                      prettyJson: widget.api.prettyJson,
-                    )
-                  ],
+                Expanded(
+                  child: TabBarView(
+                    key: const Key('api_detail_tabbar_view'),
+                    children: [
+                      OverviewTabView(api: widget.api),
+                      _RequestTab(
+                        jsonPreviewType: _jsonRequestPreviewType,
+                        onShufflePreview: _shuffleRequestPreviewType,
+                        json: widget.api.request,
+                        prettyJson: widget.api.prettyJsonRequest,
+                      ),
+                      _ResponseTab(
+                        jsonPreviewType: _jsonResponsePreviewType,
+                        onShufflePreview: _shuffleResponsePreviewType,
+                        json: widget.api.body,
+                        prettyJson: widget.api.prettyJson,
+                      )
+                    ],
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
