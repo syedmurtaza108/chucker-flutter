@@ -165,7 +165,7 @@ class ApiResponse {
     double? responseSize,
     Map<String, dynamic>? request,
     String? response,
-    Map<String, dynamic>? body,
+    dynamic body,
     String? contentType,
     String? headers,
     int? sendTimeout,

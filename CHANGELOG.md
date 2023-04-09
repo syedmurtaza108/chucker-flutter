@@ -112,3 +112,8 @@
 ## 1.4.3
 
 * Dependencies update
+
+## 1.5.0
+
+* Dependencies update
+* Minor issues fixed
