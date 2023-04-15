@@ -86,11 +86,18 @@ class ChuckerDioInterceptor extends Interceptor {
       ),
     );
   }
+  Map<String, dynamic> _getJson(data) {
+    try {
+      return jsonDecode(data);
+    } catch (e) {
+      return {"": data};
+    }
+   }
 
   Future<void> _saveError(DioError response) async {
     await SharedPreferencesManager.getInstance().addApiResponse(
       ApiResponse(
-        body: jsonDecode(response.response.toString()),
+        body: _getJson(response.response.toString()),
         path: response.requestOptions.path,
         baseUrl: response.requestOptions.baseUrl,
         method: response.requestOptions.method,
