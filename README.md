@@ -127,7 +127,9 @@ Special thanks to these wonderful people👏 who are making our community bigger
 
 <table>
   <tr>
-    <td align="center"><a href="https://github.com/Dammyololade"><img src="https://avatars.githubusercontent.com/u/44375103?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Adeyemo Adedamola</b></sub></a><br /> <a href="https://github.com/syedmurtaza108/chucker-flutter/commits?author=Dammyololade" title="Documentation">📖</a> </td><td align="center"><a href="https://github.com/fachrifaul"><img src="https://avatars.githubusercontent.com/u/2288266?v=4" width="100px;" alt=""/><br /><sub><b>fachrifaul</b></sub></a><br /> <a href="https://github.com/syedmurtaza108/chucker-flutter/commits?author=fachrifaul" title="Documentation">📖</a> </td>
+    <td align="center"><a href="https://github.com/Dammyololade"><img src="https://avatars.githubusercontent.com/u/44375103?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Adeyemo Adedamola</b></sub></a><br /> <a href="https://github.com/syedmurtaza108/chucker-flutter/commits?author=Dammyololade" title="Documentation">📖</a> </td>
+    <td align="center"><a href="https://github.com/fachrifaul"><img src="https://avatars.githubusercontent.com/u/2288266?v=4" width="100px;" alt=""/><br /><sub><b>fachrifaul</b></sub></a><br /> <a href="https://github.com/syedmurtaza108/chucker-flutter/commits?author=fachrifaul" title="Documentation">📖</a> </td>
+    <td align="center"><a href="https://github.com/navneet-singh-github"><img src="https://avatars.githubusercontent.com/u/94953723?v=4" width="100px;" alt=""/><br /><sub><b>Navneet Singh</b></sub></a><br /> <a href="https://github.com/syedmurtaza108/chucker-flutter/commits?author=navneet-singh-github" title="Documentation">📖</a> </td>
   </tr>
   
 </table>
