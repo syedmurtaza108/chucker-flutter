@@ -12,10 +12,14 @@ class Logger {
 
   ///Logs formatted json
   static void json(String json, {bool isRequest = false}) {
-    final prettyJson = _jsonEncoder.convert(jsonDecode(json));
-    final emoji = isRequest ? '↗️' : '↘️';
-    log('$emoji$_ansiYellow JSON');
-    log('$_ansiYellow$prettyJson$_ansiReset');
+    try {
+      final prettyJson = _jsonEncoder.convert(jsonDecode(json));
+      final emoji = isRequest ? '↗️' : '↘️';
+      log('$emoji$_ansiYellow JSON');
+      log('$_ansiYellow$prettyJson$_ansiReset');
+    } catch (e) {
+      log(e.toString());
+    }
   }
 
   ///Log request

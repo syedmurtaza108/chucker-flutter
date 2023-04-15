@@ -86,13 +86,14 @@ class ChuckerDioInterceptor extends Interceptor {
       ),
     );
   }
-  Map<String, dynamic> _getJson(data) {
+
+  Map<String, dynamic> _getJson(String data) {
     try {
-      return jsonDecode(data);
+      return jsonDecode(data) as Map<String, dynamic>;
     } catch (e) {
-      return {"": data};
+      return {};
     }
-   }
+  }
 
   Future<void> _saveError(DioError response) async {
     await SharedPreferencesManager.getInstance().addApiResponse(

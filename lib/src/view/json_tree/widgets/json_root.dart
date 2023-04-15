@@ -21,8 +21,15 @@ class _JsonRoot extends StatelessWidget {
         showPadding: showPadding,
       );
     }
+
+    if (rootObject is Map<String, dynamic>) {
+      return _JsonObject(
+        jsonObject: rootObject as Map<String, dynamic>,
+        showPadding: showPadding,
+      );
+    }
     return _JsonObject(
-      jsonObject: rootObject as Map<String, dynamic>,
+      jsonObject: const {},
       showPadding: showPadding,
     );
   }
