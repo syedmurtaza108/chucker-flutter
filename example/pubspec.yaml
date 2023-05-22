@@ -28,7 +28,7 @@ environment:
 # versions available, run `flutter pub outdated`.
 dependencies:
   dio: ^5.0.3
-  http: ^0.13.4
+  http: ^1.0.0
   flutter:
     sdk: flutter
   chucker_flutter:
