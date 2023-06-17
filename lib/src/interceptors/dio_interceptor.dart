@@ -40,7 +40,10 @@ class ChuckerDioInterceptor extends Interceptor {
   }
 
   @override
-  Future<void> onError(DioError err, ErrorInterceptorHandler handler) async {
+  Future<void> onError(
+    DioException err,
+    ErrorInterceptorHandler handler,
+  ) async {
     await SharedPreferencesManager.getInstance().getSettings();
 
     if (!ChuckerFlutter.isDebugMode && !ChuckerFlutter.showOnRelease) {
@@ -72,9 +75,7 @@ class ChuckerDioInterceptor extends Interceptor {
         queryParameters: response.requestOptions.queryParameters.toString(),
         receiveTimeout:
             response.requestOptions.receiveTimeout?.inMilliseconds ?? 0,
-        request: {
-          'request': _separateFileObjects(response.requestOptions).data
-        },
+        request: _separateFileObjects(response.requestOptions).data,
         requestSize: 2,
         requestTime: _requestTime,
         responseSize: 2,
@@ -95,7 +96,7 @@ class ChuckerDioInterceptor extends Interceptor {
     }
   }
 
-  Future<void> _saveError(DioError response) async {
+  Future<void> _saveError(DioException response) async {
     await SharedPreferencesManager.getInstance().addApiResponse(
       ApiResponse(
         body: _getJson(response.response.toString()),
@@ -110,9 +111,7 @@ class ChuckerDioInterceptor extends Interceptor {
         queryParameters: response.requestOptions.queryParameters.toString(),
         receiveTimeout:
             response.requestOptions.receiveTimeout?.inMilliseconds ?? 0,
-        request: {
-          'request': _separateFileObjects(response.requestOptions).data
-        },
+        request: _separateFileObjects(response.requestOptions).data,
         requestSize: 2,
         requestTime: _requestTime,
         responseSize: 2,

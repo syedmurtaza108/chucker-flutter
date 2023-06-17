@@ -121,9 +121,7 @@ void main() {
 
     const prettyJson = '''
 {
-     "request": {
-          "title": "foo"
-     }
+     "title": "foo"
 }''';
 
     final responses = await sharedPreferencesManager.getAllApiResponses();

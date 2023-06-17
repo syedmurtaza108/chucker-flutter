@@ -50,7 +50,7 @@ class ChuckerChopperInterceptor extends ResponseInterceptor {
             response.base.request?.url.queryParameters.toString() ??
                 emptyString,
         receiveTimeout: 0,
-        request: {'request': _requestBody(response)},
+        request: _requestBody(response),
         requestSize: 2,
         requestTime: time,
         responseSize: 2,

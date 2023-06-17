@@ -36,7 +36,7 @@ class ApiResponse {
         headers: json['headers'] as String,
         queryParameters: json['queryParameters'] as String,
         receiveTimeout: json['receiveTimeout'] as int,
-        request: json['request'] as Map<String, dynamic>,
+        request: json['request'] as dynamic,
         requestSize: json['requestSize'] as double,
         requestTime: DateTime.parse(json['requestTime'] as String),
         responseSize: json['responseSize'] as double,
@@ -96,7 +96,7 @@ class ApiResponse {
   final double responseSize;
 
   ///Request data
-  final Map<String, dynamic> request;
+  final dynamic request;
 
   ///Response data
   final dynamic body;
@@ -163,7 +163,7 @@ class ApiResponse {
     int? statusCode,
     double? requestSize,
     double? responseSize,
-    Map<String, dynamic>? request,
+    dynamic request,
     String? response,
     dynamic body,
     String? contentType,

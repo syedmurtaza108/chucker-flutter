@@ -124,7 +124,7 @@ class ChuckerHttpClient extends BaseClient {
         headers: request.headers.toString(),
         queryParameters: request.url.queryParameters.toString(),
         receiveTimeout: 0,
-        request: {'request': requestBody},
+        request: requestBody,
         requestSize: request.contentLength?.toDouble() ?? 0,
         requestTime: _requestTime,
         responseSize: contentLength,

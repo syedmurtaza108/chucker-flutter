@@ -122,3 +122,8 @@
 
 * Fix: Error response parsing failed in dio interceptor
 * Fix: Error response parsing failed in http logging interceptor
+
+## 1.5.2
+
+* Chore: Dependencies update
+* Some fixes and improvements
