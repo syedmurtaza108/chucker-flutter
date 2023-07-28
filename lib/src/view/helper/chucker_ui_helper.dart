@@ -34,7 +34,8 @@ class ChuckerUiHelper {
     required DateTime requestTime,
   }) {
     if (ChuckerUiHelper.settings.showNotification &&
-        ChuckerFlutter.navigatorObserver.navigator != null) {
+        ChuckerFlutter.navigatorObserver.navigator != null &&
+        ChuckerFlutter.isNotificationEnabled) {
       final overlay = ChuckerFlutter.navigatorObserver.navigator!.overlay;
       final entry = _createOverlayEntry(method, statusCode, path, requestTime);
       _overlayEntries.add(entry);
@@ -128,4 +129,8 @@ class ChuckerFlutter {
 
   ///[showChuckerScreen] navigates to the chucker home screen
   static void showChuckerScreen() => ChuckerUiHelper.showChuckerScreen();
+
+  ///[isNotificationEnabled] decides whether to show a snackbar message or
+  ///overlay notification when an API call is inspected.
+  static bool isNotificationEnabled = true;
 }
