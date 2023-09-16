@@ -33,17 +33,18 @@ class ChuckerUiHelper {
     required String path,
     required DateTime requestTime,
   }) {
-    if (ChuckerUiHelper.settings.showNotification &&
-        ChuckerFlutter.navigatorObserver.navigator != null) {
-      final overlay = ChuckerFlutter.navigatorObserver.navigator!.overlay;
-      final entry = _createOverlayEntry(method, statusCode, path, requestTime);
-      _overlayEntries.add(entry);
-      overlay?.insert(entry);
-      notificationShown = true;
-      return true;
-    }
     notificationShown = false;
-    return false;
+
+    if (!ChuckerUiHelper.settings.showNotification) return false;
+    if (ChuckerFlutter.navigatorObserver.navigator == null) return false;
+    if (!ChuckerFlutter.showNotification) return false;
+
+    final overlay = ChuckerFlutter.navigatorObserver.navigator!.overlay;
+    final entry = _createOverlayEntry(method, statusCode, path, requestTime);
+    _overlayEntries.add(entry);
+    overlay?.insert(entry);
+    notificationShown = true;
+    return true;
   }
 
   static OverlayEntry _createOverlayEntry(
@@ -120,6 +121,10 @@ class ChuckerFlutter {
 
   ///[isDebugMode] A wrapper of Flutter's `kDebugMode` constant
   static bool isDebugMode = kDebugMode;
+
+  ///[showNotification] decides whether to show in app notification or not
+  ///By default its value is `true`
+  static bool showNotification = true;
 
   ///[ChuckerButton] can be placed anywhere in the UI to open Chucker Screen
   static final chuckerButton = isDebugMode || ChuckerFlutter.showOnRelease
