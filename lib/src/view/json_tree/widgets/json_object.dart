@@ -82,7 +82,7 @@ class __JsonObjectState extends State<_JsonObject> {
                 Visibility(
                   visible: open[entry.key] ?? false,
                   child: _JsonRoot(rootObject: entry.value, showPadding: true),
-                )
+                ),
               ],
             );
           },

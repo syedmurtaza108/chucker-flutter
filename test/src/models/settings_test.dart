@@ -68,7 +68,7 @@ void main() {
       'duration': settings.duration.inSeconds,
       'notificationAlignment': [
         settings.notificationAlignment.x,
-        settings.notificationAlignment.y
+        settings.notificationAlignment.y,
       ],
       'apiThresholds': settings.apiThresholds,
       'httpMethod': settings.httpMethod.index,

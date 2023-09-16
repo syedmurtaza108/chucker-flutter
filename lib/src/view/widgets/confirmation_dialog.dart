@@ -36,7 +36,7 @@ class _ConfirmationDialog extends StatelessWidget {
           onPressed: () => context.navigator.pop(true),
           foreColor: yesButtonForeColor,
           backColor: yesButtonBackColor,
-        )
+        ),
       ],
     );
   }

@@ -45,7 +45,7 @@ class _HttpMethodsMenuState extends State<HttpMethodsMenu> {
                   style: context.textTheme.bodyLarge!.withColor(Colors.white),
                 ),
                 backgroundColor: methodColor(_getMethodName()),
-              )
+              ),
             ],
           ),
         ),

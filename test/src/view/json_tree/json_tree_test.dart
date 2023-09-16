@@ -26,7 +26,7 @@ void main() {
         'name': 'Syed Murtaza',
         'weight': 56.8,
         'isInPakistan': true,
-        'favoritePersonalities': ['Allama Iqbal', 'Muhammad Ali Jinnah']
+        'favoritePersonalities': ['Allama Iqbal', 'Muhammad Ali Jinnah'],
       };
 
       await tester.pumpWidget(const MaterialApp(home: JsonTree(json: json)));
@@ -164,7 +164,7 @@ void main() {
         const MaterialApp(
           home: JsonTree(
             json: {
-              'data': {'id': 1}
+              'data': {'id': 1},
             },
           ),
         ),

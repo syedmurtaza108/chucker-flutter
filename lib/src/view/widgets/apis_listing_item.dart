@@ -114,7 +114,7 @@ class ApisListingItemWidget extends StatelessWidget {
                         value: checked,
                         activeColor: Colors.green,
                         onChanged: (_) => onChecked(dateTime.toString()),
-                      )
+                      ),
                     ],
                   ),
                   Text(
@@ -133,7 +133,7 @@ class ApisListingItemWidget extends StatelessWidget {
                   ),
                 ],
               ),
-            )
+            ),
           ],
         ),
       ),

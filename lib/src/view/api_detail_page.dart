@@ -83,7 +83,7 @@ class _ApiDetailsPageState extends State<ApiDetailsPage> {
                         onShufflePreview: _shuffleResponsePreviewType,
                         json: widget.api.body,
                         prettyJson: widget.api.prettyJson,
-                      )
+                      ),
                     ],
                   ),
                 ),
@@ -152,7 +152,7 @@ class _PreviewModeControl extends StatelessWidget {
                 height: 34,
                 text: type,
                 style: context.textTheme.bodyMedium!.toBold(),
-              )
+              ),
             ],
           ),
         ),
@@ -203,7 +203,7 @@ class _ResponseTab extends StatelessWidget {
                 spreadRadius: 2,
                 blurRadius: 7,
                 offset: const Offset(0, 8),
-              )
+              ),
             ],
           ),
           child: _PreviewModeControl(
@@ -271,7 +271,7 @@ class _RequestTab extends StatelessWidget {
                 spreadRadius: 2,
                 blurRadius: 7,
                 offset: const Offset(0, 8),
-              )
+              ),
             ],
           ),
           child: _PreviewModeControl(

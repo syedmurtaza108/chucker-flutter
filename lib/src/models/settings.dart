@@ -116,7 +116,7 @@ class Settings {
       'language': language.index,
       'notificationAlignment': [
         notificationAlignment.x,
-        notificationAlignment.y
+        notificationAlignment.y,
       ],
       'positionBottom': positionBottom,
       'positionLeft': positionLeft,

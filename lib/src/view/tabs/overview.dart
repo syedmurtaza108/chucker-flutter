@@ -153,7 +153,7 @@ class OverviewTabView extends StatelessWidget {
                   onPressed: () =>
                       Clipboard.setData(ClipboardData(text: value)),
                   text: Localization.strings['copy']!,
-                )
+                ),
               ],
             ),
           ),
