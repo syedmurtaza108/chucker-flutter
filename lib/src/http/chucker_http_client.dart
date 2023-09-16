@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:chucker_flutter/src/helpers/constants.dart';
 import 'package:chucker_flutter/src/helpers/shared_preferences_manager.dart';
@@ -135,6 +136,11 @@ class ChuckerHttpClient extends BaseClient {
         clientLibrary: 'Http',
       ),
     );
+
+    final method = request.method;
+    final path = request.url.path;
+
+    log('ChuckerFlutter: $method:$path($statusCode) saved.');
   }
 
   dynamic _getRequestBody(Request request) {

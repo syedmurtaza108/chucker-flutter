@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:chopper/chopper.dart';
 import 'package:chucker_flutter/src/helpers/constants.dart';
@@ -61,6 +62,12 @@ class ChuckerChopperInterceptor extends ResponseInterceptor {
         clientLibrary: 'Chopper',
       ),
     );
+
+    final method = response.base.request?.method ?? '';
+    final statusCode = response.statusCode;
+    final path = response.base.request?.url.path ?? '';
+
+    log('ChuckerFlutter: $method:$path($statusCode) saved.');
   }
 
   String _requestType(Response<dynamic> response) {

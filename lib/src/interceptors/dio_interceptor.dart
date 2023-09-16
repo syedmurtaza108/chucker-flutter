@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:chucker_flutter/src/helpers/constants.dart';
 import 'package:chucker_flutter/src/helpers/shared_preferences_manager.dart';
@@ -29,13 +30,21 @@ class ChuckerDioInterceptor extends Interceptor {
       handler.next(response);
       return;
     }
+
+    final method = response.requestOptions.method;
+    final statusCode = response.statusCode ?? -1;
+    final path = response.requestOptions.path;
+
     ChuckerUiHelper.showNotification(
-      method: response.requestOptions.method,
-      statusCode: response.statusCode ?? -1,
-      path: response.requestOptions.path,
+      method: method,
+      statusCode: statusCode,
+      path: path,
       requestTime: _requestTime,
     );
+
     await _saveResponse(response);
+
+    log('ChuckerFlutter: $method:$path - $statusCode saved.');
     handler.next(response);
   }
 
@@ -50,13 +59,19 @@ class ChuckerDioInterceptor extends Interceptor {
       handler.next(err);
       return;
     }
+    final method = err.requestOptions.method;
+    final statusCode = err.response?.statusCode ?? -1;
+    final path = err.requestOptions.path;
+
     ChuckerUiHelper.showNotification(
-      method: err.requestOptions.method,
-      statusCode: err.response?.statusCode ?? -1,
-      path: err.requestOptions.path,
+      method: method,
+      statusCode: statusCode,
+      path: path,
       requestTime: _requestTime,
     );
     await _saveError(err);
+
+    log('ChuckerFlutter: $method:$path - $statusCode saved.');
     handler.next(err);
   }
 
