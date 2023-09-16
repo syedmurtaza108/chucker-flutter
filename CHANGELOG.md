@@ -127,3 +127,7 @@
 
 * Chore: Dependencies update
 * Some fixes and improvements
+
+## 1.6.0
+* Feat: Added helping logs
+* Feat: Added support for `showNotification` key to ignore in-app notifications
