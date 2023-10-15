@@ -131,3 +131,6 @@
 ## 1.6.0
 * Feat: Added helping logs
 * Feat: Added support for `showNotification` key to ignore in-app notifications
+
+## 1.6.1
+* Chore: Chopper updated to version 7.0.8

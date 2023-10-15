@@ -10,7 +10,7 @@ import 'package:chucker_flutter/src/view/helper/chucker_ui_helper.dart';
 import 'package:http/http.dart' as http;
 
 ///[ChuckerChopperInterceptor] adds support for `chucker_flutter` in Chopper
-class ChuckerChopperInterceptor extends ResponseInterceptor {
+class ChuckerChopperInterceptor implements ResponseInterceptor {
   @override
   FutureOr<Response<dynamic>> onResponse(Response<dynamic> response) async {
     final time = DateTime.now();
