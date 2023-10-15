@@ -7,7 +7,7 @@ funding:
   - https://www.patreon.com/syedmurtaza
 
 environment:
-  sdk: ">=2.16.0 <3.0.0"
+  sdk: ">=2.16.0 <4.0.0"
 
 dependencies:
   chopper: ^7.0.8
