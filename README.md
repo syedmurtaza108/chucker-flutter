@@ -40,6 +40,13 @@ dependencies:
   chucker_flutter: latest-version
 ```
 
+or
+
+just run the command
+```
+flutter pub add chucker_flutter
+```
+
 To make `Chucker Flutter` work in `Dio`, just add it in your `Dio` object e.g.:
 
 ```dart
