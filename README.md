@@ -128,6 +128,17 @@ Chucker FLutter uses the following open source libraries:
 - [http](https://pub.dev/packages/http) - dart.dev
 - [Chopper](https://pub.dev/packages/chopper) - hadrienlejard.io
 
+## Patrons
+
+I extend my sincere appreciation to all the sponsors. Thank you for making a difference in the open source community!❤️ (You can also sponsor my work, please visit [patreon.com](https://patreon.com/syedmurtaza?utm_medium=clipboard_copy&utm_source=copyLink&utm_campaign=creatorshare_creator&utm_content=join_link))
+
+<table>
+  <tr>
+    <td align="center"><a href="https://github.com/rafayali"><img src="https://avatars.githubusercontent.com/u/1373965?v=4" width="100px;" alt=""/><br /><sub><b>Rafay Ali</b></sub></a><br /> </td>
+  </tr>
+  
+</table>
+
 ## Contributors
 
 Special thanks to these wonderful people👏 who are making our community bigger and better🔥
