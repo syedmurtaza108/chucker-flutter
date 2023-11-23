@@ -66,28 +66,35 @@ class ChuckerHttpClient extends BaseClient {
 
     final interceptedResponse = onResponse(response);
 
-    if (!ChuckerFlutter.isDebugMode && !ChuckerFlutter.showOnRelease) {
-      return StreamedResponse(ByteStream.fromBytes(bytes), response.statusCode);
+    if (ChuckerFlutter.isDebugMode || ChuckerFlutter.showOnRelease) {
+      ChuckerUiHelper.showNotification(
+        method: interceptedRequest.method,
+        statusCode: interceptedResponse.statusCode,
+        path: interceptedRequest.url.path,
+        requestTime: _requestTime,
+      );
+
+      await _saveResponse(
+        interceptedRequest,
+        bytes,
+        response.statusCode,
+        response.contentLength?.toDouble() ?? 0,
+        response.headers['content-type'] ??
+            response.headers['Content-Type'] ??
+            'N/A',
+      );
     }
 
-    ChuckerUiHelper.showNotification(
-      method: interceptedRequest.method,
-      statusCode: interceptedResponse.statusCode,
-      path: interceptedRequest.url.path,
-      requestTime: _requestTime,
-    );
-
-    await _saveResponse(
-      interceptedRequest,
-      bytes,
+    return StreamedResponse(
+      ByteStream.fromBytes(bytes),
       response.statusCode,
-      response.contentLength?.toDouble() ?? 0,
-      response.headers['content-type'] ??
-          response.headers['Content-Type'] ??
-          'N/A',
+      contentLength: response.contentLength,
+      request: response.request,
+      headers: response.headers,
+      isRedirect: response.isRedirect,
+      persistentConnection: response.persistentConnection,
+      reasonPhrase: response.reasonPhrase,
     );
-
-    return StreamedResponse(ByteStream.fromBytes(bytes), response.statusCode);
   }
 
   Future<void> _saveResponse(
