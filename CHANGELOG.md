@@ -134,3 +134,6 @@
 
 ## 1.6.1
 * Chore: Chopper updated to version 7.0.8
+
+## 1.6.2
+* Fix: Headers erasing due to Chucker Http Client. Thanks to @Serproger
