@@ -3,6 +3,7 @@ description: Chucker Flutter helps you inspect the HTTP(S) requests/responses. I
 version: 1.6.2
 repository: https://github.com/syedmurtaza108/chucker-flutter
 issue_tracker: https://github.com/syedmurtaza108/chucker-flutter/issues
+topics: [http, networking, chucker]
 funding:
   - https://www.patreon.com/syedmurtaza
 
@@ -25,3 +26,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   very_good_analysis: ^5.0.0+1
+
+screenshots:
+  - description: Chucker Flutter Logo
+    path: screenshots/logo.png
