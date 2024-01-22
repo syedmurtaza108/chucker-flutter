@@ -137,3 +137,7 @@
 
 ## 1.6.2
 * Fix: Headers erasing due to Chucker Http Client. Thanks to @Serproger
+
+## 1.6.3
+* Fix: Some UI test failures
+* Chore: Added a logo for pub.dev
