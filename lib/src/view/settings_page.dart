@@ -103,7 +103,7 @@ class _SettingsPageState extends State<SettingsPage> {
               _settingRow(
                 title: Localization.strings['showRequestStats']!,
                 description: Localization.strings['showRequestStatsDesc']!,
-                child: Switch.adaptive(
+                child: Switch(
                   activeColor: primaryColor,
                   value: _settings.showRequestsStats,
                   onChanged: (value) {
