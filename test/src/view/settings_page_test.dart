@@ -49,6 +49,14 @@ void main() {
       await tester.pumpWidget(const MaterialApp(home: SettingsPage()));
 
       final switches = find.byType(Switch).evaluate();
+      final finderShowRequestSwitch =
+          find.byWidget(switches.elementAt(1).widget);
+
+      await tester.dragUntilVisible(
+        finderShowRequestSwitch,
+        find.byType(ListView),
+        const Offset(0, 500),
+      );
 
       await tester.tap(find.byWidget(switches.elementAt(1).widget));
       await tester.pumpAndSettle();
@@ -60,7 +68,7 @@ void main() {
   );
 
   testWidgets(
-    'Delete confir dialog on/off settings should be saved in shared preferences',
+    'Delete confirmation dialog on/off settings should be saved in shared preferences',
     (WidgetTester tester) async {
       SharedPreferences.setMockInitialValues({});
 

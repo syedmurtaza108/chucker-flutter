@@ -89,18 +89,6 @@ class _SettingsPageState extends State<SettingsPage> {
               _heading(Localization.strings['apiListingScreen']!),
               const SizedBox(height: 16),
               _settingRow(
-                title: Localization.strings['showRequestStats']!,
-                description: Localization.strings['showRequestStatsDesc']!,
-                child: Switch.adaptive(
-                  activeColor: primaryColor,
-                  value: _settings.showRequestsStats,
-                  onChanged: (value) {
-                    _saveSettings(showRequestsStats: value);
-                  },
-                ),
-              ),
-              const SizedBox(height: 16),
-              _settingRow(
                 title: Localization.strings['selectedMethod']!,
                 description: Localization.strings['selectedMethodDesc']!,
                 child: HttpMethodsMenu(
@@ -110,6 +98,18 @@ class _SettingsPageState extends State<SettingsPage> {
                   },
                 ),
                 padding: 16,
+              ),
+              const SizedBox(height: 16),
+              _settingRow(
+                title: Localization.strings['showRequestStats']!,
+                description: Localization.strings['showRequestStatsDesc']!,
+                child: Switch.adaptive(
+                  activeColor: primaryColor,
+                  value: _settings.showRequestsStats,
+                  onChanged: (value) {
+                    _saveSettings(showRequestsStats: value);
+                  },
+                ),
               ),
               const Padding(
                 padding: EdgeInsets.symmetric(vertical: 16),
