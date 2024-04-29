@@ -112,6 +112,7 @@ ChuckerFlutter: You programmatically vetoed notification behavior. Make sure to 
           supportedLocales: Localization.supportedLocales,
           locale: Localization.currentLocale,
           theme: ThemeData(
+            useMaterial3: false,
             tabBarTheme: TabBarTheme(
               labelColor: Colors.white,
               labelStyle: context.textTheme.bodyLarge,
