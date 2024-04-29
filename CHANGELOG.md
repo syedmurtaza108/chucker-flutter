@@ -141,3 +141,7 @@
 ## 1.6.3
 * Fix: Some UI test failures
 * Chore: Added a logo for pub.dev
+
+## 1.7.0
+* Fix: Some UI issues
+* Chore: Dependencies update
