@@ -40,7 +40,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   chopper: ^7.0.8
   build_runner: ^2.1.10
-  chopper_generator: ^7.0.6
+  chopper_generator: ^8.0.0
 
 dev_dependencies:
   flutter_test:
