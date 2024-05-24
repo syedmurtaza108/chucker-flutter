@@ -118,7 +118,7 @@ ChuckerFlutter: You programmatically vetoed notification behavior. Make sure to 
               labelStyle: context.textTheme.bodyLarge,
             ),
             colorScheme: Theme.of(context).colorScheme.copyWith(
-                  background: primaryColor,
+                  surface: primaryColor,
                 ),
           ),
           home: const ChuckerPage(),
