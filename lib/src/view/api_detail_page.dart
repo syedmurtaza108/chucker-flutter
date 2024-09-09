@@ -8,6 +8,7 @@ import 'package:chucker_flutter/src/view/tabs/overview.dart';
 import 'package:chucker_flutter/src/view/widgets/app_bar.dart';
 import 'package:chucker_flutter/src/view/widgets/sizeable_text_button.dart';
 import 'package:flutter/material.dart';
+import 'dart:convert';
 import 'package:flutter/services.dart';
 import 'package:share_plus/share_plus.dart';
 
@@ -30,6 +31,7 @@ class _ApiDetailsPageState extends State<ApiDetailsPage> {
 
   @override
   Widget build(BuildContext context) {
+    // deb('ApiDetailsPage build ${widget.api.toString()}');
     return Directionality(
       textDirection: Localization.textDirection,
       child: Scaffold(
@@ -55,6 +57,14 @@ class _ApiDetailsPageState extends State<ApiDetailsPage> {
                 );
               },
               icon: const Icon(Icons.share),
+            ),
+            TextButton(
+              onPressed: () {
+                Clipboard.setData(
+                    ClipboardData(text: _cURLRepresentation(widget.api)));
+              },
+              child: const Text('Copy cURL Command',
+                  style: TextStyle(color: Colors.white)),
             ),
           ],
         ),
@@ -124,6 +134,41 @@ class _ApiDetailsPageState extends State<ApiDetailsPage> {
         break;
     }
   }
+}
+
+String _cURLRepresentation(ApiResponse api) {
+  List<String> components = ['curl -i'];
+
+  if (api.method.toUpperCase() != 'GET') {
+    components.add('-X ${api.method}');
+  }
+
+  api.headers.forEach((k, v) {
+    if (k != 'Cookie') {
+      components.add('-H "$k: $v"');
+    }
+  });
+
+  if (api.body != null && api.body.toString().isNotEmpty) {
+    final encodedBody = api.body.toString().replaceAll('"', '\\"');
+    components.add('-d "$encodedBody"');
+  }
+
+  // Construct the full URL manually
+  final queryParams = api.queryParameters.isNotEmpty
+      ? api.queryParameters.entries.map((e) {
+          final key = Uri.encodeComponent(e.key);
+          final value = Uri.encodeComponent(e.value.toString());
+          return '$key=$value';
+        }).join('&')
+      : '';
+
+  final fullUrl =
+      api.baseUrl + api.path + (queryParams.isNotEmpty ? '?$queryParams' : '');
+
+  components.add('"$fullUrl"');
+
+  return components.join(' \\\n\t');
 }
 
 class _PreviewModeControl extends StatelessWidget {

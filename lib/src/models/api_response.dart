@@ -1,8 +1,9 @@
 import 'dart:convert';
+import 'package:flutter/foundation.dart';
 
-///[ApiResponse] is the api data model to save and retrieve from local disk
+/// [ApiResponse] is the API data model to save and retrieve from local disk
 class ApiResponse {
-  ///[ApiResponse] is the api data model to save and retrieve from local disk
+  /// [ApiResponse] is the API data model to save and retrieve from local disk
   ApiResponse({
     required this.body,
     required this.baseUrl,
@@ -12,7 +13,9 @@ class ApiResponse {
     required this.connectionTimeout,
     required this.contentType,
     required this.headers,
+    // required this.headersMap,
     required this.queryParameters,
+    // required this.queryParametersMap,
     required this.receiveTimeout,
     required this.request,
     required this.requestSize,
@@ -25,7 +28,7 @@ class ApiResponse {
     required this.clientLibrary,
   });
 
-  ///Convert json to [ApiResponse]
+  /// Convert JSON to [ApiResponse]
   factory ApiResponse.fromJson(Map<String, dynamic> json) => ApiResponse(
         body: json['body'] as dynamic,
         baseUrl: json['baseUrl'] as String,
@@ -33,13 +36,13 @@ class ApiResponse {
         statusCode: json['statusCode'] as int,
         connectionTimeout: json['connectionTimeout'] as int,
         contentType: json['contentType'] as String?,
-        headers: json['headers'] as String,
-        queryParameters: json['queryParameters'] as String,
+        headers: _parseMap(json['headers']),
+        queryParameters: _parseMap(json['queryParameters']),
         receiveTimeout: json['receiveTimeout'] as int,
         request: json['request'] as dynamic,
-        requestSize: json['requestSize'] as double,
+        requestSize: (json['requestSize'] as num).toDouble(),
         requestTime: DateTime.parse(json['requestTime'] as String),
-        responseSize: json['responseSize'] as double,
+        responseSize: (json['responseSize'] as num).toDouble(),
         responseTime: DateTime.parse(json['responseTime'] as String),
         responseType: json['responseType'] as String,
         sendTimeout: json['sendTimeout'] as int,
@@ -48,7 +51,40 @@ class ApiResponse {
         clientLibrary: (json['clientLibrary'] as String?) ?? 'N/A',
       );
 
-  ///Mocked instance of [ApiResponse]. ***ONLY FOR TESTING****
+  /// Helper function to parse JSON strings into a Map<String, String>
+  static Map<String, String> _parseMap(dynamic jsonString) {
+    if (jsonString is String && jsonString.isNotEmpty && jsonString != '{}') {
+      try {
+        final Map<String, dynamic> parsed =
+            jsonDecode(jsonString) as Map<String, dynamic>;
+        return parsed.map((key, value) => MapEntry(key, value.toString()));
+      } catch (e) {
+        debugPrint('Failed to parse JSON: $e');
+        return {};
+      }
+    } else if (jsonString is Map<String, dynamic>) {
+      return jsonString.map((key, value) => MapEntry(key, value.toString()));
+    } else {
+      return {};
+    }
+  }
+
+  /// Helper function to parse JSON strings into a Map<String, String>
+  // static Map<String, String> _parseMap(String jsonString) {
+  //   if (jsonString.isEmpty || jsonString == '{}') {
+  //     return {};
+  //   }
+  //   try {
+  //     final Map<String, dynamic> parsed =
+  //         jsonDecode(jsonString) as Map<String, dynamic>;
+  //     return parsed.map((key, value) => MapEntry(key, value.toString()));
+  //   } catch (e) {
+  //     debugPrint('Failed to parse JSON: $e');
+  //     return {};
+  //   }
+  // }
+
+  /// Mocked instance of [ApiResponse]. ***ONLY FOR TESTING****
   factory ApiResponse.mock() => ApiResponse(
         body: {'': ''},
         baseUrl: '',
@@ -57,8 +93,14 @@ class ApiResponse {
         statusCode: 200,
         connectionTimeout: 0,
         contentType: 'application/json',
-        headers: '',
-        queryParameters: '',
+        // headers: '',
+        headers: {
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*',
+          'Access-Control-Allow-Headers': '*',
+        },
+        // queryParameters: '',
+        queryParameters: {},
         receiveTimeout: 0,
         request: {'': ''},
         requestSize: 0,
@@ -71,72 +113,80 @@ class ApiResponse {
         clientLibrary: '',
       );
 
-  ///DateTime when request is sent
+  /// DateTime when request is sent
   final DateTime requestTime;
 
-  ///DateTime when response is received
+  /// DateTime when response is received
   final DateTime responseTime;
 
   /// Request base url, it can contain sub path.
   final String baseUrl;
 
-  /// Api end-point
+  /// API end-point
   final String path;
 
-  ///Http method such `GET`
+  /// HTTP method such as `GET`
   final String method;
 
-  ///Http status code. For more details, visit [https://developer.mozilla.org/en-US/docs/Web/HTTP/Status]
+  /// HTTP status code. For more details, visit [https://developer.mozilla.org/en-US/docs/Web/HTTP/Status]
   final int statusCode;
 
-  ///Size of request data
+  /// Size of request data
   final double requestSize;
 
-  ///Size of response data
+  /// Size of response data
   final double responseSize;
 
-  ///Request data
+  /// Request data
   final dynamic request;
 
-  ///Response data
+  /// Response data
   final dynamic body;
 
-  ///Request data type
+  /// Request data type
   final String? contentType;
 
-  ///Request headers
-  final String headers;
+  /// Request headers
+  // final String headers;
 
-  ///Timeout in milliseconds for sending data
+  /// Headers parsed as a Map<String, String>
+  final Map<String, String> headers;
+
+  /// Timeout in milliseconds for sending data
   final int sendTimeout;
 
-  ///Response data type
+  /// Response data type
   final String responseType;
 
-  ///Timeout in milliseconds for receiving data
+  /// Timeout in milliseconds for receiving data
   final int receiveTimeout;
 
-  ///Request query params
-  final String queryParameters;
+  /// Request query params
+  // final String queryParameters;
 
-  ///Timeout in milliseconds for making connection
+  /// Query parameters parsed as a Map<String, String>
+  final Map<String, dynamic> queryParameters;
+
+  /// Timeout in milliseconds for making connection
   final int connectionTimeout;
 
-  ///To check whether user has selected this instance or not
+  /// To check whether user has selected this instance or not
   final bool checked;
 
-  ///The client which is used for network call
+  /// The client which is used for network call
   final String clientLibrary;
 
-  ///Convert [ApiResponse] to json.
+  /// Convert [ApiResponse] to JSON.
   Map<String, dynamic> toJson() {
     return {
       'body': body,
       'connectionTimeout': connectionTimeout,
       'contentType': contentType,
       'headers': headers,
+      // 'headersMap': headersMap,
       'method': method,
       'queryParameters': queryParameters,
+      // 'queryParametersMap': queryParametersMap,
       'receiveTimeout': receiveTimeout,
       'request': request,
       'requestSize': requestSize,
@@ -153,7 +203,7 @@ class ApiResponse {
     };
   }
 
-  ///Copies current data and returns new object
+  /// Copies current data and returns new object
   ApiResponse copyWith({
     DateTime? requestTime,
     DateTime? responseTime,
@@ -167,11 +217,13 @@ class ApiResponse {
     String? response,
     dynamic body,
     String? contentType,
-    String? headers,
+    // String? headers,
+    Map<String, String>? headers,
     int? sendTimeout,
     String? responseType,
     int? receiveTimeout,
-    String? queryParameters,
+    // String? queryParameters,
+    Map<String, dynamic>? queryParametersMap,
     int? connectionTimeout,
     bool? checked,
     String? clientLibrary,
@@ -184,8 +236,10 @@ class ApiResponse {
       statusCode: statusCode ?? this.statusCode,
       connectionTimeout: connectionTimeout ?? this.connectionTimeout,
       contentType: contentType ?? this.contentType,
+      // headers: headers ?? this.headers,
       headers: headers ?? this.headers,
-      queryParameters: queryParameters ?? this.queryParameters,
+      // queryParameters: queryParameters ?? this.queryParameters,
+      queryParameters: queryParametersMap ?? this.queryParameters,
       receiveTimeout: receiveTimeout ?? this.receiveTimeout,
       request: request ?? this.request,
       requestSize: requestSize ?? this.requestSize,
@@ -227,24 +281,46 @@ $prettyJsonRequest
 $prettyJson''';
   }
 
-  ///Formatted json response string
+  /// Formatted JSON response string
   String get prettyJson {
     return const JsonEncoder.withIndent('     ').convert(body);
   }
 
-  ///Formatted json response string
+  /// Formatted JSON request string
   String get prettyJsonRequest {
     return const JsonEncoder.withIndent('     ').convert(request);
   }
 
-  @override
+  /// Headers parsed as a Map<String, String>
+  // Map<String, String> get headersMap {
+  //   debugPrint('Headers: $headers'); // Tambahkan ini untuk debugging
+  //   try {
+  //     final Map<String, dynamic> parsed =
+  //         jsonDecode(headers) as Map<String, dynamic>;
+  //     return parsed.map((key, value) => MapEntry(key, value.toString()));
+  //   } catch (e) {
+  //     debugPrint('Failed to parse headers: $e');
+  //     return {};
+  //   }
+  // }
 
-  ///Equates [other] to this
-  // ignore: avoid_equals_and_hash_code_on_mutable_classes
+  // Map<String, String> get queryParametersMap {
+  //   debugPrint(
+  //       'Query Parameters: $queryParameters'); // Tambahkan ini untuk debugging
+  //   try {
+  //     final Map<String, dynamic> parsed =
+  //         jsonDecode(queryParameters) as Map<String, dynamic>;
+  //     return parsed.map((key, value) => MapEntry(key, value.toString()));
+  //   } catch (e) {
+  //     debugPrint('Failed to parse query parameters: $e');
+  //     return {};
+  //   }
+  // }
+
+  @override
   bool operator ==(Object other) =>
       other is ApiResponse && other.requestTime == requestTime;
 
   @override
-  // ignore: avoid_equals_and_hash_code_on_mutable_classes
   int get hashCode => requestTime.millisecondsSinceEpoch;
 }
