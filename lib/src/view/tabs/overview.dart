@@ -73,7 +73,7 @@ class OverviewTabView extends StatelessWidget {
             value: api.responseTime.toString(),
           ),
           _dataRow(context,
-              attribute: 'Headers', value: api.headers.toString()),
+              attribute: 'Headers', value: api.headers.toString(),),
           _dataRow(
             context,
             attribute: 'Query Parameters',

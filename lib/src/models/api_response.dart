@@ -28,46 +28,6 @@ class ApiResponse {
     required this.clientLibrary,
   });
 
-  /// Convert JSON to [ApiResponse]
-  factory ApiResponse.fromJson(Map<String, dynamic> json) => ApiResponse(
-        body: json['body'] as dynamic,
-        baseUrl: json['baseUrl'] as String,
-        method: json['method'] as String,
-        statusCode: json['statusCode'] as int,
-        connectionTimeout: json['connectionTimeout'] as int,
-        contentType: json['contentType'] as String?,
-        headers: _parseMap(json['headers']),
-        queryParameters: _parseMap(json['queryParameters']),
-        receiveTimeout: json['receiveTimeout'] as int,
-        request: json['request'] as dynamic,
-        requestSize: (json['requestSize'] as num).toDouble(),
-        requestTime: DateTime.parse(json['requestTime'] as String),
-        responseSize: (json['responseSize'] as num).toDouble(),
-        responseTime: DateTime.parse(json['responseTime'] as String),
-        responseType: json['responseType'] as String,
-        sendTimeout: json['sendTimeout'] as int,
-        path: json['path'] as String,
-        checked: json['checked'] as bool? ?? false,
-        clientLibrary: (json['clientLibrary'] as String?) ?? 'N/A',
-      );
-
-  /// Helper function to parse JSON strings into a Map<String, String>
-  static Map<String, String> _parseMap(dynamic jsonString) {
-    if (jsonString is String && jsonString.isNotEmpty && jsonString != '{}') {
-      try {
-        final parsed = jsonDecode(jsonString) as Map<String, dynamic>;
-        return parsed.map((key, value) => MapEntry(key, value.toString()));
-      } catch (e) {
-        debugPrint('Failed to parse JSON: $e');
-        return {};
-      }
-    } else if (jsonString is Map<String, dynamic>) {
-      return jsonString.map((key, value) => MapEntry(key, value.toString()));
-    } else {
-      return {};
-    }
-  }
-
   /// Helper function to parse JSON strings into a Map<String, String>
   // static Map<String, String> _parseMap(String jsonString) {
   //   if (jsonString.isEmpty || jsonString == '{}') {
@@ -111,6 +71,46 @@ class ApiResponse {
         checked: false,
         clientLibrary: '',
       );
+
+  /// Convert JSON to [ApiResponse]
+  factory ApiResponse.fromJson(Map<String, dynamic> json) => ApiResponse(
+        body: json['body'] as dynamic,
+        baseUrl: json['baseUrl'] as String,
+        method: json['method'] as String,
+        statusCode: json['statusCode'] as int,
+        connectionTimeout: json['connectionTimeout'] as int,
+        contentType: json['contentType'] as String?,
+        headers: _parseMap(json['headers']),
+        queryParameters: _parseMap(json['queryParameters']),
+        receiveTimeout: json['receiveTimeout'] as int,
+        request: json['request'] as dynamic,
+        requestSize: (json['requestSize'] as num).toDouble(),
+        requestTime: DateTime.parse(json['requestTime'] as String),
+        responseSize: (json['responseSize'] as num).toDouble(),
+        responseTime: DateTime.parse(json['responseTime'] as String),
+        responseType: json['responseType'] as String,
+        sendTimeout: json['sendTimeout'] as int,
+        path: json['path'] as String,
+        checked: json['checked'] as bool? ?? false,
+        clientLibrary: (json['clientLibrary'] as String?) ?? 'N/A',
+      );
+
+  /// Helper function to parse JSON strings into a Map<String, String>
+  static Map<String, String> _parseMap(dynamic jsonString) {
+    if (jsonString is String && jsonString.isNotEmpty && jsonString != '{}') {
+      try {
+        final parsed = jsonDecode(jsonString) as Map<String, dynamic>;
+        return parsed.map((key, value) => MapEntry(key, value.toString()));
+      } catch (e) {
+        debugPrint('Failed to parse JSON: $e');
+        return {};
+      }
+    } else if (jsonString is Map<String, dynamic>) {
+      return jsonString.map((key, value) => MapEntry(key, value.toString()));
+    } else {
+      return {};
+    }
+  }
 
   /// DateTime when request is sent
   final DateTime requestTime;
