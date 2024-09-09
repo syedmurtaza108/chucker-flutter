@@ -55,8 +55,7 @@ class ApiResponse {
   static Map<String, String> _parseMap(dynamic jsonString) {
     if (jsonString is String && jsonString.isNotEmpty && jsonString != '{}') {
       try {
-        final Map<String, dynamic> parsed =
-            jsonDecode(jsonString) as Map<String, dynamic>;
+        final parsed = jsonDecode(jsonString) as Map<String, dynamic>;
         return parsed.map((key, value) => MapEntry(key, value.toString()));
       } catch (e) {
         debugPrint('Failed to parse JSON: $e');
@@ -223,7 +222,7 @@ class ApiResponse {
     String? responseType,
     int? receiveTimeout,
     // String? queryParameters,
-    Map<String, dynamic>? queryParametersMap,
+    Map<String, dynamic>? queryParameters,
     int? connectionTimeout,
     bool? checked,
     String? clientLibrary,
@@ -239,7 +238,7 @@ class ApiResponse {
       // headers: headers ?? this.headers,
       headers: headers ?? this.headers,
       // queryParameters: queryParameters ?? this.queryParameters,
-      queryParameters: queryParametersMap ?? this.queryParameters,
+      queryParameters: queryParameters ?? this.queryParameters,
       receiveTimeout: receiveTimeout ?? this.receiveTimeout,
       request: request ?? this.request,
       requestSize: requestSize ?? this.requestSize,
@@ -318,9 +317,11 @@ $prettyJson''';
   // }
 
   @override
+  // ignore: avoid_equals_and_hash_code_on_mutable_classes
   bool operator ==(Object other) =>
       other is ApiResponse && other.requestTime == requestTime;
 
   @override
+  // ignore: avoid_equals_and_hash_code_on_mutable_classes
   int get hashCode => requestTime.millisecondsSinceEpoch;
 }

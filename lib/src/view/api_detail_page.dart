@@ -8,7 +8,6 @@ import 'package:chucker_flutter/src/view/tabs/overview.dart';
 import 'package:chucker_flutter/src/view/widgets/app_bar.dart';
 import 'package:chucker_flutter/src/view/widgets/sizeable_text_button.dart';
 import 'package:flutter/material.dart';
-import 'dart:convert';
 import 'package:flutter/services.dart';
 import 'package:share_plus/share_plus.dart';
 
@@ -61,10 +60,13 @@ class _ApiDetailsPageState extends State<ApiDetailsPage> {
             TextButton(
               onPressed: () {
                 Clipboard.setData(
-                    ClipboardData(text: _cURLRepresentation(widget.api)));
+                  ClipboardData(text: _cURLRepresentation(widget.api)),
+                );
               },
-              child: const Text('Copy cURL Command',
-                  style: TextStyle(color: Colors.white)),
+              child: const Text(
+                'Copy cURL Command',
+                style: TextStyle(color: Colors.white),
+              ),
             ),
           ],
         ),
@@ -137,7 +139,8 @@ class _ApiDetailsPageState extends State<ApiDetailsPage> {
 }
 
 String _cURLRepresentation(ApiResponse api) {
-  List<String> components = ['curl -i'];
+  // ignore: omit_local_variable_types
+  final List<String> components = ['curl -i'];
 
   if (api.method.toUpperCase() != 'GET') {
     components.add('-X ${api.method}');
@@ -150,7 +153,7 @@ String _cURLRepresentation(ApiResponse api) {
   });
 
   if (api.body != null && api.body.toString().isNotEmpty) {
-    final encodedBody = api.body.toString().replaceAll('"', '\\"');
+    final encodedBody = api.body.toString().replaceAll('"', r'\"');
     components.add('-d "$encodedBody"');
   }
 
