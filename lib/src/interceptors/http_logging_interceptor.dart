@@ -5,44 +5,43 @@ import 'package:chucker_flutter/src/loggers/logger.dart';
 import 'package:http/http.dart' as http;
 
 ///Logs http request and response data
-class ChuckerHttpLoggingInterceptor
-    implements RequestInterceptor, ResponseInterceptor {
+class ChuckerHttpLoggingInterceptor implements Interceptor {
   @override
-  FutureOr<Request> onRequest(Request request) async {
-    final base = await request.toBaseRequest();
-    Logger.request('${base.method} ${base.url}');
-    base.headers.forEach((k, v) => Logger.request('$k: $v'));
+  FutureOr<Response<BodyType>> intercept<BodyType>(
+    Chain<BodyType> chain,
+  ) async {
+    final requestBase = await chain.request.toBaseRequest();
+    Logger.request('${requestBase.method} ${requestBase.url}');
+    requestBase.headers.forEach((k, v) => Logger.request('$k: $v'));
 
     var bytes = '';
-    if (base is http.Request) {
-      final body = base.body;
+    if (requestBase is http.Request) {
+      final body = requestBase.body;
       if (body.isNotEmpty) {
         Logger.json(body, isRequest: true);
-        bytes = ' (${base.bodyBytes.length}-byte body)';
+        bytes = ' (${requestBase.bodyBytes.length}-byte body)';
       }
     }
 
-    Logger.request('END ${base.method}$bytes');
-    return request;
-  }
+    Logger.request('END ${requestBase.method}$bytes');
 
-  @override
-  FutureOr<Response<dynamic>> onResponse(Response<dynamic> response) {
+    final response = await chain.proceed(chain.request);
+
     final base = response.base.request;
     Logger.response('${response.statusCode} ${base!.url}');
 
     response.base.headers.forEach((k, v) => Logger.response('$k: $v'));
 
-    var bytes = '';
+    var responseBytes = '';
     if (response.base is http.Response) {
       final resp = response.base as http.Response;
       if (resp.body.isNotEmpty) {
         Logger.json(resp.body);
-        bytes = ' (${response.bodyBytes.length}-byte body)';
+        responseBytes = ' (${response.bodyBytes.length}-byte body)';
       }
     }
 
-    Logger.response('END ${base.method}$bytes');
+    Logger.response('END ${base.method}$responseBytes');
     return response;
   }
 }
