@@ -219,4 +219,39 @@ void main() {
       await tester.tap(find.byKey(const ValueKey('api_detail_copy')));
     },
   );
+
+  testWidgets(
+    'When copy cURL Command is pressed, copy callback should be called',
+    (WidgetTester tester) async {
+      SharedPreferences.setMockInitialValues({});
+
+      final api = ApiResponse.mock().copyWith(headers: {
+        'content-type': 'application'
+      }, body: {
+        'data': 'https://example.png'
+      }, queryParameters: {
+        'key': 'value',
+      });
+
+      await sharedPreferencesManager.addApiResponse(api);
+
+      await tester.pumpWidget(
+        MaterialApp(
+          navigatorObservers: [ChuckerFlutter.navigatorObserver],
+          home: ApiDetailsPage(api: api),
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      await tester.tap(find.text('RESPONSE'));
+      await tester.pumpAndSettle();
+
+      await tester.tap(find.byKey(const ValueKey('api_detail_copy_curl')));
+
+      await tester.tap(find.text('REQUEST'));
+      await tester.pumpAndSettle();
+
+      await tester.tap(find.byKey(const ValueKey('api_detail_copy_curl')));
+    },
+  );
 }

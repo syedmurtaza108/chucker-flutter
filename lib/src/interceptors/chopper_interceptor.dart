@@ -46,11 +46,7 @@ class ChuckerChopperInterceptor implements ResponseInterceptor {
         statusCode: response.statusCode,
         connectionTimeout: 0,
         contentType: _requestType(response),
-        // headers: response.base.headers.toString(),
         headers: Map<String, String>.from(response.base.headers),
-        // queryParameters:
-        //     response.base.request?.url.queryParameters.toString() ??
-        //         emptyString,
         queryParameters: response.base.request?.url.queryParameters ?? {},
         receiveTimeout: 0,
         request: _requestBody(response),

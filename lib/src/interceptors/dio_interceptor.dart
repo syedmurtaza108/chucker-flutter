@@ -125,9 +125,7 @@ class ChuckerDioInterceptor extends Interceptor {
         connectionTimeout:
             response.requestOptions.connectTimeout?.inMilliseconds ?? 0,
         contentType: response.requestOptions.contentType,
-        // headers: response.requestOptions.headers.toString(),
         headers: response.requestOptions.headers.cast<String, String>(),
-        // queryParameters: response.requestOptions.queryParameters.toString(),
         queryParameters:
             response.requestOptions.queryParameters.cast<String, String>(),
         receiveTimeout:

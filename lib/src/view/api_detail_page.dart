@@ -97,12 +97,14 @@ class _ApiDetailsPageState extends State<ApiDetailsPage> {
                         onShufflePreview: _shuffleRequestPreviewType,
                         json: widget.api.request,
                         prettyJson: widget.api.prettyJsonRequest,
+                        apiResponse: widget.api,
                       ),
                       _ResponseTab(
                         jsonPreviewType: _jsonResponsePreviewType,
                         onShufflePreview: _shuffleResponsePreviewType,
                         json: widget.api.body,
                         prettyJson: widget.api.prettyJson,
+                        apiResponse: widget.api,
                       ),
                     ],
                   ),
@@ -179,12 +181,14 @@ class _PreviewModeControl extends StatelessWidget {
     required this.jsonPreviewType,
     required this.onPreviewPressed,
     required this.onCopyPressed,
+    required this.onCopyCurlPressed,
     Key? key,
   }) : super(key: key);
 
   final _JsonPreviewType jsonPreviewType;
   final VoidCallback onPreviewPressed;
   final VoidCallback onCopyPressed;
+  final VoidCallback onCopyCurlPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -226,6 +230,20 @@ class _PreviewModeControl extends StatelessWidget {
             ),
           ),
         ),
+        Material(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(24),
+          ),
+          child: InkWell(
+            key: const ValueKey('api_detail_copy_curl'),
+            onTap: onCopyCurlPressed,
+            borderRadius: BorderRadius.circular(24),
+            child: const Padding(
+              padding: EdgeInsets.all(8),
+              child: Icon(Icons.copy, color: primaryColor),
+            ),
+          ),
+        )
       ],
     );
   }
@@ -233,6 +251,7 @@ class _PreviewModeControl extends StatelessWidget {
 
 class _ResponseTab extends StatelessWidget {
   const _ResponseTab({
+    required this.apiResponse,
     required this.jsonPreviewType,
     required this.onShufflePreview,
     required this.json,
@@ -240,6 +259,7 @@ class _ResponseTab extends StatelessWidget {
     Key? key,
   }) : super(key: key);
 
+  final ApiResponse apiResponse;
   final dynamic json;
   final String prettyJson;
   final _JsonPreviewType jsonPreviewType;
@@ -266,6 +286,7 @@ class _ResponseTab extends StatelessWidget {
             jsonPreviewType: jsonPreviewType,
             onCopyPressed: _copyJsonResponse,
             onPreviewPressed: onShufflePreview,
+            onCopyCurlPressed: _copyCurlResponse,
           ),
         ),
         Expanded(
@@ -280,6 +301,11 @@ class _ResponseTab extends StatelessWidget {
 
   void _copyJsonResponse() {
     Clipboard.setData(ClipboardData(text: prettyJson));
+  }
+
+  void _copyCurlResponse() {
+    final curlCommand = _cURLRepresentation(apiResponse);
+    // Implement copy to clipboard for curlCommand
   }
 
   Widget _renderJsonWidget(BuildContext context) {
@@ -301,6 +327,7 @@ class _ResponseTab extends StatelessWidget {
 
 class _RequestTab extends StatelessWidget {
   const _RequestTab({
+    required this.apiResponse,
     required this.jsonPreviewType,
     required this.onShufflePreview,
     required this.json,
@@ -308,6 +335,7 @@ class _RequestTab extends StatelessWidget {
     Key? key,
   }) : super(key: key);
 
+  final ApiResponse apiResponse;
   final dynamic json;
   final String prettyJson;
   final _JsonPreviewType jsonPreviewType;
@@ -334,6 +362,7 @@ class _RequestTab extends StatelessWidget {
             jsonPreviewType: jsonPreviewType,
             onCopyPressed: _copyJsonRequest,
             onPreviewPressed: onShufflePreview,
+            onCopyCurlPressed: _copyCurlResponse,
           ),
         ),
         Expanded(
@@ -348,6 +377,11 @@ class _RequestTab extends StatelessWidget {
 
   void _copyJsonRequest() {
     Clipboard.setData(ClipboardData(text: prettyJson));
+  }
+
+  void _copyCurlResponse() {
+    final curlCommand = _cURLRepresentation(apiResponse);
+    // Implement copy to clipboard for curlCommand
   }
 
   Widget _renderJsonWidget(BuildContext context) {

@@ -13,9 +13,7 @@ class ApiResponse {
     required this.connectionTimeout,
     required this.contentType,
     required this.headers,
-    // required this.headersMap,
     required this.queryParameters,
-    // required this.queryParametersMap,
     required this.receiveTimeout,
     required this.request,
     required this.requestSize,
@@ -28,21 +26,6 @@ class ApiResponse {
     required this.clientLibrary,
   });
 
-  /// Helper function to parse JSON strings into a Map<String, String>
-  // static Map<String, String> _parseMap(String jsonString) {
-  //   if (jsonString.isEmpty || jsonString == '{}') {
-  //     return {};
-  //   }
-  //   try {
-  //     final Map<String, dynamic> parsed =
-  //         jsonDecode(jsonString) as Map<String, dynamic>;
-  //     return parsed.map((key, value) => MapEntry(key, value.toString()));
-  //   } catch (e) {
-  //     debugPrint('Failed to parse JSON: $e');
-  //     return {};
-  //   }
-  // }
-
   /// Mocked instance of [ApiResponse]. ***ONLY FOR TESTING****
   factory ApiResponse.mock() => ApiResponse(
         body: {'': ''},
@@ -52,13 +35,11 @@ class ApiResponse {
         statusCode: 200,
         connectionTimeout: 0,
         contentType: 'application/json',
-        // headers: '',
         headers: {
           'Content-Type': 'application/json',
           'Access-Control-Allow-Origin': '*',
           'Access-Control-Allow-Headers': '*',
         },
-        // queryParameters: '',
         queryParameters: {},
         receiveTimeout: 0,
         request: {'': ''},
@@ -146,8 +127,6 @@ class ApiResponse {
   final String? contentType;
 
   /// Request headers
-  // final String headers;
-
   /// Headers parsed as a Map<String, String>
   final Map<String, String> headers;
 
@@ -161,8 +140,6 @@ class ApiResponse {
   final int receiveTimeout;
 
   /// Request query params
-  // final String queryParameters;
-
   /// Query parameters parsed as a Map<String, String>
   final Map<String, dynamic> queryParameters;
 
@@ -182,10 +159,8 @@ class ApiResponse {
       'connectionTimeout': connectionTimeout,
       'contentType': contentType,
       'headers': headers,
-      // 'headersMap': headersMap,
       'method': method,
       'queryParameters': queryParameters,
-      // 'queryParametersMap': queryParametersMap,
       'receiveTimeout': receiveTimeout,
       'request': request,
       'requestSize': requestSize,
@@ -216,12 +191,10 @@ class ApiResponse {
     String? response,
     dynamic body,
     String? contentType,
-    // String? headers,
     Map<String, String>? headers,
     int? sendTimeout,
     String? responseType,
     int? receiveTimeout,
-    // String? queryParameters,
     Map<String, dynamic>? queryParameters,
     int? connectionTimeout,
     bool? checked,
@@ -235,9 +208,7 @@ class ApiResponse {
       statusCode: statusCode ?? this.statusCode,
       connectionTimeout: connectionTimeout ?? this.connectionTimeout,
       contentType: contentType ?? this.contentType,
-      // headers: headers ?? this.headers,
       headers: headers ?? this.headers,
-      // queryParameters: queryParameters ?? this.queryParameters,
       queryParameters: queryParameters ?? this.queryParameters,
       receiveTimeout: receiveTimeout ?? this.receiveTimeout,
       request: request ?? this.request,
@@ -289,32 +260,6 @@ $prettyJson''';
   String get prettyJsonRequest {
     return const JsonEncoder.withIndent('     ').convert(request);
   }
-
-  /// Headers parsed as a Map<String, String>
-  // Map<String, String> get headersMap {
-  //   debugPrint('Headers: $headers'); // Tambahkan ini untuk debugging
-  //   try {
-  //     final Map<String, dynamic> parsed =
-  //         jsonDecode(headers) as Map<String, dynamic>;
-  //     return parsed.map((key, value) => MapEntry(key, value.toString()));
-  //   } catch (e) {
-  //     debugPrint('Failed to parse headers: $e');
-  //     return {};
-  //   }
-  // }
-
-  // Map<String, String> get queryParametersMap {
-  //   debugPrint(
-  //       'Query Parameters: $queryParameters'); // Tambahkan ini untuk debugging
-  //   try {
-  //     final Map<String, dynamic> parsed =
-  //         jsonDecode(queryParameters) as Map<String, dynamic>;
-  //     return parsed.map((key, value) => MapEntry(key, value.toString()));
-  //   } catch (e) {
-  //     debugPrint('Failed to parse query parameters: $e');
-  //     return {};
-  //   }
-  // }
 
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
