@@ -10,24 +10,7 @@ import 'package:chucker_flutter/src/view/helper/chucker_ui_helper.dart';
 import 'package:http/http.dart' as http;
 
 ///[ChuckerChopperInterceptor] adds support for `chucker_flutter` in Chopper
-class ChuckerChopperInterceptor implements ResponseInterceptor {
-  @override
-  FutureOr<Response<dynamic>> onResponse(Response<dynamic> response) async {
-    final time = DateTime.now();
-    await SharedPreferencesManager.getInstance().getSettings();
-
-    if (ChuckerFlutter.isDebugMode || ChuckerFlutter.showOnRelease) {
-      ChuckerUiHelper.showNotification(
-        method: response.base.request?.method ?? '',
-        statusCode: response.statusCode,
-        path: response.base.request?.url.path ?? '',
-        requestTime: time,
-      );
-      await _saveResponse(response, time);
-    }
-    return response;
-  }
-
+class ChuckerChopperInterceptor implements Interceptor {
   Future<void> _saveResponse(Response<dynamic> response, DateTime time) async {
     dynamic responseBody = '';
 
@@ -112,5 +95,25 @@ class ChuckerChopperInterceptor implements ResponseInterceptor {
             ),
           );
     return formFields;
+  }
+
+  @override
+  FutureOr<Response<BodyType>> intercept<BodyType>(
+    Chain<BodyType> chain,
+  ) async {
+    final response = await chain.proceed(chain.request);
+    final time = DateTime.now();
+    await SharedPreferencesManager.getInstance().getSettings();
+
+    if (ChuckerFlutter.isDebugMode || ChuckerFlutter.showOnRelease) {
+      ChuckerUiHelper.showNotification(
+        method: response.base.request?.method ?? '',
+        statusCode: response.statusCode,
+        path: response.base.request?.url.path ?? '',
+        requestTime: time,
+      );
+      await _saveResponse(response, time);
+    }
+    return response;
   }
 }
