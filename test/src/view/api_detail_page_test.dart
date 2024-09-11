@@ -226,12 +226,12 @@ void main() {
       SharedPreferences.setMockInitialValues({});
 
       final api = ApiResponse.mock().copyWith(headers: {
-        'content-type': 'application'
+        'content-type': 'application',
       }, body: {
-        'data': 'https://example.png'
+        'data': 'https://example.png',
       }, queryParameters: {
         'key': 'value',
-      });
+      },);
 
       await sharedPreferencesManager.addApiResponse(api);
 

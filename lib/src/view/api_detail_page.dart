@@ -243,7 +243,7 @@ class _PreviewModeControl extends StatelessWidget {
               child: Icon(Icons.copy, color: primaryColor),
             ),
           ),
-        )
+        ),
       ],
     );
   }
@@ -286,7 +286,9 @@ class _ResponseTab extends StatelessWidget {
             jsonPreviewType: jsonPreviewType,
             onCopyPressed: _copyJsonResponse,
             onPreviewPressed: onShufflePreview,
-            onCopyCurlPressed: _copyCurlResponse,
+            onCopyCurlPressed: () {
+              _cURLRepresentation(apiResponse);
+            },
           ),
         ),
         Expanded(
@@ -301,11 +303,6 @@ class _ResponseTab extends StatelessWidget {
 
   void _copyJsonResponse() {
     Clipboard.setData(ClipboardData(text: prettyJson));
-  }
-
-  void _copyCurlResponse() {
-    final curlCommand = _cURLRepresentation(apiResponse);
-    // Implement copy to clipboard for curlCommand
   }
 
   Widget _renderJsonWidget(BuildContext context) {
@@ -359,11 +356,12 @@ class _RequestTab extends StatelessWidget {
             ],
           ),
           child: _PreviewModeControl(
-            jsonPreviewType: jsonPreviewType,
-            onCopyPressed: _copyJsonRequest,
-            onPreviewPressed: onShufflePreview,
-            onCopyCurlPressed: _copyCurlResponse,
-          ),
+              jsonPreviewType: jsonPreviewType,
+              onCopyPressed: _copyJsonRequest,
+              onPreviewPressed: onShufflePreview,
+              onCopyCurlPressed: () {
+                _cURLRepresentation(apiResponse);
+              }),
         ),
         Expanded(
           child: SingleChildScrollView(
@@ -377,11 +375,6 @@ class _RequestTab extends StatelessWidget {
 
   void _copyJsonRequest() {
     Clipboard.setData(ClipboardData(text: prettyJson));
-  }
-
-  void _copyCurlResponse() {
-    final curlCommand = _cURLRepresentation(apiResponse);
-    // Implement copy to clipboard for curlCommand
   }
 
   Widget _renderJsonWidget(BuildContext context) {
