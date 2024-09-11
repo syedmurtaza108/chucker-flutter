@@ -2,12 +2,10 @@
 FLUTTER_ROOT=/Users/syedmurtaza/Development/flutter
 FLUTTER_APPLICATION_PATH=/Users/syedmurtaza/Projects/chucker-flutter/example
 COCOAPODS_PARALLEL_CODE_SIGN=true
-FLUTTER_TARGET=/Users/syedmurtaza/Projects/chucker-flutter/example/lib/main.dart
 FLUTTER_BUILD_DIR=build
 FLUTTER_BUILD_NAME=1.0.0
 FLUTTER_BUILD_NUMBER=1
-DART_DEFINES=RkxVVFRFUl9XRUJfQVVUT19ERVRFQ1Q9dHJ1ZQ==,RkxVVFRFUl9XRUJfQ0FOVkFTS0lUX1VSTD1odHRwczovL3d3dy5nc3RhdGljLmNvbS9mbHV0dGVyLWNhbnZhc2tpdC9iMjAxODNlMDQwOTYwOTRiY2MzN2Q5Y2RlMmE0Yjk2ZjVjYzY4NGNmLw==
 DART_OBFUSCATION=false
 TRACK_WIDGET_CREATION=true
 TREE_SHAKE_ICONS=false
-PACKAGE_CONFIG=/Users/syedmurtaza/Projects/chucker-flutter/example/.dart_tool/package_config.json
+PACKAGE_CONFIG=.dart_tool/package_config.json
