@@ -361,7 +361,7 @@ class _RequestTab extends StatelessWidget {
               onPreviewPressed: onShufflePreview,
               onCopyCurlPressed: () {
                 _cURLRepresentation(apiResponse);
-              }),
+              },),
         ),
         Expanded(
           child: SingleChildScrollView(
