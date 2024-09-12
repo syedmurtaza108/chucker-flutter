@@ -152,6 +152,43 @@ class ApiResponse {
   /// The client which is used for network call
   final String clientLibrary;
 
+  /// Converts this response to CURL representation.
+  String toCurl() {
+    // ignore: omit_local_variable_types
+    final List<String> components = ['curl -i'];
+
+    if (method.toUpperCase() != 'GET') {
+      components.add('-X $method');
+    }
+
+    headers.forEach((k, v) {
+      if (k != 'Cookie') {
+        components.add('-H "$k: $v"');
+      }
+    });
+
+    if (request != null && request.toString().isNotEmpty) {
+      final encodedBody = request.toString().replaceAll('"', r'\"');
+      components.add('-d "$encodedBody"');
+    }
+
+    // Construct the full URL manually
+    final queryParams = queryParameters.isNotEmpty
+        ? queryParameters.entries.map((e) {
+            final key = Uri.encodeComponent(e.key);
+            final value = Uri.encodeComponent(e.value.toString());
+            return '$key=$value';
+          }).join('&')
+        : '';
+
+    final fullUrl =
+        baseUrl + path + (queryParams.isNotEmpty ? '?$queryParams' : '');
+
+    components.add('"$fullUrl"');
+
+    return components.join(' \\\n\t');
+  }
+
   /// Convert [ApiResponse] to JSON.
   Map<String, dynamic> toJson() {
     return {

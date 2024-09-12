@@ -48,6 +48,7 @@ class OverviewTabView extends StatelessWidget {
               ),
             ],
           ),
+          _dataRow(context, attribute: 'CURL', value: api.toCurl()),
           _dataRow(context, attribute: 'Base URL', value: api.baseUrl),
           _dataRow(context, attribute: 'Path', value: api.path),
           _dataRow(
@@ -72,8 +73,11 @@ class OverviewTabView extends StatelessWidget {
             attribute: 'Response Time',
             value: api.responseTime.toString(),
           ),
-          _dataRow(context,
-              attribute: 'Headers', value: api.headers.toString(),),
+          _dataRow(
+            context,
+            attribute: 'Headers',
+            value: api.headers.toString(),
+          ),
           _dataRow(
             context,
             attribute: 'Query Parameters',

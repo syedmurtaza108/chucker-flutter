@@ -60,7 +60,7 @@ class _ApiDetailsPageState extends State<ApiDetailsPage> {
             TextButton(
               onPressed: () {
                 Clipboard.setData(
-                  ClipboardData(text: _cURLRepresentation(widget.api)),
+                  ClipboardData(text: widget.api.toCurl()),
                 );
               },
               child: const Text(
@@ -140,55 +140,17 @@ class _ApiDetailsPageState extends State<ApiDetailsPage> {
   }
 }
 
-String _cURLRepresentation(ApiResponse api) {
-  // ignore: omit_local_variable_types
-  final List<String> components = ['curl -i'];
-
-  if (api.method.toUpperCase() != 'GET') {
-    components.add('-X ${api.method}');
-  }
-
-  api.headers.forEach((k, v) {
-    if (k != 'Cookie') {
-      components.add('-H "$k: $v"');
-    }
-  });
-
-  if (api.body != null && api.body.toString().isNotEmpty) {
-    final encodedBody = api.body.toString().replaceAll('"', r'\"');
-    components.add('-d "$encodedBody"');
-  }
-
-  // Construct the full URL manually
-  final queryParams = api.queryParameters.isNotEmpty
-      ? api.queryParameters.entries.map((e) {
-          final key = Uri.encodeComponent(e.key);
-          final value = Uri.encodeComponent(e.value.toString());
-          return '$key=$value';
-        }).join('&')
-      : '';
-
-  final fullUrl =
-      api.baseUrl + api.path + (queryParams.isNotEmpty ? '?$queryParams' : '');
-
-  components.add('"$fullUrl"');
-
-  return components.join(' \\\n\t');
-}
-
 class _PreviewModeControl extends StatelessWidget {
   const _PreviewModeControl({
     required this.jsonPreviewType,
     required this.onPreviewPressed,
     required this.onCopyPressed,
-    required this.onCopyCurlPressed,
     Key? key,
   }) : super(key: key);
 
   final _JsonPreviewType jsonPreviewType;
   final VoidCallback onPreviewPressed;
   final VoidCallback onCopyPressed;
-  final VoidCallback onCopyCurlPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -223,20 +185,6 @@ class _PreviewModeControl extends StatelessWidget {
           child: InkWell(
             key: const ValueKey('api_detail_copy'),
             onTap: onCopyPressed,
-            borderRadius: BorderRadius.circular(24),
-            child: const Padding(
-              padding: EdgeInsets.all(8),
-              child: Icon(Icons.copy, color: primaryColor),
-            ),
-          ),
-        ),
-        Material(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(24),
-          ),
-          child: InkWell(
-            key: const ValueKey('api_detail_copy_curl'),
-            onTap: onCopyCurlPressed,
             borderRadius: BorderRadius.circular(24),
             child: const Padding(
               padding: EdgeInsets.all(8),
@@ -286,9 +234,6 @@ class _ResponseTab extends StatelessWidget {
             jsonPreviewType: jsonPreviewType,
             onCopyPressed: _copyJsonResponse,
             onPreviewPressed: onShufflePreview,
-            onCopyCurlPressed: () {
-              _cURLRepresentation(apiResponse);
-            },
           ),
         ),
         Expanded(
@@ -356,12 +301,10 @@ class _RequestTab extends StatelessWidget {
             ],
           ),
           child: _PreviewModeControl(
-              jsonPreviewType: jsonPreviewType,
-              onCopyPressed: _copyJsonRequest,
-              onPreviewPressed: onShufflePreview,
-              onCopyCurlPressed: () {
-                _cURLRepresentation(apiResponse);
-              },),
+            jsonPreviewType: jsonPreviewType,
+            onCopyPressed: _copyJsonRequest,
+            onPreviewPressed: onShufflePreview,
+          ),
         ),
         Expanded(
           child: SingleChildScrollView(
