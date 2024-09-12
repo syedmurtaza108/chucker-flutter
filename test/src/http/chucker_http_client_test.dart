@@ -70,7 +70,7 @@ void main() {
 
     final responses = await sharedPreferencesManager.getAllApiResponses();
     expect(responses.length, 1);
-    expect(responses.first.headers, '{my-token: token}');
+    expect(responses.first.headers, {'my-token': 'token'});
   });
 
   test('Response data should be accessible when user calls onResponse',

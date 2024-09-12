@@ -10,8 +10,8 @@ void main() {
     const statusCode = 500;
     const connectionTimeout = -1;
     const contentType = 'xml';
-    const headers = 'bearer token';
-    const queryParameters = 'userId:1';
+    const headers = {'Content-Type': 'application/json'};
+    const queryParameters = {'id': '1'};
     const receiveTimeout = -1;
     const request = {'id': '1'};
     const requestSize = 5.0;
