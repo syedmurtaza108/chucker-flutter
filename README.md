@@ -154,6 +154,8 @@ Special thanks to these wonderful people👏 who are making our community bigger
     <td align="center"><a href="https://github.com/fachrifaul"><img src="https://avatars.githubusercontent.com/u/2288266?v=4" width="100px;" alt=""/><br /><sub><b>fachrifaul</b></sub></a><br /> <a href="https://github.com/syedmurtaza108/chucker-flutter/commits?author=fachrifaul" title="Documentation">📖</a> </td>
     <td align="center"><a href="https://github.com/navneet-singh-github"><img src="https://avatars.githubusercontent.com/u/94953723?v=4" width="100px;" alt=""/><br /><sub><b>Navneet Singh</b></sub></a><br /> <a href="https://github.com/syedmurtaza108/chucker-flutter/commits?author=navneet-singh-github" title="Documentation">📖</a> </td>
  <td align="center"><a href="https://github.com/Serproger"><img src="https://avatars.githubusercontent.com/u/11074431?v=4" width="100px;" alt=""/><br /><sub><b>Sergei</b></sub></a><br /> <a href="https://github.com/syedmurtaza108/chucker-flutter/commits?author=Serproger" title="Documentation">📖</a> </td>
+
+ <td align="center"><a href="https://github.com/SyifaAinnur"><img src="https://avatars.githubusercontent.com/u/62318101?v=4" width="100px;" alt=""/><br /><sub><b>Syifa Ainnur</b></sub></a><br /> <a href="https://github.com/syedmurtaza108/chucker-flutter/commits?author=SyifaAinnur" title="Documentation">📖</a> </td>
   </tr>
   
 </table>

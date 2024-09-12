@@ -151,3 +151,7 @@
 
 ## 1.7.2
 * Readme update
+
+## 1.8.0
+* Chore: Dependencies update
+* Feature: CURL command support
