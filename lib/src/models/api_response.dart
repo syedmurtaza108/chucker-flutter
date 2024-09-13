@@ -175,8 +175,8 @@ class ApiResponse {
     // Construct the full URL manually
     final queryParams = queryParameters.isNotEmpty
         ? queryParameters.entries.map((e) {
-            final key = Uri.encodeComponent(e.key);
-            final value = Uri.encodeComponent(e.value.toString());
+            final key = Uri.decodeComponent(e.key);
+            final value = Uri.decodeComponent(e.value.toString());
             return '$key=$value';
           }).join('&')
         : '';
