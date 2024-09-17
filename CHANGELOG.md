@@ -155,3 +155,6 @@
 ## 1.8.0
 * Chore: Dependencies update
 * Feature: CURL command support
+
+## 1.8.1
+* Fix: Json parsing bug
