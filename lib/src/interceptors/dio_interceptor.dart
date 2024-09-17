@@ -86,11 +86,9 @@ class ChuckerDioInterceptor extends Interceptor {
         connectionTimeout:
             response.requestOptions.connectTimeout?.inMilliseconds ?? 0,
         contentType: response.requestOptions.contentType,
-        // headers: response.requestOptions.headers.toString(),
-        headers: response.requestOptions.headers.cast<String, String>(),
-        // queryParameters: response.requestOptions.queryParameters.toString(),
+        headers: response.requestOptions.headers.cast<String, dynamic>(),
         queryParameters:
-            response.requestOptions.queryParameters.cast<String, String>(),
+            response.requestOptions.queryParameters.cast<String, dynamic>(),
         receiveTimeout:
             response.requestOptions.receiveTimeout?.inMilliseconds ?? 0,
         request: _separateFileObjects(response.requestOptions).data,
@@ -125,9 +123,9 @@ class ChuckerDioInterceptor extends Interceptor {
         connectionTimeout:
             response.requestOptions.connectTimeout?.inMilliseconds ?? 0,
         contentType: response.requestOptions.contentType,
-        headers: response.requestOptions.headers.cast<String, String>(),
+        headers: response.requestOptions.headers.cast<String, dynamic>(),
         queryParameters:
-            response.requestOptions.queryParameters.cast<String, String>(),
+            response.requestOptions.queryParameters.cast<String, dynamic>(),
         receiveTimeout:
             response.requestOptions.receiveTimeout?.inMilliseconds ?? 0,
         request: _separateFileObjects(response.requestOptions).data,

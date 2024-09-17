@@ -128,7 +128,7 @@ class ApiResponse {
 
   /// Request headers
   /// Headers parsed as a Map<String, String>
-  final Map<String, String> headers;
+  final Map<String, dynamic> headers;
 
   /// Timeout in milliseconds for sending data
   final int sendTimeout;
@@ -228,7 +228,7 @@ class ApiResponse {
     String? response,
     dynamic body,
     String? contentType,
-    Map<String, String>? headers,
+    Map<String, dynamic>? headers,
     int? sendTimeout,
     String? responseType,
     int? receiveTimeout,

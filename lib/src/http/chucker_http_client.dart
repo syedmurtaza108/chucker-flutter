@@ -130,7 +130,7 @@ class ChuckerHttpClient extends BaseClient {
         connectionTimeout: 0,
         contentType: request.headers['Content-Type'],
         // headers: request.headers.toString(),
-        headers: request.headers.cast<String, String>(),
+        headers: request.headers.cast<String, dynamic>(),
         // queryParameters: request.url.queryParameters.toString(),
         queryParameters: request.url.queryParameters,
         receiveTimeout: 0,
