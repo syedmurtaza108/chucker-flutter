@@ -100,7 +100,7 @@ class _NotificationState extends State<Notification>
                     width: 8,
                   ),
                 ),
-                color: Colors.white,
+                color: Theme.of(context).colorScheme.primaryContainer,
                 boxShadow: [
                   BoxShadow(
                     color: Colors.grey.withOpacity(0.5),
