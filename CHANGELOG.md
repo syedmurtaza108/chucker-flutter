@@ -158,3 +158,6 @@
 
 ## 1.8.1
 * Fix: Json parsing bug
+
+## 1.8.2
+* Fix: Notification background color in dark theme
