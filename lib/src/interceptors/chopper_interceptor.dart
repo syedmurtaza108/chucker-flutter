@@ -98,18 +98,27 @@ class ChuckerChopperInterceptor implements Interceptor {
     Chain<BodyType> chain,
   ) async {
     final response = await chain.proceed(chain.request);
-    final time = DateTime.now();
-    await SharedPreferencesManager.getInstance().getSettings();
-
-    if (ChuckerFlutter.isDebugMode || ChuckerFlutter.showOnRelease) {
-      ChuckerUiHelper.showNotification(
-        method: response.base.request?.method ?? '',
-        statusCode: response.statusCode,
-        path: response.base.request?.url.path ?? '',
-        requestTime: time,
-      );
-      await _saveResponse(response, time);
-    }
+    unawaited(_handleResponse(response));
     return response;
+  }
+
+  Future<void> _handleResponse(Response<dynamic> response) async {
+    try {
+      final time = DateTime.now();
+      await SharedPreferencesManager.getInstance().getSettings();
+
+      if (ChuckerFlutter.isDebugMode || ChuckerFlutter.showOnRelease) {
+        ChuckerUiHelper.showNotification(
+          method: response.base.request?.method ?? '',
+          statusCode: response.statusCode,
+          path: response.base.request?.url.path ?? '',
+          requestTime: time,
+        );
+        await _saveResponse(response, time);
+      }
+    }
+    catch (e) {
+      log('ChuckerFlutter: Error saving response: $e');
+    }
   }
 }
