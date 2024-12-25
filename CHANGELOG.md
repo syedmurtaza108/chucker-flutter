@@ -160,4 +160,11 @@
 * Fix: Json parsing bug
 
 ## 1.8.2
-* Fix: Notification background color in dark theme
+## What's Changed
+* chore(deps): update codecov/codecov-action action to v5 by @renovate in https://github.com/syedmurtaza108/chucker-flutter/pull/94
+* chore(deps): update codecov/codecov-action action to v5.0.2 by @renovate in https://github.com/syedmurtaza108/chucker-flutter/pull/95
+* chore(deps): update codecov/codecov-action action to v5.0.4 by @renovate in https://github.com/syedmurtaza108/chucker-flutter/pull/96
+* chore(deps): update dependency very_good_analysis to v7 by @renovate in https://github.com/syedmurtaza108/chucker-flutter/pull/104
+* chore(deps): update codecov/codecov-action action to v5.1.2 by @renovate in https://github.com/syedmurtaza108/chucker-flutter/pull/97
+* UI improvements in main page
+**Full Changelog**: https://github.com/syedmurtaza108/chucker-flutter/compare/v1.8.2...v1.8.3
