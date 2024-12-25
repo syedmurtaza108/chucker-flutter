@@ -79,7 +79,7 @@ class _ApiDetailsPageState extends State<ApiDetailsPage> {
                   color: primaryColor,
                   child: TabBar(
                     labelColor: Colors.white,
-                    unselectedLabelColor: Colors.white.withOpacity(0.8),
+                    unselectedLabelColor: Colors.white.withValues(alpha: 0.8),
                     tabs: [
                       Tab(text: Localization.strings['overview']),
                       Tab(text: Localization.strings['request']),
@@ -223,7 +223,7 @@ class _ResponseTab extends StatelessWidget {
             color: secondaryColor,
             boxShadow: [
               BoxShadow(
-                color: secondaryColor.withOpacity(0.3),
+                color: secondaryColor.withValues(alpha: 0.3),
                 spreadRadius: 2,
                 blurRadius: 7,
                 offset: const Offset(0, 8),
@@ -293,7 +293,7 @@ class _RequestTab extends StatelessWidget {
             color: secondaryColor,
             boxShadow: [
               BoxShadow(
-                color: secondaryColor.withOpacity(0.3),
+                color: secondaryColor.withValues(alpha: 0.3),
                 spreadRadius: 2,
                 blurRadius: 7,
                 offset: const Offset(0, 8),
