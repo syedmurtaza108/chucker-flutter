@@ -358,4 +358,58 @@ void main() {
       expect((await sharedPreferencesManager.getAllApiResponses()).length, 0);
     },
   );
+
+  testWidgets(
+    'GraphQL requests should display operation name',
+    (WidgetTester tester) async {
+      SharedPreferences.setMockInitialValues({});
+
+      final sharedPreferencesManager = SharedPreferencesManager.getInstance(
+        initData: false,
+      );
+
+      final graphqlRequest = {
+        'query': 'query GetUserData { user { name email } }',
+        'operationName': 'GetUserData',
+        'variables': <String, dynamic>{},
+      };
+
+      final graphqlApi = ApiResponse.mock().copyWith(
+        request: graphqlRequest,
+        path: '/graphql',
+      );
+
+      await sharedPreferencesManager.addApiResponse(graphqlApi);
+
+      await tester.pumpWidget(const MaterialApp(home: ChuckerPage()));
+      await tester.pumpAndSettle();
+
+      const expectedGraphQLString = '{query: query GetUserData { user { name '
+          'email } }, operationName: GetUserData, variables: {}}';
+
+      expect(find.text(expectedGraphQLString), findsOneWidget);
+    },
+  );
+
+  testWidgets(
+    'Empty requests should show N/A',
+    (WidgetTester tester) async {
+      SharedPreferences.setMockInitialValues({});
+
+      final sharedPreferencesManager = SharedPreferencesManager.getInstance(
+        initData: false,
+      );
+
+      final emptyRequestApi = ApiResponse.mock().copyWith(
+        request: '',
+      );
+
+      await sharedPreferencesManager.addApiResponse(emptyRequestApi);
+
+      await tester.pumpWidget(const MaterialApp(home: ChuckerPage()));
+      await tester.pumpAndSettle();
+
+      expect(find.text('N/A'), findsWidgets);
+    },
+  );
 }

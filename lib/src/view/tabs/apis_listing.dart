@@ -51,6 +51,7 @@ class _ApisListingTabViewState extends State<ApisListingTabView> {
           method: api.method,
           path: api.path,
           statusCode: api.statusCode,
+          request: api.request,
           onDelete: widget.onDelete,
           checked: api.checked,
           onChecked: widget.onChecked,

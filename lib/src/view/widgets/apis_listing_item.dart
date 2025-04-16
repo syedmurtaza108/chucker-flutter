@@ -21,6 +21,7 @@ class ApisListingItemWidget extends StatelessWidget {
     required this.onChecked,
     required this.showDelete,
     required this.onPressed,
+    required this.request,
     Key? key,
   }) : super(key: key);
 
@@ -53,6 +54,9 @@ class ApisListingItemWidget extends StatelessWidget {
 
   ///Callback when user presses this instance
   final VoidCallback onPressed;
+
+  ///Request data
+  final dynamic request;
 
   @override
   Widget build(BuildContext context) {
@@ -120,6 +124,14 @@ class ApisListingItemWidget extends StatelessWidget {
                   Text(
                     path,
                     style: context.textTheme.bodySmall!.toBold(),
+                  ),
+                  const SizedBox(height: 8),
+                  Text(
+                    request.toString().isEmpty
+                        ? Localization.strings['nA']!
+                        : request.toString(),
+                    style: context.textTheme.bodySmall!.withColor(Colors.grey),
+                    maxLines: 2,
                   ),
                   const SizedBox(height: 8),
                   Text(
