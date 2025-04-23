@@ -18,7 +18,7 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   http: ^1.0.0
-  share_plus: ^10.0.2
+  share_plus: ^11.0.0
   shared_preferences: ^2.0.13
 
 dev_dependencies:
