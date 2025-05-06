@@ -87,6 +87,7 @@ class ChuckerDioInterceptor extends Interceptor {
             response.requestOptions.connectTimeout?.inMilliseconds ?? 0,
         contentType: response.requestOptions.contentType,
         headers: response.requestOptions.headers.cast<String, dynamic>(),
+        responseHeaders: response.headers.map.cast<String, dynamic>(),
         queryParameters:
             response.requestOptions.queryParameters.cast<String, dynamic>(),
         receiveTimeout:
@@ -124,6 +125,7 @@ class ChuckerDioInterceptor extends Interceptor {
             response.requestOptions.connectTimeout?.inMilliseconds ?? 0,
         contentType: response.requestOptions.contentType,
         headers: response.requestOptions.headers.cast<String, dynamic>(),
+        responseHeaders: Map(),
         queryParameters:
             response.requestOptions.queryParameters.cast<String, dynamic>(),
         receiveTimeout:
@@ -136,7 +138,7 @@ class ChuckerDioInterceptor extends Interceptor {
         responseType: response.requestOptions.responseType.name,
         sendTimeout: response.requestOptions.sendTimeout?.inMilliseconds ?? 0,
         checked: false,
-        clientLibrary: 'Dio',
+        clientLibrary: 'Dio'
       ),
     );
   }
