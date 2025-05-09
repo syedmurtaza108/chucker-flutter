@@ -30,7 +30,7 @@ class ChuckerChopperInterceptor implements Interceptor {
         connectionTimeout: 0,
         contentType: _requestType(response),
         headers: Map<String, dynamic>.from(response.base.headers),
-        responseHeaders: Map() ,
+        responseHeaders: {} ,
         queryParameters: response.base.request?.url.queryParameters ?? {},
         receiveTimeout: 0,
         request: _requestBody(response),
