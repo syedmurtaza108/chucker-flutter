@@ -11,6 +11,7 @@ void main() {
     const connectionTimeout = -1;
     const contentType = 'xml';
     const headers = {'Content-Type': 'application/json'};
+    const responseHeaders = <String, dynamic>{};
     const queryParameters = {'id': '1'};
     const receiveTimeout = -1;
     const request = {'id': '1'};
@@ -32,6 +33,7 @@ void main() {
       connectionTimeout: connectionTimeout,
       contentType: contentType,
       headers: headers,
+      responseHeaders: responseHeaders,
       queryParameters: queryParameters,
       receiveTimeout: receiveTimeout,
       request: request,
@@ -59,6 +61,7 @@ void main() {
     expect(response.connectionTimeout, mockedResponse.connectionTimeout);
     expect(response.contentType, mockedResponse.contentType);
     expect(response.headers, mockedResponse.headers);
+    expect(response.responseHeaders, mockedResponse.responseHeaders);
     expect(response.queryParameters, mockedResponse.queryParameters);
     expect(response.receiveTimeout, mockedResponse.receiveTimeout);
     expect(response.request, mockedResponse.request);
@@ -90,6 +93,7 @@ void main() {
       connectionTimeout: mockedResponse.connectionTimeout,
       contentType: mockedResponse.contentType,
       headers: mockedResponse.headers,
+      responseHeaders: mockedResponse.responseHeaders,
       queryParameters: mockedResponse.queryParameters,
       receiveTimeout: mockedResponse.receiveTimeout,
       request: mockedResponse.request,
@@ -118,6 +122,7 @@ void main() {
       'connectionTimeout': response.connectionTimeout,
       'contentType': response.contentType,
       'headers': response.headers,
+      'responseHeaders': response.responseHeaders,
       'queryParameters': response.queryParameters,
       'receiveTimeout': response.receiveTimeout,
       'request': response.request,

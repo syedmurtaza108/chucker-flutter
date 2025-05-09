@@ -131,6 +131,7 @@ class ChuckerHttpClient extends BaseClient {
         contentType: request.headers['Content-Type'],
         // headers: request.headers.toString(),
         headers: request.headers.cast<String, dynamic>(),
+        responseHeaders: {},
         // queryParameters: request.url.queryParameters.toString(),
         queryParameters: request.url.queryParameters,
         receiveTimeout: 0,
