@@ -11,7 +11,7 @@ void main() {
     const connectionTimeout = -1;
     const contentType = 'xml';
     const headers = {'Content-Type': 'application/json'};
-    const Map<String, dynamic> responseHeaders = {};
+    const responseHeaders = <String, dynamic>{};
     const queryParameters = {'id': '1'};
     const receiveTimeout = -1;
     const request = {'id': '1'};
