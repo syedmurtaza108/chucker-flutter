@@ -45,13 +45,15 @@ class _ApiDetailsPageState extends State<ApiDetailsPage> {
             ),
             IconButton(
               onPressed: () {
-                Share.share(
-                  widget.api.toString(),
-                  sharePositionOrigin: Rect.fromLTWH(
-                    0,
-                    0,
-                    MediaQuery.of(context).size.width,
-                    MediaQuery.of(context).size.height / 2,
+                SharePlus.instance.share(
+                  ShareParams(
+                    text: widget.api.toString(),
+                    sharePositionOrigin: Rect.fromLTWH(
+                      0,
+                      0,
+                      MediaQuery.of(context).size.width,
+                      MediaQuery.of(context).size.height / 2,
+                    ),
                   ),
                 );
               },
