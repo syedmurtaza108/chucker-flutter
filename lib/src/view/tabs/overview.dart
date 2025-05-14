@@ -117,6 +117,11 @@ class OverviewTabView extends StatelessWidget {
             attribute: 'Send Timeout',
             value: api.sendTimeout.isNotZero ? '${api.sendTimeout} ms' : 'N/A',
           ),
+          _dataRow(
+            context,
+            attribute: 'Response Headers',
+            value: api.responseHeaders.toString(),
+          ),
         ],
       ),
     );
