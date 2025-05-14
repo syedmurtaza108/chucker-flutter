@@ -168,3 +168,23 @@
 * chore(deps): update codecov/codecov-action action to v5.1.2 by @renovate in https://github.com/syedmurtaza108/chucker-flutter/pull/97
 * UI improvements in main page
 **Full Changelog**: https://github.com/syedmurtaza108/chucker-flutter/compare/v1.8.2...v1.8.3
+
+## 1.8.4
+
+## What's Changed
+* chore(deps): update codecov/codecov-action action to v5 by @renovate in https://github.com/syedmurtaza108/chucker-flutter/pull/94
+* chore(deps): update codecov/codecov-action action to v5.0.2 by @renovate in https://github.com/syedmurtaza108/chucker-flutter/pull/95
+* chore(deps): update codecov/codecov-action action to v5.0.4 by @renovate in https://github.com/syedmurtaza108/chucker-flutter/pull/96
+* chore(deps): update dependency very_good_analysis to v7 by @renovate in https://github.com/syedmurtaza108/chucker-flutter/pull/104
+* chore(deps): update codecov/codecov-action action to v5.1.2 by @renovate in https://github.com/syedmurtaza108/chucker-flutter/pull/97
+* enhancement: should not await when intercept by @quango2304 in https://github.com/syedmurtaza108/chucker-flutter/pull/103
+* chore(deps): update codecov/codecov-action action to v5.3.0 by @renovate in https://github.com/syedmurtaza108/chucker-flutter/pull/107
+* chore(deps): update codecov/codecov-action action to v5.4.0 by @renovate in https://github.com/syedmurtaza108/chucker-flutter/pull/108
+* chore(deps): update codecov/codecov-action action to v5.4.2 by @renovate in https://github.com/syedmurtaza108/chucker-flutter/pull/112
+* [enhancement] Display request parameters to easily distinguish between GraphQL calls by @Wreos in https://github.com/syedmurtaza108/chucker-flutter/pull/113
+
+## New Contributors
+* @quango2304 made their first contribution in https://github.com/syedmurtaza108/chucker-flutter/pull/103
+* @Wreos made their first contribution in https://github.com/syedmurtaza108/chucker-flutter/pull/113
+
+**Full Changelog**: https://github.com/syedmurtaza108/chucker-flutter/compare/v1.8.2...v1.8.4
