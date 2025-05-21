@@ -162,6 +162,11 @@ Special thanks to these wonderful people👏 who are making our community bigger
  <td align="center"><a href="https://github.com/Wreos"><img src="https://avatars.githubusercontent.com/u/15965366?v=4" width="100px;" alt=""/><br /><sub><b>Aleksandr Lozhkovoi</b></sub></a><br /> <a href="https://github.com/syedmurtaza108/chucker-flutter/commits?author=Wreos" title="Documentation">📖</a> </td>
  <td align="center"><a href="https://github.com/quango2304"><img src="https://avatars.githubusercontent.com/u/39608754?v=4" width="100px;" alt=""/><br /><sub><b>Leo Ngo</b></sub></a><br /> <a href="https://github.com/syedmurtaza108/chucker-flutter/commits?author=quango2304" title="Documentation">📖</a> </td>
   </tr>
+  <tr>
+  <td align="center"><a href="https://github.com/KashyapBhat"><img src="https://avatars.githubusercontent.com/u/23421932?v=4" width="100px;" alt=""/><br /><sub><b>Kashyap Bhat</b></sub></a><br /> <a href="https://github.com/syedmurtaza108/chucker-flutter/commits?author=KashyapBhat" title="Documentation">📖</a> </td>
+
+ <td align="center"><a href="https://github.com/KeeganDC"><img src="https://avatars.githubusercontent.com/u/97861347?v=4" width="100px;" alt=""/><br /><sub><b>KeeganDC</b></sub></a><br /> <a href="https://github.com/syedmurtaza108/chucker-flutter/commits?author=KeeganDC" title="Documentation">📖</a> </td>
+  </tr>
   
 </table>
 

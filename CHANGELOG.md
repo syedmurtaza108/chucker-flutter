@@ -188,3 +188,16 @@
 * @Wreos made their first contribution in https://github.com/syedmurtaza108/chucker-flutter/pull/113
 
 **Full Changelog**: https://github.com/syedmurtaza108/chucker-flutter/compare/v1.8.2...v1.8.4
+
+## 1.8.5
+
+## What's Changed
+* log response headers for API responses by @KashyapBhat in https://github.com/syedmurtaza108/chucker-flutter/pull/115
+* chore(deps): update codecov/codecov-action action to v5.4.3 by @renovate in https://github.com/syedmurtaza108/chucker-flutter/pull/117
+* fix: fix TabBarTheme to TabBarThemeData by @KeeganDC in https://github.com/syedmurtaza108/chucker-flutter/pull/118
+
+## New Contributors
+* @KashyapBhat made their first contribution in https://github.com/syedmurtaza108/chucker-flutter/pull/115
+* @KeeganDC made their first contribution in https://github.com/syedmurtaza108/chucker-flutter/pull/118
+
+**Full Changelog**: https://github.com/syedmurtaza108/chucker-flutter/compare/v1.8.4...v1.8.5
