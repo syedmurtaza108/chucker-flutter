@@ -1,7 +1,6 @@
 import 'package:chucker_flutter/src/helpers/extensions.dart';
 import 'package:chucker_flutter/src/helpers/shared_preferences_manager.dart';
 import 'package:chucker_flutter/src/localization/localization.dart';
-
 import 'package:chucker_flutter/src/models/settings.dart';
 import 'package:chucker_flutter/src/view/chucker_page.dart';
 import 'package:chucker_flutter/src/view/helper/chucker_button.dart';
@@ -113,7 +112,7 @@ ChuckerFlutter: You programmatically vetoed notification behavior. Make sure to 
           locale: Localization.currentLocale,
           theme: ThemeData(
             useMaterial3: false,
-            tabBarTheme: TabBarTheme(
+            tabBarTheme: TabBarThemeData(
               labelColor: Colors.white,
               labelStyle: context.textTheme.bodyLarge,
             ),
