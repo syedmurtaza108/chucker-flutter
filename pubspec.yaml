@@ -18,14 +18,14 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   http: ^1.0.0
-  http_mock_adapter: ^0.6.0
-  share_plus: ^11.1.0
+  share_plus: ^11.0.0
   shared_preferences: ^2.0.13
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  very_good_analysis: ^6.0.0
+  http_mock_adapter: ^0.6.0
+  very_good_analysis: ^9.0.0
 
 screenshots:
   - description: Chucker Flutter Logo
