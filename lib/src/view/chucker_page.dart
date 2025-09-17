@@ -11,7 +11,6 @@ import 'package:chucker_flutter/src/view/widgets/app_bar.dart';
 import 'package:chucker_flutter/src/view/widgets/confirmation_dialog.dart';
 import 'package:chucker_flutter/src/view/widgets/filter_buttons.dart';
 import 'package:chucker_flutter/src/view/widgets/menu_buttons.dart';
-import 'package:chucker_flutter/src/view/widgets/stats_tile.dart';
 import 'package:flutter/material.dart';
 
 ///The main screen of `chucker_flutter`
@@ -34,10 +33,12 @@ class _ChuckerPageState extends State<ChuckerPage> {
     _TabModel(
       label: Localization.strings['successRequestsWithSpace']!,
       icon: const Icon(Icons.check_circle, color: Colors.white),
+      index: 0,
     ),
     _TabModel(
       label: Localization.strings['failedRequestsWithSpace']!,
       icon: const Icon(Icons.error, color: Colors.white),
+      index: 1,
     ),
   ];
 
@@ -85,35 +86,6 @@ class _ChuckerPageState extends State<ChuckerPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Visibility(
-              visible: ChuckerUiHelper.settings.showRequestsStats,
-              child: const SizedBox(height: 16),
-            ),
-            Visibility(
-              visible: ChuckerUiHelper.settings.showRequestsStats,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                child: Row(
-                  children: [
-                    StatsTile(
-                      stats: _successApis(filterApply: false).length.toString(),
-                      title: Localization.strings['successRequest']!,
-                      backColor: Colors.greenAccent[400]!,
-                    ),
-                    StatsTile(
-                      stats: _failedApis(filterApply: false).length.toString(),
-                      title: Localization.strings['failedRequests']!,
-                      backColor: Colors.amber[300]!,
-                    ),
-                    StatsTile(
-                      stats: _remaingRequests.toString(),
-                      title: Localization.strings['remainingRequests']!,
-                      backColor: Colors.deepOrange[400]!,
-                    ),
-                  ],
-                ),
-              ),
-            ),
             const SizedBox(height: 16),
             FilterButtons(
               onFilter: (httpMethod) {
@@ -131,7 +103,11 @@ class _ChuckerPageState extends State<ChuckerPage> {
               child: TabBar(
                 tabs: _tabsHeadings
                     .map(
-                      (e) => Tab(text: e.label, icon: e.icon),
+                      (e) => Tab(
+                        text: e.index == 0
+                            ? '''${e.label} (${_successApis(filterApply: false).length})'''
+                            : '''${e.label} (${_failedApis(filterApply: false).length})''',
+                      ),
                     )
                     .toList(),
               ),
@@ -163,9 +139,6 @@ class _ChuckerPageState extends State<ChuckerPage> {
       ),
     );
   }
-
-  int get _remaingRequests =>
-      ChuckerUiHelper.settings.apiThresholds - _apis.length;
 
   List<ApiResponse> _successApis({bool filterApply = true}) {
     final query = _query.toLowerCase();
@@ -311,7 +284,9 @@ class _TabModel {
   _TabModel({
     required this.label,
     required this.icon,
+    required this.index,
   });
   final String label;
   final Widget icon;
+  final int index;
 }

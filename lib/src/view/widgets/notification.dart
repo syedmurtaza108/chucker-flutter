@@ -103,7 +103,7 @@ class _NotificationState extends State<Notification>
                 color: Colors.white,
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.grey.withOpacity(0.5),
+                    color: Colors.grey.withValues(alpha: 0.5),
                     spreadRadius: 5,
                     blurRadius: 7,
                     offset: const Offset(0, 3), // changes position of shadow
@@ -116,7 +116,9 @@ class _NotificationState extends State<Notification>
                   Text(
                     widget.statusCode.toString(),
                     textAlign: TextAlign.center,
-                    style: context.textTheme.bodyLarge!.toBold(),
+                    style: context.textTheme.bodyLarge!
+                        .toBold()
+                        .withColor(Colors.black),
                   ),
                   const SizedBox(width: 16),
                   Expanded(
@@ -133,7 +135,8 @@ class _NotificationState extends State<Notification>
                         const SizedBox(height: 4),
                         Text(
                           widget.path,
-                          style: context.textTheme.bodySmall,
+                          style: context.textTheme.bodySmall
+                              ?.withColor(Colors.black),
                         ),
                       ],
                     ),
