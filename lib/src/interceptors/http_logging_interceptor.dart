@@ -16,10 +16,11 @@ class ChuckerHttpLoggingInterceptor implements Interceptor {
 
     var bytes = '';
     if (requestBase is http.Request) {
-      final body = requestBase.body;
+      final body = (requestBase as http.Request).body;
       if (body.isNotEmpty) {
         Logger.json(body, isRequest: true);
-        bytes = ' (${requestBase.bodyBytes.length}-byte body)';
+        bytes =
+            ' (${(requestBase as http.Request).bodyBytes.length}-byte body)';
       }
     }
 
