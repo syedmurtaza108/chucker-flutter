@@ -43,7 +43,7 @@ class _SettingsPageState extends State<SettingsPage> {
                 title: Localization.strings['show']!,
                 description: Localization.strings['notificationSettingDesc']!,
                 child: Switch.adaptive(
-                  activeColor: primaryColor,
+                  activeTrackColor: primaryColor,
                   value: _settings.showNotification,
                   onChanged: (value) {
                     _saveSettings(showNotification: value);
@@ -104,7 +104,7 @@ class _SettingsPageState extends State<SettingsPage> {
                 title: Localization.strings['showRequestStats']!,
                 description: Localization.strings['showRequestStatsDesc']!,
                 child: Switch.adaptive(
-                  activeColor: primaryColor,
+                  activeTrackColor: primaryColor,
                   value: _settings.showRequestsStats,
                   onChanged: (value) {
                     _saveSettings(showRequestsStats: value);
