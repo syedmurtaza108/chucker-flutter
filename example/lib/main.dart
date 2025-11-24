@@ -13,7 +13,7 @@ void main() {
 }
 
 class App extends StatelessWidget {
-  const App({Key? key}) : super(key: key);
+  const App({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +21,7 @@ class App extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       navigatorObservers: [ChuckerFlutter.navigatorObserver],
       theme: ThemeData(
-        appBarTheme: const AppBarTheme(color: Color(0xFF13B9FF)),
+        appBarTheme: const AppBarTheme(backgroundColor: Color(0xFF13B9FF)),
         colorScheme: ColorScheme.fromSwatch(
           accentColor: const Color(0xFF13B9FF),
         ),
@@ -32,7 +32,7 @@ class App extends StatelessWidget {
 }
 
 class TodoPage extends StatefulWidget {
-  const TodoPage({Key? key}) : super(key: key);
+  const TodoPage({super.key});
 
   @override
   State<TodoPage> createState() => _TodoPageState();
