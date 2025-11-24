@@ -11,8 +11,8 @@ class PrimaryButton extends StatelessWidget {
     this.backColor,
     this.foreColor,
     this.padding,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   ///Callback
   final VoidCallback onPressed;

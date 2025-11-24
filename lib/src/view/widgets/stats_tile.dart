@@ -8,8 +8,8 @@ class StatsTile extends StatelessWidget {
     required this.stats,
     required this.title,
     required this.backColor,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   ///Title of title
   final String title;

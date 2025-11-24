@@ -40,17 +40,19 @@ void main() {
     );
     myChuckerHttpClient = _MyChuckerHttpClient(mockClient);
   });
-  test('Response should be saved in shared preferences when call succeeds',
-      () async {
-    SharedPreferences.setMockInitialValues({});
-    await client.get(Uri.parse('$baseUrl$successPath'));
+  test(
+    'Response should be saved in shared preferences when call succeeds',
+    () async {
+      SharedPreferences.setMockInitialValues({});
+      await client.get(Uri.parse('$baseUrl$successPath'));
 
-    final responses = await sharedPreferencesManager.getAllApiResponses();
+      final responses = await sharedPreferencesManager.getAllApiResponses();
 
-    expect(responses.length, 1);
-    expect(responses.first.statusCode, 200);
-    expect(responses.first.body, mockedSuccessResponse);
-  });
+      expect(responses.length, 1);
+      expect(responses.first.statusCode, 200);
+      expect(responses.first.body, mockedSuccessResponse);
+    },
+  );
 
   test('Error should be saved in shared preferences when call fails', () async {
     SharedPreferences.setMockInitialValues({});
@@ -63,26 +65,30 @@ void main() {
     expect(responses.first.body, mockedErrorResponse);
   });
 
-  test('Request data should be intercepted when user calls onRequest',
-      () async {
-    SharedPreferences.setMockInitialValues({});
-    await myChuckerHttpClient.get(Uri.parse('$baseUrl$successPath'));
+  test(
+    'Request data should be intercepted when user calls onRequest',
+    () async {
+      SharedPreferences.setMockInitialValues({});
+      await myChuckerHttpClient.get(Uri.parse('$baseUrl$successPath'));
 
-    final responses = await sharedPreferencesManager.getAllApiResponses();
-    expect(responses.length, 1);
-    expect(responses.first.headers, {'my-token': 'token'});
-  });
+      final responses = await sharedPreferencesManager.getAllApiResponses();
+      expect(responses.length, 1);
+      expect(responses.first.headers, {'my-token': 'token'});
+    },
+  );
 
-  test('Response data should be accessible when user calls onResponse',
-      () async {
-    expect(myChuckerHttpClient.statusCode, 200);
-    SharedPreferences.setMockInitialValues({});
-    await myChuckerHttpClient.get(Uri.parse('$baseUrl$internalErrorPath'));
+  test(
+    'Response data should be accessible when user calls onResponse',
+    () async {
+      expect(myChuckerHttpClient.statusCode, 200);
+      SharedPreferences.setMockInitialValues({});
+      await myChuckerHttpClient.get(Uri.parse('$baseUrl$internalErrorPath'));
 
-    final responses = await sharedPreferencesManager.getAllApiResponses();
-    expect(responses.length, 1);
-    expect(myChuckerHttpClient.statusCode, 500);
-  });
+      final responses = await sharedPreferencesManager.getAllApiResponses();
+      expect(responses.length, 1);
+      expect(myChuckerHttpClient.statusCode, 500);
+    },
+  );
   test(
       'When UI is running in release mode and showOnRelease is false'
       ' notification should not be shown', () async {
@@ -113,7 +119,7 @@ void main() {
   });
 
   test(
-      'When request has multippart body, its file details should be added'
+      'When request has multipart body, its file details should be added'
       ' in api response model', () async {
     SharedPreferences.setMockInitialValues({});
     final request = MultipartRequest(
@@ -149,7 +155,7 @@ void main() {
 }
 
 class _MyChuckerHttpClient extends ChuckerHttpClient {
-  _MyChuckerHttpClient(Client client) : super(client);
+  _MyChuckerHttpClient(super.client);
 
   ///No use, only for mocking purpose
   int statusCode = -1;

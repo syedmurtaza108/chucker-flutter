@@ -10,8 +10,7 @@ class _ConfirmationDialog extends StatelessWidget {
     required this.message,
     this.yesButtonBackColor,
     this.yesButtonForeColor,
-    Key? key,
-  }) : super(key: key);
+  });
 
   final String title;
   final String message;

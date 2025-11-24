@@ -35,7 +35,7 @@ void main() {
     baseUrl: Uri.parse(baseUrl),
     client: mockClient,
     interceptors: [
-      ChuckerChopperInterceptor(),
+      const ChuckerChopperInterceptor(),
     ],
   );
 

@@ -15,7 +15,7 @@ import 'package:share_plus/share_plus.dart';
 class ApiDetailsPage extends StatefulWidget {
   ///Shows detail of api request and response
 
-  const ApiDetailsPage({required this.api, Key? key}) : super(key: key);
+  const ApiDetailsPage({required this.api, super.key});
 
   ///[ApiResponse] of which detail is to be shown
   final ApiResponse api;
@@ -147,8 +147,7 @@ class _PreviewModeControl extends StatelessWidget {
     required this.jsonPreviewType,
     required this.onPreviewPressed,
     required this.onCopyPressed,
-    Key? key,
-  }) : super(key: key);
+  });
 
   final _JsonPreviewType jsonPreviewType;
   final VoidCallback onPreviewPressed;
@@ -206,8 +205,7 @@ class _ResponseTab extends StatelessWidget {
     required this.onShufflePreview,
     required this.json,
     required this.prettyJson,
-    Key? key,
-  }) : super(key: key);
+  });
 
   final ApiResponse apiResponse;
   final dynamic json;
@@ -276,8 +274,7 @@ class _RequestTab extends StatelessWidget {
     required this.onShufflePreview,
     required this.json,
     required this.prettyJson,
-    Key? key,
-  }) : super(key: key);
+  });
 
   final ApiResponse apiResponse;
   final dynamic json;

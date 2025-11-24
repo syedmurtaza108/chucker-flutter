@@ -8,8 +8,8 @@ class AlignmentMenu extends StatefulWidget {
     required this.notificationAlignment,
     required this.title,
     required this.onSelect,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   ///Assigned alignment
   final Alignment notificationAlignment;
@@ -62,10 +62,13 @@ class _AlignmentMenuState extends State<AlignmentMenu> {
         contentPadding: const EdgeInsets.all(8),
         dense: true,
         title: Text(text),
-        leading: Radio<Alignment>(
-          value: notificationAlignment,
-          groupValue: widget.notificationAlignment,
-          onChanged: (_) {},
+        leading: Icon(
+          widget.notificationAlignment == notificationAlignment
+              ? Icons.radio_button_checked
+              : Icons.radio_button_off,
+          color: widget.notificationAlignment == notificationAlignment
+              ? primaryColor
+              : Colors.grey,
         ),
       ),
     );

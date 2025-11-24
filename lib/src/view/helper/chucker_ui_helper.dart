@@ -1,7 +1,6 @@
 import 'package:chucker_flutter/src/helpers/extensions.dart';
 import 'package:chucker_flutter/src/helpers/shared_preferences_manager.dart';
 import 'package:chucker_flutter/src/localization/localization.dart';
-
 import 'package:chucker_flutter/src/models/settings.dart';
 import 'package:chucker_flutter/src/view/chucker_page.dart';
 import 'package:chucker_flutter/src/view/helper/chucker_button.dart';
@@ -99,7 +98,7 @@ ChuckerFlutter: You programmatically vetoed notification behavior. Make sure to 
     _overlayEntries.clear();
   }
 
-  ///[showChuckerScreen] shows the screen containing the list of recored
+  ///[showChuckerScreen] shows the screen containing the list of records
   ///api requests
   static void showChuckerScreen() {
     SharedPreferencesManager.getInstance().getSettings();
@@ -132,6 +131,9 @@ ChuckerFlutter: You programmatically vetoed notification behavior. Make sure to 
 ///
 ///[chuckerButton] and notifications only be visible in debug mode
 class ChuckerFlutter {
+  ///Prevents instantiation; every member on this type is static.
+  const ChuckerFlutter._();
+
   ///[navigatorObserver] observes the navigation of your app. It must be
   ///referenced in your MaterialApp widget
   static final navigatorObserver = NavigatorObserver();
@@ -149,7 +151,7 @@ class ChuckerFlutter {
   static bool showNotification = true;
 
   ///[ChuckerButton] can be placed anywhere in the UI to open Chucker Screen
-  static final chuckerButton = isDebugMode || ChuckerFlutter.showOnRelease
+  static final chuckerButton = (isDebugMode || ChuckerFlutter.showOnRelease)
       ? ChuckerButton.getInstance()
       : const SizedBox.shrink();
 

@@ -4,8 +4,7 @@ class _JsonObject extends StatefulWidget {
   const _JsonObject({
     required this.jsonObject,
     required this.showPadding,
-    Key? key,
-  }) : super(key: key);
+  });
 
   final Map<String, dynamic> jsonObject;
   final bool showPadding;

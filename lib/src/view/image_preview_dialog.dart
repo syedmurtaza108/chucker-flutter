@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 ///It shows image preview if possible otherwise shows error
 class ImagePreviewDialog extends StatelessWidget {
   ///It shows image preview if possible otherwise shows error
-  const ImagePreviewDialog({required this.path, Key? key}) : super(key: key);
+  const ImagePreviewDialog({required this.path, super.key});
 
   ///Path of image to be shown
   final String path;

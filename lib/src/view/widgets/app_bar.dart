@@ -7,8 +7,8 @@ class ChuckerAppBar extends StatefulWidget implements PreferredSizeWidget {
   const ChuckerAppBar({
     required this.onBackPressed,
     this.actions,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   ///A list of Widgets to display in a row after the title
   final List<Widget>? actions;
@@ -19,7 +19,6 @@ class ChuckerAppBar extends StatefulWidget implements PreferredSizeWidget {
   @override
   State<ChuckerAppBar> createState() => _ChuckerAppBarState();
 
-  @override
   @override
   Size get preferredSize => const Size.fromHeight(56);
 }
