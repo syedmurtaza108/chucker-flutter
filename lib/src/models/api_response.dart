@@ -168,15 +168,51 @@ class ApiResponse {
       components.add('-X $method');
     }
 
+    // Check if this is form data to determine which headers to exclude
+    final isFormData = contentType != null &&
+        (contentType!.toLowerCase().contains('multipart/form-data') ||
+            contentType!
+                .toLowerCase()
+                .contains('application/x-www-form-urlencoded'));
+
     headers.forEach((k, v) {
       if (k != 'Cookie') {
+        // When using -F, curl automatically sets Content-Type and Content-Length
+        // So we should exclude them to avoid conflicts
+        final lowerKey = k.toLowerCase();
+        if (isFormData &&
+            (lowerKey == 'content-type' || lowerKey == 'content-length')) {
+          return;
+        }
         components.add('-H "$k: $v"');
       }
     });
 
     if (request != null && request.toString().isNotEmpty) {
-      final encodedBody = request.toString().replaceAll('"', r'\"');
-      components.add('-d "$encodedBody"');
+      if (isFormData && request is List) {
+        // Handle form data: request is a List of Maps like [{key: value}, {key: value}, ...]
+        for (final item in request) {
+          if (item is Map) {
+            item.forEach((key, value) {
+              // Escape special characters for curl -F format
+              // Need to escape: $ ` " \ and newlines
+              final fieldValue = value
+                  .toString()
+                  .replaceAll(r'\', r'\\')
+                  .replaceAll(r'$', r'\$')
+                  .replaceAll(r'`', r'\`')
+                  .replaceAll('"', r'\"')
+                  .replaceAll('\n', r'\n')
+                  .replaceAll('\r', r'\r');
+              components.add('-F "$key=$fieldValue"');
+            });
+          }
+        }
+      } else {
+        // Handle regular JSON or other data types
+        final encodedBody = json.encode(request).replaceAll('"', r'\"');
+        components.add('-d "$encodedBody"');
+      }
     }
 
     // Construct the full URL manually
