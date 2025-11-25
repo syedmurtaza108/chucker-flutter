@@ -4,8 +4,7 @@ class _JsonRoot extends StatelessWidget {
   const _JsonRoot({
     required this.rootObject,
     required this.showPadding,
-    Key? key,
-  }) : super(key: key);
+  });
 
   final dynamic rootObject;
   final bool showPadding;

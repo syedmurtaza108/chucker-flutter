@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 ///[ChuckerButton] can be placed anywhere in the UI to open Chucker Screen
 class ChuckerButton extends StatelessWidget {
   ///[ChuckerButton] can be placed anywhere in the UI to open Chucker Screen
-  const ChuckerButton._({Key? key}) : super(key: key);
+  const ChuckerButton._({super.key});
 
   static ChuckerButton? _button;
 

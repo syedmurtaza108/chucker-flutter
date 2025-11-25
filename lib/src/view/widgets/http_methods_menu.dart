@@ -11,8 +11,8 @@ class HttpMethodsMenu extends StatefulWidget {
   const HttpMethodsMenu({
     required this.httpMethod,
     required this.onFilter,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   ///HttpMethod filter type
   final HttpMethod httpMethod;
@@ -73,10 +73,11 @@ class _HttpMethodsMenuState extends State<HttpMethodsMenu> {
         contentPadding: const EdgeInsets.all(8),
         dense: true,
         title: Text(text),
-        leading: Radio<HttpMethod>(
-          value: httpMethod,
-          groupValue: widget.httpMethod,
-          onChanged: (HttpMethod? value) {},
+        leading: Icon(
+          widget.httpMethod == httpMethod
+              ? Icons.radio_button_checked
+              : Icons.radio_button_off,
+          color: widget.httpMethod == httpMethod ? primaryColor : Colors.grey,
         ),
       ),
     );

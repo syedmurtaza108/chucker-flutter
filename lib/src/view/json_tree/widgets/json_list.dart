@@ -4,8 +4,7 @@ class _JsonList extends StatefulWidget {
   const _JsonList({
     required this.showPadding,
     required this.jsonObjects,
-    Key? key,
-  }) : super(key: key);
+  });
 
   final List<dynamic> jsonObjects;
   final bool showPadding;

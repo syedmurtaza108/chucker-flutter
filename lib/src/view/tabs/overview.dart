@@ -13,8 +13,8 @@ class OverviewTabView extends StatelessWidget {
   ///Shows the api response summary
   const OverviewTabView({
     required this.api,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   ///The item of which summary is to be shown
   final ApiResponse api;

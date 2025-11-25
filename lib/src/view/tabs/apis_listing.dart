@@ -12,8 +12,8 @@ class ApisListingTabView extends StatefulWidget {
     required this.onChecked,
     required this.showDelete,
     required this.onItemPressed,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   ///The list of [ApiResponse] that to be shown in this page
   final List<ApiResponse> apis;

@@ -18,8 +18,8 @@ class Notification extends StatefulWidget {
     required this.path,
     required this.removeNotification,
     required this.requestTime,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   ///method of request
   final String method;

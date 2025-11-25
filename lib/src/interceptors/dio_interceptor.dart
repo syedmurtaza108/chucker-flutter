@@ -9,6 +9,9 @@ import 'package:dio/dio.dart';
 
 ///[ChuckerDioInterceptor] adds support for `chucker_flutter` in [Dio] library.
 class ChuckerDioInterceptor extends Interceptor {
+  ///Creates an interceptor that mirrors Dio traffic into Chucker storage.
+  ChuckerDioInterceptor();
+
   late DateTime _requestTime;
   @override
   Future<void> onRequest(

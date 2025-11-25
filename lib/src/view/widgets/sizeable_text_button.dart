@@ -11,8 +11,8 @@ class SizeableTextButton extends StatelessWidget {
     this.height,
     this.width,
     this.style,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   ///height of text button
   final double? height;

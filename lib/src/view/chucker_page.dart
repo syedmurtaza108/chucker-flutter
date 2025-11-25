@@ -16,7 +16,7 @@ import 'package:flutter/material.dart';
 ///The main screen of `chucker_flutter`
 class ChuckerPage extends StatefulWidget {
   ///The main screen of `chucker_flutter`
-  const ChuckerPage({Key? key}) : super(key: key);
+  const ChuckerPage({super.key});
 
   @override
   State<ChuckerPage> createState() => _ChuckerPageState();

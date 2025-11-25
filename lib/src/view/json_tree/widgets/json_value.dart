@@ -4,8 +4,7 @@ class _JsonValue extends StatefulWidget {
   const _JsonValue({
     required this.value,
     required this.onOpen,
-    Key? key,
-  }) : super(key: key);
+  });
 
   final dynamic value;
   final VoidCallback onOpen;

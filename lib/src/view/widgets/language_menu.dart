@@ -8,8 +8,8 @@ class LanguagesMenu extends StatefulWidget {
   const LanguagesMenu({
     required this.language,
     required this.onSelect,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   ///language
   final Language language;
@@ -46,10 +46,11 @@ class _LanguagesMenuState extends State<LanguagesMenu> {
         contentPadding: const EdgeInsets.all(8),
         dense: true,
         title: Text(language.name),
-        leading: Radio<Language>(
-          value: language,
-          groupValue: widget.language,
-          onChanged: (_) {},
+        leading: Icon(
+          widget.language == language
+              ? Icons.radio_button_checked
+              : Icons.radio_button_off,
+          color: widget.language == language ? primaryColor : Colors.grey,
         ),
       ),
     );
