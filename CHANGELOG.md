@@ -201,3 +201,17 @@
 * @KeeganDC made their first contribution in https://github.com/syedmurtaza108/chucker-flutter/pull/118
 
 **Full Changelog**: https://github.com/syedmurtaza108/chucker-flutter/compare/v1.8.4...v1.8.5
+
+## 1.9.0
+
+* chore(deps): update dependency very_good_analysis to v9 by @renovate[bot] in https://github.com/syedmurtaza108/chucker-flutter/pull/124
+* chore(deps): update dependency gradle to v7.6.6 by @renovate[bot] in https://github.com/syedmurtaza108/chucker-flutter/pull/123
+* chore(deps): update dependency flutter_lints to v6 by @renovate[bot] in https://github.com/syedmurtaza108/chucker-flutter/pull/121
+* chore(deps): update gradle to v9 by @renovate[bot] in https://github.com/syedmurtaza108/chucker-flutter/pull/127
+* chore(deps): update actions/checkout action to v5 by @renovate[bot] in https://github.com/syedmurtaza108/chucker-flutter/pull/128
+* chore(deps): update codecov/codecov-action action to v5.5.1 by @renovate[bot] in https://github.com/syedmurtaza108/chucker-flutter/pull/129
+* fix(deps): update dependency share_plus to v12 by @renovate[bot] in https://github.com/syedmurtaza108/chucker-flutter/pull/130
+* added fix for http error by @gktirkha in https://github.com/syedmurtaza108/chucker-flutter/pull/132
+* chore(deps): update dependency very_good_analysis to v10 by @renovate[bot] in https://github.com/syedmurtaza108/chucker-flutter/pull/133
+* fix toCurl() format error with POST request by @CuongNV12 in https://github.com/syedmurtaza108/chucker-flutter/pull/142
+* Upgrade Dependencies & Improve Android Gradle Configuration for Better Compatibility by @mateendev3 in https://github.com/syedmurtaza108/chucker-flutter/pull/144

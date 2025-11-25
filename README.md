@@ -166,6 +166,10 @@ Special thanks to these wonderful people👏 who are making our community bigger
   <td align="center"><a href="https://github.com/KashyapBhat"><img src="https://avatars.githubusercontent.com/u/23421932?v=4" width="100px;" alt=""/><br /><sub><b>Kashyap Bhat</b></sub></a><br /> <a href="https://github.com/syedmurtaza108/chucker-flutter/commits?author=KashyapBhat" title="Documentation">📖</a> </td>
 
  <td align="center"><a href="https://github.com/KeeganDC"><img src="https://avatars.githubusercontent.com/u/97861347?v=4" width="100px;" alt=""/><br /><sub><b>KeeganDC</b></sub></a><br /> <a href="https://github.com/syedmurtaza108/chucker-flutter/commits?author=KeeganDC" title="Documentation">📖</a> </td>
+
+ <td align="center"><a href="https://github.com/mateendev3"><img src="https://avatars.githubusercontent.com/u/81102550?v=4" width="100px;" alt=""/><br /><sub><b>Mateen Mehmood</b></sub></a><br /> <a href="https://github.com/syedmurtaza108/chucker-flutter/commits?author=mateendev3" title="Documentation">📖</a> </td>
+
+  <td align="center"><a href="https://github.com/CuongNV12"><img src="https://avatars.githubusercontent.com/u/53120409?v=4" width="100px;" alt=""/><br /><sub><b>Cuong Nguyen</b></sub></a><br /> <a href="https://github.com/syedmurtaza108/chucker-flutter/commits?author=CuongNV12" title="Documentation">📖</a> </td>
   </tr>
   
 </table>

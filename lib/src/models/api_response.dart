@@ -192,7 +192,7 @@ class ApiResponse {
       if (isFormData && request is List) {
         // Handle form data: request is a
         // List of Maps like [{key: value}, {key: value}, ...]
-        for (final item in request) {
+        for (final item in request as List) {
           if (item is Map) {
             item.forEach((key, value) {
               // Escape special characters for curl -F format
@@ -201,7 +201,7 @@ class ApiResponse {
                   .toString()
                   .replaceAll(r'\', r'\\')
                   .replaceAll(r'$', r'\$')
-                  .replaceAll(r'`', r'\`')
+                  .replaceAll('`', r'\`')
                   .replaceAll('"', r'\"')
                   .replaceAll('\n', r'\n')
                   .replaceAll('\r', r'\r');
