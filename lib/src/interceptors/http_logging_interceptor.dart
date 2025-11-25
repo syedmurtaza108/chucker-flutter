@@ -6,6 +6,10 @@ import 'package:http/http.dart' as http;
 
 ///Logs http request and response data
 class ChuckerHttpLoggingInterceptor implements Interceptor {
+  ///Creates an interceptor that prints HTTP traffic to the provided [Logger].
+  const ChuckerHttpLoggingInterceptor();
+
+  ///Intercepts the [chain], logs its request/response pair, and forwards it.
   @override
   FutureOr<Response<BodyType>> intercept<BodyType>(
     Chain<BodyType> chain,

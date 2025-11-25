@@ -10,7 +10,7 @@ import 'package:http/http.dart';
 ///`Chucker Flutter`'s wrapper for `http` library
 class ChuckerHttpClient extends BaseClient {
   ///`Chucker Flutter`'s wrapper for `http` library
-  ChuckerHttpClient(this._client);
+  ChuckerHttpClient(Client client) : _client = client;
   final Client _client;
 
   late DateTime _requestTime;
@@ -60,7 +60,7 @@ class ChuckerHttpClient extends BaseClient {
 
     final interceptedRequest = onRequest(request);
 
-    final response = await _client.send(request);
+    final response = await _client.send(interceptedRequest);
 
     final bytes = await response.stream.toBytes();
 

@@ -8,8 +8,8 @@ class MenuButtons extends StatelessWidget {
     required this.enableDelete,
     required this.onDelete,
     required this.onSettings,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   ///Whether to enable delete button or not
   final bool enableDelete;

@@ -62,7 +62,6 @@ void main() {
         requestTime: DateTime.now(),
       );
       // ignore: flutter_style_todos
-      //TODO Need to revisit this
       await tester.pumpAndSettle(const Duration(seconds: 1));
     },
   );

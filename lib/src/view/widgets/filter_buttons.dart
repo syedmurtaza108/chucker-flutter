@@ -15,8 +15,8 @@ class FilterButtons extends StatefulWidget {
     required this.httpMethod,
     required this.onSearch,
     required this.query,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   ///Call back to handle http method filter change
   final void Function(HttpMethod) onFilter;
@@ -98,8 +98,7 @@ class _SearchField extends StatelessWidget {
   const _SearchField({
     required this.onSearch,
     required this.query,
-    Key? key,
-  }) : super(key: key);
+  });
 
   final void Function(String) onSearch;
   final String query;

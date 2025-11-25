@@ -15,7 +15,7 @@ import 'package:flutter/material.dart';
 ///Chucker Flutter Settings
 class SettingsPage extends StatefulWidget {
   ///Chucker Flutter Settings
-  const SettingsPage({Key? key}) : super(key: key);
+  const SettingsPage({super.key});
 
   @override
   State<SettingsPage> createState() => _SettingsPageState();
@@ -43,7 +43,7 @@ class _SettingsPageState extends State<SettingsPage> {
                 title: Localization.strings['show']!,
                 description: Localization.strings['notificationSettingDesc']!,
                 child: Switch.adaptive(
-                  activeColor: primaryColor,
+                  activeTrackColor: primaryColor,
                   value: _settings.showNotification,
                   onChanged: (value) {
                     _saveSettings(showNotification: value);
@@ -104,7 +104,7 @@ class _SettingsPageState extends State<SettingsPage> {
                 title: Localization.strings['showRequestStats']!,
                 description: Localization.strings['showRequestStatsDesc']!,
                 child: Switch.adaptive(
-                  activeColor: primaryColor,
+                  activeTrackColor: primaryColor,
                   value: _settings.showRequestsStats,
                   onChanged: (value) {
                     _saveSettings(showRequestsStats: value);
@@ -145,7 +145,7 @@ class _SettingsPageState extends State<SettingsPage> {
                 title: Localization.strings['showConfirmDialog']!,
                 description: Localization.strings['showDialogDesc']!,
                 child: Switch.adaptive(
-                  activeColor: primaryColor,
+                  activeTrackColor: primaryColor,
                   value: _settings.showDeleteConfirmDialog,
                   onChanged: (value) {
                     _saveSettings(showDeleteConfirmDialog: value);

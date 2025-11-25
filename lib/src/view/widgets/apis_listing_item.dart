@@ -22,8 +22,8 @@ class ApisListingItemWidget extends StatelessWidget {
     required this.showDelete,
     required this.onPressed,
     required this.request,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   ///base url of api request such as `https://www.api.com`
   final String baseUrl;

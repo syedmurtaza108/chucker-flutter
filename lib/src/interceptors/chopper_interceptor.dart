@@ -11,6 +11,8 @@ import 'package:http/http.dart' as http;
 
 ///[ChuckerChopperInterceptor] adds support for `chucker_flutter` in Chopper
 class ChuckerChopperInterceptor implements Interceptor {
+  ///Creates an interceptor that mirrors Chopper traffic into Chucker storage.
+  const ChuckerChopperInterceptor();
   Future<void> _saveResponse(Response<dynamic> response, DateTime time) async {
     dynamic responseBody = '';
 
@@ -30,7 +32,7 @@ class ChuckerChopperInterceptor implements Interceptor {
         connectionTimeout: 0,
         contentType: _requestType(response),
         headers: Map<String, dynamic>.from(response.base.headers),
-        responseHeaders: {} ,
+        responseHeaders: {},
         queryParameters: response.base.request?.url.queryParameters ?? {},
         receiveTimeout: 0,
         request: _requestBody(response),
@@ -94,6 +96,7 @@ class ChuckerChopperInterceptor implements Interceptor {
     return formFields;
   }
 
+  ///Intercepts the [chain], records the call, and forwards the response.
   @override
   FutureOr<Response<BodyType>> intercept<BodyType>(
     Chain<BodyType> chain,

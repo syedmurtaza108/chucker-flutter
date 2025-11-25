@@ -16,8 +16,8 @@ class JsonTree extends StatefulWidget {
   ///A widget to show json in tree form
   const JsonTree({
     required this.json,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   ///Json object which is to be shown
   final dynamic json;
