@@ -177,8 +177,8 @@ class ApiResponse {
 
     headers.forEach((k, v) {
       if (k != 'Cookie') {
-        // When using -F, curl automatically sets Content-Type and Content-Length
-        // So we should exclude them to avoid conflicts
+        // When using -F, curl automatically sets Content-Type
+        // and Content-Length So we should exclude them to avoid conflicts
         final lowerKey = k.toLowerCase();
         if (isFormData &&
             (lowerKey == 'content-type' || lowerKey == 'content-length')) {
@@ -190,7 +190,8 @@ class ApiResponse {
 
     if (request != null && request.toString().isNotEmpty) {
       if (isFormData && request is List) {
-        // Handle form data: request is a List of Maps like [{key: value}, {key: value}, ...]
+        // Handle form data: request is a
+        // List of Maps like [{key: value}, {key: value}, ...]
         for (final item in request) {
           if (item is Map) {
             item.forEach((key, value) {
