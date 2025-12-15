@@ -111,13 +111,18 @@ class _JsonValueState extends State<_JsonValue> {
                     : SizeableTextButton(
                         height: 34,
                         onPressed: () async {
+                          if (!mounted) return;
                           setState(() => _copied = true);
                           await Clipboard.setData(
                             ClipboardData(text: widget.value.toString()),
                           );
                           Future.delayed(
                             const Duration(seconds: 2),
-                            () => setState(() => _copied = false),
+                            () {
+                              if (mounted) {
+                                setState(() => _copied = false);
+                              }
+                            },
                           );
                         },
                         text: Localization.strings['copy']!,

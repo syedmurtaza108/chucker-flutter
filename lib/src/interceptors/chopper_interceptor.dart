@@ -19,8 +19,10 @@ class ChuckerChopperInterceptor implements Interceptor {
     try {
       final body = utf8.decode(response.bodyBytes);
       responseBody = jsonDecode(body);
-      // ignore: empty_catches
-    } catch (e) {}
+    } catch (e) {
+      // Response is not JSON, store as string
+      responseBody = utf8.decode(response.bodyBytes, allowMalformed: true);
+    }
 
     await SharedPreferencesManager.getInstance().addApiResponse(
       ApiResponse(
@@ -80,8 +82,10 @@ class ChuckerChopperInterceptor implements Interceptor {
   dynamic _getRequestBody(http.Request request) {
     try {
       return jsonDecode(request.body);
-      // ignore: empty_catches
-    } catch (e) {}
+    } catch (e) {
+      // Request body is not JSON, return as string
+      return request.body;
+    }
   }
 
   dynamic _separateFileObjects(http.MultipartRequest? request) {
