@@ -94,7 +94,7 @@ class _FilterButtonsState extends State<FilterButtons> {
   }
 }
 
-class _SearchField extends StatelessWidget {
+class _SearchField extends StatefulWidget {
   const _SearchField({
     required this.onSearch,
     required this.query,
@@ -104,14 +104,33 @@ class _SearchField extends StatelessWidget {
   final String query;
 
   @override
+  State<_SearchField> createState() => _SearchFieldState();
+}
+
+class _SearchFieldState extends State<_SearchField> {
+  late final TextEditingController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = TextEditingController()
+      ..text = widget.query
+      ..selection = TextSelection.fromPosition(
+        TextPosition(offset: widget.query.length),
+      );
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return TextField(
       key: const ValueKey('search_field'),
-      controller: TextEditingController()
-        ..text = query
-        ..selection = TextSelection.fromPosition(
-          TextPosition(offset: query.length),
-        ),
+      controller: _controller,
       decoration: const InputDecoration(
         contentPadding: EdgeInsets.symmetric(horizontal: 8),
         border: OutlineInputBorder(
@@ -128,7 +147,7 @@ class _SearchField extends StatelessWidget {
         ),
         hintText: 'Base url, status code, date',
       ),
-      onChanged: onSearch,
+      onChanged: widget.onSearch,
     );
   }
 }
