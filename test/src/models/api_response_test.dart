@@ -158,4 +158,100 @@ void main() {
     final mockedResponse = getMockedResponse().copyWith(requestTime: now);
     expect(mockedResponse.hashCode, now.millisecondsSinceEpoch);
   });
+
+  test('should handle null values in optional fields', () {
+    final response = ApiResponse.mock().copyWith(
+      body: null,
+      contentType: null,
+      responseType: null,
+    );
+
+    expect(response.body, null);
+    expect(response.contentType, null);
+    expect(response.responseType, null);
+  });
+
+  test('should handle empty maps and lists', () {
+    final response = ApiResponse.mock().copyWith(
+      body: {},
+      headers: {},
+      responseHeaders: {},
+      queryParameters: {},
+      request: {},
+    );
+
+    expect(response.body, {});
+    expect(response.headers, {});
+    expect(response.responseHeaders, {});
+    expect(response.queryParameters, {});
+    expect(response.request, {});
+  });
+
+  test('should handle large status codes', () {
+    final response = ApiResponse.mock().copyWith(statusCode: 999);
+    expect(response.statusCode, 999);
+  });
+
+  test('should handle negative timeouts', () {
+    final response = ApiResponse.mock().copyWith(
+      connectionTimeout: -1,
+      receiveTimeout: -1,
+      sendTimeout: -1,
+    );
+
+    expect(response.connectionTimeout, -1);
+    expect(response.receiveTimeout, -1);
+    expect(response.sendTimeout, -1);
+  });
+
+  test('should handle very long paths and URLs', () {
+    const longPath = '/api/v1/very/long/path/with/many/segments/here';
+    const longUrl = 'https://very.long.subdomain.example.com';
+
+    final response = ApiResponse.mock().copyWith(
+      path: longPath,
+      baseUrl: longUrl,
+    );
+
+    expect(response.path, longPath);
+    expect(response.baseUrl, longUrl);
+  });
+
+  test('should preserve checked state in copyWith', () {
+    final response = ApiResponse.mock().copyWith(checked: true);
+    expect(response.checked, true);
+
+    final unchecked = response.copyWith(checked: false);
+    expect(unchecked.checked, false);
+  });
+
+  test('should handle different HTTP methods', () {
+    for (final method in ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'HEAD']) {
+      final response = ApiResponse.mock().copyWith(method: method);
+      expect(response.method, method);
+    }
+  });
+
+  test('should serialize and deserialize with special characters', () {
+    final response = ApiResponse.mock().copyWith(
+      path: '/api/users?name=John&age=30',
+      baseUrl: 'https://api.example.com',
+    );
+
+    final json = response.toJson();
+    final deserialized = ApiResponse.fromJson(json);
+
+    expect(deserialized.path, response.path);
+    expect(deserialized.baseUrl, response.baseUrl);
+  });
+
+  test('should handle zero request and response sizes', () {
+    final response = ApiResponse.mock().copyWith(
+      requestSize: 0.0,
+      responseSize: 0.0,
+    );
+
+    expect(response.requestSize, 0.0);
+    expect(response.responseSize, 0.0);
+  });
 }

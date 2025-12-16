@@ -45,4 +45,43 @@ void main() {
       );
     },
   );
+
+  test('isNotZero should handle large positive numbers', () {
+    expect(1000000.isNotZero, true);
+    expect(999999999.isNotZero, true);
+  });
+
+  test('isNotZero should handle large negative numbers', () {
+    expect((-1000000).isNotZero, true);
+    expect((-999999999).isNotZero, true);
+  });
+
+  test('isNotZero should handle very small numbers', () {
+    expect(0.0000001.isNotZero, true);
+    expect((-0.0000001).isNotZero, true);
+  });
+
+  test('isNotZero should handle double zero', () {
+    expect(0.0.isNotZero, false);
+    expect((-0.0).isNotZero, false);
+  });
+
+  testWidgets(
+    'textTheme should return text theme from current context',
+    (WidgetTester tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          theme: ThemeData(
+            textTheme: const TextTheme(
+              bodyLarge: TextStyle(fontSize: 20),
+            ),
+          ),
+          builder: (BuildContext context, _) {
+            expect(context.textTheme.bodyLarge!.fontSize, 20);
+            return const SizedBox.shrink();
+          },
+        ),
+      );
+    },
+  );
 }
