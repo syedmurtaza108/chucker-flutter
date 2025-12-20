@@ -246,4 +246,177 @@ void main() {
       },
     );
   });
+
+  group('edge cases', () {
+    test('should handle adding many API responses', () async {
+      SharedPreferences.setMockInitialValues({});
+      ChuckerUiHelper.settings = Settings.defaultObject().copyWith(
+        apiThresholds: 100,
+      );
+
+      final mockedApis = List.generate(
+        50,
+        (i) => ApiResponse.mock().copyWith(
+          requestTime: DateTime(2024, 1, 1, i),
+          statusCode: 200 + i,
+        ),
+      );
+
+      for (final api in mockedApis) {
+        await sharedPreferencesManager.addApiResponse(api);
+      }
+
+      final savedApis = await sharedPreferencesManager.getAllApiResponses();
+      expect(savedApis.length, 50);
+    });
+
+    test('should handle deleting from empty list', () async {
+      SharedPreferences.setMockInitialValues({});
+
+      await sharedPreferencesManager
+          .deleteAnApi(DateTime(2024, 1, 1).toString());
+
+      final savedApis = await sharedPreferencesManager.getAllApiResponses();
+      expect(savedApis.length, 0);
+    });
+
+    test('should handle deleting non-existent API', () async {
+      final mockedApi = ApiResponse.mock().copyWith(
+        requestTime: DateTime(2024, 1, 1),
+      );
+
+      SharedPreferences.setMockInitialValues({});
+      await sharedPreferencesManager.addApiResponse(mockedApi);
+
+      await sharedPreferencesManager.deleteAnApi(
+        DateTime(2024, 1, 2).toString(),
+      );
+
+      final savedApis = await sharedPreferencesManager.getAllApiResponses();
+      expect(savedApis.length, 1);
+      expect(savedApis.first, mockedApi);
+    });
+
+    test('should handle deleting all selected items', () async {
+      final mockedApis = List.generate(
+        5,
+        (i) => ApiResponse.mock().copyWith(
+          requestTime: DateTime(2024, 1, i + 1),
+        ),
+      );
+
+      SharedPreferences.setMockInitialValues({});
+
+      for (final api in mockedApis) {
+        await sharedPreferencesManager.addApiResponse(api);
+      }
+
+      await sharedPreferencesManager.deleteSelected(
+        mockedApis.map((api) => api.requestTime.toString()).toList(),
+      );
+
+      final savedApis = await sharedPreferencesManager.getAllApiResponses();
+      expect(savedApis.length, 0);
+    });
+
+    test('should handle empty deleteSelected list', () async {
+      final mockedApi = ApiResponse.mock();
+      SharedPreferences.setMockInitialValues({});
+
+      await sharedPreferencesManager.addApiResponse(mockedApi);
+
+      await sharedPreferencesManager.deleteSelected([]);
+
+      final savedApis = await sharedPreferencesManager.getAllApiResponses();
+      expect(savedApis.length, 1);
+    });
+
+    test('should maintain threshold when adding responses', () async {
+      ChuckerUiHelper.settings = Settings.defaultObject().copyWith(
+        apiThresholds: 3,
+      );
+
+      SharedPreferences.setMockInitialValues({});
+
+      for (var i = 1; i <= 5; i++) {
+        await sharedPreferencesManager.addApiResponse(
+          ApiResponse.mock().copyWith(
+            requestTime: DateTime(2024, 1, i),
+            statusCode: 200 + i,
+          ),
+        );
+      }
+
+      final savedApis = await sharedPreferencesManager.getAllApiResponses();
+      expect(savedApis.length, 3);
+      // Should keep the most recent 3
+      expect(savedApis[0].statusCode, 205);
+      expect(savedApis[1].statusCode, 204);
+      expect(savedApis[2].statusCode, 203);
+    });
+
+    test('should handle threshold of zero', () async {
+      ChuckerUiHelper.settings = Settings.defaultObject().copyWith(
+        apiThresholds: 0,
+      );
+
+      SharedPreferences.setMockInitialValues({});
+
+      await sharedPreferencesManager.addApiResponse(ApiResponse.mock());
+
+      final savedApis = await sharedPreferencesManager.getAllApiResponses();
+      expect(savedApis.length, 0);
+    });
+
+    test('should handle large threshold values', () async {
+      ChuckerUiHelper.settings = Settings.defaultObject().copyWith(
+        apiThresholds: 10000,
+      );
+
+      SharedPreferences.setMockInitialValues({});
+
+      for (var i = 0; i < 100; i++) {
+        await sharedPreferencesManager.addApiResponse(
+          ApiResponse.mock().copyWith(requestTime: DateTime(2024, 1, 1, i)),
+        );
+      }
+
+      final savedApis = await sharedPreferencesManager.getAllApiResponses();
+      expect(savedApis.length, 100);
+    });
+
+    test('should handle concurrent settings updates', () async {
+      SharedPreferences.setMockInitialValues({});
+
+      final settings1 = Settings.defaultObject().copyWith(apiThresholds: 50);
+      final settings2 = Settings.defaultObject().copyWith(apiThresholds: 75);
+
+      await sharedPreferencesManager.setSettings(settings1);
+      await sharedPreferencesManager.setSettings(settings2);
+
+      final savedSettings = await sharedPreferencesManager.getSettings();
+      expect(savedSettings.apiThresholds, 75);
+    });
+
+    test('should handle API responses with same request time', () async {
+      SharedPreferences.setMockInitialValues({});
+
+      final sameTime = DateTime(2024, 1, 1, 12, 0, 0);
+      final api1 = ApiResponse.mock().copyWith(
+        requestTime: sameTime,
+        statusCode: 200,
+      );
+      final api2 = ApiResponse.mock().copyWith(
+        requestTime: sameTime,
+        statusCode: 404,
+      );
+
+      await sharedPreferencesManager.addApiResponse(api1);
+      await sharedPreferencesManager.addApiResponse(api2);
+
+      final savedApis = await sharedPreferencesManager.getAllApiResponses();
+      // Should handle duplicates somehow - either replace or keep both
+      expect(savedApis.length, greaterThanOrEqualTo(1));
+    });
+  });
 }

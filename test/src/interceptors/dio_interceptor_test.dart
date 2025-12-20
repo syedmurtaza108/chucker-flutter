@@ -112,4 +112,111 @@ void main() {
 
     expect(responses.first.prettyJsonRequest, prettyJson);
   });
+
+  test('Should handle multiple concurrent requests', () async {
+    SharedPreferences.setMockInitialValues({});
+
+    await Future.wait([
+      dio.get<dynamic>(successPath),
+      dio.get<dynamic>(successPath),
+      dio.get<dynamic>(successPath),
+    ]);
+
+    final responses = await sharedPreferencesManager.getAllApiResponses();
+    expect(responses.length, 3);
+  });
+
+  test('Should handle different HTTP methods', () async {
+    SharedPreferences.setMockInitialValues({});
+
+    dioAdapter
+      ..onPut('/test', (s) => s.reply(200, {'status': 'updated'}))
+      ..onDelete('/test', (s) => s.reply(200, {'status': 'deleted'}))
+      ..onPatch('/test', (s) => s.reply(200, {'status': 'patched'}));
+
+    await dio.put<dynamic>('/test');
+    await dio.delete<dynamic>('/test');
+    await dio.patch<dynamic>('/test');
+
+    final responses = await sharedPreferencesManager.getAllApiResponses();
+    expect(responses.length, 3);
+    expect(responses.any((r) => r.method == 'PUT'), true);
+    expect(responses.any((r) => r.method == 'DELETE'), true);
+    expect(responses.any((r) => r.method == 'PATCH'), true);
+  });
+
+  test('Should handle request with headers', () async {
+    SharedPreferences.setMockInitialValues({});
+
+    await dio.get<dynamic>(
+      successPath,
+      options: Options(
+        headers: {'Authorization': 'Bearer token123'},
+      ),
+    );
+
+    final responses = await sharedPreferencesManager.getAllApiResponses();
+    expect(responses.length, 1);
+    expect(responses.first.headers.containsKey('Authorization'), true);
+  });
+
+  test('Should handle request with query parameters', () async {
+    SharedPreferences.setMockInitialValues({});
+
+    dioAdapter.onGet(
+      '/test',
+      (s) => s.reply(200, {'result': 'ok'}),
+      queryParameters: {'page': '1', 'limit': '10'},
+    );
+
+    await dio.get<dynamic>(
+      '/test',
+      queryParameters: {'page': '1', 'limit': '10'},
+    );
+
+    final responses = await sharedPreferencesManager.getAllApiResponses();
+    expect(responses.length, 1);
+  });
+
+  test('Should handle empty response body', () async {
+    SharedPreferences.setMockInitialValues({});
+
+    dioAdapter.onGet('/empty', (s) => s.reply(204, null));
+
+    await dio.get<dynamic>('/empty');
+
+    final responses = await sharedPreferencesManager.getAllApiResponses();
+    expect(responses.length, 1);
+    expect(responses.first.statusCode, 204);
+  });
+
+  test('Should handle different status codes', () async {
+    SharedPreferences.setMockInitialValues({});
+
+    dioAdapter
+      ..onGet('/created', (s) => s.reply(201, {'id': 1}))
+      ..onGet('/notfound', (s) => s.reply(404, {'error': 'not found'}))
+      ..onGet('/servererror',
+          (s) => s.reply(500, {'error': 'server error'}));
+
+    await dio.get<dynamic>('/created');
+    
+    try {
+      await dio.get<dynamic>('/notfound');
+    } catch (e) {
+      // Expected error
+    }
+    
+    try {
+      await dio.get<dynamic>('/servererror');
+    } catch (e) {
+      // Expected error
+    }
+
+    final responses = await sharedPreferencesManager.getAllApiResponses();
+    expect(responses.length, 3);
+    expect(responses.any((r) => r.statusCode == 201), true);
+    expect(responses.any((r) => r.statusCode == 404), true);
+    expect(responses.any((r) => r.statusCode == 500), true);
+  });
 }

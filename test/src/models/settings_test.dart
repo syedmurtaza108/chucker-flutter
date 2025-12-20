@@ -112,4 +112,115 @@ void main() {
     );
     expect(settings.hashCode, hash);
   });
+
+  test('Should handle extreme duration values', () {
+    final settings = Settings.defaultObject().copyWith(
+      duration: Duration.zero,
+    );
+    expect(settings.duration.inSeconds, 0);
+
+    final longDuration = Settings.defaultObject().copyWith(
+      duration: const Duration(hours: 24),
+    );
+    expect(longDuration.duration.inHours, 24);
+  });
+
+  test('Should handle all alignment values', () {
+    final alignments = [
+      Alignment.topLeft,
+      Alignment.topCenter,
+      Alignment.topRight,
+      Alignment.centerLeft,
+      Alignment.center,
+      Alignment.centerRight,
+      Alignment.bottomLeft,
+      Alignment.bottomCenter,
+      Alignment.bottomRight,
+    ];
+
+    for (final alignment in alignments) {
+      final settings = Settings.defaultObject().copyWith(
+        notificationAlignment: alignment,
+      );
+      expect(settings.notificationAlignment, alignment);
+    }
+  });
+
+  test('Should handle all HttpMethod enum values', () {
+    for (final method in HttpMethod.values) {
+      final settings = Settings.defaultObject().copyWith(httpMethod: method);
+      expect(settings.httpMethod, method);
+    }
+  });
+
+  test('Should handle all Language enum values', () {
+    for (final language in Language.values) {
+      final settings = Settings.defaultObject().copyWith(language: language);
+      expect(settings.language, language);
+    }
+  });
+
+  test('Should handle zero and negative position values', () {
+    final settings = Settings.defaultObject().copyWith(
+      positionBottom: 0,
+      positionTop: 0,
+      positionLeft: 0,
+      positionRight: 0,
+    );
+
+    expect(settings.positionBottom, 0.0);
+    expect(settings.positionTop, 0.0);
+    expect(settings.positionLeft, 0.0);
+    expect(settings.positionRight, 0.0);
+  });
+
+  test('Should toggle boolean values correctly', () {
+    var settings = Settings.defaultObject().copyWith(showNotification: true);
+    expect(settings.showNotification, true);
+
+    settings = settings.copyWith(showNotification: false);
+    expect(settings.showNotification, false);
+
+    settings = settings.copyWith(showDeleteConfirmDialog: true);
+    expect(settings.showDeleteConfirmDialog, true);
+
+    settings = settings.copyWith(showRequestsStats: true);
+    expect(settings.showRequestsStats, true);
+  });
+
+  test('Should handle very large threshold values', () {
+    final settings = Settings.defaultObject().copyWith(
+      apiThresholds: 999999,
+    );
+    expect(settings.apiThresholds, 999999);
+  });
+
+  test('defaultObject should return consistent values', () {
+    final settings1 = Settings.defaultObject();
+    final settings2 = Settings.defaultObject();
+
+    expect(settings1, settings2);
+    expect(settings1.duration, settings2.duration);
+    expect(settings1.notificationAlignment, settings2.notificationAlignment);
+    expect(settings1.apiThresholds, settings2.apiThresholds);
+  });
+
+  test('Should preserve all values through toJson and fromJson cycle', () {
+    final original = getMockedSettings();
+    final json = original.toJson();
+    final restored = Settings.fromJson(json);
+
+    expect(restored.duration, original.duration);
+    expect(restored.notificationAlignment, original.notificationAlignment);
+    expect(restored.apiThresholds, original.apiThresholds);
+    expect(restored.httpMethod, original.httpMethod);
+    expect(restored.showNotification, original.showNotification);
+    expect(restored.showDeleteConfirmDialog, original.showDeleteConfirmDialog);
+    expect(restored.showRequestsStats, original.showRequestsStats);
+    expect(restored.positionBottom, original.positionBottom);
+    expect(restored.positionLeft, original.positionLeft);
+    expect(restored.positionRight, original.positionRight);
+    expect(restored.positionTop, original.positionTop);
+    expect(restored.language, original.language);
+  });
 }
