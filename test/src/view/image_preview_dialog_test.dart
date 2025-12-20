@@ -8,7 +8,7 @@ void main() {
   group('ImagePreviewDialog', () {
     Widget buildTestWidget(String imagePath) {
       return MaterialApp(
-        localizationsDelegates: [
+        localizationsDelegates: const [
           ...Localization.localizationsDelegates,
         ],
         supportedLocales: Localization.supportedLocales,
@@ -73,7 +73,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           localizationsDelegates: const [
-            Localization.delegate,
+            ...Localization.localizationsDelegates,
             GlobalMaterialLocalizations.delegate,
             GlobalWidgetsLocalizations.delegate,
           ],
@@ -129,7 +129,9 @@ void main() {
       final sizedBox = tester.widget<SizedBox>(
         find.descendant(
           of: find.byType(AlertDialog),
-          matching: find.byType(SizedBox),
+          matching: find.byWidgetPredicate(
+            (widget) => widget is SizedBox && widget.child is Stack,
+          ),
         ),
       );
 

@@ -194,10 +194,10 @@ void main() {
     SharedPreferences.setMockInitialValues({});
 
     await chopperClient.get<dynamic, dynamic>(
-        Uri.parse(successPath)); // 200
+        Uri.parse(successPath),); // 200
     await chopperClient.get<dynamic, dynamic>(Uri.parse(failPath)); // 400
     await chopperClient.get<dynamic, dynamic>(
-        Uri.parse(internalErrorPath)); // 500
+        Uri.parse(internalErrorPath),); // 500
 
     final responses = await sharedPreferencesManager.getAllApiResponses();
     expect(responses.length, 3);

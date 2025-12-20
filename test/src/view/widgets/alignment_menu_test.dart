@@ -13,7 +13,7 @@ void main() {
             body: AlignmentMenu(
               notificationAlignment: Alignment.center,
               title: title,
-              onSelect: (alignment) => selectedAlignment = alignment,
+              onSelect: (alignment) {},
             ),
           ),
         ),

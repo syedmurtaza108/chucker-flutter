@@ -197,7 +197,7 @@ void main() {
       ..onGet('/created', (s) => s.reply(201, {'id': 1}))
       ..onGet('/notfound', (s) => s.reply(404, {'error': 'not found'}))
       ..onGet('/servererror',
-          (s) => s.reply(500, {'error': 'server error'}));
+          (s) => s.reply(500, {'error': 'server error'}),);
 
     await dio.get<dynamic>('/created');
     

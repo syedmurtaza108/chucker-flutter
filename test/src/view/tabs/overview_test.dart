@@ -2,14 +2,13 @@ import 'package:chucker_flutter/src/localization/localization.dart';
 import 'package:chucker_flutter/src/models/api_response.dart';
 import 'package:chucker_flutter/src/view/tabs/overview.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   group('OverviewTabView', () {
     Widget buildTestWidget(ApiResponse api) {
       return MaterialApp(
-        localizationsDelegates: [
+        localizationsDelegates: const [
           ...Localization.localizationsDelegates,
         ],
         supportedLocales: Localization.supportedLocales,
@@ -99,8 +98,7 @@ void main() {
       expect(find.text(headers.toString()), findsOneWidget);
     });
 
-    testWidgets('should display Query Parameters',
-        (WidgetTester tester) async {
+    testWidgets('should display Query Parameters', (WidgetTester tester) async {
       const queryParams = {'page': '1', 'limit': '10'};
       final api = ApiResponse.mock().copyWith(queryParameters: queryParams);
       await tester.pumpWidget(buildTestWidget(api));
@@ -183,8 +181,7 @@ void main() {
       expect(find.text('$timeout ms'), findsOneWidget);
     });
 
-    testWidgets('should display Response Headers',
-        (WidgetTester tester) async {
+    testWidgets('should display Response Headers', (WidgetTester tester) async {
       const responseHeaders = {'Server': 'nginx'};
       final api = ApiResponse.mock().copyWith(responseHeaders: responseHeaders);
       await tester.pumpWidget(buildTestWidget(api));
