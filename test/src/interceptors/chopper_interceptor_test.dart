@@ -128,4 +128,137 @@ void main() {
 
     expect(responses.first.prettyJsonRequest, prettyJson);
   });
+
+  test('Should handle PUT requests', () async {
+    SharedPreferences.setMockInitialValues({});
+    
+    await chopperClient.put<dynamic, dynamic>(
+      Uri.parse(successPath),
+      body: jsonEncode({'status': 'updated'}),
+    );
+
+    final responses = await sharedPreferencesManager.getAllApiResponses();
+    expect(responses.length, 1);
+    expect(responses.first.method, 'PUT');
+  });
+
+  test('Should handle DELETE requests', () async {
+    SharedPreferences.setMockInitialValues({});
+    
+    await chopperClient.delete<dynamic, dynamic>(Uri.parse(successPath));
+
+    final responses = await sharedPreferencesManager.getAllApiResponses();
+    expect(responses.length, 1);
+    expect(responses.first.method, 'DELETE');
+  });
+
+  test('Should handle PATCH requests', () async {
+    SharedPreferences.setMockInitialValues({});
+    
+    await chopperClient.patch<dynamic, dynamic>(
+      Uri.parse(successPath),
+      body: jsonEncode({'status': 'patched'}),
+    );
+
+    final responses = await sharedPreferencesManager.getAllApiResponses();
+    expect(responses.length, 1);
+    expect(responses.first.method, 'PATCH');
+  });
+
+  test('Should handle multiple concurrent requests', () async {
+    SharedPreferences.setMockInitialValues({});
+
+    await Future.wait([
+      chopperClient.get<dynamic, dynamic>(Uri.parse(successPath)),
+      chopperClient.get<dynamic, dynamic>(Uri.parse(successPath)),
+      chopperClient.get<dynamic, dynamic>(Uri.parse(successPath)),
+    ]);
+
+    final responses = await sharedPreferencesManager.getAllApiResponses();
+    expect(responses.length, 3);
+  });
+
+  test('Should handle requests with headers', () async {
+    SharedPreferences.setMockInitialValues({});
+
+    await chopperClient.get<dynamic, dynamic>(
+      Uri.parse(successPath),
+      headers: {'Authorization': 'Bearer token123'},
+    );
+
+    final responses = await sharedPreferencesManager.getAllApiResponses();
+    expect(responses.length, 1);
+  });
+
+  test('Should handle different status codes', () async {
+    SharedPreferences.setMockInitialValues({});
+
+    await chopperClient.get<dynamic, dynamic>(
+        Uri.parse(successPath)); // 200
+    await chopperClient.get<dynamic, dynamic>(Uri.parse(failPath)); // 400
+    await chopperClient.get<dynamic, dynamic>(
+        Uri.parse(internalErrorPath)); // 500
+
+    final responses = await sharedPreferencesManager.getAllApiResponses();
+    expect(responses.length, 3);
+    expect(responses.any((r) => r.statusCode == 200), true);
+    expect(responses.any((r) => r.statusCode == 400), true);
+    expect(responses.any((r) => r.statusCode == 500), true);
+  });
+
+  test('Should handle empty request body', () async {
+    SharedPreferences.setMockInitialValues({});
+
+    await chopperClient.post<dynamic, dynamic>(
+      Uri.parse(successPath),
+    );
+
+    final responses = await sharedPreferencesManager.getAllApiResponses();
+    expect(responses.length, 1);
+  });
+
+  test('Should handle complex JSON request body', () async {
+    SharedPreferences.setMockInitialValues({});
+
+    final complexRequest = {
+      'user': {
+        'name': 'John Doe',
+        'age': 30,
+        'address': {
+          'street': '123 Main St',
+          'city': 'New York',
+        },
+        'hobbies': ['reading', 'coding'],
+      },
+    };
+
+    await chopperClient.post<dynamic, dynamic>(
+      Uri.parse(successPath),
+      body: jsonEncode(complexRequest),
+    );
+
+    final responses = await sharedPreferencesManager.getAllApiResponses();
+    expect(responses.length, 1);
+    expect(responses.first.prettyJsonRequest, isNotEmpty);
+  });
+
+  test('Should store base URL correctly', () async {
+    SharedPreferences.setMockInitialValues({});
+
+    await chopperClient.get<dynamic, dynamic>(Uri.parse(successPath));
+
+    final responses = await sharedPreferencesManager.getAllApiResponses();
+    expect(responses.length, 1);
+    expect(responses.first.baseUrl, baseUrl);
+  });
+
+  test('Should store path correctly', () async {
+    SharedPreferences.setMockInitialValues({});
+
+    await chopperClient.get<dynamic, dynamic>(Uri.parse(successPath));
+
+    final responses = await sharedPreferencesManager.getAllApiResponses();
+    expect(responses.length, 1);
+    expect(responses.first.path, successPath);
+  });
 }

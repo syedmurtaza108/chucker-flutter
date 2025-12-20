@@ -26,9 +26,9 @@
 
 An HTTP requests inspector inspired by <a href="https://github.com/ChuckerTeam/chucker">Chucker Android</a>
 
-Chucker Flutter inspects the **HTTP(S) requests/responses** triggered by your Flutter App. It works as an **Interceptor** and stores data relatated to network requests and responses on local storage, and providing a UI for inspecting and sharing their content.
+Chucker Flutter inspects the **HTTP(S) requests/responses** triggered by your Flutter App. It works as an **Interceptor** and stores data related to network requests and responses on local storage, and providing a UI for inspecting and sharing their content.
 
-Flutter Apps, using Chucker Flutter, show in-app **notifications** which tell the status (e.g. 200, 400, 500 and so) and requested url and upon clicking on details button it navigates to Chucker Flutter main screen. You cannot manipulate Chucker Flutter behaviour using its setting by navigating to Settings page from the menu button of Chucker Flutter main page.
+Flutter Apps, using Chucker Flutter, show in-app **notifications** which tell the status (e.g. 200, 400, 500 and so) and requested url and upon clicking on details button it navigates to Chucker Flutter main screen. You can manipulate Chucker Flutter behaviour using its setting by navigating to Settings page from the menu button of Chucker Flutter main page.
 
 <p align="center">
   <img src="https://user-images.githubusercontent.com/44249868/174470855-17383d2d-914f-4e4c-80fc-4bd52a4cdd61.gif" alt="chucker http sample" width="50%"/>
