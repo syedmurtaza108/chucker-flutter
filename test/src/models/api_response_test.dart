@@ -162,8 +162,6 @@ void main() {
   test('should handle null values in optional fields', () {
     final response = ApiResponse.mock().copyWith(
       body: null,
-      contentType: null,
-      responseType: null,
     );
 
     expect(response.body, null);
@@ -173,11 +171,11 @@ void main() {
 
   test('should handle empty maps and lists', () {
     final response = ApiResponse.mock().copyWith(
-      body: {},
-      headers: {},
-      responseHeaders: {},
-      queryParameters: {},
-      request: {},
+      body: <String, dynamic>{},
+      headers: <String, dynamic>{},
+      responseHeaders: <String, dynamic>{},
+      queryParameters: <String, dynamic>{},
+      request: <String, dynamic>{},
     );
 
     expect(response.body, {});
@@ -247,8 +245,8 @@ void main() {
 
   test('should handle zero request and response sizes', () {
     final response = ApiResponse.mock().copyWith(
-      requestSize: 0.0,
-      responseSize: 0.0,
+      requestSize: 0,
+      responseSize: 0,
     );
 
     expect(response.requestSize, 0.0);

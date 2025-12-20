@@ -12,10 +12,8 @@ void main() {
       required void Function(HttpMethod) onFilter,
     }) {
       return MaterialApp(
-        localizationsDelegates: const [
-          Localization.delegate,
-          GlobalMaterialLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate,
+        localizationsDelegates: [
+          ...Localization.localizationsDelegates,
         ],
         supportedLocales: Localization.supportedLocales,
         home: Scaffold(
@@ -178,7 +176,7 @@ void main() {
         ),
       );
 
-      final decoration = container.decoration as BoxDecoration;
+      final decoration = container.decoration! as BoxDecoration;
       expect(decoration.borderRadius, BorderRadius.circular(8));
     });
 
@@ -189,7 +187,7 @@ void main() {
       await tester.pumpWidget(
         buildTestWidget(
           httpMethod: HttpMethod.get,
-          onFilter: (method) => selectedMethods.add(method),
+          onFilter: selectedMethods.add,
         ),
       );
 

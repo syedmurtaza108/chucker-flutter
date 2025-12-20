@@ -8,10 +8,8 @@ void main() {
   group('ImagePreviewDialog', () {
     Widget buildTestWidget(String imagePath) {
       return MaterialApp(
-        localizationsDelegates: const [
-          Localization.delegate,
-          GlobalMaterialLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate,
+        localizationsDelegates: [
+          ...Localization.localizationsDelegates,
         ],
         supportedLocales: Localization.supportedLocales,
         home: Scaffold(
@@ -36,7 +34,7 @@ void main() {
       await tester.pumpWidget(buildTestWidget('https://example.com/image.png'));
 
       final alertDialog = tester.widget<AlertDialog>(find.byType(AlertDialog));
-      final shape = alertDialog.shape as RoundedRectangleBorder;
+      final shape = alertDialog.shape! as RoundedRectangleBorder;
       expect(shape.borderRadius, BorderRadius.circular(12));
     });
 
@@ -135,8 +133,8 @@ void main() {
         ),
       );
 
-      final screenSize = tester.binding.window.physicalSize /
-          tester.binding.window.devicePixelRatio;
+      final view = tester.view;
+      final screenSize = view.physicalSize / view.devicePixelRatio;
       expect(sizedBox.height, screenSize.height);
       expect(sizedBox.width, screenSize.width);
     });

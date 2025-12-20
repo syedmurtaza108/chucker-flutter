@@ -115,7 +115,7 @@ void main() {
 
   test('Should handle extreme duration values', () {
     final settings = Settings.defaultObject().copyWith(
-      duration: const Duration(seconds: 0),
+      duration: Duration.zero,
     );
     expect(settings.duration.inSeconds, 0);
 
@@ -162,10 +162,10 @@ void main() {
 
   test('Should handle zero and negative position values', () {
     final settings = Settings.defaultObject().copyWith(
-      positionBottom: 0.0,
-      positionTop: 0.0,
-      positionLeft: 0.0,
-      positionRight: 0.0,
+      positionBottom: 0,
+      positionTop: 0,
+      positionLeft: 0,
+      positionRight: 0,
     );
 
     expect(settings.positionBottom, 0.0);

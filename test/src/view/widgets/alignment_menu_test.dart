@@ -6,7 +6,6 @@ void main() {
   group('AlignmentMenu', () {
     testWidgets('should display title correctly', (WidgetTester tester) async {
       const title = 'Select Alignment';
-      Alignment? selectedAlignment;
 
       await tester.pumpWidget(
         MaterialApp(
@@ -164,7 +163,7 @@ void main() {
             body: AlignmentMenu(
               notificationAlignment: Alignment.center,
               title: 'Alignment',
-              onSelect: (alignment) => selectedAlignments.add(alignment),
+              onSelect: selectedAlignments.add,
             ),
           ),
         ),

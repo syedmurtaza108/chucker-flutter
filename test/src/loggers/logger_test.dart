@@ -48,7 +48,8 @@ void main() {
     });
 
     test('should handle nested json objects', () {
-      const nestedJson = '{"user": {"name": "John", "address": {"city": "NYC"}}}';
+      const nestedJson =
+          '{"user": {"name": "John", "address": {"city": "NYC"}}}';
       
       expect(() => Logger.json(nestedJson), returnsNormally);
     });

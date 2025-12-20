@@ -273,7 +273,8 @@ void main() {
     test('should handle deleting from empty list', () async {
       SharedPreferences.setMockInitialValues({});
 
-      await sharedPreferencesManager.deleteAnApi(DateTime(2024, 1, 1).toString());
+      await sharedPreferencesManager
+          .deleteAnApi(DateTime(2024, 1, 1).toString());
 
       final savedApis = await sharedPreferencesManager.getAllApiResponses();
       expect(savedApis.length, 0);

@@ -7,23 +7,21 @@ import 'package:flutter_test/flutter_test.dart';
 void main() {
   group('ApisListingItemWidget', () {
     Widget buildTestWidget({
+      required void Function(String) onDelete,
+      required void Function(String) onChecked,
+      required VoidCallback onPressed,
       String baseUrl = 'https://api.example.com',
       DateTime? dateTime,
       String method = 'GET',
       String path = '/users',
       int statusCode = 200,
-      required void Function(String) onDelete,
       bool checked = false,
-      required void Function(String) onChecked,
       bool showDelete = true,
-      required VoidCallback onPressed,
       dynamic request,
     }) {
       return MaterialApp(
-        localizationsDelegates: const [
-          Localization.delegate,
-          GlobalMaterialLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate,
+        localizationsDelegates: [
+          ...Localization.localizationsDelegates,
         ],
         supportedLocales: Localization.supportedLocales,
         home: Scaffold(
@@ -51,7 +49,7 @@ void main() {
           onDelete: (_) {},
           onChecked: (_) {},
           onPressed: () {},
-          request: {},
+          request: <String, dynamic>{},
         ),
       );
 
@@ -65,7 +63,7 @@ void main() {
           onDelete: (_) {},
           onChecked: (_) {},
           onPressed: () {},
-          request: {},
+          request: <String, dynamic>{},
         ),
       );
 
@@ -81,7 +79,7 @@ void main() {
           onDelete: (_) {},
           onChecked: (_) {},
           onPressed: () {},
-          request: {},
+          request: <String, dynamic>{},
         ),
       );
 
@@ -97,7 +95,7 @@ void main() {
           onDelete: (_) {},
           onChecked: (_) {},
           onPressed: () {},
-          request: {},
+          request: <String, dynamic>{},
         ),
       );
 
@@ -112,7 +110,7 @@ void main() {
           onDelete: (_) {},
           onChecked: (_) {},
           onPressed: () {},
-          request: {},
+          request: <String, dynamic>{},
         ),
       );
 
@@ -128,7 +126,7 @@ void main() {
           onDelete: (_) {},
           onChecked: (_) {},
           onPressed: () {},
-          request: {},
+          request: <String, dynamic>{},
         ),
       );
 
@@ -144,7 +142,7 @@ void main() {
           onDelete: (_) {},
           onChecked: (_) {},
           onPressed: () => pressed = true,
-          request: {},
+          request: <String, dynamic>{},
         ),
       );
 
@@ -165,8 +163,7 @@ void main() {
           onDelete: (id) => deletedId = id,
           onChecked: (_) {},
           onPressed: () {},
-          showDelete: true,
-          request: {},
+          request: <String, dynamic>{},
         ),
       );
 
@@ -187,8 +184,7 @@ void main() {
           onDelete: (_) {},
           onChecked: (id) => checkedId = id,
           onPressed: () {},
-          checked: false,
-          request: {},
+          request: <String, dynamic>{},
         ),
       );
 
@@ -205,8 +201,7 @@ void main() {
           onDelete: (_) {},
           onChecked: (_) {},
           onPressed: () {},
-          showDelete: true,
-          request: {},
+          request: <String, dynamic>{},
         ),
       );
 
@@ -221,7 +216,7 @@ void main() {
           onChecked: (_) {},
           onPressed: () {},
           showDelete: false,
-          request: {},
+          request: <String, dynamic>{},
         ),
       );
 
@@ -236,7 +231,7 @@ void main() {
           onChecked: (_) {},
           onPressed: () {},
           checked: true,
-          request: {},
+          request: <String, dynamic>{},
         ),
       );
 
@@ -251,8 +246,7 @@ void main() {
           onDelete: (_) {},
           onChecked: (_) {},
           onPressed: () {},
-          checked: false,
-          request: {},
+          request: <String, dynamic>{},
         ),
       );
 
@@ -299,7 +293,7 @@ void main() {
             onDelete: (_) {},
             onChecked: (_) {},
             onPressed: () {},
-            request: {},
+            request: <String, dynamic>{},
           ),
         );
 
@@ -316,7 +310,7 @@ void main() {
             onDelete: (_) {},
             onChecked: (_) {},
             onPressed: () {},
-            request: {},
+            request: <String, dynamic>{},
           ),
         );
 
@@ -331,7 +325,7 @@ void main() {
           onDelete: (_) {},
           onChecked: (_) {},
           onPressed: () {},
-          request: {},
+          request: <String, dynamic>{},
         ),
       );
 

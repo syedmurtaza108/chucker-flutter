@@ -193,9 +193,11 @@ void main() {
   test('Should handle different status codes', () async {
     SharedPreferences.setMockInitialValues({});
 
-    await chopperClient.get<dynamic, dynamic>(Uri.parse(successPath)); // 200
+    await chopperClient.get<dynamic, dynamic>(
+        Uri.parse(successPath)); // 200
     await chopperClient.get<dynamic, dynamic>(Uri.parse(failPath)); // 400
-    await chopperClient.get<dynamic, dynamic>(Uri.parse(internalErrorPath)); // 500
+    await chopperClient.get<dynamic, dynamic>(
+        Uri.parse(internalErrorPath)); // 500
 
     final responses = await sharedPreferencesManager.getAllApiResponses();
     expect(responses.length, 3);

@@ -147,7 +147,8 @@ void main() {
       expect(textWidget.style!.fontWeight, customStyle.fontWeight);
     });
 
-    testWidgets('should use default style with primary color when style is null',
+    testWidgets(
+        'should use default style with primary color when style is null',
         (WidgetTester tester) async {
       await tester.pumpWidget(
         MaterialApp(

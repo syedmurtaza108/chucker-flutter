@@ -9,10 +9,8 @@ void main() {
   group('OverviewTabView', () {
     Widget buildTestWidget(ApiResponse api) {
       return MaterialApp(
-        localizationsDelegates: const [
-          Localization.delegate,
-          GlobalMaterialLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate,
+        localizationsDelegates: [
+          ...Localization.localizationsDelegates,
         ],
         supportedLocales: Localization.supportedLocales,
         home: Scaffold(
@@ -122,7 +120,7 @@ void main() {
 
     testWidgets('should display N/A for null Content Type',
         (WidgetTester tester) async {
-      final api = ApiResponse.mock().copyWith(contentType: null);
+      final api = ApiResponse.mock().copyWith();
       await tester.pumpWidget(buildTestWidget(api));
 
       expect(find.text('Content Type'), findsOneWidget);

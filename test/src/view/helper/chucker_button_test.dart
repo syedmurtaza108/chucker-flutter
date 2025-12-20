@@ -5,7 +5,8 @@ import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   group('ChuckerButton', () {
-    testWidgets('should return singleton instance', (WidgetTester tester) async {
+    testWidgets('should return singleton instance',
+        (WidgetTester tester) async {
       final instance1 = ChuckerButton.getInstance();
       final instance2 = ChuckerButton.getInstance();
 

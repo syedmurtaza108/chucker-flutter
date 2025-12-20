@@ -21,8 +21,8 @@ void main() {
 
     testWidgets('should have correct preferredSize',
         (WidgetTester tester) async {
-      const appBar = ChuckerAppBar(
-        onBackPressed: null,
+      final appBar = ChuckerAppBar(
+        onBackPressed: () {},
       );
 
       expect(appBar.preferredSize, const Size.fromHeight(56));
@@ -143,8 +143,8 @@ void main() {
 
     testWidgets('should render as PreferredSizeWidget',
         (WidgetTester tester) async {
-      const appBar = ChuckerAppBar(
-        onBackPressed: null,
+      final appBar = ChuckerAppBar(
+        onBackPressed: () {},
       );
 
       expect(appBar, isA<PreferredSizeWidget>());
@@ -155,7 +155,7 @@ void main() {
         5,
         (index) => IconButton(
           key: ValueKey('action_$index'),
-          icon: Icon(Icons.star),
+          icon: const Icon(Icons.star),
           onPressed: () {},
         ),
       );

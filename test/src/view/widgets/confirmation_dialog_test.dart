@@ -13,10 +13,8 @@ void main() {
       Color? yesButtonForeColor,
     }) {
       return MaterialApp(
-        localizationsDelegates: const [
-          Localization.delegate,
-          GlobalMaterialLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate,
+        localizationsDelegates: [
+          ...Localization.localizationsDelegates,
         ],
         supportedLocales: Localization.supportedLocales,
         home: Builder(

@@ -129,9 +129,10 @@ void main() {
   test('Should handle different HTTP methods', () async {
     SharedPreferences.setMockInitialValues({});
 
-    dioAdapter.onPut('/test', (s) => s.reply(200, {'status': 'updated'}));
-    dioAdapter.onDelete('/test', (s) => s.reply(200, {'status': 'deleted'}));
-    dioAdapter.onPatch('/test', (s) => s.reply(200, {'status': 'patched'}));
+    dioAdapter
+      ..onPut('/test', (s) => s.reply(200, {'status': 'updated'}))
+      ..onDelete('/test', (s) => s.reply(200, {'status': 'deleted'}))
+      ..onPatch('/test', (s) => s.reply(200, {'status': 'patched'}));
 
     await dio.put<dynamic>('/test');
     await dio.delete<dynamic>('/test');
@@ -192,19 +193,25 @@ void main() {
   test('Should handle different status codes', () async {
     SharedPreferences.setMockInitialValues({});
 
-    dioAdapter.onGet('/created', (s) => s.reply(201, {'id': 1}));
-    dioAdapter.onGet('/notfound', (s) => s.reply(404, {'error': 'not found'}));
-    dioAdapter.onGet('/servererror', (s) => s.reply(500, {'error': 'server error'}));
+    dioAdapter
+      ..onGet('/created', (s) => s.reply(201, {'id': 1}))
+      ..onGet('/notfound', (s) => s.reply(404, {'error': 'not found'}))
+      ..onGet('/servererror',
+          (s) => s.reply(500, {'error': 'server error'}));
 
     await dio.get<dynamic>('/created');
     
     try {
       await dio.get<dynamic>('/notfound');
-    } catch (e) {}
+    } catch (e) {
+      // Expected error
+    }
     
     try {
       await dio.get<dynamic>('/servererror');
-    } catch (e) {}
+    } catch (e) {
+      // Expected error
+    }
 
     final responses = await sharedPreferencesManager.getAllApiResponses();
     expect(responses.length, 3);

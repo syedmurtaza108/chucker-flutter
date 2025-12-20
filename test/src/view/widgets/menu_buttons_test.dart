@@ -12,10 +12,8 @@ void main() {
       required VoidCallback onSettings,
     }) {
       return MaterialApp(
-        localizationsDelegates: const [
-          Localization.delegate,
-          GlobalMaterialLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate,
+        localizationsDelegates: [
+          ...Localization.localizationsDelegates,
         ],
         supportedLocales: Localization.supportedLocales,
         home: Scaffold(
@@ -113,7 +111,7 @@ void main() {
       await tester.tap(find.byType(PopupMenuButton<int>));
       await tester.pumpAndSettle();
 
-      final deleteMenuItem = tester.widget<PopupMenuItem>(
+      final deleteMenuItem = tester.widget<PopupMenuItem<int>>(
         find.byKey(const ValueKey('menu_delete')),
       );
 
@@ -133,7 +131,7 @@ void main() {
       await tester.tap(find.byType(PopupMenuButton<int>));
       await tester.pumpAndSettle();
 
-      final deleteMenuItem = tester.widget<PopupMenuItem>(
+      final deleteMenuItem = tester.widget<PopupMenuItem<int>>(
         find.byKey(const ValueKey('menu_delete')),
       );
 
@@ -154,7 +152,7 @@ void main() {
         await tester.tap(find.byType(PopupMenuButton<int>));
         await tester.pumpAndSettle();
 
-        final settingsMenuItem = tester.widget<PopupMenuItem>(
+        final settingsMenuItem = tester.widget<PopupMenuItem<int>>(
           find.byKey(const ValueKey('menu_settings')),
         );
 

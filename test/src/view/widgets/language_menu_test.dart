@@ -159,7 +159,7 @@ void main() {
         ),
       );
 
-      final decoration = container.decoration as BoxDecoration;
+      final decoration = container.decoration! as BoxDecoration;
       expect(decoration.borderRadius, BorderRadius.circular(8));
     });
 
@@ -172,7 +172,7 @@ void main() {
           home: Scaffold(
             body: LanguagesMenu(
               language: Language.english,
-              onSelect: (language) => selectedLanguages.add(language),
+              onSelect: selectedLanguages.add,
             ),
           ),
         ),
@@ -212,8 +212,8 @@ void main() {
       await tester.pumpAndSettle();
 
       // Verify the number of menu items matches Language enum values
-      final menuItems = tester.widgetList<PopupMenuItem>(
-        find.byType(PopupMenuItem),
+      final menuItems = tester.widgetList<PopupMenuItem<Language>>(
+        find.byType(PopupMenuItem<Language>),
       );
       expect(menuItems.length, Language.values.length);
     });
