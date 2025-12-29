@@ -8,7 +8,13 @@ import 'package:http/http.dart' as http;
 
 void main() {
   ChuckerFlutter.showOnRelease = true;
-  ChuckerFlutter.showNotification = false;
+  ChuckerFlutter.showNotification = true;
+  ChuckerFlutter.configure(
+    notificationAlignment: Alignment.topCenter,
+    offsetBegin: const Offset(0, -0.1),
+    offsetEnd: Offset.zero,
+  );
+
   runApp(const App());
 }
 

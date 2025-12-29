@@ -18,6 +18,8 @@ class Settings {
     required this.positionRight,
     required this.positionTop,
     required this.language,
+    required this.offsetBegin,
+    required this.offsetEnd,
   });
 
   ///Convert json to [Settings]
@@ -41,6 +43,8 @@ class Settings {
         positionRight: json['positionRight'] as double,
         positionTop: json['positionTop'] as double,
         language: Language.values[json['language'] as int],
+        offsetBegin: json['offsetBegin'] as Offset,
+        offsetEnd: json['offsetEnd'] as Offset,
       );
 
   ///Default object containing the default values for chucker settings
@@ -57,6 +61,8 @@ class Settings {
         positionRight: 0,
         positionTop: 0,
         language: Language.english,
+        offsetBegin: const Offset(0, 1.5),
+        offsetEnd: Offset.zero,
       );
 
   ///[duration] is the amount of time of making notification visible on screen.
@@ -107,6 +113,12 @@ class Settings {
   ///[language] used for localization
   final Language language;
 
+  ///[offsetBegin] used for animation show notification overlay
+  final Offset offsetBegin;
+
+  ///[offsetEnd] used for animation show notification overlay
+  final Offset offsetEnd;
+
   ///Convert [Settings] to json.
   Map<String, dynamic> toJson() {
     return {
@@ -125,6 +137,8 @@ class Settings {
       'showDeleteConfirmDialog': showDeleteConfirmDialog,
       'showNotification': showNotification,
       'showRequestsStats': showRequestsStats,
+      'offsetBegin': offsetBegin,
+      'offsetEnd': offsetEnd,
     };
   }
 
@@ -142,6 +156,8 @@ class Settings {
     bool? showNotification,
     bool? showDeleteConfirmDialog,
     Language? language,
+    Offset? offsetBegin,
+    Offset? offsetEnd,
   }) {
     return Settings(
       duration: duration ?? this.duration,
@@ -158,6 +174,8 @@ class Settings {
       positionRight: positionRight ?? this.positionRight,
       positionTop: positionTop ?? this.positionTop,
       language: language ?? this.language,
+      offsetBegin: offsetBegin ?? this.offsetBegin,
+      offsetEnd: offsetEnd ?? this.offsetEnd,
     );
   }
 
@@ -178,7 +196,9 @@ class Settings {
       other.positionTop == positionTop &&
       other.showDeleteConfirmDialog == showDeleteConfirmDialog &&
       other.showNotification == showNotification &&
-      other.showRequestsStats == showRequestsStats;
+      other.showRequestsStats == showRequestsStats &&
+      other.offsetBegin == offsetBegin &&
+      other.offsetEnd == offsetEnd;
 
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
@@ -195,5 +215,7 @@ class Settings {
         showDeleteConfirmDialog,
         showNotification,
         showRequestsStats,
+        offsetBegin,
+        offsetEnd,
       );
 }
