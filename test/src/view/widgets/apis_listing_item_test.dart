@@ -295,7 +295,10 @@ void main() {
           ),
         );
 
-        expect(find.text(method), findsOneWidget);
+        final widget = tester
+            .widget<Text>(find.byKey(const ValueKey('method_chip_label')));
+
+        expect(widget.data, method);
       }
     });
 

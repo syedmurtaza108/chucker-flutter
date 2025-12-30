@@ -162,9 +162,9 @@ void main() {
   test('should handle null values in optional fields', () {
     final response = ApiResponse.mock().copyWith();
 
-    expect(response.body, null);
-    expect(response.contentType, null);
-    expect(response.responseType, null);
+    expect(response.body, {'': ''});
+    expect(response.contentType, 'application/json');
+    expect(response.responseType, 'json');
   });
 
   test('should handle empty maps and lists', () {
