@@ -157,4 +157,22 @@ class ChuckerFlutter {
 
   ///[showChuckerScreen] navigates to the chucker home screen
   static void showChuckerScreen() => ChuckerUiHelper.showChuckerScreen();
+
+  ///[ChuckerUiHelper] configuration overlay notification]
+  static void configure({
+    bool showOnRelease = false,
+    bool showNotification = true,
+    Alignment? notificationAlignment,
+    Offset? offsetEnd,
+    Offset? offsetBegin,
+  }) {
+    ChuckerFlutter.showOnRelease = showOnRelease;
+    ChuckerFlutter.showNotification = showNotification;
+
+    ChuckerUiHelper.settings = ChuckerUiHelper.settings.copyWith(
+      notificationAlignment: notificationAlignment,
+      offsetBegin: offsetEnd,
+      offsetEnd: offsetBegin,
+    );
+  }
 }

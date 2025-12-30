@@ -7,8 +7,14 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 void main() {
-  ChuckerFlutter.showOnRelease = true;
-  ChuckerFlutter.showNotification = false;
+  ChuckerFlutter.configure(
+    showOnRelease: true,
+    showNotification: true,
+    notificationAlignment: Alignment.topCenter,
+    offsetBegin: const Offset(0, -0.1),
+    offsetEnd: Offset.zero,
+  );
+
   runApp(const App());
 }
 

@@ -18,6 +18,8 @@ void main() {
     const left = -1.0;
     const right = -1.0;
     const language = Language.urdu;
+    const offsetBegin = Offset(0, 1.5);
+    const offsetEnd = Offset.zero;
 
     final settings = Settings(
       duration: duration,
@@ -32,6 +34,8 @@ void main() {
       positionRight: right,
       positionTop: top,
       language: language,
+      offsetBegin: offsetBegin,
+      offsetEnd: offsetEnd,
     );
     return settings;
   }
@@ -57,6 +61,8 @@ void main() {
       positionRight: settings.positionRight,
       positionTop: settings.positionTop,
       language: settings.language,
+      offsetBegin: settings.offsetBegin,
+      offsetEnd: settings.offsetEnd,
     );
 
     expect(settings, newSettings);
@@ -80,6 +86,8 @@ void main() {
       'positionRight': settings.positionRight,
       'positionTop': settings.positionTop,
       'language': settings.language.index,
+      'offsetBegin': settings.offsetBegin,
+      'offsetEnd': settings.offsetEnd,
     };
     expect(json, settings.toJson());
   });
@@ -109,6 +117,8 @@ void main() {
       settings.showDeleteConfirmDialog,
       settings.showNotification,
       settings.showRequestsStats,
+      settings.offsetBegin,
+      settings.offsetEnd,
     );
     expect(settings.hashCode, hash);
   });
@@ -222,5 +232,7 @@ void main() {
     expect(restored.positionRight, original.positionRight);
     expect(restored.positionTop, original.positionTop);
     expect(restored.language, original.language);
+    expect(restored.offsetBegin, original.offsetBegin);
+    expect(restored.offsetEnd, original.offsetEnd);
   });
 }
