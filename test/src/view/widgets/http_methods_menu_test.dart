@@ -2,7 +2,6 @@ import 'package:chucker_flutter/src/localization/localization.dart';
 import 'package:chucker_flutter/src/view/helper/http_methods.dart';
 import 'package:chucker_flutter/src/view/widgets/http_methods_menu.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
@@ -12,7 +11,7 @@ void main() {
       required void Function(HttpMethod) onFilter,
     }) {
       return MaterialApp(
-        localizationsDelegates: [
+        localizationsDelegates: const [
           ...Localization.localizationsDelegates,
         ],
         supportedLocales: Localization.supportedLocales,

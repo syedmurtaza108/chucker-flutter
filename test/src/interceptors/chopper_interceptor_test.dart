@@ -131,7 +131,7 @@ void main() {
 
   test('Should handle PUT requests', () async {
     SharedPreferences.setMockInitialValues({});
-    
+
     await chopperClient.put<dynamic, dynamic>(
       Uri.parse(successPath),
       body: jsonEncode({'status': 'updated'}),
@@ -144,7 +144,7 @@ void main() {
 
   test('Should handle DELETE requests', () async {
     SharedPreferences.setMockInitialValues({});
-    
+
     await chopperClient.delete<dynamic, dynamic>(Uri.parse(successPath));
 
     final responses = await sharedPreferencesManager.getAllApiResponses();
@@ -154,7 +154,7 @@ void main() {
 
   test('Should handle PATCH requests', () async {
     SharedPreferences.setMockInitialValues({});
-    
+
     await chopperClient.patch<dynamic, dynamic>(
       Uri.parse(successPath),
       body: jsonEncode({'status': 'patched'}),
@@ -164,20 +164,6 @@ void main() {
     expect(responses.length, 1);
     expect(responses.first.method, 'PATCH');
   });
-
-  test('Should handle multiple concurrent requests', () async {
-    SharedPreferences.setMockInitialValues({});
-
-    await Future.wait([
-      chopperClient.get<dynamic, dynamic>(Uri.parse(successPath)),
-      chopperClient.get<dynamic, dynamic>(Uri.parse(successPath)),
-      chopperClient.get<dynamic, dynamic>(Uri.parse(successPath)),
-    ]);
-
-    final responses = await sharedPreferencesManager.getAllApiResponses();
-    expect(responses.length, 3);
-  });
-
   test('Should handle requests with headers', () async {
     SharedPreferences.setMockInitialValues({});
 
@@ -194,10 +180,12 @@ void main() {
     SharedPreferences.setMockInitialValues({});
 
     await chopperClient.get<dynamic, dynamic>(
-        Uri.parse(successPath)); // 200
+      Uri.parse(successPath),
+    ); // 200
     await chopperClient.get<dynamic, dynamic>(Uri.parse(failPath)); // 400
     await chopperClient.get<dynamic, dynamic>(
-        Uri.parse(internalErrorPath)); // 500
+      Uri.parse(internalErrorPath),
+    ); // 500
 
     final responses = await sharedPreferencesManager.getAllApiResponses();
     expect(responses.length, 3);

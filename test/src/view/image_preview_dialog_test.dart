@@ -8,7 +8,7 @@ void main() {
   group('ImagePreviewDialog', () {
     Widget buildTestWidget(String imagePath) {
       return MaterialApp(
-        localizationsDelegates: [
+        localizationsDelegates: const [
           ...Localization.localizationsDelegates,
         ],
         supportedLocales: Localization.supportedLocales,
@@ -73,7 +73,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           localizationsDelegates: const [
-            Localization.delegate,
+            ...Localization.localizationsDelegates,
             GlobalMaterialLocalizations.delegate,
             GlobalWidgetsLocalizations.delegate,
           ],
@@ -129,7 +129,9 @@ void main() {
       final sizedBox = tester.widget<SizedBox>(
         find.descendant(
           of: find.byType(AlertDialog),
-          matching: find.byType(SizedBox),
+          matching: find.byWidgetPredicate(
+            (widget) => widget is SizedBox && widget.child is Stack,
+          ),
         ),
       );
 
@@ -143,9 +145,13 @@ void main() {
         (WidgetTester tester) async {
       await tester.pumpWidget(buildTestWidget('https://example.com/image.png'));
 
-      expect(find.byType(Stack), findsOneWidget);
+      expect(
+        find.byKey(const Key('image_preview_dialog_stack')),
+        findsOneWidget,
+      );
 
-      final stack = tester.widget<Stack>(find.byType(Stack));
+      final stack = tester
+          .widget<Stack>(find.byKey(const Key('image_preview_dialog_stack')));
       expect(stack.children.length, 2);
     });
 
@@ -155,8 +161,9 @@ void main() {
 
       final align = tester.widget<Align>(
         find.ancestor(
-          of: find.byIcon(Icons.close),
-          matching: find.byType(Align),
+          of: find.byKey(const Key('image_preview_dialog_close_icon')),
+          matching:
+              find.byKey(const Key('image_preview_dialog_close_icon_align')),
         ),
       );
 

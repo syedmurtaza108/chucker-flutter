@@ -274,7 +274,7 @@ void main() {
       SharedPreferences.setMockInitialValues({});
 
       await sharedPreferencesManager
-          .deleteAnApi(DateTime(2024, 1, 1).toString());
+          .deleteAnApi(DateTime(2024).toString());
 
       final savedApis = await sharedPreferencesManager.getAllApiResponses();
       expect(savedApis.length, 0);
@@ -282,7 +282,7 @@ void main() {
 
     test('should handle deleting non-existent API', () async {
       final mockedApi = ApiResponse.mock().copyWith(
-        requestTime: DateTime(2024, 1, 1),
+        requestTime: DateTime(2024),
       );
 
       SharedPreferences.setMockInitialValues({});
@@ -401,7 +401,7 @@ void main() {
     test('should handle API responses with same request time', () async {
       SharedPreferences.setMockInitialValues({});
 
-      final sameTime = DateTime(2024, 1, 1, 12, 0, 0);
+      final sameTime = DateTime(2024, 1, 1, 12);
       final api1 = ApiResponse.mock().copyWith(
         requestTime: sameTime,
         statusCode: 200,

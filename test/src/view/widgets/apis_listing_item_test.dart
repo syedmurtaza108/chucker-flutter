@@ -1,7 +1,6 @@
 import 'package:chucker_flutter/src/localization/localization.dart';
 import 'package:chucker_flutter/src/view/widgets/apis_listing_item.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
@@ -20,14 +19,14 @@ void main() {
       dynamic request,
     }) {
       return MaterialApp(
-        localizationsDelegates: [
+        localizationsDelegates: const [
           ...Localization.localizationsDelegates,
         ],
         supportedLocales: Localization.supportedLocales,
         home: Scaffold(
           body: ApisListingItemWidget(
             baseUrl: baseUrl,
-            dateTime: dateTime ?? DateTime(2024, 1, 1),
+            dateTime: dateTime ?? DateTime(2024),
             method: method,
             path: path,
             statusCode: statusCode,
@@ -45,7 +44,6 @@ void main() {
     testWidgets('should display status code', (WidgetTester tester) async {
       await tester.pumpWidget(
         buildTestWidget(
-          statusCode: 200,
           onDelete: (_) {},
           onChecked: (_) {},
           onPressed: () {},
@@ -155,7 +153,7 @@ void main() {
     testWidgets('should call onDelete when delete button is tapped',
         (WidgetTester tester) async {
       String? deletedId;
-      final testDate = DateTime(2024, 1, 1);
+      final testDate = DateTime(2024);
 
       await tester.pumpWidget(
         buildTestWidget(
@@ -176,7 +174,7 @@ void main() {
     testWidgets('should call onChecked when checkbox is tapped',
         (WidgetTester tester) async {
       String? checkedId;
-      final testDate = DateTime(2024, 1, 1);
+      final testDate = DateTime(2024);
 
       await tester.pumpWidget(
         buildTestWidget(
@@ -297,7 +295,10 @@ void main() {
           ),
         );
 
-        expect(find.text(method), findsOneWidget);
+        final widget = tester
+            .widget<Text>(find.byKey(const ValueKey('method_chip_label')));
+
+        expect(widget.data, method);
       }
     });
 

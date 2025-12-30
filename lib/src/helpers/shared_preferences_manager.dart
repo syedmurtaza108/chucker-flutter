@@ -27,6 +27,9 @@ class SharedPreferencesManager {
 
   ///[addApiResponse] sets an API response to local disk
   Future<void> addApiResponse(ApiResponse apiResponse) async {
+    if (ChuckerUiHelper.settings.apiThresholds == 0) {
+      return;
+    }
     final newResponses = List<ApiResponse>.empty(growable: true);
 
     final previousResponses = await getAllApiResponses();

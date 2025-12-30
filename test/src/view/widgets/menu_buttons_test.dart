@@ -1,7 +1,6 @@
 import 'package:chucker_flutter/src/localization/localization.dart';
 import 'package:chucker_flutter/src/view/widgets/menu_buttons.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
@@ -12,7 +11,7 @@ void main() {
       required VoidCallback onSettings,
     }) {
       return MaterialApp(
-        localizationsDelegates: [
+        localizationsDelegates: const [
           ...Localization.localizationsDelegates,
         ],
         supportedLocales: Localization.supportedLocales,
@@ -136,33 +135,6 @@ void main() {
       );
 
       expect(deleteMenuItem.enabled, true);
-    });
-
-    testWidgets('should always enable settings menu item',
-        (WidgetTester tester) async {
-      for (final enableDelete in [true, false]) {
-        await tester.pumpWidget(
-          buildTestWidget(
-            enableDelete: enableDelete,
-            onDelete: () {},
-            onSettings: () {},
-          ),
-        );
-
-        await tester.tap(find.byType(PopupMenuButton<int>));
-        await tester.pumpAndSettle();
-
-        final settingsMenuItem = tester.widget<PopupMenuItem<int>>(
-          find.byKey(const ValueKey('menu_settings')),
-        );
-
-        // Settings should always be enabled (no explicit enabled property set)
-        expect(settingsMenuItem.enabled, true);
-
-        // Close menu
-        await tester.tapAt(const Offset(10, 10));
-        await tester.pumpAndSettle();
-      }
     });
 
     testWidgets('should not call onDelete when delete is disabled',

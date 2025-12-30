@@ -43,6 +43,7 @@ class _LanguagesMenuState extends State<LanguagesMenu> {
         widget.onSelect(language);
       },
       child: ListTile(
+        key: ValueKey('language_menu_item_${language.name}'),
         contentPadding: const EdgeInsets.all(8),
         dense: true,
         title: Text(language.name),

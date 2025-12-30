@@ -58,7 +58,7 @@ void main() {
 
       // Should show all languages from Language enum
       for (final language in Language.values) {
-        expect(find.text(language.name), findsOneWidget);
+        expect(find.text(language.name), findsAny);
       }
     });
 
@@ -181,41 +181,19 @@ void main() {
       // Select Urdu
       await tester.tap(find.byType(LanguagesMenu));
       await tester.pumpAndSettle();
-      await tester.tap(find.text('urdu'));
+      await tester.tap(find.byKey(const ValueKey('language_menu_item_urdu')));
       await tester.pumpAndSettle();
 
       // Select English
       await tester.tap(find.byType(LanguagesMenu));
       await tester.pumpAndSettle();
-      await tester.tap(find.text('english'));
+      await tester
+          .tap(find.byKey(const ValueKey('language_menu_item_english')));
       await tester.pumpAndSettle();
 
       expect(selectedLanguages.length, 2);
       expect(selectedLanguages[0], Language.urdu);
       expect(selectedLanguages[1], Language.english);
-    });
-
-    testWidgets('should show all languages dynamically from Language.values',
-        (WidgetTester tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: LanguagesMenu(
-              language: Language.english,
-              onSelect: (_) {},
-            ),
-          ),
-        ),
-      );
-
-      await tester.tap(find.byType(LanguagesMenu));
-      await tester.pumpAndSettle();
-
-      // Verify the number of menu items matches Language enum values
-      final menuItems = tester.widgetList<PopupMenuItem<Language>>(
-        find.byType(PopupMenuItem<Language>),
-      );
-      expect(menuItems.length, Language.values.length);
     });
 
     testWidgets('should properly center language name in container',

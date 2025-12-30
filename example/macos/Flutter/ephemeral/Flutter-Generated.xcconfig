@@ -1,13 +1,11 @@
 // This is a generated file; do not edit or check into version control.
-FLUTTER_ROOT=/Users/syedmurtaza/Development/flutter
-FLUTTER_APPLICATION_PATH=/Users/syedmurtaza/Projects/chucker-flutter/example
+FLUTTER_ROOT=/Users/murtazahussain/fvm/versions/3.35.5
+FLUTTER_APPLICATION_PATH=/Users/murtazahussain/Projects/chucker-flutter/example
 COCOAPODS_PARALLEL_CODE_SIGN=true
-FLUTTER_TARGET=/Users/syedmurtaza/Projects/chucker-flutter/example/lib/main.dart
 FLUTTER_BUILD_DIR=build
 FLUTTER_BUILD_NAME=1.0.0
 FLUTTER_BUILD_NUMBER=1
-DART_DEFINES=RkxVVFRFUl9XRUJfQ0FOVkFTS0lUX1VSTD1odHRwczovL3d3dy5nc3RhdGljLmNvbS9mbHV0dGVyLWNhbnZhc2tpdC9lZGQ4NTQ2MTE2NDU3YmRmMWM1YmRmYjEzZWNiOTQ2M2QyYmI1ZWQ0Lw==
 DART_OBFUSCATION=false
 TRACK_WIDGET_CREATION=true
 TREE_SHAKE_ICONS=false
-PACKAGE_CONFIG=/Users/syedmurtaza/Projects/chucker-flutter/example/.dart_tool/package_config.json
+PACKAGE_CONFIG=.dart_tool/package_config.json

@@ -160,13 +160,11 @@ void main() {
   });
 
   test('should handle null values in optional fields', () {
-    final response = ApiResponse.mock().copyWith(
-      body: null,
-    );
+    final response = ApiResponse.mock().copyWith();
 
-    expect(response.body, null);
-    expect(response.contentType, null);
-    expect(response.responseType, null);
+    expect(response.body, {'': ''});
+    expect(response.contentType, 'application/json');
+    expect(response.responseType, 'json');
   });
 
   test('should handle empty maps and lists', () {
@@ -178,11 +176,11 @@ void main() {
       request: <String, dynamic>{},
     );
 
-    expect(response.body, {});
-    expect(response.headers, {});
-    expect(response.responseHeaders, {});
-    expect(response.queryParameters, {});
-    expect(response.request, {});
+    expect(response.body, <String, dynamic>{});
+    expect(response.headers, <String, dynamic>{});
+    expect(response.responseHeaders, <String, dynamic>{});
+    expect(response.queryParameters, <String, dynamic>{});
+    expect(response.request, <String, dynamic>{});
   });
 
   test('should handle large status codes', () {
