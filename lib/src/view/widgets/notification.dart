@@ -48,8 +48,8 @@ class _NotificationState extends State<Notification>
   )..forward();
 
   late final Animation<Offset> _offsetAnimation = Tween<Offset>(
-    begin: const Offset(0, 1.5),
-    end: Offset.zero,
+    begin: ChuckerUiHelper.settings.offsetBegin,
+    end: ChuckerUiHelper.settings.offsetEnd,
   ).animate(
     CurvedAnimation(parent: _controller, curve: Curves.fastLinearToSlowEaseIn),
   );
