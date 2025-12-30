@@ -43,8 +43,22 @@ class Settings {
         positionRight: json['positionRight'] as double,
         positionTop: json['positionTop'] as double,
         language: Language.values[json['language'] as int],
-        offsetBegin: json['offsetBegin'] as Offset,
-        offsetEnd: json['offsetEnd'] as Offset,
+        offsetBegin: Offset(
+          double.parse(
+            (json['offsetBegin'] as List<dynamic>)[0].toString(),
+          ),
+          double.parse(
+            (json['offsetBegin'] as List<dynamic>)[1].toString(),
+          ),
+        ),
+        offsetEnd: Offset(
+          double.parse(
+            (json['offsetEnd'] as List<dynamic>)[0].toString(),
+          ),
+          double.parse(
+            (json['offsetEnd'] as List<dynamic>)[1].toString(),
+          ),
+        ),
       );
 
   ///Default object containing the default values for chucker settings
@@ -137,8 +151,8 @@ class Settings {
       'showDeleteConfirmDialog': showDeleteConfirmDialog,
       'showNotification': showNotification,
       'showRequestsStats': showRequestsStats,
-      'offsetBegin': offsetBegin,
-      'offsetEnd': offsetEnd,
+      'offsetBegin': [offsetBegin.dx, offsetBegin.dy],
+      'offsetEnd': [offsetEnd.dx, offsetEnd.dy],
     };
   }
 
