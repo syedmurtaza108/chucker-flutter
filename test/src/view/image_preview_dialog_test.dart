@@ -145,9 +145,13 @@ void main() {
         (WidgetTester tester) async {
       await tester.pumpWidget(buildTestWidget('https://example.com/image.png'));
 
-      expect(find.byType(Stack), findsOneWidget);
+      expect(
+        find.byKey(const Key('image_preview_dialog_stack')),
+        findsOneWidget,
+      );
 
-      final stack = tester.widget<Stack>(find.byType(Stack));
+      final stack = tester
+          .widget<Stack>(find.byKey(const Key('image_preview_dialog_stack')));
       expect(stack.children.length, 2);
     });
 
@@ -157,8 +161,9 @@ void main() {
 
       final align = tester.widget<Align>(
         find.ancestor(
-          of: find.byIcon(Icons.close),
-          matching: find.byType(Align),
+          of: find.byKey(const Key('image_preview_dialog_close_icon')),
+          matching:
+              find.byKey(const Key('image_preview_dialog_close_icon_align')),
         ),
       );
 

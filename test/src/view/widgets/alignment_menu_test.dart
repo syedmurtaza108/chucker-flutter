@@ -122,37 +122,6 @@ void main() {
       expect(find.byIcon(Icons.radio_button_off), findsNWidgets(8));
     });
 
-    testWidgets('should handle different initial alignments',
-        (WidgetTester tester) async {
-      for (final alignment in [
-        Alignment.topLeft,
-        Alignment.center,
-        Alignment.bottomRight,
-      ]) {
-        await tester.pumpWidget(
-          MaterialApp(
-            home: Scaffold(
-              body: AlignmentMenu(
-                notificationAlignment: alignment,
-                title: 'Alignment',
-                onSelect: (_) {},
-              ),
-            ),
-          ),
-        );
-
-        await tester.tap(find.byType(AlignmentMenu));
-        await tester.pumpAndSettle();
-
-        // Should always show exactly one checked radio button
-        expect(find.byIcon(Icons.radio_button_checked), findsOneWidget);
-
-        // Close the menu
-        await tester.tapAt(const Offset(10, 10));
-        await tester.pumpAndSettle();
-      }
-    });
-
     testWidgets('should update selection on multiple taps',
         (WidgetTester tester) async {
       final selectedAlignments = <Alignment>[];

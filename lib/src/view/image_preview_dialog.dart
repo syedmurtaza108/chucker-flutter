@@ -20,6 +20,7 @@ class ImagePreviewDialog extends StatelessWidget {
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
         child: Stack(
+          key: const Key('image_preview_dialog_stack'),
           children: [
             Center(
               child: Image.network(
@@ -38,10 +39,15 @@ class ImagePreviewDialog extends StatelessWidget {
               ),
             ),
             Align(
+              key: const Key('image_preview_dialog_close_icon_align'),
               alignment: AlignmentDirectional.topEnd,
               child: IconButton(
                 splashRadius: 16,
-                icon: const Icon(Icons.close, color: Colors.red),
+                icon: const Icon(
+                  key: Key('image_preview_dialog_close_icon'),
+                  Icons.close,
+                  color: Colors.red,
+                ),
                 onPressed: Navigator.of(context).pop,
               ),
             ),

@@ -108,6 +108,7 @@ class ApisListingItemWidget extends StatelessWidget {
                         backgroundColor: methodColor(method),
                         label: Text(
                           method,
+                          key: const ValueKey('method_chip_label'),
                           style: context.textTheme.bodySmall!
                               .toBold()
                               .withColor(Colors.white),

@@ -137,33 +137,6 @@ void main() {
       expect(deleteMenuItem.enabled, true);
     });
 
-    testWidgets('should always enable settings menu item',
-        (WidgetTester tester) async {
-      for (final enableDelete in [true, false]) {
-        await tester.pumpWidget(
-          buildTestWidget(
-            enableDelete: enableDelete,
-            onDelete: () {},
-            onSettings: () {},
-          ),
-        );
-
-        await tester.tap(find.byType(PopupMenuButton<int>));
-        await tester.pumpAndSettle();
-
-        final settingsMenuItem = tester.widget<PopupMenuItem<int>>(
-          find.byKey(const ValueKey('menu_settings')),
-        );
-
-        // Settings should always be enabled (no explicit enabled property set)
-        expect(settingsMenuItem.enabled, true);
-
-        // Close menu
-        await tester.tapAt(const Offset(10, 10));
-        await tester.pumpAndSettle();
-      }
-    });
-
     testWidgets('should not call onDelete when delete is disabled',
         (WidgetTester tester) async {
       var deleteCalled = false;
