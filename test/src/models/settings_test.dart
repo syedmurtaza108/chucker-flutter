@@ -86,8 +86,8 @@ void main() {
       'positionRight': settings.positionRight,
       'positionTop': settings.positionTop,
       'language': settings.language.index,
-      'offsetBegin': settings.offsetBegin,
-      'offsetEnd': settings.offsetEnd,
+      'offsetBegin': [settings.offsetBegin.dx, settings.offsetBegin.dy],
+      'offsetEnd': [settings.offsetEnd.dx, settings.offsetEnd.dy],
     };
     expect(json, settings.toJson());
   });
