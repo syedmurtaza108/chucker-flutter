@@ -165,7 +165,7 @@ void main() {
 
       await tester.pumpWidget(
         MaterialApp(
-          navigatorObservers: [ChuckerFlutter.navigatorObserver],
+          navigatorKey: ChuckerFlutter.navigatorKey,
           home: const ChuckerPage(),
         ),
       );
@@ -202,7 +202,7 @@ void main() {
 
       await tester.pumpWidget(
         MaterialApp(
-          navigatorObservers: [ChuckerFlutter.navigatorObserver],
+          navigatorKey: ChuckerFlutter.navigatorKey,
           home: ApiDetailsPage(api: api),
         ),
       );

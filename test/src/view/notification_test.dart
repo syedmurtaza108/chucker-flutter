@@ -8,7 +8,7 @@ void main() {
     (WidgetTester tester) async {
       await tester.pumpWidget(
         MaterialApp(
-          navigatorObservers: [ChuckerFlutter.navigatorObserver],
+          navigatorKey: ChuckerFlutter.navigatorKey,
           home: Scaffold(appBar: AppBar()),
         ),
       );

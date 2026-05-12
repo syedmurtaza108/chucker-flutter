@@ -58,7 +58,7 @@ class _ChuckerPageState extends State<ChuckerPage> {
   Widget build(_) {
     return Scaffold(
       appBar: ChuckerAppBar(
-        onBackPressed: () => ChuckerFlutter.navigatorObserver.navigator?.pop(),
+        onBackPressed: () => ChuckerFlutter.currentNavigator?.pop(),
         actions: [
           Theme(
             data: ThemeData(
@@ -258,7 +258,7 @@ class _ChuckerPageState extends State<ChuckerPage> {
   }
 
   void _openSettings() {
-    ChuckerFlutter.navigatorObserver.navigator?.push(
+    ChuckerFlutter.currentNavigator?.push(
       MaterialPageRoute<void>(
         builder: (_) => Theme(
           data: ThemeData.light(useMaterial3: false),
@@ -269,7 +269,7 @@ class _ChuckerPageState extends State<ChuckerPage> {
   }
 
   void _openDetails(ApiResponse api) {
-    ChuckerFlutter.navigatorObserver.navigator?.push(
+    ChuckerFlutter.currentNavigator?.push(
       MaterialPageRoute<void>(
         builder: (_) => Theme(
           data: ThemeData.light(useMaterial3: false),

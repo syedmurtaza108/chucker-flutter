@@ -1,14 +1,15 @@
+// ignore_for_file: deprecated_member_use_from_same_package
 import 'package:chucker_flutter/src/view/helper/chucker_ui_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   testWidgets(
-    'showNotification should show notification when called',
+    'showNotification should show notification when navigatorKey is wired',
     (WidgetTester tester) async {
       await tester.pumpWidget(
         MaterialApp(
-          navigatorObservers: [ChuckerFlutter.navigatorObserver],
+          navigatorKey: ChuckerFlutter.navigatorKey,
           home: const SizedBox.shrink(),
         ),
       );
@@ -29,7 +30,7 @@ void main() {
     (WidgetTester tester) async {
       await tester.pumpWidget(
         MaterialApp(
-          navigatorObservers: [ChuckerFlutter.navigatorObserver],
+          navigatorKey: ChuckerFlutter.navigatorKey,
           home: ChuckerFlutter.chuckerButton,
         ),
       );
@@ -48,7 +49,7 @@ void main() {
     (WidgetTester tester) async {
       await tester.pumpWidget(
         MaterialApp(
-          navigatorObservers: [ChuckerFlutter.navigatorObserver],
+          navigatorKey: ChuckerFlutter.navigatorKey,
           home: const Scaffold(),
         ),
       );
@@ -63,6 +64,57 @@ void main() {
       );
       // ignore: flutter_style_todos
       await tester.pumpAndSettle(const Duration(seconds: 1));
+    },
+  );
+
+  testWidgets(
+    'showNotification still works through deprecated navigatorObserver '
+    'fallback when navigatorKey is not attached',
+    (WidgetTester tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          navigatorObservers: [ChuckerFlutter.navigatorObserver],
+          home: const SizedBox.shrink(),
+        ),
+      );
+
+      final shown = ChuckerUiHelper.showNotification(
+        method: 'GET',
+        statusCode: 200,
+        path: '/',
+        requestTime: DateTime.now(),
+      );
+
+      expect(shown, true);
+    },
+  );
+
+  testWidgets(
+    'showNotification attaches to root navigator even when a nested '
+    'Navigator is present in the widget tree',
+    (WidgetTester tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          navigatorKey: ChuckerFlutter.navigatorKey,
+          home: Navigator(
+            onGenerateRoute: (_) => MaterialPageRoute<void>(
+              builder: (_) => const Scaffold(body: SizedBox.shrink()),
+            ),
+          ),
+        ),
+      );
+
+      await tester.pumpAndSettle();
+
+      final shown = ChuckerUiHelper.showNotification(
+        method: 'GET',
+        statusCode: 200,
+        path: '/',
+        requestTime: DateTime.now(),
+      );
+
+      expect(shown, true);
+      expect(ChuckerUiHelper.notificationShown, true);
     },
   );
 }
