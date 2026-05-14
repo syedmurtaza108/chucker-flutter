@@ -82,6 +82,7 @@ class ChuckerHttpClient extends BaseClient {
         response.headers['content-type'] ??
             response.headers['Content-Type'] ??
             'N/A',
+        response.headers,
       );
     }
 
@@ -103,6 +104,7 @@ class ChuckerHttpClient extends BaseClient {
     int statusCode,
     double contentLength,
     String contentType,
+    Map<String, String> responseHeaders,
   ) async {
     dynamic requestBody = '';
     dynamic responseBody = '';
@@ -133,7 +135,7 @@ class ChuckerHttpClient extends BaseClient {
         contentType: request.headers['Content-Type'],
         // headers: request.headers.toString(),
         headers: request.headers.cast<String, dynamic>(),
-        responseHeaders: {},
+        responseHeaders: responseHeaders.cast<String, dynamic>(),
         // queryParameters: request.url.queryParameters.toString(),
         queryParameters: request.url.queryParameters,
         receiveTimeout: 0,
