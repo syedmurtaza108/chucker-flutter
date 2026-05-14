@@ -1,3 +1,8 @@
+## 1.9.2
+
+* Add `ChuckerFlutter.navigatorKey` as the recommended integration. Attach it to your root `MaterialApp.navigatorKey` (or `GoRouter`/custom `RouterDelegate`) to make notifications and the inspector work reliably even when the host app uses nested `Navigator`s (e.g. bottom-nav shells, `ShellRoute`, modal flows).
+* Deprecate `ChuckerFlutter.navigatorObserver`. It still works as a fallback so existing apps keep running unchanged, but new integrations should switch to `navigatorKey`.
+
 ## 1.9.1
 
 * chore(deps): update dependency very_good_analysis to v9 by @renovate[bot] in https://github.com/syedmurtaza108/chucker-flutter/pull/124

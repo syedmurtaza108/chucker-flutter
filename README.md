@@ -76,13 +76,56 @@ final client = ChopperClient(
 );
 ```
 
-The very last thing is to connect Chucker Flutter screens to your app. To do so, you only need to add Chucker Flutter's `NavigatorObserver` in your app's `MaterialApp`  e.g.:
+The very last thing is to connect Chucker Flutter screens to your app by wiring `ChuckerFlutter.navigatorKey` into whichever widget owns your root `Navigator`.
+
+**`MaterialApp` (most apps)**
 
 ```dart
 MaterialApp(
-      ...,
-      navigatorObservers: [ChuckerFlutter.navigatorObserver],
+  navigatorKey: ChuckerFlutter.navigatorKey,
+  ...,
+);
 ```
+
+**`MaterialApp.router` with GoRouter**
+
+`MaterialApp.router` does not accept a `navigatorKey` — pass it to `GoRouter` instead:
+
+```dart
+final _router = GoRouter(
+  navigatorKey: ChuckerFlutter.navigatorKey,
+  routes: [...],
+);
+
+MaterialApp.router(
+  routerConfig: _router,
+  ...,
+);
+```
+
+**`MaterialApp.router` with a custom `RouterDelegate`**
+
+Pass `ChuckerFlutter.navigatorKey` to your delegate's constructor and use it as the key on its root `Navigator`:
+
+```dart
+class AppRouterDelegate extends RouterDelegate<...> {
+  AppRouterDelegate() : navigatorKey = ChuckerFlutter.navigatorKey;
+
+  @override
+  final GlobalKey<NavigatorState> navigatorKey;
+
+  @override
+  Widget build(BuildContext context) {
+    return Navigator(
+      key: navigatorKey,
+      pages: [...],
+      onDidRemovePage: ...,
+    );
+  }
+}
+```
+
+> The previous `navigatorObservers: [ChuckerFlutter.navigatorObserver]` integration is deprecated and unreliable with nested navigators — it still works as a fallback so existing apps keep running, but new integrations should use `navigatorKey`.
 
 By default Chucker Flutter only runs in `debug` mode but you can allow it to run in release mode too using its `showOnRelease` property  e.g.:
 

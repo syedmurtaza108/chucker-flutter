@@ -12,9 +12,11 @@ import 'package:flutter/material.dart';
 
 ///[ChuckerUiHelper] handles the UI part of `chucker_flutter`
 ///
-///You must initialize ChuckerObserver in the `MaterialApp`
-///of your application as it is required to show notification and the screens
-///of `chucker_flutter`
+///You must attach [ChuckerFlutter.navigatorKey] to your root `MaterialApp`'s
+///`navigatorKey` — it is required to show notifications and the screens of
+///`chucker_flutter`. The legacy `ChuckerFlutter.navigatorObserver` is still
+///supported as a fallback but is deprecated and unreliable when the host app
+///uses nested `Navigator`s.
 class ChuckerUiHelper {
   static final List<OverlayEntry?> _overlayEntries = List.empty(growable: true);
 
@@ -42,10 +44,11 @@ ChuckerFlutter: Your notification setting is off. You can turn it on by visiting
       );
       return false;
     }
-    if (ChuckerFlutter.navigatorObserver.navigator == null) {
+    final navigator = _resolveNavigator();
+    if (navigator == null) {
       debugPrint(
         '''
-ChuckerFlutter: You didn't add ChuckerFlutter.navigatorObserver in your material app. Visit https://github.com/syedmurtaza108/chucker-flutter#getting-started for Chucker Integration details.
+ChuckerFlutter: You didn't attach ChuckerFlutter.navigatorKey to your MaterialApp (or the deprecated ChuckerFlutter.navigatorObserver). Visit https://github.com/syedmurtaza108/chucker-flutter#getting-started for Chucker Integration details.
         ''',
       );
       return false;
@@ -59,7 +62,7 @@ ChuckerFlutter: You programmatically vetoed notification behavior. Make sure to 
       return false;
     }
 
-    final overlay = ChuckerFlutter.navigatorObserver.navigator!.overlay;
+    final overlay = navigator.overlay;
     final entry = _createOverlayEntry(method, statusCode, path, requestTime);
     _overlayEntries.add(entry);
     overlay?.insert(entry);
@@ -89,6 +92,18 @@ ChuckerFlutter: You programmatically vetoed notification behavior. Make sure to 
     );
   }
 
+  static NavigatorState? _resolveNavigator() {
+    // currentState requires an initialized widget binding; catch the assertion
+    // that fires when the interceptor is called before runApp (e.g. in tests).
+    NavigatorState? fromKey;
+    try {
+      fromKey = ChuckerFlutter.navigatorKey.currentState;
+    } catch (_) {}
+    return fromKey ??
+        // ignore: deprecated_member_use_from_same_package
+        ChuckerFlutter.navigatorObserver.navigator;
+  }
+
   static void _removeNotification() {
     for (final entry in _overlayEntries) {
       if (entry != null) {
@@ -102,7 +117,16 @@ ChuckerFlutter: You programmatically vetoed notification behavior. Make sure to 
   ///api requests
   static void showChuckerScreen() {
     SharedPreferencesManager.getInstance().getSettings();
-    ChuckerFlutter.navigatorObserver.navigator!.push(
+    final navigator = _resolveNavigator();
+    if (navigator == null) {
+      debugPrint(
+        '''
+ChuckerFlutter: Cannot open Chucker screen — attach ChuckerFlutter.navigatorKey to your MaterialApp. Visit https://github.com/syedmurtaza108/chucker-flutter#getting-started for Chucker Integration details.
+        ''',
+      );
+      return;
+    }
+    navigator.push(
       MaterialPageRoute<void>(
         builder: (context) => MaterialApp(
           key: const Key('chucker_material_app'),
@@ -134,8 +158,29 @@ class ChuckerFlutter {
   ///Prevents instantiation; every member on this type is static.
   const ChuckerFlutter._();
 
-  ///[navigatorObserver] observes the navigation of your app. It must be
-  ///referenced in your MaterialApp widget
+  ///[navigatorKey] is the recommended way to wire `chucker_flutter` into your
+  ///app. Attach it to your root `MaterialApp.navigatorKey` so Chucker can show
+  ///notifications and open its inspector against the root navigator — this
+  ///works reliably even when your app uses nested `Navigator`s (bottom-nav
+  ///shells, `ShellRoute`, modal flows, etc.).
+  ///
+  ///```dart
+  ///MaterialApp(
+  ///  navigatorKey: ChuckerFlutter.navigatorKey,
+  ///  ...,
+  ///)
+  ///```
+  static final navigatorKey = GlobalKey<NavigatorState>();
+
+  ///[navigatorObserver] observes the navigation of your app.
+  ///
+  ///Deprecated: use [navigatorKey] instead. The observer-based integration is
+  ///unreliable with nested `Navigator`s because it tracks whichever navigator
+  ///last fired a route event, which may not be the root one.
+  @Deprecated(
+    'Use ChuckerFlutter.navigatorKey on MaterialApp.navigatorKey instead. '
+    'Observer-based wiring is unreliable with nested Navigators.',
+  )
   static final navigatorObserver = NavigatorObserver();
 
   ///[showOnRelease] decides whether to allow Chucker Flutter working in release
@@ -154,6 +199,11 @@ class ChuckerFlutter {
   static final chuckerButton = (isDebugMode || ChuckerFlutter.showOnRelease)
       ? ChuckerButton.getInstance()
       : const SizedBox.shrink();
+
+  ///Returns the current [NavigatorState] for use by internal Chucker screens.
+  ///Prefers [navigatorKey]; falls back to the deprecated observer.
+  static NavigatorState? get currentNavigator =>
+      ChuckerUiHelper._resolveNavigator();
 
   ///[showChuckerScreen] navigates to the chucker home screen
   static void showChuckerScreen() => ChuckerUiHelper.showChuckerScreen();
