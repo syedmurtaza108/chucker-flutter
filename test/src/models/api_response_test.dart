@@ -196,6 +196,22 @@ void main() {
       expect(curl, isNot(contains('content-length')));
       expect(curl, isNot(contains('COOKIE')));
     });
+
+    test('keeps query parameters in a shell-safe URL', () {
+      final response = ApiResponse.mock().copyWith(
+        baseUrl: 'https://api.example.com',
+        path: '/orders',
+        queryParameters: const {
+          'storeId': '9016',
+          'regionCode': '1',
+        },
+      );
+
+      expect(
+        response.toCurl(),
+        contains("'https://api.example.com/orders?storeId=9016&regionCode=1'"),
+      );
+    });
   });
 
   test('hashCode should return request time in milliseconds', () {

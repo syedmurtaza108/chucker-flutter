@@ -223,7 +223,7 @@ class ApiResponse {
     final fullUrl =
         baseUrl + path + (queryParams.isNotEmpty ? '?$queryParams' : '');
 
-    components.add('"$fullUrl"');
+    components.add(_shellQuote(fullUrl));
 
     return components.join(' \\\n\t');
   }
