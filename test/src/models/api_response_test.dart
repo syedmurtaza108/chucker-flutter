@@ -153,6 +153,51 @@ void main() {
     expect(mockedResponse.toString().isNotEmpty, true);
   });
 
+  group('toCurl', () {
+    test('uses shell-safe raw JSON data', () {
+      final response = ApiResponse.mock().copyWith(
+        method: 'POST',
+        headers: const {'cOnTeNt-LeNgTh': '42', 'X-Test': 'value'},
+        request: {
+          'outer': {'quote': "O'Reilly"},
+        },
+      );
+
+      final curl = response.toCurl();
+
+      expect(
+        curl,
+        contains(r'''--data-raw '{"outer":{"quote":"O'"'"'Reilly"}}' '''),
+      );
+      expect(curl, isNot(contains('cOnTeNt-LeNgTh')));
+      expect(curl, contains('-H "X-Test: value"'));
+      expect(curl, isNot(contains(r'\"outer\"')));
+    });
+
+    test('keeps multipart curl formatting unchanged', () {
+      final response = ApiResponse.mock().copyWith(
+        method: 'POST',
+        contentType: 'multipart/form-data',
+        headers: const {
+          'content-type': 'multipart/form-data; boundary=ignored',
+          'content-length': '42',
+          'COOKIE': 'session=value',
+        },
+        request: [
+          {'field': 'value'},
+        ],
+      );
+
+      final curl = response.toCurl();
+
+      expect(curl, contains('-F "field=value"'));
+      expect(curl, isNot(contains('--data-raw')));
+      expect(curl, isNot(contains('content-type')));
+      expect(curl, isNot(contains('content-length')));
+      expect(curl, isNot(contains('COOKIE')));
+    });
+  });
+
   test('hashCode should return request time in milliseconds', () {
     final now = DateTime.now();
     final mockedResponse = getMockedResponse().copyWith(requestTime: now);

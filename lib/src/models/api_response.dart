@@ -176,16 +176,13 @@ class ApiResponse {
                 .contains('application/x-www-form-urlencoded'));
 
     headers.forEach((k, v) {
-      if (k != 'Cookie') {
-        // When using -F, curl automatically sets Content-Type
-        // and Content-Length So we should exclude them to avoid conflicts
-        final lowerKey = k.toLowerCase();
-        if (isFormData &&
-            (lowerKey == 'content-type' || lowerKey == 'content-length')) {
-          return;
-        }
-        components.add('-H "$k: $v"');
-      }
+      final lowerKey = k.toLowerCase();
+      if (lowerKey == 'cookie' || lowerKey == 'content-length') return;
+
+      // curl generates the multipart Content-Type boundary itself.
+      if (isFormData && lowerKey == 'content-type') return;
+
+      components.add('-H "$k: $v"');
     });
 
     if (request != null && request.toString().isNotEmpty) {
@@ -210,9 +207,7 @@ class ApiResponse {
           }
         }
       } else {
-        // Handle regular JSON or other data types
-        final encodedBody = json.encode(request).replaceAll('"', r'\"');
-        components.add('-d "$encodedBody"');
+        components.add('--data-raw ${_shellQuote(json.encode(request))}');
       }
     }
 
@@ -231,6 +226,10 @@ class ApiResponse {
     components.add('"$fullUrl"');
 
     return components.join(' \\\n\t');
+  }
+
+  String _shellQuote(String value) {
+    return "'${value.replaceAll("'", "'\"'\"'")}'";
   }
 
   /// Convert [ApiResponse] to JSON.
