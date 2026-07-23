@@ -153,6 +153,21 @@ void main() {
     expect(mockedResponse.toString().isNotEmpty, true);
   });
 
+  test('toCurl should encode unescaped query parameters', () {
+    final response = ApiResponse.mock().copyWith(
+      baseUrl: 'https://example.com',
+      path: '/search',
+      queryParameters: {'query': '中文 100%'},
+    );
+
+    expect(
+      response.toCurl(),
+      contains(
+        'https://example.com/search?query=%E4%B8%AD%E6%96%87+100%25',
+      ),
+    );
+  });
+
   test('hashCode should return request time in milliseconds', () {
     final now = DateTime.now();
     final mockedResponse = getMockedResponse().copyWith(requestTime: now);
