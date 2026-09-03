@@ -1,5 +1,5 @@
 import 'package:chucker_flutter/src/localization/localization.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 ///Menu items shown on chucker main page
 class MenuButtons extends StatelessWidget {

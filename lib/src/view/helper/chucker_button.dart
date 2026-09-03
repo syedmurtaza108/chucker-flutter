@@ -1,6 +1,6 @@
 import 'package:chucker_flutter/src/view/helper/chucker_ui_helper.dart';
 import 'package:chucker_flutter/src/view/widgets/primary_button.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 ///[ChuckerButton] can be placed anywhere in the UI to open Chucker Screen
 class ChuckerButton extends StatelessWidget {

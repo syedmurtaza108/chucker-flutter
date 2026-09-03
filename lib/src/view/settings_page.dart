@@ -10,7 +10,7 @@ import 'package:chucker_flutter/src/view/widgets/alignment_menu.dart';
 import 'package:chucker_flutter/src/view/widgets/app_bar.dart';
 import 'package:chucker_flutter/src/view/widgets/http_methods_menu.dart';
 import 'package:chucker_flutter/src/view/widgets/language_menu.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 ///Chucker Flutter Settings
 class SettingsPage extends StatefulWidget {

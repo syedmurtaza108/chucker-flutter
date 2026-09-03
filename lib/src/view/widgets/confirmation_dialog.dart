@@ -2,7 +2,7 @@ import 'package:chucker_flutter/src/helpers/extensions.dart';
 import 'package:chucker_flutter/src/localization/localization.dart';
 
 import 'package:chucker_flutter/src/view/widgets/primary_button.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 class _ConfirmationDialog extends StatelessWidget {
   const _ConfirmationDialog({

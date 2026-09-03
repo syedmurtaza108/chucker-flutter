@@ -1,7 +1,7 @@
 import 'package:chucker_flutter/src/localization/localization.dart';
 import 'package:chucker_flutter/src/models/api_response.dart';
 import 'package:chucker_flutter/src/view/widgets/apis_listing_item.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 ///Shows the listing of api requests
 class ApisListingTabView extends StatefulWidget {

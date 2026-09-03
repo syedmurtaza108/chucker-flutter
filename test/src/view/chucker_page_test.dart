@@ -4,8 +4,8 @@ import 'package:chucker_flutter/src/view/chucker_page.dart';
 import 'package:chucker_flutter/src/view/tabs/apis_listing.dart';
 import 'package:chucker_flutter/src/view/widgets/apis_listing_item.dart';
 import 'package:chucker_flutter/src/view/widgets/menu_buttons.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {

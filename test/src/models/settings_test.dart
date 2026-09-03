@@ -1,8 +1,8 @@
 import 'package:chucker_flutter/src/models/settings.dart';
 import 'package:chucker_flutter/src/view/helper/http_methods.dart';
 import 'package:chucker_flutter/src/view/helper/languages.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:material_ui/material_ui.dart';
 
 void main() {
   Settings getMockedSettings() {

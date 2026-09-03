@@ -3,7 +3,7 @@ import 'package:chucker_flutter/src/localization/localization.dart';
 
 import 'package:chucker_flutter/src/models/api_response.dart';
 import 'package:chucker_flutter/src/view/helper/colors.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 ///[ApisListingItemWidget] renders the [ApiResponse] items in
 ///`ApisListingTabView`

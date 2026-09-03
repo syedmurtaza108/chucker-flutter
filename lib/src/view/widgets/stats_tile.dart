@@ -1,5 +1,5 @@
 import 'package:chucker_flutter/src/helpers/extensions.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 ///Shows statistics of api requests as summary
 class StatsTile extends StatelessWidget {

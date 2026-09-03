@@ -1,6 +1,6 @@
 import 'package:chucker_flutter/src/helpers/extensions.dart';
 import 'package:chucker_flutter/src/localization/localization.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 ///It shows image preview if possible otherwise shows error
 class ImagePreviewDialog extends StatelessWidget {
