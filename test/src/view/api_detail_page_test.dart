@@ -5,8 +5,8 @@ import 'package:chucker_flutter/src/view/api_detail_page.dart';
 import 'package:chucker_flutter/src/view/chucker_page.dart';
 import 'package:chucker_flutter/src/view/json_tree/json_tree.dart';
 import 'package:chucker_flutter/src/view/widgets/sizeable_text_button.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {

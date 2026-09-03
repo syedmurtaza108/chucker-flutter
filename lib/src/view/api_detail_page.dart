@@ -7,8 +7,8 @@ import 'package:chucker_flutter/src/view/json_tree/json_tree.dart';
 import 'package:chucker_flutter/src/view/tabs/overview.dart';
 import 'package:chucker_flutter/src/view/widgets/app_bar.dart';
 import 'package:chucker_flutter/src/view/widgets/sizeable_text_button.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:share_plus/share_plus.dart';
 
 ///Shows detail of api request and response

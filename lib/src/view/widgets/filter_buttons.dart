@@ -5,7 +5,7 @@ import 'package:chucker_flutter/src/view/helper/colors.dart';
 import 'package:chucker_flutter/src/view/helper/http_methods.dart';
 import 'package:chucker_flutter/src/view/widgets/http_methods_menu.dart';
 import 'package:chucker_flutter/src/view/widgets/primary_button.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 ///[FilterButtons] helps filtering api requests in apis listing screen
 class FilterButtons extends StatefulWidget {

@@ -1,6 +1,6 @@
 import 'package:chucker_flutter/src/view/helper/chucker_ui_helper.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:material_ui/material_ui.dart';
 
 void main() {
   testWidgets('ChuckerButton should be shown everywhere, where it is placed',

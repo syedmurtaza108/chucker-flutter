@@ -8,7 +8,7 @@ import 'package:chucker_flutter/src/view/helper/colors.dart';
 import 'package:chucker_flutter/src/view/widgets/notification.dart'
     as notification;
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 ///[ChuckerUiHelper] handles the UI part of `chucker_flutter`
 ///

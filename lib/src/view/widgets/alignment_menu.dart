@@ -1,5 +1,5 @@
 import 'package:chucker_flutter/src/view/helper/colors.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 ///Alignment Menu for settings page
 class AlignmentMenu extends StatefulWidget {

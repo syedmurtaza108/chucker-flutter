@@ -41,6 +41,7 @@ dependencies:
   build_runner: ^2.4.9
   chopper_generator: ^8.4.0
 
+  material_ui: ^1.1.1
 dev_dependencies:
   flutter_test:
     sdk: flutter

@@ -3,8 +3,8 @@ import 'dart:convert';
 import 'package:chucker_flutter/chucker_flutter.dart';
 import 'package:dio/dio.dart';
 import 'package:example/chopper/chopper_service.dart';
-import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:material_ui/material_ui.dart';
 
 void main() {
   ChuckerFlutter.configure(

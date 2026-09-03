@@ -1,6 +1,6 @@
 import 'package:chucker_flutter/src/view/helper/http_methods.dart';
 import 'package:chucker_flutter/src/view/helper/languages.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 ///[Settings] is the model to save and retrieve settings from shared preferences
 class Settings {

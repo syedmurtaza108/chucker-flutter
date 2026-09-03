@@ -3,7 +3,7 @@ import 'package:chucker_flutter/src/localization/localization.dart';
 
 import 'package:chucker_flutter/src/view/helper/colors.dart';
 import 'package:chucker_flutter/src/view/helper/http_methods.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 ///Http Methods Menu
 class HttpMethodsMenu extends StatefulWidget {
